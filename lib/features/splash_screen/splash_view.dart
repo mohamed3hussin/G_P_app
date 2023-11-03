@@ -8,7 +8,7 @@ import 'package:g_p_app/features/onBoarding_screen/onBoarding_view.dart';
 import '../../core/text_style/styles.dart';
 
 class splashView extends StatelessWidget {
-  const splashView({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +27,9 @@ class splashView extends StatelessWidget {
         splashIconSize: 300.sp,
         duration: 4000,
         splashTransition: SplashTransition.scaleTransition,
+        backgroundColor: Color(0xFFC299A2),
+
+
 
 
     );
