@@ -1,37 +1,84 @@
-import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/core/assets_data/assetsData.dart';
 import 'package:g_p_app/core/helper/hundel_size.dart';
 import 'package:g_p_app/features/onBoarding_screen/onBoarding_view.dart';
-
 import '../../core/text_style/styles.dart';
 
-class splashView extends StatelessWidget {
+class CustomSplashScreen extends StatefulWidget {
+  @override
+  _CustomSplashScreenState createState() => _CustomSplashScreenState();
+}
 
+class _CustomSplashScreenState extends State<CustomSplashScreen> with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
 
   @override
+  void initState() {
+    super.initState();
+
+    // Initialize the animation controller
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 1500), // Adjust the duration as needed
+    );
+
+    // Create a Tween to move the widgets from off-screen to the center
+    Tween<Offset> _tween = Tween(begin: Offset(0.0, 1.0), end: Offset(0.0, 0.0));
+
+    // Use the Tween with the controller to control the animation
+    Animation<Offset> animation = _tween.animate(_animationController);
+    _animationController.forward().whenComplete(() {
+      // After animation is complete, wait for 1-2 seconds and then navigate
+      Future.delayed(Duration(seconds: 2), () {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => onBoardingView()),
+        );
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
-    return AnimatedSplashScreen(
-        splash: Column(
-          children:
-          [
-            Image.asset(AssetsData.splashImage),
-            SizedBox(height: context.deviceHeight/50,),
-            Text('AI Shop',
-              style: Styles.textStyle24,
-            ),
-          ],
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xFFFFF5F5),Color(0xFFFDF2F4),Color(0xFFFDE2E8),Color(0xFFF5C1CD),Color(0xFFC299A2)],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
         ),
-        nextScreen: onBoardingView(),
-        splashIconSize: 300.sp,
-        duration: 4000,
-        splashTransition: SplashTransition.scaleTransition,
-        backgroundColor: Color(0xFFC299A2),
-
-
-
-
+        child: Center(
+          child: SlideTransition(
+            position: _animationController.drive(
+              Tween<Offset>(
+                begin: Offset(0.0, 1.0),
+                end: Offset(0.0, 0.0),
+              ),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  AssetsData.splashImage,
+                  width: 200.sp,
+                ),
+                SizedBox(height: context.deviceHeight / 50),
+                Text(
+                  'Ai Shop',
+                  style: Styles.textStyle24.copyWith(color: Color(0xFF760019),fontWeight: FontWeight.w700),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
