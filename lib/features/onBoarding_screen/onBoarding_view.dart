@@ -39,7 +39,8 @@ class _onBoardingViewState extends State<onBoardingView> {
   var boardController = PageController();
   bool isLast = false;
   bool isMid = false;
-  int count =0 ;
+  double value =0.333 ;
+  int count = 0 ;
   void submit()
   {
     CacheHelper.saveData(key: 'onBoarding', value: true).then((value)
@@ -69,108 +70,94 @@ class _onBoardingViewState extends State<onBoardingView> {
                 child: Text('Skip',style:Styles.textStyle14.copyWith(color: Colors.black,fontWeight: FontWeight.w700)),),
             ),
           ),
-          Stack(
-            alignment: AlignmentDirectional.topStart,
-            children: [
-              Container(
-                margin: EdgeInsetsDirectional.symmetric(vertical: 60.h),
-                child: Align(
-                  alignment: AlignmentDirectional.centerEnd,
-                  child: Container(
-                    width: 20.w,
-                    height: 200.h,
-                    decoration: BoxDecoration(
-                      color: Color(0xFFF77994),
-                      borderRadius: BorderRadius.only(topLeft: Radius.circular(20),bottomLeft:Radius.circular(20) )
-                    ),
-
-                  ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsetsDirectional.symmetric(vertical: 60.h),
-                child: Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: Container(
-                    width: 20.w,
-                    height: 200.h,
-                    decoration: BoxDecoration(
-                        color: Color(0xFFF77994),
-                        borderRadius: BorderRadius.only(topRight: Radius.circular(20),bottomRight:Radius.circular(20) )
-                    ),
-                  ),
-                ),
-              ),
-              Align(
-                alignment: AlignmentDirectional.center,
-                child: Container(
-                  width: 250.w,
-                  height: 450.h,
-                  child: PageView.builder(
-                    controller: boardController ,
-                    physics: BouncingScrollPhysics(),
-                    onPageChanged: (index)
+          Container(
+            width: 250.w,
+            height: 450.h,
+            child: PageView.builder(
+              controller: boardController ,
+              physics: BouncingScrollPhysics(),
+              onPageChanged: (index)
+              {
+                  count = index;
+                if(index==model.length-1)
+                {
+                  setState(() {
+                    isLast=true;
+                    if(model[count].id==3)
                     {
-                      count = index;
-                      if(index==model.length-1)
-                      {
-                        setState(() {
-                          isLast=true;
-                        });
-                      }
-                      else
-                      {
-                        setState(() {
-                          isLast=false;
+                      value= 1;
+                    }
+                  });
+                }
+                else
+                {
+                  setState(() {
+                    isLast=false;
+                    if(model[count].id==1)
+                    {
+                      value = 0.333;
+                    }
+                    if(model[count].id==2)
+                    {
+                      value= 0.666;
+                    }
 
-                        });
 
-                      }
-                    },
-                    itemBuilder:(context,index)=>onBoardingItem(model[index],context),
-                    itemCount: model.length,
-                  ),
-                ),
-              ),
-            ],
+                  });
+
+                }
+              },
+              itemBuilder:(context,index)=>onBoardingItem(model[index],context),
+              itemCount: model.length,
+            ),
           ),
           SizedBox(height: 20.h,),
           Stack(
             alignment: AlignmentDirectional.center,
             children: [
-               if(model[count].id == 3)
-                Container(
-                child: SvgPicture.asset(
-                    AssetsData.onBoardingLoadingImage_1,
-                    width: 108.w,
-                    height: 108.h,
+              //  if(model[count].id == 3)
+              //   Container(
+              //   child: SvgPicture.asset(
+              //       AssetsData.onBoardingLoadingImage_1,
+              //       width: 108.w,
+              //       height: 108.h,
+              //   ),
+              // ),
+              // if(model[count].id == 2)
+              //   Container(
+              //     width: 123.w,
+              //     height: 115.h,
+              //   child: Align(
+              //     alignment: AlignmentDirectional.centerEnd,
+              //     child: SvgPicture.asset(
+              //       AssetsData.onBoardingLoadingImage_2,
+              //       width: 119.w,
+              //       height: 108.h,
+              //     ),
+              //   ),
+              // ),
+              // if(model[count].id == 1)
+              //   Container(
+              //     width: 123.w,
+              //     height: 108.h,
+              //   child: Align(
+              //     alignment: AlignmentDirectional.topEnd,
+              //     child: SvgPicture.asset(
+              //       AssetsData.onBoardingLoadingImage_3,
+              //       width: 100.w,
+              //       height: 92.h,
+              //     ),
+              //   ),
+              // ),
+
+              SizedBox(
+                child: CircularProgressIndicator(
+                  color: Color(0xFF760019),
+                  value: value,
+
                 ),
-              ),
-              if(model[count].id == 2)
-                Container(
-                  width: 123.w,
-                  height: 115.h,
-                child: Align(
-                  alignment: AlignmentDirectional.centerEnd,
-                  child: SvgPicture.asset(
-                    AssetsData.onBoardingLoadingImage_2,
-                    width: 119.w,
-                    height: 108.h,
-                  ),
-                ),
-              ),
-              if(model[count].id == 1)
-                Container(
-                  width: 123.w,
-                  height: 108.h,
-                child: Align(
-                  alignment: AlignmentDirectional.topEnd,
-                  child: SvgPicture.asset(
-                    AssetsData.onBoardingLoadingImage_3,
-                    width: 100.w,
-                    height: 92.h,
-                  ),
-                ),
+                width: context.deviceWidth/3.2,
+                height: context.deviceHeight/6.9,
               ),
               OutlinedButton(
                   onPressed: ()
@@ -181,6 +168,15 @@ class _onBoardingViewState extends State<onBoardingView> {
                     }
                     else
                     {
+
+                      if(model[count].id==1)
+                        setState(() {
+                          value = 0.666;
+                        });
+                      if(model[count].id==2)
+                        setState(() {
+                          value = 1;
+                        });
                       boardController.nextPage(
                           duration: Duration(
                             milliseconds: 1500,
