@@ -31,10 +31,10 @@ class _onBoardingViewState extends State<onBoardingView> {
     onBoardingModel(
         2,
         '${AssetsData.onBoardingImage_2}',
-        'Shopping And Add To Cart Product', ''),
+        'Shopping And Add To Cart Product', 'Ease of shopping andproduct selection'),
     onBoardingModel(3,''
         '${AssetsData.onBoardingImage_3}'
-        , 'Order arrivedsuccessfully', ''),
+        , 'Order arrivedsuccessfully', 'Deliver the order as soon as possible and successfully'),
   ];
   var boardController = PageController();
   bool isLast = false;
@@ -55,7 +55,7 @@ class _onBoardingViewState extends State<onBoardingView> {
 
     //760019
     return Scaffold(
-      backgroundColor: Color(0xFFFDF1E2),
+      backgroundColor: Color(0xFFFFF9F3),
       body: Column(
 
         children:
@@ -71,8 +71,8 @@ class _onBoardingViewState extends State<onBoardingView> {
             ),
           ),
           Container(
-            width: 250.w,
-            height: 450.h,
+            width: 280.w,
+            height: 470.h,
             child: PageView.builder(
               controller: boardController ,
               physics: BouncingScrollPhysics(),
@@ -150,15 +150,22 @@ class _onBoardingViewState extends State<onBoardingView> {
               //   ),
               // ),
 
-              SizedBox(
-                child: CircularProgressIndicator(
-                  color: Color(0xFF760019),
-                  value: value,
-
-                ),
-                width: context.deviceWidth/3.2,
-                height: context.deviceHeight/6.9,
-              ),
+              // SizedBox(
+              //   child: CircularProgressIndicator(
+              //     color: Color(0xFF760019),
+              //     value: value,
+              //
+              //   ),
+              //   width: context.deviceWidth/3.2,
+              //   height: context.deviceHeight/6.9,
+              // ),
+              Transform.scale(
+              scale: 3,
+              child:  CircularProgressIndicator(
+              color: Color(0xFF760019),
+              value: value,
+              strokeWidth: 3,
+              )),
               OutlinedButton(
                   onPressed: ()
                   {
@@ -187,7 +194,7 @@ class _onBoardingViewState extends State<onBoardingView> {
                   style: ElevatedButton.styleFrom(
                     side: const BorderSide(color: Color(0xFFFDF1E2)),
                     shape: const CircleBorder(),
-                    padding: EdgeInsets.all(20.sp),
+                    //padding: EdgeInsets.all(22.sp),
                     onPrimary: Colors.white,
                   ),
                   child: Container(
@@ -221,7 +228,7 @@ class _onBoardingViewState extends State<onBoardingView> {
     children:
     [
       Container(
-        width: 300.w,
+        width: 280.w,
           height: 320.h,
           child: Card(
 
@@ -231,12 +238,20 @@ class _onBoardingViewState extends State<onBoardingView> {
               child: Align(
                 alignment: AlignmentDirectional.bottomCenter,
                   child: Image(image: AssetImage('${model.image}'))))),
-      Text('${model.title}',
-        style: Styles.textStyle24.copyWith(fontWeight: FontWeight.w900),),
-      SizedBox(height: 20.h,),
-      Text('${model.description}',
-        style: Styles.textStyle16.copyWith(color: Colors.grey),
+      Padding(padding:EdgeInsets.all(8.sp),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text('${model.title}',
+              style: Styles.textStyle24.copyWith(fontWeight: FontWeight.w900),),
+            SizedBox(height: 20.h,),
+            Text('${model.description}',
+              style: Styles.textStyle16.copyWith(color: Colors.grey),
+            ),
+          ],
+        ),
       ),
+
 
     ],
   );
