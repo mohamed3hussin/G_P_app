@@ -49,7 +49,7 @@ class _CustomSplashScreenState extends State<CustomSplashScreen> with SingleTick
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFFFFF5F5),Color(0xFFFDF2F4),Color(0xFFFDE2E8),Color(0xFFF5C1CD),Color(0xFFC299A2)],
+            colors: [Color(0xFFFCFCFF),Color(0xFFF3F4F9),Color(0xFFEFF1F8),Color(0xFFEFF1F8),Color(0xFFD3E4FF),Color(0xFF1B72C0)],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),

@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:g_p_app/core/assets_data/assetsData.dart';
 import 'package:g_p_app/core/cach_helper/cach_helper.dart';
 import 'package:g_p_app/core/helper/hundel_size.dart';
-import 'package:g_p_app/features/login_screen/login_screen.dart';
+import 'package:g_p_app/features/login_screen/loginScreenView.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 
@@ -55,7 +55,7 @@ class _onBoardingViewState extends State<onBoardingView> {
 
     //760019
     return Scaffold(
-      backgroundColor: Color(0xFFFFF9F3),
+      backgroundColor: Colors.white,
       body: Column(
 
         children:
@@ -162,7 +162,8 @@ class _onBoardingViewState extends State<onBoardingView> {
               Transform.scale(
               scale: 3,
               child:  CircularProgressIndicator(
-              color: Color(0xFF760019),
+              color: Color(0xFF001C38),
+              backgroundColor: Color(0xFF1B72C0),
               value: value,
               strokeWidth: 3,
               )),
@@ -200,10 +201,10 @@ class _onBoardingViewState extends State<onBoardingView> {
                   child: Container(
                     padding:EdgeInsets.all(20.sp) ,
                     decoration: BoxDecoration(
-                      border:Border.all(width: 2,color: Color(0xFFC299A2)),
+                      border:Border.all(width: 2,color: Color(0xFF1B72C0)),
                       shape: BoxShape.circle,
                     ),
-                    child: Icon(Icons.arrow_forward_ios,color: Color(0xFF760019),) ,
+                    child: Icon(Icons.arrow_forward_ios,color: Color(0xFF001C38),) ,
                   ),
               ),
             ],
@@ -246,7 +247,7 @@ class _onBoardingViewState extends State<onBoardingView> {
               style: Styles.textStyle24.copyWith(fontWeight: FontWeight.w900),),
             SizedBox(height: 20.h,),
             Text('${model.description}',
-              style: Styles.textStyle16.copyWith(color: Colors.grey),
+              style: Styles.textStyle16.copyWith(color: Color(0xFF44474E)),
             ),
           ],
         ),

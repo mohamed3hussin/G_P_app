@@ -13,7 +13,6 @@ class CustomButton extends StatelessWidget {
     required this.func,
     this.width,
     this.height = 48,
-    this.isLoading = false,
   }) : super(key: key);
   final double? width;
   final double? height;
@@ -23,7 +22,6 @@ class CustomButton extends StatelessWidget {
   final double? fontSized;
   final String text;
   final VoidCallback func;
-  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -42,11 +40,9 @@ class CustomButton extends StatelessWidget {
             ),
             // minimumSize: Size(150, 50),
           ),
-          child: isLoading
-              ? const CircularProgressIndicator(color: Colors.white)
-              : Text(
+          child:  Text(
             text,
-            style: Styles.textStyle20.copyWith(fontSize: 24),
+            style: Styles.textStyle20.copyWith(fontSize: 24,color: Colors.white),
           ),
         ),
       ),

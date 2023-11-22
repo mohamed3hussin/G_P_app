@@ -1,5 +1,7 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:g_p_app/core/blocObserver/myBlocObserver.dart';
 
 import 'core/cach_helper/cach_helper.dart';
 import 'features/splash_screen/splash_view.dart';
@@ -7,6 +9,7 @@ import 'features/splash_screen/splash_view.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.init();
+  Bloc.observer = MyBlocObserver();
   runApp(const MyApp());
 }
 
@@ -40,7 +43,7 @@ class MyApp extends StatelessWidget {
             //
             // This works for code too, not just values: Most code changes can be
             // tested with just a hot reload.
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF1B72C0)),
             useMaterial3: true,
           ),
           home: CustomSplashScreen(),
