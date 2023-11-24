@@ -29,9 +29,9 @@ class LoginScreenView extends StatelessWidget {
         builder: (context,state)
         {
           return Scaffold(
-            appBar: AppBar(),
+            backgroundColor: Color(0xFFFCFCFF),
             body: Padding(
-              padding:  EdgeInsets.all(20.0.sp),
+              padding:  EdgeInsetsDirectional.symmetric(horizontal: 20.w,vertical: 40.h),
               child: SingleChildScrollView(
                 child: Form(
                   key: formKey,
@@ -39,25 +39,25 @@ class LoginScreenView extends StatelessWidget {
                     children:
                     [
                       Container(
-                          height: 100.sp,
+                          height: 100.h,
                           child: Image(
                               image: AssetImage(AssetsData.loginImage))),
                       SizedBox(
-                        height: 10.0.sp,
+                        height: 10.0.h,
                       ),
                       Text(
                         'Log In',
                         style: Styles.textStyle32.copyWith(color: Color(0xFF270008))
                       ),
                       SizedBox(
-                        height: 5.0.sp,
+                        height: 5.0.h,
                       ),
                       Text(
                         'Login now to design your shirt',
                         style: Styles.textStyle14.copyWith(color: Colors.grey),
                       ),
                       SizedBox(
-                        height: 30.0.sp,
+                        height: 30.0.h,
                       ),
                       Material(
                         elevation: 5,
@@ -80,7 +80,7 @@ class LoginScreenView extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        height: 15.0.sp,
+                        height: 15.0.h,
                       ),
                       Material(
                         elevation: 5,
@@ -124,13 +124,13 @@ class LoginScreenView extends StatelessWidget {
                           child: Text('Forget Password ?',style: Styles.textStyle12.copyWith(color: Color(0xFF44474E)),),),
                       ),
                       SizedBox(
-                        height: 20.0.sp,
+                        height: 20.0.h,
                       ),
                       ConditionalBuilder(
                         condition: true,
                         builder:(context)=>CustomButton(
                           width: double.infinity,
-                          height: 60.sp,
+                          height: 50.h,
                           backgroundColor: Color(0xFF1B72C0),
                           text: 'Log in',
                           func: () {
@@ -183,7 +183,7 @@ class LoginScreenView extends StatelessWidget {
                         ],
                       ),
                       SizedBox(
-                        height: 30.0.h,
+                        height: 25.0.h,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
