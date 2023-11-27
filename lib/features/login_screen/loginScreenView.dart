@@ -4,12 +4,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/features/login_screen/loginCubit/loginCubit.dart';
 import 'package:g_p_app/features/login_screen/loginCubit/loginState.dart';
-import 'package:g_p_app/features/login_widget/create_account_line.dart';
-import 'package:g_p_app/features/login_widget/forget_password.dart';
-import 'package:g_p_app/features/login_widget/login_body.dart';
-import 'package:g_p_app/features/login_widget/login_button.dart';
-import 'package:g_p_app/features/login_widget/login_text.dart';
-import 'package:g_p_app/features/login_widget/login_with_line.dart';
+import 'package:g_p_app/features/login_screen/login_widget/login_body.dart';
+import 'package:g_p_app/features/login_screen/login_widget/login_text.dart';
+
+import 'login_widget/create_account_line.dart';
+import 'login_widget/forget_password.dart';
+import 'login_widget/login_button.dart';
+import 'login_widget/login_with_line.dart';
+
 
 class LoginScreenView extends StatelessWidget {
   var formKey = GlobalKey<FormState>();
