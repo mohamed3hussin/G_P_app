@@ -32,25 +32,27 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            CarouselSlider(
-                items: carouselList.map((e) =>
-            Container(
+            Padding(
+              padding: EdgeInsetsDirectional.symmetric(vertical: 10.h),
+              child: CarouselSlider(
+                  items: carouselList.map((e) =>
+              Container(
 
-              child: Image(image: AssetImage('${e.toString()}'),
-                width: double.infinity,
-                fit: BoxFit.fill,
+                child: Image(image: AssetImage('${e.toString()}'),
+                  width: double.infinity,
+                  fit: BoxFit.fill,
+                ),
+              )).toList(), options: CarouselOptions(
+                height: 140.h,
+                initialPage: 0,
+                viewportFraction: 1.0,
+                enableInfiniteScroll: false,
+                reverse: false,
+                scrollDirection: Axis.horizontal,
+
+              ) ,
               ),
-            )).toList(), options: CarouselOptions(
-              height: 140.h,
-              initialPage: 0,
-              viewportFraction: 1.0,
-              enableInfiniteScroll: false,
-              reverse: false,
-              scrollDirection: Axis.horizontal,
-
-            ) ,
             ),
-            SizedBox(height: 10.h,),
             Container(
 
               decoration: BoxDecoration(
