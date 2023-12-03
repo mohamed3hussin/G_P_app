@@ -31,7 +31,7 @@ class LoginScreenView extends StatelessWidget {
           return Scaffold(
             backgroundColor: Color(0xFFFCFCFF),
             body: Padding(
-              padding:  EdgeInsetsDirectional.symmetric(horizontal: 20.w,vertical: 25.h),
+              padding:  EdgeInsetsDirectional.symmetric(horizontal: 20.w,vertical: 50.h),
               child: SingleChildScrollView(
                 child: Form(
                   key: formKey,

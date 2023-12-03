@@ -61,7 +61,7 @@ class _onBoardingViewState extends State<onBoardingView> {
         children:
         [
           Padding(
-            padding:  EdgeInsetsDirectional.symmetric(vertical: context.deviceHeight/25,
+            padding:  EdgeInsetsDirectional.symmetric(vertical: context.deviceHeight/20,
                 horizontal: context.deviceWidth/29),
             child: Align(
               alignment: AlignmentDirectional.topEnd,
@@ -111,7 +111,7 @@ class _onBoardingViewState extends State<onBoardingView> {
               itemCount: model.length,
             ),
           ),
-          SizedBox(height: 20.h,),
+          SizedBox(height: 50.h,),
           Stack(
             alignment: AlignmentDirectional.center,
             children: [

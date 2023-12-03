@@ -16,4 +16,6 @@ class AssetsData{
   static const String womenCategoriesImage = 'assets/images/womenCategoriesImage.png';
   static const String kidsCategoriesImage = 'assets/images/kidsCategoriesImage.png';
   static const String accessoriesCategoriesImage = 'assets/images/accessoriesCategoriesImage.png';
+  static const String shoppingCartImage = 'assets/images/shopping-cart.png';
+  static const String successOrderImage = 'assets/images/success_order_image.png';
 }

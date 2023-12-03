@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/core/blocObserver/myBlocObserver.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_layout.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/home_screen/home_screen.dart';
+import 'package:g_p_app/features/login_screen/loginScreenView.dart';
 
 import 'core/cach_helper/cach_helper.dart';
 import 'features/splash_screen/splash_view.dart';
@@ -48,7 +49,7 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF1B72C0)),
             useMaterial3: true,
           ),
-          home: HomeLayout(),
+          home: CustomSplashScreen(),
         );
       },
     );

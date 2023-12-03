@@ -84,7 +84,7 @@ class _HomeLayoutState extends State<HomeLayout> {
             ),
             floatingActionButton:SizedBox(
               width: 60.w,
-              height: 53.h,
+              height: 60.h,
               child: FloatingActionButton(
                 shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(35)),
                 onPressed: () {
