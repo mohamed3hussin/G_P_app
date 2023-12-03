@@ -12,7 +12,7 @@ abstract class Styles {
     color: Color(0xFF171717),
     fontSize: 24.sp,
     fontFamily: 'Poppins',
-    fontWeight: FontWeight.w500,
+    fontWeight: FontWeight.w700,
   );
 
   static TextStyle textStyle20 = TextStyle(

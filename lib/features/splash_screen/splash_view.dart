@@ -10,27 +10,49 @@ class CustomSplashScreen extends StatefulWidget {
   _CustomSplashScreenState createState() => _CustomSplashScreenState();
 }
 
-class _CustomSplashScreenState extends State<CustomSplashScreen> with SingleTickerProviderStateMixin {
+class _CustomSplashScreenState extends State<CustomSplashScreen> with TickerProviderStateMixin {
   late AnimationController _animationController;
+  late AnimationController _textAnimationController;
+  late Animation<Offset> animation;
+  late Animation<double> textAnimation;
+  bool isTextVisible = false;
 
   @override
   void initState() {
     super.initState();
 
-    // Initialize the animation controller
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 1500), // Adjust the duration as needed
+      duration: Duration(milliseconds: 1500),
     );
 
-    // Create a Tween to move the widgets from off-screen to the center
-    Tween<Offset> _tween = Tween(begin: Offset(0.0, 1.0), end: Offset(0.0, 0.0));
+    _textAnimationController = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 1),
+    );
 
-    // Use the Tween with the controller to control the animation
-    Animation<Offset> animation = _tween.animate(_animationController);
+    animation = Tween<Offset>(
+      begin: Offset(0.0, 1.0),
+      end: Offset(0.0, 0.0),
+    ).animate(CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeOutBack,
+    ));
+
+    textAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(_textAnimationController);
+
     _animationController.forward().whenComplete(() {
-      // After animation is complete, wait for 1-2 seconds and then navigate
-      Future.delayed(Duration(seconds: 2), () {
+      Future.delayed(Duration(seconds: 1), () {
+        setState(() {
+          isTextVisible = true;
+          _textAnimationController.forward();
+        });
+      });
+
+      Future.delayed(Duration(seconds: 3), () {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (_) => onBoardingView()),
         );
@@ -41,44 +63,59 @@ class _CustomSplashScreenState extends State<CustomSplashScreen> with SingleTick
   @override
   void dispose() {
     _animationController.dispose();
+    _textAnimationController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Color(0xFFFCFCFF),Color(0xFFF3F4F9),Color(0xFFEFF1F8),Color(0xFFEFF1F8),Color(0xFFD3E4FF),Color(0xFF1B72C0)],
+            colors: [
+              Color(0xFFFCFCFF),
+              Color(0xFFF3F4F9),
+              Color(0xFFEFF1F8),
+              Color(0xFFEFF1F8),
+              Color(0xFFD3E4FF),
+              Color(0xFF1B72C0),
+            ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
         ),
         child: Center(
-          child: SlideTransition(
-            position: _animationController.drive(
-              Tween<Offset>(
-                begin: Offset(0.0, 1.0),
-                end: Offset(0.0, 0.0),
-              ),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
+          child: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              SlideTransition(
+                position: animation,
+                child: Image.asset(
                   AssetsData.splashImage,
                   width: 200.sp,
                 ),
-                SizedBox(height: context.deviceHeight / 50),
-                Text(
-                  'Ai Shop',
-                  style: Styles.textStyle24.copyWith(color: Color(0xFF760019),fontWeight: FontWeight.w700),
+              ),
+              SizedBox(height: context.deviceHeight / 50),
+              FadeTransition(
+                opacity: textAnimation,
+                child: Visibility(
+                  visible: isTextVisible,
+                  child: Text(
+                    'AI Shop',
+                    style: Styles.textStyle24.copyWith(
+                      color: Color(0XFF001C38),
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
     );
   }
 }
+
+

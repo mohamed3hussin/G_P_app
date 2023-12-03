@@ -71,7 +71,7 @@ class HomeScreen extends StatelessWidget {
                             'Unleash your creativity',
                             style: Styles.textStyle14.copyWith(color: Color(0xFF1B72C0)),),
                           Text(
-                            'and fashion sense Fashion.',
+                            'and fashion sense.',
                             style: Styles.textStyle14.copyWith(color: Color(0xFF1B72C0)),),
                           SizedBox(height: 10.h,),
                           CustomButton(
@@ -217,7 +217,7 @@ class HomeScreen extends StatelessWidget {
               ),
               SizedBox(height: 5.h,),
               Text(
-                'EGP 590',
+                'EGP 480',
                 style: Styles.textStyle14.copyWith(color: Colors.black,fontWeight: FontWeight.w500)
               ),
               Row(

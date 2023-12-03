@@ -2,6 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/core/blocObserver/myBlocObserver.dart';
+import 'package:g_p_app/features/home_screen/home_layout/home_layout.dart';
+import 'package:g_p_app/features/home_screen/home_layout/home_screens/home_screen/home_screen.dart';
 
 import 'core/cach_helper/cach_helper.dart';
 import 'features/splash_screen/splash_view.dart';
@@ -20,7 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(360, 690),
+      designSize: const Size(375, 812),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context,child)
@@ -46,11 +48,10 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF1B72C0)),
             useMaterial3: true,
           ),
-          home: CustomSplashScreen(),
+          home: HomeLayout(),
         );
       },
     );
   }
 }
-
 
