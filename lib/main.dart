@@ -2,6 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/core/blocObserver/myBlocObserver.dart';
+import 'package:g_p_app/features/forget_password_screen/forget_password_view.dart';
+import 'package:g_p_app/features/forget_password_screen/new_password.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_layout.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/home_screen/home_screen.dart';
 import 'package:g_p_app/features/login_screen/loginScreenView.dart';
@@ -49,7 +51,7 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF1B72C0)),
             useMaterial3: true,
           ),
-          home: CustomSplashScreen(),
+          home: ForgetPasswordView(),
         );
       },
     );

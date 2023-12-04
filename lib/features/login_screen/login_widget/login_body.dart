@@ -29,7 +29,7 @@ class loginBody extends StatelessWidget {
               if(value!.isEmpty)
               {
 
-                return 'Email most not empty';
+                return 'Email must not empty';
               }
               else{
                 return null;}
@@ -53,7 +53,7 @@ class loginBody extends StatelessWidget {
               if(value!.isEmpty)
               {
 
-                return 'Password most not empty';
+                return 'Password must not empty';
               }
               else{
                 return null;}

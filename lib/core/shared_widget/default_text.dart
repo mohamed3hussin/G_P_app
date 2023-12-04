@@ -41,15 +41,15 @@ Widget defaultTextField({
         )
             : null,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(radius.sp),
+          borderRadius: BorderRadius.circular(radius.r),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.black, width: 1.0),
-          borderRadius: BorderRadius.all(Radius.circular(radius.sp)),
+          borderRadius: BorderRadius.all(Radius.circular(radius.r)),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.white, width: 1.0),
-          borderRadius: BorderRadius.all(Radius.circular(radius.sp)),
+          borderRadius: BorderRadius.all(Radius.circular(radius.r)),
         ),
       ),
       keyboardType: type,

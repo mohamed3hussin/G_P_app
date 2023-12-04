@@ -18,4 +18,11 @@ class AssetsData{
   static const String accessoriesCategoriesImage = 'assets/images/accessoriesCategoriesImage.png';
   static const String shoppingCartImage = 'assets/images/shopping-cart.png';
   static const String successOrderImage = 'assets/images/success_order_image.png';
+  static const String sadRobotImage='assets/images/chatgpt robot sad.png';
+  static const String happyRobotRaisingHand='assets/images/chatgpt robot happy raising right arm.png';
+  static const String staringRobot='assets/images/chatgpt robot.png';
+  static const String indicator1='assets/images/indicator1.png';
+  static const String indicator2='assets/images/indicator2.png';
+  static const String indicator3='assets/images/indicator3.png';
+
 }
