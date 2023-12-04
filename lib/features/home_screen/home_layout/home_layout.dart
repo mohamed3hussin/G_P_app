@@ -16,6 +16,8 @@ import 'home_screens/profile_screen/profile_screen.dart';
 import 'home_screens/wish_list_screen/search_screen.dart';
 
 class HomeLayout extends StatefulWidget {
+  static const String routeName='home_layout';
+
   @override
   State<HomeLayout> createState() => _HomeLayoutState();
 }

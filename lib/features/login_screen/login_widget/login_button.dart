@@ -17,21 +17,21 @@ class LoginButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ConditionalBuilder(
       condition: true,
-      builder:(context)=>Center(
+      builder: (context) => Center(
         child: CustomButton(
           width: double.infinity,
           height: 50.h,
           backgroundColor: const Color(0xFF1B72C0),
           text: 'Log in',
           func: () {
-            if(formKey.currentState!.validate())
-            {
-              NavigationAndFinish(context, HomeLayout());
+            if (formKey.currentState!.validate()) {
+              Navigator.pushNamedAndRemoveUntil(context, HomeLayout.routeName,(route)=>false);
             }
-          }, style: Styles.textStyle20.copyWith(fontSize: 24,color: Colors.white),
+          },
+          style: Styles.textStyle20.copyWith(fontSize: 24, color: Colors.white),
         ),
       ),
-      fallback:(context)=>const Center(child: CircularProgressIndicator()) ,
+      fallback: (context) => const Center(child: CircularProgressIndicator()),
     );
   }
 }

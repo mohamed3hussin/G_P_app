@@ -7,6 +7,8 @@ import 'package:g_p_app/core/shared_widget/default_text.dart';
 import 'package:g_p_app/core/text_style/styles.dart';
 
 class NewPasswordView extends StatefulWidget {
+  static const String routeName='new_password_view';
+
   @override
   State<NewPasswordView> createState() => _NewPasswordViewState();
 }

@@ -15,6 +15,7 @@ import 'onBoarding_model.dart';
 
 class onBoardingView extends StatefulWidget {
   const onBoardingView({Key? key}) : super(key: key);
+  static const String routeName='on_boarding_view';
 
   @override
   State<onBoardingView> createState() => _onBoardingViewState();
@@ -46,7 +47,7 @@ class _onBoardingViewState extends State<onBoardingView> {
     CacheHelper.saveData(key: 'onBoarding', value: true).then((value)
     {
       if(value){
-        NavigationAndFinish(context, LoginScreenView());}
+        Navigator.pushNamedAndRemoveUntil(context, LoginScreenView.routeName, (route) => false);}
     });
 
   }

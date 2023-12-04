@@ -9,6 +9,7 @@ import 'package:g_p_app/features/forget_password_screen/new_password.dart';
 import 'custom_page_route.dart';
 
 class VerificationView extends StatelessWidget {
+  static const String routeName='verification_view';
 
   @override
   Widget build(BuildContext context) {

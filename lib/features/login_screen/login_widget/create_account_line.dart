@@ -17,7 +17,7 @@ class createAccount extends StatelessWidget {
         TextButton(
           onPressed: ()
           {
-            NavigationTo(context, SignUpScreenView());
+            Navigator.pushNamed(context, SignUpScreenView.routeName);
           },
           child: Text(
             'Sign Up',

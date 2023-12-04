@@ -13,12 +13,27 @@ import 'login_widget/login_button.dart';
 import 'login_widget/login_with_line.dart';
 
 
-class LoginScreenView extends StatelessWidget {
-  var formKey = GlobalKey<FormState>();
-  var emailController = TextEditingController();
-  var passwordController = TextEditingController();
+class LoginScreenView extends StatefulWidget {
+  static const String routeName='login_view';
 
   LoginScreenView({super.key});
+
+  @override
+  State<LoginScreenView> createState() => _LoginScreenViewState();
+}
+
+class _LoginScreenViewState extends State<LoginScreenView> {
+  var formKey = GlobalKey<FormState>();
+
+  var emailController = TextEditingController();
+
+  var passwordController = TextEditingController();
+
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return BlocProvider(

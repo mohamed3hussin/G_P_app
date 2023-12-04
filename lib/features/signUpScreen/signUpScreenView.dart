@@ -17,6 +17,7 @@ import 'package:g_p_app/features/signUpScreen/sign_up_widget/sign_up_with_line.d
 
 class SignUpScreenView extends StatelessWidget {
 
+  static const String routeName='signup_screen_view';
   var formKey = GlobalKey<FormState>();
   var nameController = TextEditingController();
   var emailController = TextEditingController();

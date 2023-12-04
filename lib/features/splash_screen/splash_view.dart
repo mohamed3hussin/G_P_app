@@ -6,6 +6,7 @@ import 'package:g_p_app/features/onBoarding_screen/onBoarding_view.dart';
 import '../../core/text_style/styles.dart';
 
 class CustomSplashScreen extends StatefulWidget {
+  static const String routeName='splash_screen';
   @override
   _CustomSplashScreenState createState() => _CustomSplashScreenState();
 }
@@ -53,9 +54,7 @@ class _CustomSplashScreenState extends State<CustomSplashScreen> with TickerProv
       });
 
       Future.delayed(Duration(seconds: 3), () {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => onBoardingView()),
-        );
+        Navigator.of(context).pushReplacementNamed(onBoardingView.routeName);
       });
     });
   }

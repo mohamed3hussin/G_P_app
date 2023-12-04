@@ -5,10 +5,12 @@ import 'package:g_p_app/core/assets_data/iconBroken.dart';
 import 'package:g_p_app/core/helper/hundel_size.dart';
 import 'package:g_p_app/core/shared_widget/default_text.dart';
 import 'package:g_p_app/core/text_style/styles.dart';
-import 'package:g_p_app/features/forget_password_screen/custom_page_route.dart';
 import 'package:g_p_app/features/forget_password_screen/verification.dart';
 
+import 'custom_page_route.dart';
+
 class ForgetPasswordView extends StatefulWidget {
+  static const String routeName='forget_password_view';
   @override
   State<ForgetPasswordView> createState() => _ForgetPasswordViewState();
 }
@@ -107,7 +109,10 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
                   ),
                   onPressed: () {
                     if (fpformKey.currentState!.validate()) {
-                      Navigator.of(context).push(_createRoute());
+                      Navigator.push(
+                        context,
+                        CustomPageRoute(child: VerificationView()),
+                      );
                     }
                   },
                   child: Icon(

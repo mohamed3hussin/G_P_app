@@ -15,7 +15,7 @@ class ForgetPassword extends StatelessWidget {
 
         onPressed: ()
         {
-          NavigationTo(context, ForgetPasswordView());
+          Navigator.pushNamed(context, ForgetPasswordView.routeName);
         },
         child: Text('Forget Password ?',style: Styles.textStyle12.copyWith(color: Color(0xFF44474E)),),),
     );
