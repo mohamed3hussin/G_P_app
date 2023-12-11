@@ -7,6 +7,11 @@ import 'package:g_p_app/features/forget_password_screen/new_password.dart';
 import 'package:g_p_app/features/forget_password_screen/verification.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_layout.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/home_screen/home_screen.dart';
+import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/account_screen.dart';
+import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/phone/phone_number_view.dart';
+import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/phone/phone_verification.dart';
+import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/phone/phone_verified.dart';
+import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/profile_screen_view.dart';
 import 'package:g_p_app/features/login_screen/loginScreenView.dart';
 import 'package:g_p_app/features/onBoarding_screen/onBoarding_view.dart';
 import 'package:g_p_app/features/signUpScreen/signUpScreenView.dart';
@@ -39,7 +44,7 @@ class MyApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF1B72C0)),
             useMaterial3: true,
           ),
-          initialRoute: CustomSplashScreen.routeName,
+          initialRoute: HomeLayout.routeName,
           routes: {
             CustomSplashScreen.routeName:(context)=>CustomSplashScreen(),
             LoginScreenView.routeName:(context)=>LoginScreenView(),
@@ -48,7 +53,12 @@ class MyApp extends StatelessWidget {
             HomeLayout.routeName:(context)=>HomeLayout(),
             ForgetPasswordView.routeName:(context)=>ForgetPasswordView(),
             NewPasswordView.routeName:(context)=>NewPasswordView(),
-            VerificationView.routeName:(context)=>VerificationView()
+            VerificationView.routeName:(context)=>VerificationView(),
+            ProfileScreenView.routeName:(context)=>ProfileScreenView(),
+            AccountScreen.routeName:(context)=>AccountScreen(),
+            PhoneNumberView.routeName:(context)=>PhoneNumberView(),
+            PhoneVerificationView.routeName:(context)=>PhoneVerificationView(),
+            PhoneVerifiedView.routeName:(context)=>PhoneVerifiedView(),
           },
         );
       },

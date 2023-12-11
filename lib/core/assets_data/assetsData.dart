@@ -24,5 +24,6 @@ class AssetsData{
   static const String indicator1='assets/images/indicator1.png';
   static const String indicator2='assets/images/indicator2.png';
   static const String indicator3='assets/images/indicator3.png';
+  static const String robotCalls='assets/images/chatgpt robot calling on phone.png';
 
 }
