@@ -12,6 +12,7 @@ import 'package:g_p_app/features/onBoarding_screen/onBoarding_view.dart';
 import 'package:g_p_app/features/signUpScreen/signUpScreenView.dart';
 
 import 'core/cach_helper/cach_helper.dart';
+import 'features/home_screen/home_layout/home_screens/cart_screen/cart_screen.dart';
 import 'features/splash_screen/splash_view.dart';
 
 void main() async {
@@ -48,7 +49,8 @@ class MyApp extends StatelessWidget {
             HomeLayout.routeName:(context)=>HomeLayout(),
             ForgetPasswordView.routeName:(context)=>ForgetPasswordView(),
             NewPasswordView.routeName:(context)=>NewPasswordView(),
-            VerificationView.routeName:(context)=>VerificationView()
+            VerificationView.routeName:(context)=>VerificationView(),
+            CartScreen.routeName:(context)=>CartScreen(),
           },
         );
       },

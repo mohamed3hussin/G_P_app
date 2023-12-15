@@ -72,8 +72,8 @@ class _onBoardingViewState extends State<onBoardingView> {
             ),
           ),
           Container(
-            width: 280.w,
-            height: 470.h,
+            width: 300.w,
+            height: 500.h,
             child: PageView.builder(
               controller: boardController ,
               physics: BouncingScrollPhysics(),
@@ -230,8 +230,8 @@ class _onBoardingViewState extends State<onBoardingView> {
     children:
     [
       Container(
-        width: 280.w,
-          height: 320.h,
+        width: 300.w,
+          height: 350.h,
           child: Card(
 
               shape: RoundedRectangleBorder(

@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/core/assets_data/iconBroken.dart';
+import 'package:g_p_app/core/colors/colors.dart';
 import 'package:g_p_app/core/shared_widget/default_search_text.dart';
+import 'package:g_p_app/core/text_style/styles.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_cubit.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_state.dart';
 
@@ -34,6 +36,7 @@ class _HomeLayoutState extends State<HomeLayout> {
   ];
   PageStorageBucket bucket = PageStorageBucket();
   Widget currentScreen = HomeScreen();
+  late String title;
   @override
   Widget build(BuildContext context) {
 
@@ -53,7 +56,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                   child: Image(
                       image: AssetImage(AssetsData.loginImage))),
               leadingWidth: 45.w,
-              title: Material(
+              title: currentIndex ==0? Material(
                 elevation: 5,
                 borderRadius: BorderRadius.circular(10.sp),
                 child: defaultSearchTextField(
@@ -73,10 +76,22 @@ class _HomeLayoutState extends State<HomeLayout> {
                       return null;}
                   },
                 ),
-              ),
+              ) :
+                Center(child: Padding(
+                  padding: EdgeInsetsDirectional.only(start: 15.w),
+                  child: Text(title,
+                    style:Styles.textStyle24.copyWith(color: CustomColors.darkBlue,fontWeight: FontWeight.w700),
+                  ),
+                )),
               titleSpacing: 4,
               actions: [
-                Container(child: IconButton(onPressed: (){}, icon: Icon(IconBroken.Notification,color: Color(0xFF1B72C0),size: 30,))),
+                currentIndex == 0?
+                Container(
+                    child:
+                    IconButton(
+                        onPressed: (){},
+                        icon: Icon(IconBroken.Notification,color: Color(0xFF1B72C0),size: 30,)))
+                : IconButton(onPressed: (){}, icon: Icon(IconBroken.Search,color: Color(0xFF1B72C0),size: 30,)),
                 IconButton(onPressed: (){}, icon: Icon(IconBroken.Buy,color: Color(0xFF1B72C0),size: 30,))
               ],
             ),
@@ -140,6 +155,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                               setState(() {
                                 currentScreen = CartScreen();
                                 currentIndex = 1;
+                                title = 'Cart';
                               });
                             },
                             child: Column(
@@ -164,6 +180,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                               setState(() {
                                 currentScreen = WishListScreen();
                                 currentIndex = 2;
+                                title = 'Wish List';
                               });
                             },
                             child: Column(
@@ -182,6 +199,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                               setState(() {
                                 currentScreen = ProfileScreen();
                                 currentIndex = 3;
+                                title = 'Profile';
                               });
                             },
                             child: Column(

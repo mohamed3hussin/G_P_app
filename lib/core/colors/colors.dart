@@ -8,4 +8,7 @@ class CustomColors{
   static Color darkGrey=Color(0xFF44474E);
   static Color red=Color(0xFFEA3A3D);
   static Color green=Color(0xFF117828);
+  static Color darkBlue = Color(0xFF001C38);
+  static Color textColor = Color(0xFF270008);
+
 }
