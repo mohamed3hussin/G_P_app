@@ -13,8 +13,9 @@ import '../../../core/assets_data/assetsData.dart';
 
 import 'home_screens/cart_screen/cart_screen.dart';
 import 'home_screens/home_screen/home_screen.dart';
-import 'home_screens/profile_screen/profile_screen.dart';
 
+
+import 'home_screens/profile_screen/profile_screen_view.dart';
 import 'home_screens/wish_list_screen/search_screen.dart';
 
 class HomeLayout extends StatefulWidget {
@@ -32,7 +33,7 @@ class _HomeLayoutState extends State<HomeLayout> {
     HomeScreen(),
     CartScreen(),
     WishListScreen(),
-    ProfileScreen(),
+    ProfileScreenView(),
   ];
   PageStorageBucket bucket = PageStorageBucket();
   Widget currentScreen = HomeScreen();
@@ -197,7 +198,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                             onPressed: ()
                             {
                               setState(() {
-                                currentScreen = ProfileScreen();
+                                currentScreen = ProfileScreenView();
                                 currentIndex = 3;
                                 title = 'Profile';
                               });

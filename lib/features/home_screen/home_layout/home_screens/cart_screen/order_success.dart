@@ -22,7 +22,7 @@ class OrderSuccessView extends StatelessWidget {
 
             ),
             Padding(
-              padding: EdgeInsetsDirectional.only(top: 36.h),
+              padding: EdgeInsetsDirectional.only(top: 30.h),
               child: Center(
                 child: Text(
                   'Order Success',

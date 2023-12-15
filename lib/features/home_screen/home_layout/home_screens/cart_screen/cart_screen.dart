@@ -79,7 +79,6 @@ class _CartScreenState extends State<CartScreen> {
                       },
                       style: Styles.textStyle16.copyWith(color: Colors.white,fontWeight: FontWeight.w600)
                   ),
-
                 ],
               ),
             ),
