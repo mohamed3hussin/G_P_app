@@ -36,6 +36,7 @@ class PhoneVerifiedView extends StatelessWidget {
             children: [
               SizedBox(height: 95.h,),
               Image.asset(AssetsData.robotCalls),
+              SizedBox(height: 15.h,),
               Text(
                 'Phone Number Verified',
                 style: Styles.textStyle24!.copyWith(color: CustomColors.blue),

@@ -55,7 +55,7 @@ class ProfileScreenView extends StatelessWidget {
           ProfileItem(icon: IconBroken.Danger, text: 'Our Features'),
           GestureDetector(
               onTap: () {
-                showAlertDialog(context);
+                showDialog(context: context, builder: (context) => Dialog(child: SignOutAlert(),),);
               },
               child: ProfileItem(icon: IconBroken.Logout, text: 'Sign out')),
         ],
@@ -63,64 +63,4 @@ class ProfileScreenView extends StatelessWidget {
     );
   }
 
-  showAlertDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          content: FractionallySizedBox(
-            widthFactor: 0.85, // Adjust the width factor as needed
-            heightFactor: 0.7, // Adjust the height factor as needed
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                    flex: 2,
-                    child: Image.asset(
-                      AssetsData.sadRobotImage,
-                      width: 160.w,
-                      height: 256.h,
-                    )),
-                Text(
-                  'Want to Logout Now?',
-                  textAlign: TextAlign.center,
-                  style: Styles.textStyle24,
-                ),
-                Text(
-                  'You will be taken back to the early app if you click the logout button',
-                  textAlign: TextAlign.center,
-                  style: Styles.textStyle14,
-                ),
-              ],
-            ),
-          ),
-          actions: [
-            Column(
-              children: [
-                CustomButton(
-                  width: 280.w,
-                  backgroundColor: Colors.white,
-                  text: 'Cancel',
-                  func: () {
-                    Navigator.pop(context);
-                  },
-                  style: Styles.textStyle16,
-                ),
-                SizedBox(height: 10.h,),
-                CustomButton(
-                  width: 280.w,
-                  backgroundColor: CustomColors.blue,
-                  text: 'Log Out',
-                  func: () {
-                    Navigator.pushNamed(context, LoginScreenView.routeName);
-                  },
-                  style: Styles.textStyle16!.copyWith(color: Colors.white),
-                ),
-              ],
-            ),
-          ],
-        );
-      },
-    );
-  }
 }

@@ -25,5 +25,11 @@ class AssetsData{
   static const String indicator2='assets/images/indicator2.png';
   static const String indicator3='assets/images/indicator3.png';
   static const String robotCalls='assets/images/chatgpt robot calling on phone.png';
+  static const String orderItem='assets/images/order_item.png';
+  static const String cartIcon='assets/images/solar_cart-4-bold.png';
+  static const String truck='assets/images/iconamoon_delivery-fast-fill.png';
+  static const String table='assets/images/tabler_border-all.png';
+  static const String deliver='assets/images/tdesign_undertake-delivery.png';
+  static const String watch='assets/images/watch.png';
 
 }
