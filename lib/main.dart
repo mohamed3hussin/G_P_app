@@ -25,6 +25,7 @@ import 'features/home_screen/home_layout/home_screens/profile_screen/account/my_
 import 'features/home_screen/home_layout/home_screens/profile_screen/account/my_order/past_order/past_orders_view.dart';
 import 'features/home_screen/home_layout/home_screens/profile_screen/account/my_order/past_order_details/past_order_details_view.dart';
 import 'features/home_screen/home_layout/home_screens/profile_screen/account/my_order/rate_product/rate_product_view.dart';
+import 'features/home_screen/home_layout/home_screens/profile_screen/payment_method/payment_view.dart';
 import 'features/splash_screen/splash_view.dart';
 
 void main() async {
@@ -76,7 +77,8 @@ class MyApp extends StatelessWidget {
             AddAddressView.routeName:(context)=>AddAddressView(),
             CartScreen.routeName:(context)=>CartScreen(),
             CheckOutScreen.routeName:(context)=>CheckOutScreen(),
-            OrderSuccessView.routeName:(context)=>OrderSuccessView()
+            OrderSuccessView.routeName:(context)=>OrderSuccessView(),
+            PaymentView.routeName:(context)=>PaymentView()
           },
         );
       },

@@ -4,6 +4,7 @@ import 'package:g_p_app/core/assets_data/iconBroken.dart';
 import 'package:g_p_app/core/colors/colors.dart';
 import 'package:g_p_app/core/text_style/styles.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/account_screen.dart';
+import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/payment_method/payment_view.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/signout_alert.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/profile_item.dart';
 
@@ -48,7 +49,13 @@ class ProfileScreenView extends StatelessWidget {
               text: 'My Account',
             ),
           ),
-          ProfileItem(icon: Icons.payment_rounded, text: 'Payment Method'),
+          GestureDetector(
+              onTap: ()
+              {
+                Navigator.pushNamed(context, PaymentView.routeName);
+              },
+              child: ProfileItem(icon: Icons.payment_rounded, text: 'Payment Method')),
+
           ProfileItem(icon: IconBroken.Setting, text: 'Settings'),
           ProfileItem(icon: IconBroken.Call, text: 'Customer service'),
           ProfileItem(icon: Icons.question_mark, text: 'About us'),

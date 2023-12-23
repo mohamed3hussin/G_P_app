@@ -277,7 +277,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             )),
             Column(
               children: [
-                TextButton(onPressed: (){}, child: Text('${1} item',style: Styles.textStyle14.copyWith(fontWeight: FontWeight.w600,color: CustomColors.darkGrey))),
+                Text('${1} item',style: Styles.textStyle14.copyWith(fontWeight: FontWeight.w600,color: CustomColors.darkGrey)),
               ],
             ),
           ],

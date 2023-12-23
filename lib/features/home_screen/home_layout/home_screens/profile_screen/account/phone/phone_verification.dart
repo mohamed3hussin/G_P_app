@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/phone/phone_verified.dart';
 
 import '../../../../../../../core/assets_data/iconBroken.dart';
+import '../../../../../../../core/colors/colors.dart';
 import '../../../../../../../core/text_style/styles.dart';
 
 class PhoneVerificationView extends StatelessWidget {
@@ -19,7 +20,7 @@ class PhoneVerificationView extends StatelessWidget {
           onTap: () {
             Navigator.pop(context);
           },
-          child: Icon(IconBroken.Arrow___Left),
+          child: Icon(IconBroken.Arrow___Left_2,color: CustomColors.blue,),
         ),
         leadingWidth: 40.w,
         title: Center(

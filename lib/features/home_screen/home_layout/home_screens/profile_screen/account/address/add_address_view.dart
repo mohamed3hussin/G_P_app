@@ -25,7 +25,7 @@ class _AddAddressViewState extends State<AddAddressView> {
           onTap: () {
             Navigator.pop(context);
           },
-          child: Icon(IconBroken.Arrow___Left),
+          child: Icon(IconBroken.Arrow___Left_2,color: CustomColors.blue,),
         ),
         leadingWidth: 40.w,
         title: Center(
