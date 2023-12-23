@@ -6,6 +6,7 @@ import 'package:g_p_app/features/forget_password_screen/forget_password_view.dar
 import 'package:g_p_app/features/forget_password_screen/new_password.dart';
 import 'package:g_p_app/features/forget_password_screen/verification.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_layout.dart';
+import 'package:g_p_app/features/home_screen/home_layout/home_screens/cart_screen/check_out_screen.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/account_screen.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/phone/phone_number_view.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/phone/phone_verification.dart';
@@ -16,6 +17,7 @@ import 'package:g_p_app/features/onBoarding_screen/onBoarding_view.dart';
 import 'package:g_p_app/features/signUpScreen/signUpScreenView.dart';
 import 'core/cach_helper/cach_helper.dart';
 import 'features/home_screen/home_layout/home_screens/cart_screen/cart_screen.dart';
+import 'features/home_screen/home_layout/home_screens/cart_screen/order_success.dart';
 import 'features/home_screen/home_layout/home_screens/profile_screen/account/address/add_address_view.dart';
 import 'features/home_screen/home_layout/home_screens/profile_screen/account/address/select_address_view.dart';
 import 'features/home_screen/home_layout/home_screens/profile_screen/account/my_order/Track_order/track_order.dart';
@@ -73,6 +75,8 @@ class MyApp extends StatelessWidget {
             SelectAddressView.routeName:(context)=>SelectAddressView(),
             AddAddressView.routeName:(context)=>AddAddressView(),
             CartScreen.routeName:(context)=>CartScreen(),
+            CheckOutScreen.routeName:(context)=>CheckOutScreen(),
+            OrderSuccessView.routeName:(context)=>OrderSuccessView()
           },
         );
       },

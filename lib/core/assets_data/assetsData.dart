@@ -31,5 +31,7 @@ class AssetsData{
   static const String table='assets/images/tabler_border-all.png';
   static const String deliver='assets/images/tdesign_undertake-delivery.png';
   static const String watch='assets/images/watch.png';
+  static const String cashImage='assets/images/cash_image.png';
+  static const String creditImage='assets/images/credit_image.png';
 
 }

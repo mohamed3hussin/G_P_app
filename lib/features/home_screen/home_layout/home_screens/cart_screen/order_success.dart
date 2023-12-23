@@ -8,6 +8,7 @@ import '../../../../../core/shared_widget/custom_button.dart';
 import '../../../../../core/text_style/styles.dart';
 
 class OrderSuccessView extends StatelessWidget {
+  static const String routeName='order_success_view';
   @override
   Widget build(BuildContext context) {
     return Padding(
