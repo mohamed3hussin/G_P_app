@@ -8,15 +8,12 @@ import 'package:g_p_app/core/shared_widget/default_search_text.dart';
 import 'package:g_p_app/core/text_style/styles.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_cubit.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_state.dart';
-
 import '../../../core/assets_data/assetsData.dart';
-
 import 'home_screens/cart_screen/cart_screen.dart';
 import 'home_screens/home_screen/home_screen.dart';
-
-
 import 'home_screens/profile_screen/profile_screen_view.dart';
-import 'home_screens/wish_list_screen/search_screen.dart';
+import 'home_screens/wish_list_screen/wish_list_screen.dart';
+
 
 class HomeLayout extends StatefulWidget {
   static const String routeName='home_layout';

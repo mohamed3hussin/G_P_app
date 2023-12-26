@@ -33,5 +33,6 @@ class AssetsData{
   static const String watch='assets/images/watch.png';
   static const String cashImage='assets/images/cash_image.png';
   static const String creditImage='assets/images/credit_image.png';
+  static const String wishListImage='assets/images/wishListImage.png';
 
 }
