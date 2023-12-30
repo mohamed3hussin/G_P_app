@@ -40,6 +40,7 @@ class OrderSuccessView extends StatelessWidget {
             CustomButton(
               height: 56,
               width: double.infinity,
+              radius: 12,
               backgroundColor: CustomColors.blue,
               text: 'Continue Shopping',
               func: (){},

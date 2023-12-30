@@ -34,5 +34,9 @@ class AssetsData{
   static const String cashImage='assets/images/cash_image.png';
   static const String creditImage='assets/images/credit_image.png';
   static const String wishListImage='assets/images/wishListImage.png';
+  static const String notificationImage='assets/images/notification_image.png';
+  static const String deliveredImage='assets/images/delivered_image_2.svg';
+  static const String arrivedImage='assets/images/arrived_image_2.svg';
+  static const String packedImage='assets/images/packed_image_2.svg';
 
 }

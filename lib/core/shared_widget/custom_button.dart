@@ -13,10 +13,12 @@ class CustomButton extends StatelessWidget {
     required this.func,
     this.width,
     this.height = 48,
+    this.radius = 8,
     required this.style,
   }) : super(key: key);
   final double? width;
   final double? height;
+  final double radius;
   final Color backgroundColor;
   final Color? textColor;
   final BorderRadius? borderRadius;
@@ -37,7 +39,7 @@ class CustomButton extends StatelessWidget {
           backgroundColor: backgroundColor,
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(radius),
           ),
           // minimumSize: Size(150, 50),
         ),

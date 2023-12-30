@@ -212,6 +212,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         CustomButton(
                             width: double.infinity,
                             height: 56.h,
+                            radius: 12,
                             backgroundColor: CustomColors.blue,
                             text: 'Confirm Payment',
                             func:()

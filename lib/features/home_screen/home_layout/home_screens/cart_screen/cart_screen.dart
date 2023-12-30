@@ -65,6 +65,7 @@ class _CartScreenState extends State<CartScreen> {
                   CustomButton(
                       width: double.infinity,
                       height: 56.h,
+                      radius: 12,
                       backgroundColor: CustomColors.blue,
                       text: 'Checkout Now',
                       func:()
