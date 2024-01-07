@@ -49,7 +49,8 @@ dependencies:
   carousel_slider: ^4.2.1
   timeline_tile: ^2.0.0
   mobkit_dashed_border: ^0.0.5
-
+  flutter_image_slideshow: ^0.1.6
+  readmore: ^2.2.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

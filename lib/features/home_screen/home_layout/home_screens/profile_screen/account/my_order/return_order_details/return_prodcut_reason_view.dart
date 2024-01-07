@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/core/assets_data/assetsData.dart';
 import 'package:g_p_app/core/colors/colors.dart';
-
 import '../../../../../../../../core/assets_data/iconBroken.dart';
 import '../../../../../../../../core/text_style/styles.dart';
 
-class RateProductView extends StatelessWidget {
-  static const String routeName = 'rate_product';
+class ReturnProductReasonView extends StatelessWidget {
+  static const String routeName = 'return_reason';
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +18,12 @@ class RateProductView extends StatelessWidget {
           onTap: () {
             Navigator.pop(context);
           },
-          child: Icon(IconBroken.Arrow___Left_2,color: CustomColors.blue,),
+          child: Icon(IconBroken.Arrow___Left),
         ),
         leadingWidth: 40.w,
         title: Center(
             child: Text(
-          'My Order',
+          'Return Order',
           style: Styles.textStyle24,
         )),
         titleSpacing: 4,
@@ -91,7 +90,7 @@ class RateProductView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Add Description',
+                    'Tell us why you want to return this product :',
                     style: Styles.textStyle16,
                   ),
                   SizedBox(
@@ -105,7 +104,7 @@ class RateProductView extends StatelessWidget {
                       expands: true,
                       keyboardType: TextInputType.multiline,
                       decoration: InputDecoration(
-                          hintText: 'Type your opinion here.',
+                          hintText: 'Type your comments here.',
                           hintStyle: Styles.textStyle16!.copyWith(
                               fontWeight: FontWeight.w400, color: Colors.grey),
                           contentPadding:
@@ -120,24 +119,46 @@ class RateProductView extends StatelessWidget {
                   SizedBox(
                     height: 40.h,
                   ),
-                  Center(
-                    child: Container(
-                      width: 325.w,
-                      height: 55,
-                      child: ElevatedButton(
-                        onPressed: () {},
-                        child: Text(
-                          'Submit Feedback',
-                          style: Styles.textStyle20!.copyWith(color: Colors.white),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: CustomColors.blue,
-                          shape: RoundedRectangleBorder(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        onTap:(){},
+                        child: Container(
+                          width: 170.w,
+                          height: 55,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
                             borderRadius: BorderRadius.circular(8.r),
-                          )
+                            border: Border.all(color: CustomColors.blue)
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Customer Service',
+                              style: Styles.textStyle16!.copyWith(color: CustomColors.blue),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                      SizedBox(width: 12.w,),
+                      Container(
+                        width: 160.w,
+                        height: 55,
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          child: Text(
+                            'Submit',
+                            style: Styles.textStyle16!.copyWith(color: Colors.white),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: CustomColors.blue,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.r),
+                              )
+                          ),
+                        ),
+                      ),
+                    ],
                   )
                 ],
               ),

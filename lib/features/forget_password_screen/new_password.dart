@@ -36,19 +36,18 @@ class _NewPasswordViewState extends State<NewPasswordView> {
               Align(
                 alignment: Alignment.center,
                 child: Container(
-                  height: context.deviceHeight / 3,
-                  width: context.deviceWidth / 2,
+                  height: 250.h,
+                  width: 180.w,
                   alignment: Alignment.topCenter,
                   decoration: BoxDecoration(
-                    color: Color(0xFFEFF1F8),
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(100.r),
-                      bottomRight: Radius.circular(100.r),
-                    ),
-                  ),
-                  child: Center(
-                    child: Image.asset(AssetsData.staringRobot),
-                  ),
+                      color: Color(0xFFEFF1F8),
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(100.r),
+                          bottomRight: Radius.circular(100.r))),
+                  child: Center(child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.asset(AssetsData.staringRobot,width: 90.w,height: 180.h,),
+                  )),
                 ),
               ),
               Padding(
