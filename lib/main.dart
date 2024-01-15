@@ -2,6 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/core/blocObserver/myBlocObserver.dart';
+import 'package:g_p_app/features/design_screens/design_explain_screen1.dart';
+import 'package:g_p_app/features/design_screens/design_explain_screen2.dart';
 import 'package:g_p_app/features/forget_password_screen/forget_password_view.dart';
 import 'package:g_p_app/features/forget_password_screen/new_password.dart';
 import 'package:g_p_app/features/forget_password_screen/verification.dart';
@@ -11,10 +13,12 @@ import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_sc
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/phone/phone_verification.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/phone/phone_verified.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/profile_screen_view.dart';
+import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/settings/settings_view.dart';
 import 'package:g_p_app/features/login_screen/loginScreenView.dart';
 import 'package:g_p_app/features/onBoarding_screen/onBoarding_view.dart';
 import 'package:g_p_app/features/signUpScreen/signUpScreenView.dart';
 import 'core/cach_helper/cach_helper.dart';
+import 'features/design_screens/design_explain_screen3.dart';
 import 'features/home_screen/home_layout/home_screens/cart_screen/cart_screen.dart';
 import 'features/home_screen/home_layout/home_screens/cart_screen/check_out_screen.dart';
 import 'features/home_screen/home_layout/home_screens/cart_screen/order_success.dart';
@@ -32,6 +36,8 @@ import 'features/home_screen/home_layout/home_screens/profile_screen/account/my_
 import 'features/home_screen/home_layout/home_screens/profile_screen/account/my_order/return_order_details/return_order_details_view.dart';
 import 'features/home_screen/home_layout/home_screens/profile_screen/account/my_order/return_order_details/return_prodcut_reason_view.dart';
 import 'features/home_screen/home_layout/home_screens/profile_screen/payment_method/payment_view.dart';
+import 'features/home_screen/home_layout/home_screens/profile_screen/settings/currency_settings_view.dart';
+import 'features/home_screen/home_layout/home_screens/profile_screen/settings/language_settings_view.dart';
 import 'features/notifications_screen/notifications_screen_view.dart';
 import 'features/product_details/product_details_view.dart';
 import 'features/splash_screen/splash_view.dart';
@@ -95,6 +101,12 @@ class MyApp extends StatelessWidget {
             ReturnOrderDetailsView.routeName:(context)=>ReturnOrderDetailsView(),
             ReturnOrdersView.routeName:(context)=>ReturnOrdersView(),
             ReturnProductReasonView.routeName:(context)=>ReturnProductReasonView(),
+            SettingsView.routeName:(context)=>SettingsView(),
+            LanguageSettingsView.routeName:(context)=>LanguageSettingsView(),
+            CurrencySettingsView.routeName:(context)=>CurrencySettingsView(),
+            DesignExplainScreenOne.routeName:(context)=>DesignExplainScreenOne(),
+            DesignExplainScreenTwo.routeName:(context)=>DesignExplainScreenTwo(),
+            DesignExplainScreenThree.routeName:(context)=>DesignExplainScreenThree(),
           },
         );
       },

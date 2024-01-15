@@ -49,7 +49,7 @@ class AddressItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(isHome?Icons.home_filled:Icons.home_work_outlined,color: isHome?Colors.black:CustomColors.green,size: 20.r,),
-                Text(isHome?'Home':' Office',style: Styles.textStyle12!.copyWith(color: isHome?Colors.black:CustomColors.green,fontWeight: FontWeight.w700),),
+                Text(isHome?'Home':'Office',style: Styles.textStyle12!.copyWith(color: isHome?Colors.black:CustomColors.green,fontWeight: FontWeight.w700),),
               ],
             ),
           )

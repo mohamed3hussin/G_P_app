@@ -35,7 +35,7 @@ static const String routeName='my_orders';
             SizedBox(height: 35.h,),
             GestureDetector(onTap: (){Navigator.pushNamed(context, TrackOrderView.routeName);},child: ProfileItem(icon: Icons.check_box, text: 'Current Order')),
             GestureDetector(onTap: (){Navigator.pushNamed(context, PastOrdersView.routeName);},child: ProfileItem(icon: Icons.file_copy, text: 'Past Orders')),
-            GestureDetector(onTap: (){Navigator.pushNamed(context, ReturnOrdersView.routeName);},child: ProfileItem(icon: Icons.shopping_bag, text: 'Return Orders')),
+            GestureDetector(onTap: (){Navigator.pushNamed(context, ReturnOrdersView.routeName);},child: ProfileItem(icon: Icons.assignment_returned_rounded, text: 'Return Orders')),
           ],
         ),
       ),

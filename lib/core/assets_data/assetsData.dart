@@ -52,5 +52,10 @@ class AssetsData{
   static const String deliveredImage='assets/images/delivered_image_2.svg';
   static const String arrivedImage='assets/images/arrived_image_2.svg';
   static const String packedImage='assets/images/packed_image_2.svg';
+  static const String designBackground='assets/images/iPhone 13 mini - 32 (1).png';
+  static const String designImage1='assets/images/Group (1).png';
+  static const String designImage2='assets/images/Upload-photo 2.png';
+  static const String designImage3='assets/images/Layer 2.png';
+
 
 }
