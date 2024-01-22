@@ -9,7 +9,7 @@ Widget WishListViewWidget(context)=>Container(
     crossAxisCount: 2,
     mainAxisSpacing: 8,
     crossAxisSpacing: 8,
-    childAspectRatio: 1/1.12,
+    childAspectRatio: 1/1.15,
     children: List.generate(
         9,
             (index) => WishListItemBuilder(context)),

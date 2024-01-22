@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/core/assets_data/assetsData.dart';
 import 'package:g_p_app/core/assets_data/iconBroken.dart';
-import 'package:g_p_app/core/helper/hundel_size.dart';
 import 'package:g_p_app/core/shared_widget/default_text.dart';
 import 'package:g_p_app/core/text_style/styles.dart';
-import 'package:g_p_app/features/forget_password_screen/verification.dart';
-
+import 'package:g_p_app/features/forget_password_screens/verification.dart';
 import 'custom_page_route.dart';
 
 class ForgetPasswordView extends StatefulWidget {
@@ -14,17 +12,9 @@ class ForgetPasswordView extends StatefulWidget {
   @override
   State<ForgetPasswordView> createState() => _ForgetPasswordViewState();
 }
-
 class _ForgetPasswordViewState extends State<ForgetPasswordView> {
   var emailController = TextEditingController();
-
   var fpformKey = GlobalKey<FormState>();
-
-  @override
-  // void dispose() {
-  //   emailController.dispose();
-  //   super.dispose();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +34,7 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
                         bottomLeft: Radius.circular(100.r),
                         bottomRight: Radius.circular(100.r))),
                 child: Center(child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.r),
                   child: Image.asset(AssetsData.sadRobotImage,width: 90.w,height: 180.h,),
                 )),
               ),
@@ -94,14 +84,14 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
                       ))),
             ),
             SizedBox(
-              height: context.deviceHeight * 0.08,
+              height: 105.h,
             ),
             Align(
               alignment: Alignment.topRight,
               child: Container(
                 margin: EdgeInsets.all(16.r),
-                height: context.deviceHeight * 0.06,
-                width: context.deviceWidth * 0.16,
+                height: 45.h,
+                width: 60.w,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.all(8.r),
@@ -128,21 +118,6 @@ class _ForgetPasswordViewState extends State<ForgetPasswordView> {
           ],
         ),
       ),
-    );
-  }
-
-  Route _createRoute() {
-    return PageRouteBuilder(
-      transitionDuration: Duration(milliseconds: 350),
-      reverseTransitionDuration: Duration(milliseconds: 300),
-      pageBuilder: (context, animation, secondaryAnimation) =>
-          VerificationView(),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        return SlideTransition(
-            position: Tween<Offset>(begin: Offset(1, 0), end: Offset.zero)
-                .animate(animation),
-            child: child);
-      },
     );
   }
 }

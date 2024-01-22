@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:g_p_app/features/design_screens/design_details_view.dart';
 
 import '../../core/assets_data/assetsData.dart';
 import '../../core/assets_data/iconBroken.dart';
@@ -85,7 +86,9 @@ class DesignExplainScreenThree extends StatelessWidget {
               child: CustomButton(
                   backgroundColor: CustomColors.blue,
                   text: 'Go to design page',
-                  func: () {},
+                  func: () {
+                    Navigator.pushNamed(context, DesignDetailsView.routeName);
+                  },
                   style: Styles.textStyle16!.copyWith(color: Colors.white)),
             )
           ],

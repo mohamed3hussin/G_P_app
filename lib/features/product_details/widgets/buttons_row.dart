@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/features/product_details/added_to_cart_alert.dart';
 
-import '../../core/colors/colors.dart';
-import '../../core/shared_widget/custom_button.dart';
-import '../../core/text_style/styles.dart';
+import '../../../core/colors/colors.dart';
+import '../../../core/shared_widget/custom_button.dart';
+import '../../../core/text_style/styles.dart';
 
 class ButtonsRow extends StatelessWidget {
   const ButtonsRow({super.key});

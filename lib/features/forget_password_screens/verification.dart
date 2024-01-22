@@ -2,15 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/core/assets_data/assetsData.dart';
-import 'package:g_p_app/core/helper/hundel_size.dart';
 import 'package:g_p_app/core/text_style/styles.dart';
-import 'package:g_p_app/features/forget_password_screen/new_password.dart';
-
 import 'custom_page_route.dart';
+import 'new_password.dart';
 
 class VerificationView extends StatelessWidget {
   static const String routeName='verification_view';
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +26,7 @@ class VerificationView extends StatelessWidget {
                         bottomLeft: Radius.circular(100.r),
                         bottomRight: Radius.circular(100.r))),
                 child: Center(child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.r),
                   child: Image.asset(AssetsData.happyRobotRaisingHand,width: 90.w,height: 180.h,),
                 )),
               ),

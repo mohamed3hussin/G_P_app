@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/core/assets_data/assetsData.dart';
 import 'package:g_p_app/core/assets_data/iconBroken.dart';
-import 'package:g_p_app/core/helper/hundel_size.dart';
-import 'package:g_p_app/core/shared_widget/default_text.dart';
 import 'package:g_p_app/core/text_style/styles.dart';
-
+import 'package:g_p_app/features/forget_password_screens/new_password_field.dart';
+import 'package:g_p_app/features/login_screen/loginScreenView.dart';
+import 'custom_page_route.dart';
 class NewPasswordView extends StatefulWidget {
-  static const String routeName='new_password_view';
+  static const String routeName = 'new_password_view';
 
   @override
   State<NewPasswordView> createState() => _NewPasswordViewState();
@@ -19,12 +19,9 @@ class _NewPasswordViewState extends State<NewPasswordView> {
   TextEditingController _passwordController = TextEditingController();
 
   TextEditingController _confirmPasswordController = TextEditingController();
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  //   _passwordController.dispose();
-  //   _confirmPasswordController.dispose();
-  // }
+
+  bool isObscure = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,25 +41,27 @@ class _NewPasswordViewState extends State<NewPasswordView> {
                       borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(100.r),
                           bottomRight: Radius.circular(100.r))),
-                  child: Center(child: Padding(
+                  child: Center(
+                      child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Image.asset(AssetsData.staringRobot,width: 90.w,height: 180.h,),
+                    child: Image.asset(
+                      AssetsData.staringRobot,
+                      width: 90.w,
+                      height: 180.h,
+                    ),
                   )),
                 ),
               ),
               Padding(
                 padding: EdgeInsets.only(top: 24.h),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Image.asset(
-                    AssetsData.indicator3,
-                    height: 8.h,
-                    width: 48.w,
-                  ),
+                child: Image.asset(
+                  AssetsData.indicator3,
+                  height: 8.h,
+                  width: 48.w,
                 ),
               ),
               SizedBox(
-                height: 64.h,
+                height: 60.h,
               ),
               Text(
                 'New Password',
@@ -75,62 +74,50 @@ class _NewPasswordViewState extends State<NewPasswordView> {
                   style: Styles.textStyle14,
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
-                child: Material(
-                  elevation: 5,
-                  borderRadius: BorderRadius.circular(10.r),
-                  child: defaultTextField(
-                    controller: _passwordController,
-                    type: TextInputType.text,
-                    isObscure: true,
-                      label: 'Password',
-                      prefix: IconBroken.Lock,
-                    validate: (value) {
-                      if (value.isEmpty) {
-                        return 'Please enter your password';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 10.h),
-                child: Material(
-                  elevation: 5,
-                  borderRadius: BorderRadius.circular(10.r),
-                  child: defaultTextField(
-                    controller: _confirmPasswordController,
-                    type: TextInputType.text,
-                    isObscure: true,
-                      label: 'Confirm Password',
-                      prefix: IconBroken.Lock,
+              NewPasswordField(
+                  isObscure: isObscure,
+                  onpressed: () {
+                    isObscure = !isObscure;
+                    setState(() {});
+                  },
+                  label: 'password',
+                  validate: (value) {
+                    if (value.isEmpty) {
+                      return 'Please enter your password';
+                    }
+                    return null;
+                  },
+                  controller: _passwordController),
 
-                    validate: (value) {
-                      if (value.isEmpty) {
-                        return 'Please confirm your password';
-                      }
-                      if (value != _passwordController.text) {
-                        return 'Passwords do not match';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-              ),
+              NewPasswordField(
+                isObscure: isObscure,
+                  onpressed: () {
+                    isObscure = !isObscure;
+                    setState(() {});
+                  },
+                  label: 'confirm password',
+                  validate: (value) {
+                    if (value.isEmpty) {
+                      return 'Please confirm your password';
+                    }
+                    if (value != _passwordController.text) {
+                      return 'Passwords do not match';
+                    }
+                    return null;
+                  },
+                  controller: _confirmPasswordController),
               SizedBox(
-                height: context.deviceHeight * 0.05,
+                height: 40.h,
               ),
               Align(
                 alignment: Alignment.topRight,
                 child: Container(
                   margin: EdgeInsets.all(16.r),
-                  height: context.deviceHeight * 0.06,
-                  width: context.deviceWidth * 0.16,
+                  height: 45.h,
+                  width: 60.w,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.all(8),
+                      padding: EdgeInsets.all(8.r),
                       backgroundColor: Color(0XFF1B72C0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16.r),
@@ -138,7 +125,10 @@ class _NewPasswordViewState extends State<NewPasswordView> {
                     ),
                     onPressed: () {
                       if (npformKey.currentState!.validate()) {
-                        print('Passwords match!');
+                        Navigator.push(
+                          context,
+                          CustomPageRoute(child: LoginScreenView()),
+                        );
                       }
                     },
                     child: Icon(
@@ -147,7 +137,7 @@ class _NewPasswordViewState extends State<NewPasswordView> {
                     ),
                   ),
                 ),
-              ),
+              )
             ],
           ),
         ),

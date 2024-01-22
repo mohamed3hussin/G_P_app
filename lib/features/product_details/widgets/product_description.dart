@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:readmore/readmore.dart';
 
-import '../../core/colors/colors.dart';
-import '../../core/text_style/styles.dart';
+import '../../../core/colors/colors.dart';
+import '../../../core/text_style/styles.dart';
 
 class ProductDescription extends StatelessWidget {
   const ProductDescription({super.key});

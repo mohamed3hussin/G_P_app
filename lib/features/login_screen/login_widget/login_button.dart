@@ -28,7 +28,7 @@ class LoginButton extends StatelessWidget {
               Navigator.pushNamedAndRemoveUntil(context, HomeLayout.routeName,(route)=>false);
             }
           },
-          style: Styles.textStyle20.copyWith(fontSize: 24, color: Colors.white),
+          style: Styles.textStyle20.copyWith(color: Colors.white),
         ),
       ),
       fallback: (context) => const Center(child: CircularProgressIndicator()),

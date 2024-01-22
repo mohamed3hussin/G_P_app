@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:g_p_app/core/text_style/styles.dart';
-import 'package:g_p_app/features/product_details/size_container.dart';
+import 'package:g_p_app/features/product_details/widgets/size_container.dart';
 
 class SizeLine extends StatelessWidget {
   @override

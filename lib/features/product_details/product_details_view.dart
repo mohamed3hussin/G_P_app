@@ -4,12 +4,12 @@ import 'package:g_p_app/core/assets_data/assetsData.dart';
 import 'package:g_p_app/core/assets_data/iconBroken.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:g_p_app/core/colors/colors.dart';
-import 'package:g_p_app/features/product_details/buttons_row.dart';
-import 'package:g_p_app/features/product_details/color_line.dart';
-import 'package:g_p_app/features/product_details/product_counter.dart';
-import 'package:g_p_app/features/product_details/product_description.dart';
-import 'package:g_p_app/features/product_details/product_title_and_price.dart';
-import 'package:g_p_app/features/product_details/size_line.dart';
+import 'package:g_p_app/features/product_details/widgets/buttons_row.dart';
+import 'package:g_p_app/features/product_details/widgets/color_line.dart';
+import 'package:g_p_app/features/product_details/widgets/product_counter.dart';
+import 'package:g_p_app/features/product_details/widgets/product_description.dart';
+import 'package:g_p_app/features/product_details/widgets/product_title_and_price.dart';
+import 'package:g_p_app/features/product_details/widgets/size_line.dart';
 
 class ProductDetailsView extends StatelessWidget {
   static const String routeName = 'product_details';
