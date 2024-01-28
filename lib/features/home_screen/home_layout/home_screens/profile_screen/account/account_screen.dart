@@ -22,7 +22,10 @@ class AccountScreen extends StatelessWidget {
           onTap: () {
             Navigator.pop(context);
           },
-          child: Icon(IconBroken.Arrow___Left_2,color: CustomColors.blue,),
+          child: Icon(
+            IconBroken.Arrow___Left_2,
+            color: CustomColors.blue,
+          ),
         ),
         leadingWidth: 40.w,
         title: Center(
@@ -46,13 +49,22 @@ class AccountScreen extends StatelessWidget {
                 },
                 child:
                     ProfileItem(icon: IconBroken.Call, text: 'Phone number')),
-            GestureDetector(onTap: (){Navigator.pushNamed(context, ChangePasswordView.routeName);},child: ProfileItem(icon: IconBroken.Setting, text: 'Change password')),
+            GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, ChangePasswordView.routeName);
+                },
+                child: ProfileItem(
+                    icon: IconBroken.Setting, text: 'Change password')),
             GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(context, MyOrdersView.routeName);
                 },
                 child: ProfileItem(icon: IconBroken.Call, text: 'My orders')),
-            GestureDetector(onTap: (){Navigator.pushNamed(context, SelectAddressView.routeName);},child: ProfileItem(icon: Icons.question_mark, text: 'Address')),
+            GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, SelectAddressView.routeName);
+                },
+                child: ProfileItem(icon: Icons.question_mark, text: 'Address')),
             ProfileItem(
               icon: IconBroken.Danger,
               text: 'Delete Account',

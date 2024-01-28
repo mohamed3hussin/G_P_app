@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:g_p_app/features/design_screens/design_categories/design_categories_view.dart';
 import 'package:g_p_app/features/design_screens/design_details_view.dart';
 import 'package:g_p_app/features/design_screens/design_explain_screen1.dart';
 import 'package:g_p_app/features/design_screens/design_explain_screen2.dart';
@@ -24,7 +25,7 @@ import '../features/home_screen/home_layout/home_screens/categories_screen/filte
 import '../features/home_screen/home_layout/home_screens/profile_screen/account/address/add_address_view.dart';
 import '../features/home_screen/home_layout/home_screens/profile_screen/account/address/select_address_view.dart';
 import '../features/home_screen/home_layout/home_screens/profile_screen/account/change_password/change_password_view.dart';
-import '../features/home_screen/home_layout/home_screens/profile_screen/account/my_order/Track_order/track_order.dart';
+import '../features/home_screen/home_layout/home_screens/profile_screen/account/my_order/Track_order/track_order_view.dart';
 import '../features/home_screen/home_layout/home_screens/profile_screen/account/my_order/my_orders_view.dart';
 import '../features/home_screen/home_layout/home_screens/profile_screen/account/my_order/past_order/past_orders_view.dart';
 import '../features/home_screen/home_layout/home_screens/profile_screen/account/my_order/past_order_details/past_order_details_view.dart';
@@ -81,5 +82,6 @@ class AppRoutes{
     DesignExplainScreenTwo.routeName:(context)=>DesignExplainScreenTwo(),
     DesignExplainScreenThree.routeName:(context)=>DesignExplainScreenThree(),
     DesignDetailsView.routeName:(context)=>DesignDetailsView(),
+    DesignCategoriesView.routeName:(context)=>DesignCategoriesView(),
   };
 }

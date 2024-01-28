@@ -35,7 +35,7 @@ class _FilteredCategoryScreenViewState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(selectedIndex == 0 ? 'Men' : 'Women'),
+        title: Text(selectedIndex == 0 ? 'Men' : 'Women',style: Styles.textStyle24),
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w),

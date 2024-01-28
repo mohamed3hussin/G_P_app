@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/my_order/rate_product/rating_widget.dart';
 import '../../../core/colors/colors.dart';
 import '../../../core/text_style/styles.dart';
 
@@ -16,42 +17,7 @@ class ProductTitleLine extends StatelessWidget {
               style: Styles.textStyle20!
                   .copyWith(color: CustomColors.blue, fontSize: 18),
             ),
-            Row(
-              children: [
-                Icon(
-                  Icons.star,
-                  color: CustomColors.yellow,
-                  size: 18.r,
-                ),
-                Icon(
-                  Icons.star,
-                  color: CustomColors.yellow,
-                  size: 18.r,
-                ),
-                Icon(
-                  Icons.star,
-                  color: CustomColors.yellow,
-                  size: 18.r,
-                ),
-                Icon(
-                  Icons.star,
-                  color: CustomColors.yellow,
-                  size: 18.r,
-                ),
-                Icon(
-                  Icons.star_border,
-                  color: CustomColors.yellow,
-                  size: 18.r,
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                Text(
-                  '4.0',
-                  style: Styles.textStyle14,
-                ),
-              ],
-            )
+            RatingWidget(rating: 4),
           ],
         ),
         Row(

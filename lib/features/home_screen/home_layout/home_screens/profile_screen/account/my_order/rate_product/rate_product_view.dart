@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/core/assets_data/assetsData.dart';
 import 'package:g_p_app/core/colors/colors.dart';
+import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/my_order/rate_product/rating_widget.dart';
 
 import '../../../../../../../../core/assets_data/iconBroken.dart';
 import '../../../../../../../../core/text_style/styles.dart';
@@ -49,36 +50,7 @@ class RateProductView extends StatelessWidget {
                   SizedBox(
                     height: 12.h,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.star,
-                        color: CustomColors.yellow,
-                        size: 30.r,
-                      ),
-                      Icon(
-                        Icons.star,
-                        color: CustomColors.yellow,
-                        size: 30.r,
-                      ),
-                      Icon(
-                        Icons.star,
-                        color: CustomColors.yellow,
-                        size: 30.r,
-                      ),
-                      Icon(
-                        Icons.star,
-                        color: CustomColors.yellow,
-                        size: 30.r,
-                      ),
-                      Icon(
-                        Icons.star_border,
-                        color: CustomColors.yellow,
-                        size: 30.r,
-                      ),
-                    ],
-                  ),
+                  RatingWidget(rating: 4),
                 ],
               ),
             ),

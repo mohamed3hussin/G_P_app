@@ -34,9 +34,3 @@ class _ColorContainerState extends State<ColorContainer> {
     );
   }
 }
-// GestureDetector(
-// child: CircleAvatar(
-// radius: 20.r,
-// backgroundColor: color,
-// ),
-// ),

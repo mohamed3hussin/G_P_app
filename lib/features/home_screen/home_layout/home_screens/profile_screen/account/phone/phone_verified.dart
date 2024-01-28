@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/core/assets_data/assetsData.dart';
 import 'package:g_p_app/core/colors/colors.dart';
 import 'package:g_p_app/core/text_style/styles.dart';
-
 import '../../../../../../../core/assets_data/iconBroken.dart';
 
 class PhoneVerifiedView extends StatelessWidget {

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:g_p_app/core/shared_widget/default_text.dart';
-import 'package:g_p_app/core/text_style/styles.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/change_password/change_passowrd_field.dart';
-
 import '../../../../../../../core/assets_data/iconBroken.dart';
 
 class ChangePasswordView extends StatelessWidget {

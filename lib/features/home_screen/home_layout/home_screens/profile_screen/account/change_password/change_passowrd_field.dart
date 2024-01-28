@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/core/colors/colors.dart';
-
 import '../../../../../../../core/assets_data/iconBroken.dart';
 import '../../../../../../../core/text_style/styles.dart';
 
@@ -16,7 +15,6 @@ class ChangePasswordField extends StatefulWidget {
 }
 
 class _ChangePasswordFieldState extends State<ChangePasswordField> {
-
 
   @override
   Widget build(BuildContext context) {

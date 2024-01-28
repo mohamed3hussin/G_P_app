@@ -15,14 +15,12 @@ import 'home_screens/home_screen/home_screen.dart';
 import 'home_screens/profile_screen/profile_screen_view.dart';
 import 'home_screens/wish_list_screen/wish_list_screen.dart';
 
-
 class HomeLayout extends StatefulWidget {
   static const String routeName='home_layout';
 
   @override
   State<HomeLayout> createState() => _HomeLayoutState();
 }
-
 class _HomeLayoutState extends State<HomeLayout> {
   var searchController = TextEditingController();
   int currentIndex= 0;
@@ -68,7 +66,6 @@ class _HomeLayoutState extends State<HomeLayout> {
                   {
                     if(value!.isEmpty)
                     {
-
                       return 'Email most not empty';
                     }
                     else{
@@ -146,7 +143,6 @@ class _HomeLayoutState extends State<HomeLayout> {
                               children: [
                                 Icon(IconBroken.Home,color: currentIndex==0? Color(0xFF74777F):Color(0xFF1B72C0),),
                                 Text('Home',style: TextStyle(color: currentIndex==0? Color(0xFF74777F):Color(0xFF1B72C0),),)
-
                               ],
                             ),
                               ),
@@ -190,7 +186,6 @@ class _HomeLayoutState extends State<HomeLayout> {
                               children: [
                                 Icon(IconBroken.Document,color: currentIndex==2? Color(0xFF74777F):Color(0xFF1B72C0),),
                                 Text('Wish List',style: TextStyle(color: currentIndex==2? Color(0xFF74777F):Color(0xFF1B72C0),),)
-
                               ],
                             ),
                           ),
@@ -218,11 +213,8 @@ class _HomeLayoutState extends State<HomeLayout> {
                     ],
                   ),
                 ),
-
-
               ),
             ),
-
           );
         },
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../text_style/styles.dart';
 
@@ -14,6 +15,7 @@ class CustomButton extends StatelessWidget {
     this.width,
     this.height = 48,
     this.radius = 8,
+    this.icon,
     required this.style,
   }) : super(key: key);
   final double? width;
@@ -26,6 +28,7 @@ class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback func;
   final TextStyle style;
+  final IconData? icon;
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +46,18 @@ class CustomButton extends StatelessWidget {
           ),
           // minimumSize: Size(150, 50),
         ),
-        child:  Text(
-          text,
-          style: style,
+        child:  Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            icon!=null?Padding(
+              padding:EdgeInsets.symmetric(horizontal: 5.w),
+              child: Icon(icon),
+            ):SizedBox(),
+            Text(
+              text,
+              style: style,
+            ),
+          ],
         ),
       ),
     );

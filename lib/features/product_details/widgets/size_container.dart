@@ -6,11 +6,9 @@ class SizeContainer extends StatefulWidget {
   String text;
 
   SizeContainer(this.text);
-
   @override
   State<SizeContainer> createState() => _SizeContainerState();
 }
-
 class _SizeContainerState extends State<SizeContainer> {
   bool isSelected=false;
 

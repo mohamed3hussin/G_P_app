@@ -40,6 +40,7 @@ class AllCategoriesView extends StatelessWidget {
         title: Center(
             child: Text(
           'Categories',
+                style: Styles.textStyle24
         )),
         actions: [
           IconButton(

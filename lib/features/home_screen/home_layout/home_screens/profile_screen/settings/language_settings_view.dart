@@ -14,9 +14,7 @@ class LanguageSettingsView extends StatefulWidget {
 
 class _LanguageSettingsViewState extends State<LanguageSettingsView> {
   List<String> languages = ['Arabic', 'English'];
-
   int currentIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

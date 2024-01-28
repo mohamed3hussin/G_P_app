@@ -14,7 +14,6 @@ class CurrencySettingsView extends StatefulWidget {
 
 class _CurrencySettingsViewState extends State<CurrencySettingsView> {
   List<String> currency = ['USD', 'EUR','EGY'];
-
   int currentIndex = 0;
 
   @override
@@ -35,7 +34,7 @@ class _CurrencySettingsViewState extends State<CurrencySettingsView> {
         leadingWidth: 40.w,
         title: Center(
             child: Text(
-              'Language',
+              'Currency',
               style: Styles.textStyle24,
             )),
         titleSpacing: 4,

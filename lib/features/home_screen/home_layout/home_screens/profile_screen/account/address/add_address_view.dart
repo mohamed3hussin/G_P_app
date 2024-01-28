@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/core/colors/colors.dart';
-import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/address/add_address_field.dart';
+import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/address/widget/add_address_field.dart';
 
 import '../../../../../../../core/assets_data/iconBroken.dart';
 import '../../../../../../../core/text_style/styles.dart';

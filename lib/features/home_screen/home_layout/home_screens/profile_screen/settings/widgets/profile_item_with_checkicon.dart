@@ -12,10 +12,7 @@ class ProfileItemWithCheckIcon extends StatefulWidget {
   @override
   State<ProfileItemWithCheckIcon> createState() => _ProfileItemWithCheckIconState();
 }
-
 class _ProfileItemWithCheckIconState extends State<ProfileItemWithCheckIcon> {
-
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -35,7 +32,6 @@ class _ProfileItemWithCheckIconState extends State<ProfileItemWithCheckIcon> {
                 style: Styles.textStyle16,
               ),
             ),
-            //SizedBox(width: 100.w,),
             Expanded(
                 child: Align(
                   alignment: Alignment.centerRight,

@@ -9,14 +9,11 @@ class ProfileItemWithSwitch extends StatefulWidget {
   Function? onClicked;
 
   ProfileItemWithSwitch({required this.icon, required this.text,this.onClicked});
-
   @override
   State<ProfileItemWithSwitch> createState() => _ProfileItemWithSwitchState();
 }
-
 class _ProfileItemWithSwitchState extends State<ProfileItemWithSwitch> {
   bool isSwitched=false;
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -40,7 +37,6 @@ class _ProfileItemWithSwitchState extends State<ProfileItemWithSwitch> {
               widget.text,
               style: Styles.textStyle16,
             ),
-            //SizedBox(width: 100.w,),
             Expanded(
                 child: Align(
                   alignment: Alignment.centerRight,
