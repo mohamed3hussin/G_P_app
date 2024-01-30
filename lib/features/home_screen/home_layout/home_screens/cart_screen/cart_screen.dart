@@ -10,6 +10,7 @@ import 'package:g_p_app/core/shared_widget/custom_button.dart';
 import 'package:g_p_app/core/text_style/styles.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/cart_screen/no_item.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/cart_screen/order_success.dart';
+import 'package:mobkit_dashed_border/mobkit_dashed_border.dart';
 
 import '../home_screen/home_screen_widget/product_view_widget.dart';
 import 'check_out_screen.dart';
@@ -45,23 +46,16 @@ class _CartScreenState extends State<CartScreen> {
           elevation: 1,
           //borderRadius: BorderRadius.only(topLeft: Radius.circular(14),topRight: Radius.circular(14)),
           child: Container(
-            height: 135.h,
+            height: 105.h,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(topLeft: Radius.circular(14),topRight: Radius.circular(14)),
-              border: Border.all(color: CustomColors.darkGrey)
+
             ),
             child: Padding(
-              padding: EdgeInsetsDirectional.symmetric(horizontal: 20.w),
+              padding: EdgeInsetsDirectional.symmetric(horizontal: 20.w,vertical: 15.h),
               child: Column(
                 children: [
-                  Row(
-                    children: [
-                      Text('Total Payment',style: Styles.textStyle16.copyWith(color: CustomColors.textColor),),
-                      Spacer(),
-                      Text('\$${250}',style: Styles.textStyle16.copyWith(color: CustomColors.blue),)
-                    ],
-                  ),
-                  SizedBox(height: 15.h,),
+
                   CustomButton(
                       width: double.infinity,
                       height: 56.h,
@@ -71,7 +65,57 @@ class _CartScreenState extends State<CartScreen> {
                       func:()
                       {
 
-                        Navigator.of(context).pushNamed(CheckOutScreen.routeName);
+                       showModalBottomSheet(context: context, builder: (context)=>Container(
+                         height: 250.h,
+                         child: Padding(
+                           padding: EdgeInsetsDirectional.symmetric(vertical: 10.h,horizontal: 20.w),
+                           child: Column(
+                             children: [
+                               Text(
+                                 'Selected item:',
+                                 style: Styles.textStyle16.copyWith
+                                   (fontWeight: FontWeight.w700,
+                                     color: CustomColors.grey),),
+                               Row(
+                                 children: [
+                                   Text('Slovy bag:',style: Styles.textStyle12.copyWith(color: CustomColors.grey,fontWeight: FontWeight.w400),),
+                                   Spacer(),
+                                   Text('\$${240.00}',style: Styles.textStyle16.copyWith(color: CustomColors.darkGrey,fontWeight: FontWeight.w400),)
+                                 ],
+                               ),
+                               Row(
+                                 children: [
+                                   Text('Orlando Watch',style: Styles.textStyle12.copyWith(color: CustomColors.grey,fontWeight: FontWeight.w400),),
+                                   Spacer(),
+                                   Text('\$${120}',style: Styles.textStyle16.copyWith(color: CustomColors.darkGrey),)
+                                 ],
+                               ),
+                               Text('--------------------------------------------------',style: Styles.textStyle12.copyWith(color: CustomColors.grey),),
+                               Row(
+                                 children: [
+                                   Text('Total Payment',style: Styles.textStyle16.copyWith(color: CustomColors.textColor),),
+                                   Spacer(),
+                                   Text('\$${250}',style: Styles.textStyle16.copyWith(fontWeight: FontWeight.w600,color: CustomColors.blue),)
+                                 ],
+                               ),
+                               SizedBox(height: 15.h,),
+                               CustomButton(
+                                   width: double.infinity,
+                                   height: 56.h,
+                                   radius: 12,
+                                   backgroundColor: CustomColors.blue,
+                                   text: 'Checkout Now',
+                                   func:()
+                                   {
+                                     Navigator.pop(context);
+                                     Navigator.of(context).pushNamed(CheckOutScreen.routeName);
+                                   },
+                                   style: Styles.textStyle16.copyWith(color: Colors.white,fontWeight: FontWeight.w600)
+                               ),
+                             ],
+                           ),
+                         ),
+                       ),);
                       },
                       style: Styles.textStyle16.copyWith(color: Colors.white,fontWeight: FontWeight.w600)
                   ),

@@ -33,6 +33,7 @@ import '../features/home_screen/home_layout/home_screens/profile_screen/account/
 import '../features/home_screen/home_layout/home_screens/profile_screen/account/my_order/return_order/return_orders_view.dart';
 import '../features/home_screen/home_layout/home_screens/profile_screen/account/my_order/return_order_details/return_order_details_view.dart';
 import '../features/home_screen/home_layout/home_screens/profile_screen/account/my_order/return_order_details/return_prodcut_reason_view.dart';
+import '../features/home_screen/home_layout/home_screens/profile_screen/payment_method/add_creidt_screen.dart';
 import '../features/home_screen/home_layout/home_screens/profile_screen/payment_method/payment_view.dart';
 import '../features/home_screen/home_layout/home_screens/profile_screen/settings/currency_settings_view.dart';
 import '../features/home_screen/home_layout/home_screens/profile_screen/settings/language_settings_view.dart';
@@ -83,5 +84,6 @@ class AppRoutes{
     DesignExplainScreenThree.routeName:(context)=>DesignExplainScreenThree(),
     DesignDetailsView.routeName:(context)=>DesignDetailsView(),
     DesignCategoriesView.routeName:(context)=>DesignCategoriesView(),
+    MySample.routeName:(context)=>MySample(),
   };
 }
