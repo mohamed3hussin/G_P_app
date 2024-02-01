@@ -32,6 +32,7 @@ class WomenCategoryView extends StatelessWidget {
             height: 120.h,
             child: ListView.separated(
                 scrollDirection: Axis.horizontal,
+                physics: BouncingScrollPhysics(),
                 itemBuilder: (context, index) =>
                     CollectionList(collectionModel[index]),
                 separatorBuilder: (context, index) => SizedBox(
@@ -48,7 +49,7 @@ class WomenCategoryView extends StatelessWidget {
             crossAxisCount: 2,
             mainAxisSpacing: 8,
             crossAxisSpacing: 12,
-            childAspectRatio: 1 / 1.70,
+            childAspectRatio: 1 / 1.65,
             children: List.generate(8,
                     (index) => FilteredCategoryItemBuilder(images[index], context)),
           ),

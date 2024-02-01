@@ -6,10 +6,11 @@ import 'package:g_p_app/core/text_style/styles.dart';
 class ProfileItem extends StatelessWidget {
   IconData icon;
   String text;
+  String? description;
   bool arrowIcon;
   Function? onClicked;
 
-  ProfileItem({required this.icon, required this.text, this.arrowIcon = true,this.onClicked});
+  ProfileItem({required this.icon, required this.text, this.description,this.arrowIcon = true,this.onClicked});
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +31,18 @@ class ProfileItem extends StatelessWidget {
                 color: CustomColors.blue,
               ),
             ),
-            Text(
+            description==null?Text(
               text,
               style: Styles.textStyle16,
+            ):Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  text,
+                  style: Styles.textStyle16),
+                Text(description!,style: Styles.textStyle12,),
+              ],
             ),
             //SizedBox(width: 100.w,),
             Expanded(

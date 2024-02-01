@@ -51,11 +51,10 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
           ),
         ),
         leadingWidth: 40.w,
-        title: Center(
-            child: Text(
-          'Design',
-          style: Styles.textStyle24,
-        )),
+        title: Text(
+                  'Design',
+                  style: Styles.textStyle24,
+                ),
         titleSpacing: 4,
         actions: [
           IconButton(

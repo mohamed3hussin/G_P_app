@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/profile_item.dart';
-import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/settings/currency_settings_view.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/settings/language_settings_view.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/settings/widgets/profile_item_with_switch.dart';
 import '../../../../../../core/assets_data/iconBroken.dart';
@@ -27,11 +26,10 @@ class SettingsView extends StatelessWidget {
           ),
         ),
         leadingWidth: 40.w,
-        title: Center(
-            child: Text(
-          'Settings',
-          style: Styles.textStyle24,
-        )),
+        title: Text(
+                  'Settings',
+                  style: Styles.textStyle24,
+                ),
         titleSpacing: 4,
       ),
       body: Column(
@@ -40,14 +38,7 @@ class SettingsView extends StatelessWidget {
         children: [
           SizedBox(height: 30.h,),
           ProfileItemWithSwitch(icon: Icons.brightness_6, text: 'Dark Mood',),
-          ProfileItemWithSwitch(icon: Icons.notifications, text: 'Notification',),
           GestureDetector(onTap: (){Navigator.pushNamed(context, LanguageSettingsView.routeName);},child: ProfileItem(icon: Icons.language, text: 'Language')),
-          GestureDetector(
-            onTap: (){Navigator.pushNamed(context, CurrencySettingsView.routeName);},child: ProfileItem(
-              icon: Icons.monetization_on_outlined,
-              text: 'currency',
-            ),
-          ),
         ],
       ),
     );

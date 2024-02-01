@@ -22,11 +22,10 @@ class PastOrdersView extends StatelessWidget {
           child: Icon(IconBroken.Arrow___Left_2,color: CustomColors.blue,),
         ),
         leadingWidth: 40.w,
-        title: Center(
-            child: Text(
-          'Past Orders',
-          style: Styles.textStyle24,
-        )),
+        title: Text(
+                  'Past Orders',
+                  style: Styles.textStyle24,
+                ),
         titleSpacing: 4,
       ),
       body: SingleChildScrollView(

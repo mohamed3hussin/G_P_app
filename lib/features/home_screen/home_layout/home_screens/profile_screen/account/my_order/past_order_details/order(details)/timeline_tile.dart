@@ -23,7 +23,7 @@ class CustomTimeLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 120.h,
+      height: 80.h,
       child: Padding(
         padding: EdgeInsets.only(left: 16.w),
         child: TimelineTile(
@@ -36,7 +36,7 @@ class CustomTimeLine extends StatelessWidget {
           indicatorStyle: IndicatorStyle(
 
             color: CustomColors.lightBlue,
-            width: 55.w,
+            width: 50.w,
             iconStyle: IconStyle(
                 iconData: icon,
                 fontSize: 25,

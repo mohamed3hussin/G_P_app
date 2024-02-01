@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../../../../../../../core/colors/colors.dart';
 import '../../../../../../../../../core/text_style/styles.dart';
 

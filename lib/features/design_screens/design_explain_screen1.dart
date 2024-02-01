@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/core/assets_data/assetsData.dart';
 import 'package:g_p_app/core/shared_widget/custom_button.dart';
 import 'package:g_p_app/features/design_screens/design_explain_screen2.dart';
-
 import '../../core/assets_data/iconBroken.dart';
 import '../../core/colors/colors.dart';
 import '../../core/text_style/styles.dart';
@@ -27,12 +26,10 @@ class DesignExplainScreenOne extends StatelessWidget {
           ),
         ),
         leadingWidth: 40.w,
-        title: Center(
-            child: Text(
-          'Design',
-          style: Styles.textStyle24,
-        )),
-        titleSpacing: 4,
+        title: Text(
+                  'Design',
+                  style: Styles.textStyle24,
+                ),
         actions: [
           IconButton(
               onPressed: () {},

@@ -28,11 +28,10 @@ class AccountScreen extends StatelessWidget {
           ),
         ),
         leadingWidth: 40.w,
-        title: Center(
-            child: Text(
-          'Account',
-          style: Styles.textStyle24,
-        )),
+        title: Text(
+                  'Account',
+                  style: Styles.textStyle24,
+                ),
         titleSpacing: 4,
       ),
       body: SingleChildScrollView(
@@ -42,13 +41,15 @@ class AccountScreen extends StatelessWidget {
               height: 35.h,
             ),
             ProfileItem(
-                icon: IconBroken.User, text: 'E-mail', arrowIcon: false),
+                icon: IconBroken.User, text: 'Username', description: 'Habiba Mohamed',arrowIcon: false),
+            ProfileItem(
+                icon: IconBroken.Message, text: 'E-mail',description: 'habiba20@gmail.com', arrowIcon: false),
             GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(context, PhoneNumberView.routeName);
                 },
                 child:
-                    ProfileItem(icon: IconBroken.Call, text: 'Phone number')),
+                    ProfileItem(icon: IconBroken.Call, text: 'Phone number',description: '12345680',)),
             GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(context, ChangePasswordView.routeName);

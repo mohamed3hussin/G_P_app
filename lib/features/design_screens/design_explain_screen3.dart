@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:g_p_app/features/design_screens/design_categories/design_categories_view.dart';
 import 'package:g_p_app/features/design_screens/design_details_view.dart';
 
 import '../../core/assets_data/assetsData.dart';
@@ -26,6 +27,10 @@ class DesignExplainScreenThree extends StatelessWidget {
             color: CustomColors.blue,
           ),
         ),
+        title: Text(
+          'Design',
+          style: Styles.textStyle24,
+        ),
         leadingWidth: 40.w,
         actions: [
           IconButton(
@@ -43,12 +48,7 @@ class DesignExplainScreenThree extends StatelessWidget {
                 size: 30,
               ))
         ],
-        title: Center(
-            child: Text(
-              'Design',
-              style: Styles.textStyle24,
-            )),
-        titleSpacing: 4,
+
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -87,7 +87,7 @@ class DesignExplainScreenThree extends StatelessWidget {
                   backgroundColor: CustomColors.blue,
                   text: 'Go to design page',
                   func: () {
-                    Navigator.pushNamed(context, DesignDetailsView.routeName);
+                    Navigator.pushNamed(context, DesignCategoriesView.routeName);
                   },
                   style: Styles.textStyle16!.copyWith(color: Colors.white)),
             )

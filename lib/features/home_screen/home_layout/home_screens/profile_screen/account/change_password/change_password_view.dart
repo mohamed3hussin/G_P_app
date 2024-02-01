@@ -17,10 +17,9 @@ class ChangePasswordView extends StatelessWidget {
           child: Icon(IconBroken.Arrow___Left),
         ),
         leadingWidth: 40.w,
-        title: Center(
-            child: Text(
-          'Change Password',
-        )),
+        title: Text(
+                  'Change Password',
+                ),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.r),

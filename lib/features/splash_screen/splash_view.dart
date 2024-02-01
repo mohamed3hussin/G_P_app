@@ -6,12 +6,14 @@ import 'package:g_p_app/features/onBoarding_screen/onBoarding_view.dart';
 import '../../core/text_style/styles.dart';
 
 class CustomSplashScreen extends StatefulWidget {
-  static const String routeName='splash_screen';
+  static const String routeName = 'splash_screen';
+
   @override
   _CustomSplashScreenState createState() => _CustomSplashScreenState();
 }
 
-class _CustomSplashScreenState extends State<CustomSplashScreen> with TickerProviderStateMixin {
+class _CustomSplashScreenState extends State<CustomSplashScreen>
+    with TickerProviderStateMixin {
   late AnimationController _animationController;
   late AnimationController _textAnimationController;
   late Animation<Offset> animation;
@@ -72,16 +74,16 @@ class _CustomSplashScreenState extends State<CustomSplashScreen> with TickerProv
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
+            begin: Alignment(0.00, -1.00),
+            end: Alignment(0, 1),
             colors: [
               Color(0xFFFCFCFF),
               Color(0xFFF3F4F9),
               Color(0xFFEFF1F8),
               Color(0xFFEFF1F8),
               Color(0xFFD3E4FF),
-              Color(0xFF1B72C0),
+              Color(0xFF1B72C0)
             ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
           ),
         ),
         child: Center(
@@ -116,5 +118,3 @@ class _CustomSplashScreenState extends State<CustomSplashScreen> with TickerProv
     );
   }
 }
-
-

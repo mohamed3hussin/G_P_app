@@ -29,11 +29,10 @@ class _PhoneNumberViewState extends State<PhoneNumberView> {
           child: Icon(IconBroken.Arrow___Left_2,color: CustomColors.blue,),
         ),
         leadingWidth: 40.w,
-        title: Center(
-            child: Text(
-          'Phone Number',
-          style: Styles.textStyle24,
-        )),
+        title: Text(
+                  'Phone Number',
+                  style: Styles.textStyle24,
+                ),
         titleSpacing: 4,
       ),
       body: SingleChildScrollView(

@@ -23,11 +23,10 @@ class RateProductView extends StatelessWidget {
           child: Icon(IconBroken.Arrow___Left_2,color: CustomColors.blue,),
         ),
         leadingWidth: 40.w,
-        title: Center(
-            child: Text(
-          'My Order',
-          style: Styles.textStyle24,
-        )),
+        title: Text(
+                  'My Order',
+                  style: Styles.textStyle24,
+                ),
         titleSpacing: 4,
       ),
       body: SingleChildScrollView(

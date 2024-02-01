@@ -4,8 +4,8 @@ import 'package:g_p_app/core/colors/colors.dart';
 
 class RatingWidget extends StatelessWidget {
   final double rating;
-
-  RatingWidget({required this.rating});
+  final double? size;
+  RatingWidget({required this.rating,this.size=30});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class RatingWidget extends StatelessWidget {
             (index) => Icon(
           index < rating.floor() ? Icons.star : Icons.star_border,
           color: CustomColors.yellow,
-          size: 30.0, // Adjust the size as needed
+          size: size, // Adjust the size as needed
         ),
       ),
     );

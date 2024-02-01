@@ -34,13 +34,13 @@ class AssetsData{
   static const String womenProduct='assets/images/unsplash_mlKE8dEMc_8 (2).png';
   static const String menProduct='assets/images/unsplash_mlKE8dEMc_8.png';
   static const String saleLogo='assets/images/Star 6.png';
-  static const String sportAvatar='assets/images/unsplash_rvcarabbReA.png';
-  static const String sweatshirtAvatar='assets/images/unsplash_wi6ukB6KrA0.png';
-  static const String jeansAvatar='assets/images/unsplash_2s3GhhJz2uY.png';
-  static const String suitsAvatar='assets/images/unsplash_CtOA9wbFAdQ.png';
-  static const String dressAvatar='assets/images/unsplash_rvcarabbReA (1).png';
-  static const String blousesAvatar='assets/images/unsplash_wi6ukB6KrA0 (1).png';
-  static const String womenJeanAvatar='assets/images/unsplash_2s3GhhJz2uY (1).png';
+  static const String sportAvatar='assets/images/0fa3b9cf79a53e916e4b0dbe7b87b271.png';
+  static const String sweatshirtAvatar='assets/images/374082306ab02340e6fd38cf42b139e2.png';
+  static const String jeansAvatar='assets/images/f591a81b039e74481d19286043525113.png';
+  static const String suitsAvatar='assets/images/6d6953f91f4dacac45fa01d88105ec5f.png';
+  static const String dressAvatar='assets/images/fdfcaaab7e812fc33f1d7bf7cdded1d4.png';
+  static const String blousesAvatar='assets/images/bb91848a784d21e3480609ebcff8155e.png';
+  static const String womenJeanAvatar='assets/images/a600e98f357158194e6626727258012d.png';
   static const String productDetails1='assets/images/pexels-andrea-piacquadio-5035605 1.png';
   static const String productDetails2='assets/images/pexels-andrea-piacquadio-5035577 1.png';
   static const String productDetails3='assets/images/pexels-andrea-piacquadio-5029645 1.png';
@@ -56,6 +56,13 @@ class AssetsData{
   static const String designImage1='assets/images/Group (1).png';
   static const String designImage2='assets/images/Upload-photo 2.png';
   static const String designImage3='assets/images/Layer 2.png';
-
-
+  static const String bestSellingProduct='assets/images/WhatsApp Image 2024-01-30 at 17.43.45 (1).jpeg';
+  static const String menTShirt='assets/images/afaslkjhgfds.png';
+  static const String menSweatshirts='assets/images/fb8301ded4febebcc9c41e7962894e1f.png';
+  static const String menSleeve='assets/images/fc07a2198bece8e9a89a6f8443172156.png';
+  static const String menHoodies='assets/images/e861fa78e0043fa6d03c738a44516df3.png';
+  static const String womenTShirt='assets/images/c8548783999728aa6599236ed8b63238.png';
+  static const String womenSweatshirts='assets/images/deb88ddb6e92c415457db475f5b73e2b.png';
+  static const String womenSleeve='assets/images/5b7ddf13a5c389fd1ba5d2c9e215f5a4.png';
+  static const String womenHoodies='assets/images/ad67aa87c739b25a8103d43623b0b7e5.png';
 }

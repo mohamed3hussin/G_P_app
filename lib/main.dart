@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:g_p_app/core/app_theme/application_theme.dart';
 import 'package:g_p_app/core/blocObserver/myBlocObserver.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_layout.dart';
 import 'package:g_p_app/routes/routes.dart';
@@ -27,10 +28,7 @@ class MyApp extends StatelessWidget {
       {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF1B72C0)),
-            useMaterial3: true,
-          ),
+          theme: ApplicationTheme.lightTheme,
           initialRoute: AppRoutes.initialRoute,
           routes: AppRoutes.appRoutes,
         );

@@ -25,6 +25,7 @@ class CarouselSliderWidget extends StatelessWidget {
                 fit: BoxFit.fill,
               ),
             )).toList(), options: CarouselOptions(
+        autoPlay: true,
         height: 160.h,
         initialPage: 0,
         viewportFraction: 1.0,

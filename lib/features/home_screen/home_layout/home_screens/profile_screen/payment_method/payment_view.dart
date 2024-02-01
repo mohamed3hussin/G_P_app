@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/profile_item.dart';
-import 'package:mobkit_dashed_border/mobkit_dashed_border.dart';
 import '../../../../../../core/assets_data/iconBroken.dart';
 import '../../../../../../core/colors/colors.dart';
 import '../../../../../../core/text_style/styles.dart';
-import 'add_creidt_screen.dart';
 
 class PaymentView extends StatelessWidget {
   static const String routeName = 'payment_View';
@@ -32,35 +30,10 @@ class PaymentView extends StatelessWidget {
                   color: CustomColors.darkBlue,
                   fontWeight: FontWeight.w600),),
           ),
+          ProfileItem(icon: Icons.money, text: 'Cash',arrowIcon: false,),
           ProfileItem(icon: Icons.payment, text: 'Debit/Credit Card',arrowIcon: false,),
-          ProfileItem(icon: Icons.paypal, text: 'Paypal',arrowIcon: false,),
-          ProfileItem(icon: Icons.apple, text: 'Apple Pay',arrowIcon: false,),
+
           SizedBox(height: 20.h,),
-          Container(
-            child: InkWell(
-              onTap: (){
-                Navigator.of(context).pushNamed(MySample.routeName);
-              },
-              child: Container(
-                height: 60.h,
-                margin: EdgeInsets.symmetric(horizontal: 16.w),
-                decoration: BoxDecoration(
-                    border: DashedBorder.fromBorderSide(
-                        dashLength: 5, side: BorderSide(color: Color(0xFF74777F), width: 2)),
-                    borderRadius: BorderRadius.all(Radius.circular(8))
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Icon(Icons.add,color: Color(0xFF74777F)),
-                    SizedBox(width: 10.w,),
-                    Text('Add Another Option',style: Styles.textStyle16.copyWith(color: Color(0xFF74777F)),),
-                  ],
-                ),
-              ),
-            ),
-          ),
         ],
       ),
     );

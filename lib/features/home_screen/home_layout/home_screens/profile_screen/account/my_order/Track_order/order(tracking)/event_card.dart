@@ -15,7 +15,7 @@ class EventCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(process,style: Styles.textStyle14!.copyWith(fontWeight: FontWeight.bold),),
+          Text(process,style: Styles.textStyle14!.copyWith(fontWeight: FontWeight.bold,overflow: TextOverflow.ellipsis),),
           SizedBox(height: 5.h,),
           Text(address,style: Styles.textStyle12,),
         ],

@@ -6,6 +6,8 @@ import 'package:g_p_app/features/home_screen/home_layout/home_screens/categories
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/categories_screen/filtered_categories/tab_container.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/categories_screen/filtered_categories/women_category.dart';
 
+import '../../../../../../core/assets_data/iconBroken.dart';
+
 class FilteredCategoryScreenView extends StatefulWidget {
   static const String routeName = 'filtered_categories';
 
@@ -35,11 +37,44 @@ class _FilteredCategoryScreenViewState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(selectedIndex == 0 ? 'Men' : 'Women',style: Styles.textStyle24),
+        toolbarHeight: 90.h,
+        backgroundColor: Color(0xFFEFF1F8),
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Icon(
+            IconBroken.Arrow___Left_2,
+            color: CustomColors.blue,
+          ),
+        ),
+        title: Text(
+          selectedIndex==0?'Men':'Women',
+          style: Styles.textStyle24,
+        ),
+        centerTitle: true,
+        titleSpacing: 4,
+        actions: [
+          IconButton(
+              onPressed: () {},
+              icon: Icon(
+                IconBroken.Search,
+                color: Color(0xFF1B72C0),
+                size: 30,
+              )),
+          IconButton(
+              onPressed: () {},
+              icon: Icon(
+                IconBroken.Buy,
+                color: Color(0xFF1B72C0),
+                size: 30,
+              ))
+        ],
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.w),
+        padding: EdgeInsets.symmetric(horizontal: 15.w),
         child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -61,6 +96,7 @@ class _FilteredCategoryScreenViewState
                     color: CustomColors.blue, fontWeight: FontWeight.bold),
               ),
               selectedIndex == 0 ? MenCategoryView() : WomenCategoryView(),
+              SizedBox(height: 15.h,),
             ],
           ),
         ),

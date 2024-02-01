@@ -22,11 +22,10 @@ class PastOrderDetailsView extends StatelessWidget {
           child: Icon(IconBroken.Arrow___Left_2,color: CustomColors.blue,),
         ),
         leadingWidth: 40.w,
-        title: Center(
-            child: Text(
-          'Past Orders',
-          style: Styles.textStyle24,
-        )),
+        title: Text(
+                  'Past Orders',
+                  style: Styles.textStyle24,
+                ),
         titleSpacing: 4,
       ),
       body: SingleChildScrollView(
@@ -42,14 +41,14 @@ class PastOrderDetailsView extends StatelessWidget {
               isLast: false,
               process: 'Order Placed',
               date: 'August 15,2023 ,10AM',
-              icon: Icons.fire_truck,
+              icon: Icons.shopping_bag,
             ),
             CustomTimeLine(
               isFirst: false,
               isLast: false,
               process: 'Order Placed',
               date: 'August 15,2023 ,10AM',
-              icon: Icons.fire_truck,
+              icon: Icons.table_rows_outlined,
             ),
             CustomTimeLine(
               isFirst: false,
@@ -63,7 +62,7 @@ class PastOrderDetailsView extends StatelessWidget {
               isLast: true,
               process: 'Order Placed',
               date: 'August 15,2023 ,10AM',
-              icon: Icons.fire_truck,
+              icon: Icons.handshake_outlined,
             ),
           ],
         ),

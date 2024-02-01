@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/my_order/rate_product/rating_widget.dart';
+import 'package:g_p_app/features/product_details/reviews_view.dart';
 import '../../../core/colors/colors.dart';
 import '../../../core/text_style/styles.dart';
 
@@ -43,11 +44,14 @@ class ProductTitleLine extends StatelessWidget {
             ),
             Row(
               children: [
-                Text('View All Reviews',
-                    style: Styles.textStyle14.copyWith(
-                        decoration: TextDecoration.underline,
-                        decorationColor: Colors.black,
-                        color: Colors.black)),
+                GestureDetector(
+                  onTap: (){Navigator.pushNamed(context, ReviewsView.routeName);},
+                  child: Text('View All Reviews',
+                      style: Styles.textStyle14.copyWith(
+                          decoration: TextDecoration.underline,
+                          decorationColor: Colors.black,
+                          color: Colors.black)),
+                ),
                 Icon(
                   Icons.arrow_forward_ios_sharp,
                   color: Colors.black,

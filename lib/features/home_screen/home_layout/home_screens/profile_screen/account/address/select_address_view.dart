@@ -23,11 +23,10 @@ class SelectAddressView extends StatelessWidget {
           child: Icon(IconBroken.Arrow___Left_2,color: CustomColors.blue,),
         ),
         leadingWidth: 40.w,
-        title: Center(
-            child: Text(
-              'Select Address',
-              style: Styles.textStyle24,
-            )),
+        title: Text(
+          'Select Address',
+          style: Styles.textStyle24,
+        ),
         titleSpacing: 4,
       ),
       body: Column(

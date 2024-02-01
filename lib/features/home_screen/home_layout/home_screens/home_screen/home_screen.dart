@@ -16,8 +16,6 @@ class HomeScreen extends StatelessWidget {
   List<CategoriesModel> categoriesModel = [
     CategoriesModel(AssetsData.manCategoriesImage, 'Man'),
     CategoriesModel(AssetsData.womenCategoriesImage, 'Women'),
-    CategoriesModel(AssetsData.kidsCategoriesImage, 'Kids'),
-    CategoriesModel(AssetsData.accessoriesCategoriesImage, 'Accessories'),
   ];
 
    HomeScreen({Key? key}) : super(key: key);

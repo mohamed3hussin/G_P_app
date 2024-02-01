@@ -27,11 +27,10 @@ class _TrackOrderViewState extends State<TrackOrderView>
           child: Icon(IconBroken.Arrow___Left_2,color: CustomColors.blue,),
         ),
         leadingWidth: 40.w,
-        title: Center(
-            child: Text(
-          'Track Order',
-          style: Styles.textStyle24,
-        )),
+        title: Text(
+                  'Track Order',
+                  style: Styles.textStyle24,
+                ),
         titleSpacing: 4,
       ),
       body: SingleChildScrollView(

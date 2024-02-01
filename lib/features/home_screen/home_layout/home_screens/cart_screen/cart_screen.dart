@@ -1,18 +1,9 @@
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:g_p_app/core/assets_data/assetsData.dart';
-import 'package:g_p_app/core/assets_data/iconBroken.dart';
 import 'package:g_p_app/core/colors/colors.dart';
-import 'package:g_p_app/core/helper/hundel_size.dart';
 import 'package:g_p_app/core/shared_widget/custom_button.dart';
 import 'package:g_p_app/core/text_style/styles.dart';
-import 'package:g_p_app/features/home_screen/home_layout/home_screens/cart_screen/no_item.dart';
-import 'package:g_p_app/features/home_screen/home_layout/home_screens/cart_screen/order_success.dart';
-import 'package:mobkit_dashed_border/mobkit_dashed_border.dart';
-
-import '../home_screen/home_screen_widget/product_view_widget.dart';
 import 'check_out_screen.dart';
 
 class CartScreen extends StatefulWidget {
@@ -46,6 +37,7 @@ class _CartScreenState extends State<CartScreen> {
           elevation: 1,
           //borderRadius: BorderRadius.only(topLeft: Radius.circular(14),topRight: Radius.circular(14)),
           child: Container(
+            margin: EdgeInsets.only(bottom: 80.h),
             height: 105.h,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(topLeft: Radius.circular(14),topRight: Radius.circular(14)),
@@ -90,7 +82,7 @@ class _CartScreenState extends State<CartScreen> {
                                    Text('\$${120}',style: Styles.textStyle16.copyWith(color: CustomColors.darkGrey),)
                                  ],
                                ),
-                               Text('--------------------------------------------------',style: Styles.textStyle12.copyWith(color: CustomColors.grey),),
+                               Text('---------------------------------------------',style: Styles.textStyle12.copyWith(color: CustomColors.grey),),
                                Row(
                                  children: [
                                    Text('Total Payment',style: Styles.textStyle16.copyWith(color: CustomColors.textColor),),
@@ -136,36 +128,6 @@ class _CartScreenState extends State<CartScreen> {
         padding: EdgeInsetsDirectional.symmetric(horizontal: 6),
         child: Row(
           children: [
-            ClipRRect(
-              clipBehavior: Clip.hardEdge,
-              borderRadius: BorderRadius.all(Radius.circular(5)),
-              child: SizedBox(
-                width: Checkbox.width,
-                height: Checkbox.width,
-                child: Container(
-                  decoration: new BoxDecoration(
-                    border: Border.all(
-                      width: 1,
-                    ),
-                    borderRadius: new BorderRadius.circular(5),
-                  ),
-                  child: Theme(
-                    data: ThemeData(
-                      unselectedWidgetColor: Colors.transparent,
-                    ),
-                    child: Checkbox(
-                      value: checkBoxValue,
-                      onChanged: (state) =>
-                          setState(() => checkBoxValue = !checkBoxValue),
-                      activeColor: CustomColors.blue,
-                      checkColor: Colors.white,
-                      materialTapTargetSize: MaterialTapTargetSize.padded,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(width: 10.w,),
             Image(
               image: NetworkImage('https://img.freepik.com/free-photo/portrait-man-white-shirt_171337-11986.jpg'),
               width: 80.w,

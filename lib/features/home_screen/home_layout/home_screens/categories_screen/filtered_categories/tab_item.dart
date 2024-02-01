@@ -7,7 +7,8 @@ class TabItem extends StatelessWidget {
   final bool isSelected;
   final String name;
   final VoidCallback onTap;
-  const TabItem({required this.onTap,required this.name, required this.isSelected});
+  IconData? icon;
+  TabItem({required this.onTap,required this.name, required this.isSelected,this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +25,20 @@ class TabItem extends StatelessWidget {
             width: 2,
           ),
         ),
-        child: Text(
-          name,
-          style: Styles.textStyle16.copyWith(
-            color: isSelected ? CustomColors.blue : Colors.black,
-          ),
-          textAlign: TextAlign.center,
+        child: Row(
+          children: [
+            icon!=null?Padding(
+              padding:EdgeInsets.only(right: 2.w),
+              child: Icon(icon,color: isSelected ? CustomColors.blue : Colors.black,),
+            ):SizedBox(),
+            Text(
+              name,
+              style: Styles.textStyle16.copyWith(
+                color: isSelected ? CustomColors.blue : Colors.black,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
         ),
       ),
     );

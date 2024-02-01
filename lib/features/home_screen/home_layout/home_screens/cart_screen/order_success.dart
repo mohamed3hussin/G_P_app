@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/core/assets_data/assetsData.dart';
-import 'package:g_p_app/core/helper/hundel_size.dart';
-
 import '../../../../../core/colors/colors.dart';
 import '../../../../../core/shared_widget/custom_button.dart';
 import '../../../../../core/text_style/styles.dart';
@@ -20,7 +18,6 @@ class OrderSuccessView extends StatelessWidget {
           children: [
             Image.asset(
               AssetsData.successOrderImage,
-
             ),
             Padding(
               padding: EdgeInsetsDirectional.only(top: 30.h),
@@ -31,19 +28,19 @@ class OrderSuccessView extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 15.h,),
+            SizedBox(height: 10.h,),
             Text(
               'Thank you for your order here and your package will be sent to your address very quickly and fast good product',
               style: Styles.textStyle14.copyWith(color: Colors.black),textAlign: TextAlign.center,
             ),
-            SizedBox(height: 40.h,),
+            SizedBox(height: 20.h,),
             CustomButton(
               height: 56,
               width: double.infinity,
               radius: 12,
               backgroundColor: CustomColors.blue,
               text: 'Continue Shopping',
-              func: (){},
+              func: (){Navigator.pop(context);},
               style: Styles.textStyle16.copyWith(color: Colors.white,fontWeight: FontWeight.w400),
             ),
           ],

@@ -211,7 +211,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                     Text('\$${20}',style: Styles.textStyle16.copyWith(color: CustomColors.darkGrey),)
                                   ],
                                 ),
-                                Text('--------------------------------------------------',style: Styles.textStyle12.copyWith(color: CustomColors.grey),),
+                                Text('--------------------------------------------',style: Styles.textStyle12.copyWith(color: CustomColors.grey),),
                                 Row(
                                   children: [
                                     Text('Total Payment',style: Styles.textStyle16.copyWith(color: CustomColors.textColor),),

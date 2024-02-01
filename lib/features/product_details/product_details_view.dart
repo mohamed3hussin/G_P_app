@@ -30,10 +30,9 @@ class ProductDetailsView extends StatelessWidget {
           child: Icon(IconBroken.Arrow___Left),
         ),
         leadingWidth: 40.w,
-        title: Center(
-            child: Text(
-          'Product Details',
-        )),
+        title: Text(
+                  'Product Details',
+                ),
         actions: [
           IconButton(
               onPressed: () {},

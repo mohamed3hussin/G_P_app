@@ -28,11 +28,10 @@ class _AddAddressViewState extends State<AddAddressView> {
           child: Icon(IconBroken.Arrow___Left_2,color: CustomColors.blue,),
         ),
         leadingWidth: 40.w,
-        title: Center(
-            child: Text(
-              'Add Address',
-              style: Styles.textStyle24,
-            )),
+        title: Text(
+          'Add Address',
+          style: Styles.textStyle24,
+        ),
         titleSpacing: 4,
       ),
       body: Padding(

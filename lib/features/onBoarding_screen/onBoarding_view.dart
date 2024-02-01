@@ -1,15 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:g_p_app/core/assets_data/assetsData.dart';
 import 'package:g_p_app/core/cach_helper/cach_helper.dart';
 import 'package:g_p_app/core/helper/hundel_size.dart';
 import 'package:g_p_app/features/login_screen/loginScreenView.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
-
-import '../../core/shared_widget/custom_navigation.dart';
 import '../../core/text_style/styles.dart';
 import 'onBoarding_model.dart';
 
@@ -231,24 +226,23 @@ class _onBoardingViewState extends State<onBoardingView> {
     [
       Container(
         width: 300.w,
-          height: 350.h,
+          height: 325.h,
           child: Card(
-
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30.0),
               ),
               child: Align(
                 alignment: AlignmentDirectional.bottomCenter,
                   child: Image(image: AssetImage('${model.image}'))))),
-      Padding(padding:EdgeInsets.all(8.sp),
+      Padding(padding:EdgeInsets.all(8.r),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text('${model.title}',
-              style: Styles.textStyle24.copyWith(fontWeight: FontWeight.w900),),
+              style: Styles.textStyle24.copyWith(fontWeight: FontWeight.w900,),textAlign: TextAlign.center,),
             SizedBox(height: 20.h,),
             Text('${model.description}',
-              style: Styles.textStyle16.copyWith(color: Color(0xFF44474E)),
+              style: Styles.textStyle16.copyWith(color: Color(0xFF44474E)),textAlign: TextAlign.center,
             ),
           ],
         ),

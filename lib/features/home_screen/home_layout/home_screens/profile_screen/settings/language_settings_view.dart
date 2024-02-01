@@ -31,11 +31,10 @@ class _LanguageSettingsViewState extends State<LanguageSettingsView> {
           ),
         ),
         leadingWidth: 40.w,
-        title: Center(
-            child: Text(
-          'Language',
-          style: Styles.textStyle24,
-        )),
+        title: Text(
+                  'Language',
+                  style: Styles.textStyle24,
+                ),
         titleSpacing: 4,
       ),
       body: Column(

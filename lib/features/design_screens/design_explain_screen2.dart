@@ -26,6 +26,11 @@ class DesignExplainScreenTwo extends StatelessWidget {
             color: CustomColors.blue,
           ),
         ),
+        title: Text(
+          'Design',
+          style: Styles.textStyle24,
+        ),
+        titleSpacing: 4,
         leadingWidth: 40.w,
         actions: [
           IconButton(
@@ -43,12 +48,7 @@ class DesignExplainScreenTwo extends StatelessWidget {
                 size: 30,
               ))
         ],
-        title: Center(
-            child: Text(
-              'Design',
-              style: Styles.textStyle24,
-            )),
-        titleSpacing: 4,
+
       ),
       body: Container(
         decoration: BoxDecoration(
