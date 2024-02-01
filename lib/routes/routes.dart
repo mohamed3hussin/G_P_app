@@ -36,7 +36,7 @@ import '../features/product_details/product_details_view.dart';
 import '../features/splash_screen/splash_view.dart';
 
 class AppRoutes{
-  static const String initialRoute=ProductDetailsView.routeName;
+  static const String initialRoute=HomeLayout.routeName;
   static var appRoutes = <String, WidgetBuilder>{
     CustomSplashScreen.routeName:(context)=>CustomSplashScreen(),
     LoginScreenView.routeName:(context)=>LoginScreenView(),
