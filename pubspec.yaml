@@ -52,6 +52,7 @@ dependencies:
   flutter_image_slideshow: ^0.1.6
   readmore: ^2.2.0
   flutter_credit_card: ^4.0.1
+  flutter_speed_dial: ^7.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

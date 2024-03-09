@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:g_p_app/features/dashboard/dashboard_home.dart';
 import 'package:g_p_app/features/design_screens/design_categories/design_categories_view.dart';
 import 'package:g_p_app/features/design_screens/design_details_view.dart';
 import 'package:g_p_app/features/design_screens/design_explain_screen1.dart';
@@ -36,7 +37,7 @@ import '../features/product_details/product_details_view.dart';
 import '../features/splash_screen/splash_view.dart';
 
 class AppRoutes{
-  static const String initialRoute=HomeLayout.routeName;
+  static const String initialRoute=DashboardHomeScreen.routeName;
   static var appRoutes = <String, WidgetBuilder>{
     CustomSplashScreen.routeName:(context)=>CustomSplashScreen(),
     LoginScreenView.routeName:(context)=>LoginScreenView(),
@@ -73,5 +74,6 @@ class AppRoutes{
     DesignDetailsView.routeName:(context)=>DesignDetailsView(),
     DesignCategoriesView.routeName:(context)=>DesignCategoriesView(),
     ReviewsView.routeName:(context)=>ReviewsView(),
+    DashboardHomeScreen.routeName:(context)=>DashboardHomeScreen(),
   };
 }
