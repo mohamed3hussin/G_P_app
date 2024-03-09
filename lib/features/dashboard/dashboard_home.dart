@@ -54,7 +54,7 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen> {
       ),
       floatingActionButton: SpeedDial(
         overlayColor: CustomColors.darkGrey,
-        overlayOpacity: 0.6,
+        overlayOpacity: 0.7,
         backgroundColor: CustomColors.blue,
         animatedIcon: AnimatedIcons.menu_close,
         animatedIconTheme: IconThemeData(color: Colors.white,size: 30),
