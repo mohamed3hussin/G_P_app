@@ -6,10 +6,12 @@ import 'package:g_p_app/core/blocObserver/myBlocObserver.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_layout.dart';
 import 'package:g_p_app/routes/routes.dart';
 import 'core/cach_helper/cach_helper.dart';
+import 'data/api/api_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.init();
+  ApiManager.init();
   Bloc.observer = MyBlocObserver();
   runApp(const MyApp());
 }

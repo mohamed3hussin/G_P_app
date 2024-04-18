@@ -47,7 +47,7 @@ class loginBody extends StatelessWidget {
             type: TextInputType.visiblePassword,
             label: 'password',
             prefix: IconBroken.Lock,
-            suffix: LoginScreenViewModel.get(context).isPasswordShow? IconBroken.Show:IconBroken.Hide,
+            suffix: LoginScreenViewCubit.get(context).isPasswordShow? IconBroken.Show:IconBroken.Hide,
             validate: (value)
             {
               if(value!.isEmpty)
@@ -60,7 +60,7 @@ class loginBody extends StatelessWidget {
             },
             pressed: ()
             {
-              LoginScreenViewModel.get(context).PasswordShowed();
+              LoginScreenViewCubit.get(context).PasswordShowed();
             },
             fieldSubmitted: (value)
             {
@@ -69,7 +69,7 @@ class loginBody extends StatelessWidget {
 
               }
             },
-            isObscure: LoginScreenViewModel.get(context).isPasswordShow,
+            isObscure: LoginScreenViewCubit.get(context).isPasswordShow,
 
           ),
         ),

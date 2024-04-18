@@ -3,20 +3,17 @@ import 'package:g_p_app/data/model/response/login_response.dart';
 abstract class LoginStates{}
 
 class LoginInitialState extends LoginStates{}
+class LoginLoadingState extends LoginStates{}
+class LoginSuccessState extends LoginStates
+{
+  final LoginUserModel userModel;
 
-class LoginPasswordChange extends LoginStates{}
-class LoginLoadingState extends LoginStates{
-  String? loadingMsg;
-
-  LoginLoadingState({this.loadingMsg});
+  LoginSuccessState(this.userModel);
 }
-class LoginErrorState extends LoginStates{
-  String? errorMsg;
+class LoginErrorState extends LoginStates
+{
+  final String error;
 
-  LoginErrorState({this.errorMsg});
+  LoginErrorState(this.error);
 }
-class LoginSuccessState extends LoginStates{
-  LoginResponse response;
-
-  LoginSuccessState({required this.response});
-}
+class LoginShowPasswordState extends LoginStates{}

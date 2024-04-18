@@ -7,15 +7,17 @@ import 'package:g_p_app/features/home_screen/home_layout/home_layout.dart';
 import 'package:g_p_app/features/test.dart';
 
 import '../../../core/text_style/styles.dart';
+import '../loginCubit/loginState.dart';
 
 class LoginButton extends StatelessWidget {
   final void Function() func;
-  const LoginButton({super.key, required this.func});
+  final state;
+  const LoginButton({super.key, required this.func, this.state});
 
   @override
   Widget build(BuildContext context) {
     return ConditionalBuilder(
-      condition: true,
+      condition: state is! LoginLoadingState,
       builder: (context) => Center(
         child: CustomButton(
           width: double.infinity,

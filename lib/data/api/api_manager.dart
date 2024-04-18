@@ -7,30 +7,75 @@ import 'package:g_p_app/data/model/response/login_response.dart';
 
 class ApiManager{
 
-  static final Dio _dio = Dio();
-
-  static Future<LoginResponse?> login(String email, String password) async {
-    try {
-      var loginBody = LoginRequest(email: email, password: password);
-      final response = await _dio.post(
-        '${ApiConstants.baseUrl}${ApiConstants.loginApi}',
-        data: loginBody.toJson(), // Remove the curly braces and comma
-        options: Options(
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        ),
-      );
-
-      if (response.statusCode == 200) {
-        var loginResponse = LoginResponse.fromJson(response.data);
-        return loginResponse;
-      } else {
-        return LoginResponse(message: response.statusMessage);
-      }
-    } catch (error) {
-      // Handle errors
-      return LoginResponse(message: error.toString()); // Return null to indicate login failure
-    }
+  static late Dio dio ;
+  static init()
+  {
+    dio = Dio(
+      BaseOptions(
+        baseUrl: 'https://student.valuxapps.com/api/' ,
+        receiveDataWhenStatusError: true,
+      ),
+    );
+  }
+  static Future<Response> getData(
+      {
+        required String url,
+        Map<String,dynamic>? query,
+        String lang ='en',
+        String? token,
+      })async
+  {
+    dio.options.headers=
+    {
+      'Content-Type':'application/json',
+      'lang':lang,
+      'Authorization':token != null?token:'',
+    };
+    return await dio.get(
+      url,
+      queryParameters: query,
+    );
+  }
+  static Future<Response> updateData(
+      {
+        required String url,
+        Map<String,dynamic>? query,
+        required Map<String,dynamic> data,
+        String lang ='en',
+        String? token,
+      })async
+  {
+    dio.options.headers=
+    {
+      'Content-Type':'application/json',
+      'lang':lang,
+      'Authorization':token != null?token:'',
+    };
+    return await dio.put(
+      url,
+      queryParameters: query,
+      data: data,
+    );
+  }
+  static Future<Response> postData(
+      {
+        required String url,
+        Map<String,dynamic>? query,
+        required Map<String,dynamic> data,
+        String lang ='en',
+        String? token,
+      })async
+  {
+    dio.options.headers=
+    {
+      'Content-Type':'application/json',
+      'lang':lang,
+      'Authorization':token != null?token:'',
+    };
+    return await dio.post(
+      url,
+      queryParameters: query,
+      data: data,
+    );
   }
 }
