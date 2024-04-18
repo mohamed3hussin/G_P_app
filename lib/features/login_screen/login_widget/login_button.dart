@@ -9,9 +9,8 @@ import 'package:g_p_app/features/test.dart';
 import '../../../core/text_style/styles.dart';
 
 class LoginButton extends StatelessWidget {
-  final formKey;
-
-  const LoginButton({super.key, required this.formKey});
+  final void Function() func;
+  const LoginButton({super.key, required this.func});
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +22,7 @@ class LoginButton extends StatelessWidget {
           height: 50.h,
           backgroundColor: const Color(0xFF1B72C0),
           text: 'Log in',
-          func: () {
-            if (formKey.currentState!.validate()) {
-              Navigator.pushNamedAndRemoveUntil(context, HomeLayout.routeName,(route)=>false);
-            }
-          },
+          func: func,
           style: Styles.textStyle20.copyWith(color: Colors.white),
         ),
       ),
