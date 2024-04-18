@@ -15,6 +15,12 @@ import 'package:g_p_app/features/login_screen/loginScreenView.dart';
 import 'package:g_p_app/features/onBoarding_screen/onBoarding_view.dart';
 import 'package:g_p_app/features/product_details/reviews_view.dart';
 import 'package:g_p_app/features/signUpScreen/signUpScreenView.dart';
+import '../features/dashboard/widget/add_delivery.dart';
+import '../features/dashboard/widget/add_logo.dart';
+import '../features/dashboard/widget/add_product.dart';
+import '../features/dashboard/widget/edit_delivery.dart';
+import '../features/dashboard/widget/edit_item.dart';
+import '../features/dashboard/widget/edit_logo.dart';
 import '../features/design_screens/design_explain_screen3.dart';
 import '../features/forget_password_screens/forget_password_view.dart';
 import '../features/forget_password_screens/new_password.dart';
@@ -75,5 +81,11 @@ class AppRoutes{
     DesignCategoriesView.routeName:(context)=>DesignCategoriesView(),
     ReviewsView.routeName:(context)=>ReviewsView(),
     DashboardHomeScreen.routeName:(context)=>DashboardHomeScreen(),
+    EditItem.routeName:(context)=>EditItem(),
+    AddProduct.routeName:(context)=>AddProduct(),
+    EditLogo.routeName:(context)=>EditLogo(),
+    AddLogo.routeName:(context)=>AddLogo(),
+    AddDelivery.routeName:(context)=>AddDelivery(),
+    EditDelivery.routeName:(context)=>EditDelivery(),
   };
 }

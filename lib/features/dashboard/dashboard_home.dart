@@ -5,8 +5,13 @@ import 'package:g_p_app/core/text_style/styles.dart';
 import 'package:g_p_app/features/dashboard/delivery/delivery_dashbord.dart';
 import 'package:g_p_app/features/dashboard/logos/Logo_dashbord.dart';
 import 'package:g_p_app/features/dashboard/products/product_dashbord.dart';
+import 'package:g_p_app/features/dashboard/widget/add_delivery.dart';
+import 'package:g_p_app/features/dashboard/widget/add_logo.dart';
+import 'package:g_p_app/features/dashboard/widget/add_product.dart';
 import 'package:g_p_app/features/dashboard/widget/drawer.dart';
+import 'package:g_p_app/features/dashboard/widget/edit_item.dart';
 import 'package:g_p_app/features/dashboard/widget/search_field.dart';
+import '../home_screen/home_layout/home_screens/cart_screen/order_success.dart';
 import 'all_categories/all_category_dashbord.dart';
 
 class DashboardHomeScreen extends StatefulWidget {
@@ -63,18 +68,21 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen> {
         childrenButtonSize: Size(65,65),
         children: [
           SpeedDialChild(
+            onTap: ()=>Navigator.of(context).pushNamed(AddProduct.routeName),
             shape: CircleBorder(),
             child: Icon(Icons.add),
             labelWidget: Text('Add Product',style:Styles.textStyle16!.copyWith(color: Colors.black,fontWeight: FontWeight.w400)),
             labelBackgroundColor: Colors.transparent,
           ),
           SpeedDialChild(
+              onTap: ()=>Navigator.of(context).pushNamed(AddLogo.routeName),
               shape: CircleBorder(),
               child: Icon(Icons.add),
               labelWidget: Text('Add Logo',style:Styles.textStyle16!.copyWith(color: Colors.black,fontWeight: FontWeight.w400)),
               labelBackgroundColor: Colors.transparent,
          ),
           SpeedDialChild(
+              onTap:()=> Navigator.of(context).pushNamed(AddDelivery.routeName),
               shape: CircleBorder(),
               child: Icon(Icons.add),
             labelWidget: Text('Add Delivery Method',style:Styles.textStyle16!.copyWith(color: Colors.black,fontWeight: FontWeight.w400)),

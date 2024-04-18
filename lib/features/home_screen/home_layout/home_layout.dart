@@ -233,7 +233,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                               setState(() {
                                 currentScreen = WishListScreen();
                                 currentIndex = 2;
-                                title = 'Wish List';
+                                title = 'WishList';
                               });
                             },
                             child: Column(
@@ -246,7 +246,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                                       : Color(0xFF1B72C0),
                                 ),
                                 Text(
-                                  'Wish List',
+                                  'WishList',
                                   style: TextStyle(
                                     color: currentIndex == 2
                                         ? Color(0xFF74777F)

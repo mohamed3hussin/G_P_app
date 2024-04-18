@@ -43,7 +43,7 @@ class _ProfileItemWithSwitchState extends State<ProfileItemWithSwitch> {
                   child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 15.w),
                       child: Switch(
-                        trackOutlineWidth: MaterialStateProperty.all(1.5),
+                        //trackOutlineWidth: MaterialStateProperty.all(1.5),
                         value: isSwitched,
                         onChanged: (value){
                           isSwitched=value;

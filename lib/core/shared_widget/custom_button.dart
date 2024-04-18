@@ -16,6 +16,7 @@ class CustomButton extends StatelessWidget {
     this.height = 48,
     this.radius = 8,
     this.icon,
+    this.iconColor,
     required this.style,
   }) : super(key: key);
   final double? width;
@@ -29,6 +30,7 @@ class CustomButton extends StatelessWidget {
   final VoidCallback func;
   final TextStyle style;
   final IconData? icon;
+  final Color? iconColor;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +53,7 @@ class CustomButton extends StatelessWidget {
           children: [
             icon!=null?Padding(
               padding:EdgeInsets.symmetric(horizontal: 5.w),
-              child: Icon(icon),
+              child: Icon(icon,color: iconColor,),
             ):SizedBox(),
             Text(
               text,

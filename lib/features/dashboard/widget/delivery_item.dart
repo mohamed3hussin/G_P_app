@@ -5,6 +5,8 @@ import 'package:g_p_app/core/colors/colors.dart';
 import 'package:g_p_app/core/text_style/styles.dart';
 import 'package:g_p_app/features/dashboard/widget/delete_alert.dart';
 
+import 'edit_delivery.dart';
+
 class DeliveryItem extends StatelessWidget {
   const DeliveryItem({super.key});
 
@@ -52,8 +54,11 @@ class DeliveryItem extends StatelessWidget {
                             ],
                             borderRadius: BorderRadius.circular(50.r)
                         ),
-                        child: Icon(
-                          Icons.edit, color: Color(0xFFF8B84E), size: 21,),
+                        child: InkWell(
+                          onTap: ()=>Navigator.of(context).pushNamed(EditDelivery.routeName),
+                          child: Icon(
+                            Icons.edit, color: Color(0xFFF8B84E), size: 21,),
+                        ),
                       ),
                       SizedBox(width: 8.w,),
                       InkWell(

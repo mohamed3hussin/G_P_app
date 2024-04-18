@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:g_p_app/core/colors/colors.dart';
+import 'package:g_p_app/core/text_style/styles.dart';
 
 Widget defaultTextField({
   // final String? Function(String?)? validator,
@@ -17,6 +19,7 @@ Widget defaultTextField({
   Function(String)? fieldSubmitted ,
   bool? enable,
   Color background = const Color(0xFF001C38) ,
+  Color border = Colors.white,
   double radius = 10,
 }) =>
     TextFormField(
@@ -30,6 +33,7 @@ Widget defaultTextField({
         labelText: label,
         labelStyle: TextStyle(color: Colors.grey),
         hintText: hint,
+        hintStyle: Styles.textStyle14.copyWith(color: CustomColors.grey,fontWeight: FontWeight.w400),
         prefixIcon: prefix != null? Icon(prefix,color: Color(0xFF001E2F),) : null,
         suffixIcon: suffix != null
             ? IconButton(
@@ -48,7 +52,7 @@ Widget defaultTextField({
           borderRadius: BorderRadius.all(Radius.circular(radius.r)),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.white, width: 1.0),
+          borderSide: BorderSide(color: border, width: 1.0),
           borderRadius: BorderRadius.all(Radius.circular(radius.r)),
         ),
       ),

@@ -5,6 +5,7 @@ import 'package:g_p_app/core/colors/colors.dart';
 import 'package:g_p_app/core/text_style/styles.dart';
 
 import 'delete_alert.dart';
+import 'edit_item.dart';
 
 class ProductItem extends StatelessWidget {
   const ProductItem({super.key});
@@ -48,22 +49,25 @@ class ProductItem extends StatelessWidget {
                   SizedBox(width: 20.w,),
                   Row(
                     children: [
-                      Container(
-                        width: 25,
-                        height: 25,
-                        decoration: BoxDecoration(
-                          color: Color(0xFFFCFCFC),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color(0x3F000000),
-                                blurRadius: 6.60,
-                                offset: Offset(2, 4),
-                                spreadRadius: 0,
-                              )
-                            ],
-                          borderRadius: BorderRadius.circular(50.r)
+                      InkWell(
+                        onTap: ()=>Navigator.of(context).pushNamed(EditItem.routeName),
+                        child: Container(
+                          width: 25,
+                          height: 25,
+                          decoration: BoxDecoration(
+                            color: Color(0xFFFCFCFC),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color(0x3F000000),
+                                  blurRadius: 6.60,
+                                  offset: Offset(2, 4),
+                                  spreadRadius: 0,
+                                )
+                              ],
+                            borderRadius: BorderRadius.circular(50.r)
+                          ),
+                          child: Icon(Icons.edit,color: Color(0xFFF8B84E),size: 21,),
                         ),
-                        child: Icon(Icons.edit,color: Color(0xFFF8B84E),size: 21,),
                       ),
                       SizedBox(width: 8.w,),
                       InkWell(
