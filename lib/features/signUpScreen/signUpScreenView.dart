@@ -15,23 +15,48 @@ import 'package:g_p_app/features/signUpScreen/sign_up_widget/password_line.dart'
 import 'package:g_p_app/features/signUpScreen/sign_up_widget/sign_up_button.dart';
 import 'package:g_p_app/features/signUpScreen/sign_up_widget/sign_up_with_line.dart';
 
-class SignUpScreenView extends StatelessWidget {
+import '../home_screen/home_layout/home_layout.dart';
+
+class SignUpScreenView extends StatefulWidget {
 
   static const String routeName='signup_screen_view';
-  var formKey = GlobalKey<FormState>();
-  var nameController = TextEditingController();
-  var emailController = TextEditingController();
-  var passwordController = TextEditingController();
-  var confirmPasswordController = TextEditingController();
 
   SignUpScreenView({super.key});
+
+  @override
+  State<SignUpScreenView> createState() => _SignUpScreenViewState();
+}
+
+class _SignUpScreenViewState extends State<SignUpScreenView> {
+  var formKey = GlobalKey<FormState>();
+
+  var nameController = TextEditingController();
+
+  var emailController = TextEditingController();
+
+  var passwordController = TextEditingController();
+
+  var confirmPasswordController = TextEditingController();
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    nameController.dispose();
+    confirmPasswordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (BuildContext context)=>SignUpCubit(),
       child: BlocConsumer<SignUpCubit,SignUpState>(
-        listener: (context,state){},
+        listener: (context,state)
+        {
+          if(state is RegisterSuccessState)
+          {
+            Navigator.pushReplacementNamed(context, HomeLayout.routeName);
+          }
+        },
         builder: (context,state){
           return Scaffold(
             backgroundColor: Color(0xFFFCFCFF),
@@ -73,7 +98,16 @@ class SignUpScreenView extends StatelessWidget {
                       SizedBox(
                         height: 40.0.h,
                       ),
-                      SignUpButton(formKey:formKey),
+                      SignUpButton(func: () {
+                        if(formKey.currentState!.validate())
+                        {
+                          SignUpCubit.get(context).UserRegister(
+                              name: nameController.text,
+                              email: emailController.text,
+                              password: passwordController.text,
+                          );
+                        }
+                      },),
                       SizedBox(
                         height: 40.0.h,
                       ),

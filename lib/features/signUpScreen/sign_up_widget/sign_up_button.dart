@@ -5,9 +5,9 @@ import 'package:g_p_app/core/shared_widget/custom_button.dart';
 import 'package:g_p_app/core/text_style/styles.dart';
 
 class SignUpButton extends StatelessWidget {
-  final formKey;
+  final void Function() func;
 
-  const SignUpButton({super.key, required this.formKey});
+  const SignUpButton({super.key, required this.func});
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +19,8 @@ class SignUpButton extends StatelessWidget {
           height: 50.h,
           backgroundColor: Color(0xFF1B72C0),
           text: 'Sign Up',
-          func: () {
-            if(formKey.currentState!.validate())
-            {
-
-            }
-          }, style:Styles.textStyle20.copyWith(fontSize: 24,color: Colors.white),
+          func: func,
+          style:Styles.textStyle20.copyWith(fontSize: 24,color: Colors.white),
         ),
       ),
       fallback:(context)=>Center(child: CircularProgressIndicator()) ,

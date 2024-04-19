@@ -1,5 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:g_p_app/data/api/api_manager.dart';
 import 'package:g_p_app/features/signUpScreen/registerCubit/signUpState.dart';
+
+import '../../../data/model/response/login_response.dart';
 
 
 class SignUpCubit extends Cubit<SignUpState>{
@@ -18,5 +21,35 @@ class SignUpCubit extends Cubit<SignUpState>{
   {
     isConfirmPasswordShow = !isConfirmPasswordShow;
     emit(SignUpConfirmPasswordChange());
+  }
+
+  LoginUserModel? model;
+  void UserRegister({
+    required String name,
+    // required String phone,
+    required String email,
+    required String password,
+  })
+  {
+    emit(RegisterLoadingState());
+    ApiManager.postData(
+        url: 'register',
+        data:
+        {
+          'name':name,
+          // 'phone':phone,
+          'email':email,
+          'password':password,
+        }).then((value) {
+      model= LoginUserModel.fromJson(value.data);
+      // print(model!.status);
+      //print(model!.message);
+      //print(model!.data!.token);
+      emit(RegisterSuccessState(model!));
+    }).catchError((error)
+    {
+      print(error.toString());
+      emit(RegisterErrorState(error.toString()));
+    });
   }
 }
