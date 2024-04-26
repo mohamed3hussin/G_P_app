@@ -21,6 +21,7 @@ import '../features/dashboard/widget/add_product.dart';
 import '../features/dashboard/widget/edit_delivery.dart';
 import '../features/dashboard/widget/edit_item.dart';
 import '../features/dashboard/widget/edit_logo.dart';
+import '../features/design_screens/design_box_screen/design_box_screen.dart';
 import '../features/design_screens/design_explain_screen3.dart';
 import '../features/forget_password_screens/forget_password_view.dart';
 import '../features/forget_password_screens/new_password.dart';
@@ -87,5 +88,6 @@ class AppRoutes{
     AddLogo.routeName:(context)=>AddLogo(),
     AddDelivery.routeName:(context)=>AddDelivery(),
     EditDelivery.routeName:(context)=>EditDelivery(),
+    DrawingRoomScreen.routeName:(context)=>DrawingRoomScreen(),
   };
 }

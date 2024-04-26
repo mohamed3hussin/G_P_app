@@ -65,4 +65,5 @@ class AssetsData{
   static const String womenSweatshirts='assets/images/deb88ddb6e92c415457db475f5b73e2b.png';
   static const String womenSleeve='assets/images/5b7ddf13a5c389fd1ba5d2c9e215f5a4.png';
   static const String womenHoodies='assets/images/ad67aa87c739b25a8103d43623b0b7e5.png';
+  static const String DrawingImage='assets/images/drawing_image.png';
 }

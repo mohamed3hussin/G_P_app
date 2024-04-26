@@ -10,6 +10,7 @@ import 'package:mobkit_dashed_border/mobkit_dashed_border.dart';
 import '../../core/assets_data/iconBroken.dart';
 import '../../core/colors/colors.dart';
 import '../../core/text_style/styles.dart';
+import 'design_box_screen/design_box_screen.dart';
 
 class DesignDetailsView extends StatefulWidget {
   static const String routeName = 'design_details';
@@ -213,14 +214,20 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      CircleAvatar(
-                        radius: 25,
-                        backgroundColor: CustomColors.blue,
-                        child: Icon(
-                          Icons.edit,
-                          size: 25,
-                          color: Colors.white,
+                      InkWell(
+                        child: CircleAvatar(
+                          radius: 25,
+                          backgroundColor: CustomColors.blue,
+                          child: Icon(
+                            Icons.edit,
+                            size: 25,
+                            color: Colors.white,
+                          ),
                         ),
+                        onTap: ()
+                        {
+                          Navigator.pushNamed(context, DrawingRoomScreen.routeName);
+                        },
                       ),
                       CustomButton(
                         backgroundColor: CustomColors.blue,

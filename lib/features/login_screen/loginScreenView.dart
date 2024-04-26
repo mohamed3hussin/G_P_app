@@ -40,10 +40,10 @@ class _LoginScreenViewState extends State<LoginScreenView> {
           (
           listener: (context,state)
           {
-            if(state is LoginSuccessState)
-            {
-              Navigator.pushReplacementNamed(context, HomeLayout.routeName);
-            }
+            // if(state is LoginSuccessState)
+            // {
+            //   Navigator.pushReplacementNamed(context, HomeLayout.routeName);
+            // }
           },
           builder: (context,state)
           {
@@ -72,7 +72,8 @@ class _LoginScreenViewState extends State<LoginScreenView> {
                           {
                             if(formKey.currentState!.validate())
                             {
-                              cubit.UserLogin(email: emailController.text, password: passwordController.text);
+                              // cubit.UserLogin(email: emailController.text, password: passwordController.text);
+                              Navigator.pushReplacementNamed(context, HomeLayout.routeName);
                             }
                           },),
 
