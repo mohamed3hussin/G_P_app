@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:g_p_app/features/home_screen/home_layout/home_screens/home_screen/home_screen.dart';
-import '../../data/model/response/login_response.dart';
-import '../dialog_utils/dialog_utils.dart';
 import '../home_screen/home_layout/home_layout.dart';
 import 'loginCubit/loginCubit.dart';
 import 'loginCubit/loginState.dart';
@@ -40,10 +37,10 @@ class _LoginScreenViewState extends State<LoginScreenView> {
           (
           listener: (context,state)
           {
-            // if(state is LoginSuccessState)
-            // {
-            //   Navigator.pushReplacementNamed(context, HomeLayout.routeName);
-            // }
+            if(state is LoginSuccessState)
+            {
+              Navigator.pushReplacementNamed(context, HomeLayout.routeName);
+            }
           },
           builder: (context,state)
           {
@@ -72,8 +69,7 @@ class _LoginScreenViewState extends State<LoginScreenView> {
                           {
                             if(formKey.currentState!.validate())
                             {
-                              // cubit.UserLogin(email: emailController.text, password: passwordController.text);
-                              Navigator.pushReplacementNamed(context, HomeLayout.routeName);
+                              cubit.UserLogin(email: emailController.text, password: passwordController.text);
                             }
                           },),
 

@@ -10,7 +10,7 @@ class HaveAccountLine extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children:
       [
-        Text('Already have an account',style: Styles.textStyle16.copyWith(color: Color(0xFF44474E)),),
+        Text('Already have an account?',style: Styles.textStyle16.copyWith(color: Color(0xFF44474E)),),
         TextButton(
           onPressed: ()
           {

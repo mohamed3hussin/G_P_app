@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/core/assets_data/assetsData.dart';
 import 'package:g_p_app/core/assets_data/iconBroken.dart';
 import 'package:g_p_app/core/text_style/styles.dart';
+import 'package:g_p_app/features/login_screen/loginScreenView.dart';
 import 'package:g_p_app/features/signUpScreen/registerCubit/signUpCubit.dart';
 import 'package:g_p_app/features/signUpScreen/registerCubit/signUpState.dart';
 import 'package:g_p_app/features/signUpScreen/sign_up_widget/confirm_password_line.dart';
@@ -54,7 +55,7 @@ class _SignUpScreenViewState extends State<SignUpScreenView> {
         {
           if(state is RegisterSuccessState)
           {
-            Navigator.pushReplacementNamed(context, HomeLayout.routeName);
+            Navigator.pushReplacementNamed(context, LoginScreenView.routeName);
           }
         },
         builder: (context,state){

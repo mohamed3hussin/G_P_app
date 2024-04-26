@@ -16,10 +16,6 @@ class LoginScreenViewCubit extends Cubit<LoginStates>
     emit(LoginShowPasswordState());
   }
 
-
-
-
-
   LoginUserModel? model;
   void UserLogin({
     required String email,
@@ -29,7 +25,7 @@ class LoginScreenViewCubit extends Cubit<LoginStates>
 
     emit(LoginLoadingState());
     ApiManager.postData(
-        url: 'login',
+        url: 'accounts/Login',
         data:
         {
           'email':email,

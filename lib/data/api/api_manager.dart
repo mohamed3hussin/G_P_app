@@ -12,7 +12,7 @@ class ApiManager{
   {
     dio = Dio(
       BaseOptions(
-        baseUrl: 'https://student.valuxapps.com/api/' ,
+        baseUrl: 'https://1b37-102-40-150-89.ngrok-free.app/api/' ,
         receiveDataWhenStatusError: true,
       ),
     );
@@ -70,7 +70,7 @@ class ApiManager{
     {
       'Content-Type':'application/json',
       'lang':lang,
-      'Authorization':token != null?token:'',
+      'Authorization': 'Bearer ${token != null ? token : ''}',
     };
     return await dio.post(
       url,
