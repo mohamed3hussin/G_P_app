@@ -23,7 +23,7 @@ class LoginUserModel {
   bool? status;
   String? message;
   List<String>? errors;
-  UserData? data;
+  UserModel? data;
 
   LoginUserModel.fromJson(Map<String, dynamic>json)
   {
@@ -35,7 +35,7 @@ class LoginUserModel {
     satusCode = json['satusCode'];
     status = json['status'];
     message = json['message'];
-    data=json['data'] !=null?UserData.fromJson(json['data']):null;
+    data=json['data'] !=null?UserModel.fromJson(json['data']):null;
   }
 }
 class UserData

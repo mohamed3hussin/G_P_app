@@ -5,6 +5,7 @@ import 'package:g_p_app/core/assets_data/assetsData.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/home_screen/home_screen_widget/carousel_slider_widget.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/home_screen/home_screen_widget/categories_list_widget.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/home_screen/home_screen_widget/for_you_line.dart';
+import 'package:g_p_app/features/home_screen/home_layout/home_screens/home_screen/home_screen_widget/new_arrival_line.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/home_screen/home_screen_widget/product_item_widget.dart';
 import 'home_screen_widget/categories_line.dart';
 import 'home_screen_widget/categories_view_widget.dart';
@@ -36,6 +37,10 @@ class HomeScreen extends StatelessWidget {
             CategoriesViewWidget(categoriesModel),
             const ForYouLine(),
             ProductViewWidget(context),
+            SizedBox(height: 20.h,),
+            const NewArrivalLine(),
+            ProductViewWidget(context),
+            SizedBox(height: 80.h,),
           ],
         ),
       ),

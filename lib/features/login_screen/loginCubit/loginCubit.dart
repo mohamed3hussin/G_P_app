@@ -34,7 +34,6 @@ class LoginScreenViewCubit extends Cubit<LoginStates>
       model= LoginUserModel.fromJson(value.data);
       // print(model!.status);
       //print(model!.message);
-      //print(model!.data!.token);
       emit(LoginSuccessState(model!));
     }).catchError((error)
     {

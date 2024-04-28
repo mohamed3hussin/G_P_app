@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:g_p_app/core/cach_helper/cach_helper.dart';
 import '../home_screen/home_layout/home_layout.dart';
 import 'loginCubit/loginCubit.dart';
 import 'loginCubit/loginState.dart';
@@ -39,7 +40,9 @@ class _LoginScreenViewState extends State<LoginScreenView> {
           {
             if(state is LoginSuccessState)
             {
-              Navigator.pushReplacementNamed(context, HomeLayout.routeName);
+              CacheHelper.saveData(key: 'token', value: "Bearer ${state.userModel.data?.token}").then((value) => {
+              Navigator.pushReplacementNamed(context, HomeLayout.routeName)
+              });
             }
           },
           builder: (context,state)
