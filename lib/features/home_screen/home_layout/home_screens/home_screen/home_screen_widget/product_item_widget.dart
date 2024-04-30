@@ -8,7 +8,7 @@ import '../../../../../../core/text_style/styles.dart';
 
 Widget ProductItemBuilder(context, Data data) => InkWell(
       onTap: () {
-        Navigator.pushNamed(context, ProductDetailsView.routeName);
+        Navigator.pushNamed(context, ProductDetailsView.routeName,arguments: data);
       },
       child: Container(
         width: 150.w,

@@ -3,12 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:readmore/readmore.dart';
 import '../../../core/colors/colors.dart';
 import '../../../core/text_style/styles.dart';
+import '../../../data/model/response/AllProductResponse.dart';
 
 class ProductDescription extends StatelessWidget {
   const ProductDescription({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var args= ModalRoute.of(context)?.settings.arguments as Data;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -19,13 +21,7 @@ class ProductDescription extends StatelessWidget {
         SizedBox(
           height: 8.h,
         ),
-        ReadMoreText(
-          'Maecenas sagittis, dui at venenatis bibendum, dui '
-              'odio lobortis mauris, sit amet mollis odio felis '
-              'at justo. Sed a malesuada turpis, acimperdiet  turpis '
-              'Maecenas sagittis, dui at venenatis bibendum, dui '
-              'odio lobortis mauris, sit amet mollis odio felis '
-              'at justo. Sed a malesuada turpis, acimperdiet  turpis.',
+        ReadMoreText(args.description??'',
           trimLines: 2,
           trimMode: TrimMode.Line,
           lessStyle: Styles.textStyle14!

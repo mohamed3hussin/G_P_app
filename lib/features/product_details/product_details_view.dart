@@ -4,6 +4,7 @@ import 'package:g_p_app/core/assets_data/assetsData.dart';
 import 'package:g_p_app/core/assets_data/iconBroken.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:g_p_app/core/colors/colors.dart';
+import 'package:g_p_app/data/model/response/AllProductResponse.dart';
 import 'package:g_p_app/features/product_details/widgets/buttons_row.dart';
 import 'package:g_p_app/features/product_details/widgets/color_line.dart';
 import 'package:g_p_app/features/product_details/widgets/product_counter.dart';
@@ -13,14 +14,10 @@ import 'package:g_p_app/features/product_details/widgets/size_line.dart';
 
 class ProductDetailsView extends StatelessWidget {
   static const String routeName = 'product_details';
-  List<String> sliderImages = [
-    AssetsData.productDetails1,
-    AssetsData.productDetails2,
-    AssetsData.productDetails3
-  ];
 
   @override
   Widget build(BuildContext context) {
+    var args= ModalRoute.of(context)?.settings.arguments as Data;
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(
@@ -64,12 +61,12 @@ class ProductDetailsView extends StatelessWidget {
                     initialPage: 0,
                     indicatorColor: CustomColors.blue,
                     indicatorBottomPadding: 20.h,
-                    indicatorRadius: 5,
+                    indicatorRadius: 7,
                     isLoop: true,
-                    children: sliderImages
+                    children: args.productPictures!
                         .map((url) => Align(
                               alignment: Alignment.bottomCenter,
-                              child: Image.asset(
+                              child: Image.network(
                                 url,
                               ),
                             ))

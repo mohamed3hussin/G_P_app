@@ -50,23 +50,21 @@ class HomeScreen extends StatelessWidget {
                     const CategoriesLine(),
                     CategoriesViewWidget(categoriesModel),
                     ForYouLine(() {
-                      Navigator.pushNamed(context, SeeAllProductsScreen.routeName,
-                          arguments: cubit..getAllProduct());
+                      Navigator.pushNamed(context, SeeAllProductsScreen.routeName,arguments: StatesEnum.forYou);
                     }),
                     ProductViewWidget(context,cubit.allProducts!),
                     SizedBox(
                       height: 20.h,
                     ),
                     NewArrivalLine(() {
-                      Navigator.pushNamed(context, SeeAllProductsScreen.routeName,);
+                      Navigator.pushNamed(context, SeeAllProductsScreen.routeName,arguments: StatesEnum.newArrival);
                     }),
                     ProductViewWidget(context, cubit.newArrival!),
                     SizedBox(
                       height: 20.h,
                     ),
                     BestSellingLine(() {
-                      Navigator.pushNamed(context, SeeAllProductsScreen.routeName,
-                          arguments: cubit..getBestSellingProduct());
+                      Navigator.pushNamed(context, SeeAllProductsScreen.routeName,arguments: StatesEnum.bestSelling);
                     }),
                     bestSellingProductViewWidget(context,cubit.bestSelling!),
                     SizedBox(

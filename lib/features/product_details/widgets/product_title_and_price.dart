@@ -4,21 +4,23 @@ import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_sc
 import 'package:g_p_app/features/product_details/reviews_view.dart';
 import '../../../core/colors/colors.dart';
 import '../../../core/text_style/styles.dart';
+import '../../../data/model/response/AllProductResponse.dart';
 
 class ProductTitleLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var args= ModalRoute.of(context)?.settings.arguments as Data;
     return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Orlando Watch',
+              args.name??'',
               style: Styles.textStyle20!
                   .copyWith(color: CustomColors.blue, fontSize: 18),
             ),
-            RatingWidget(rating: 4),
+            RatingWidget(rating: args.averageRate??0),
           ],
         ),
         Row(
@@ -27,7 +29,7 @@ class ProductTitleLine extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  '\$120.00',
+                  args.price.toString(),
                   style: Styles.textStyle20!
                       .copyWith(color: CustomColors.green, fontSize: 18),
                 ),
@@ -35,7 +37,7 @@ class ProductTitleLine extends StatelessWidget {
                   width: 5.w,
                 ),
                 Text(
-                  '\$180.00',
+                  (args.price!/0.8).toStringAsFixed(2),
                   style: Styles.textStyle14!.copyWith(
                       color: CustomColors.darkGrey,
                       decoration: TextDecoration.lineThrough),
@@ -45,7 +47,7 @@ class ProductTitleLine extends StatelessWidget {
             Row(
               children: [
                 GestureDetector(
-                  onTap: (){Navigator.pushNamed(context, ReviewsView.routeName);},
+                  onTap: (){Navigator.pushNamed(context, ReviewsView.routeName,arguments: args);},
                   child: Text('View All Reviews',
                       style: Styles.textStyle14.copyWith(
                           decoration: TextDecoration.underline,
