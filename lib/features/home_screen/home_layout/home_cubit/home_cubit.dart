@@ -1,15 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:g_p_app/data/model/response/AllProductResponse.dart';
+import 'package:g_p_app/data/model/response/BestSellingProductResponse.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_state.dart';
-import '../../../../core/shared_widget/constants.dart';
 import '../../../../data/api/api_manager.dart';
+import '../../../../data/model/response/BestSellingProductResponse.dart';
+import '../../../../data/model/response/BestSellingProductResponse.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitialState());
 
   static HomeCubit get(context) => BlocProvider.of(context);
-
+  AllProducts? allProducts;
+  AllProducts? newArrival;
+  List<Data>? bestSelling;
   void getAllProduct({String sort = 'name'}) {
     emit(AllProductLoadingState());
     ApiManager.getData(
@@ -20,12 +24,34 @@ class HomeCubit extends Cubit<HomeState> {
         'PageIndex': '1',
         'PageSized': '3',
       },
-      token: token,
     ).then((response) {
-      emit(AllProductLoadedState(AllProducts.fromJson(response.data)));
-      if (response.data == null) {
-        emit(AllProductErrorState("Oops! no results!"));
-      }
+      allProducts=AllProducts.fromJson(response.data);
+      emit(AllProductLoadedState());
+      // if (response.data == null) {
+      //   emit(AllProductErrorState("Oops! no results!"));
+      // }
+    }).catchError((error) {
+      print(error.toString());
+      emit(AllProductErrorState(error.toString()));
+    });
+  }
+
+  void getNewArrivalProduct() {
+    emit(AllProductLoadingState());
+    ApiManager.getData(
+      url: 'Product',
+      query: {
+        'sort': 'DateOfCreation',
+        'isDesigned': 'false',
+        'PageIndex': '1',
+        'PageSized': '3',
+      },
+    ).then((response) {
+      newArrival=AllProducts.fromJson(response.data);
+      emit(AllProductLoadedState());
+      // if (response.data == null) {
+      //   emit(AllProductErrorState("Oops! no results!"));
+      // }
     }).catchError((error) {
       print(error.toString());
       emit(AllProductErrorState(error.toString()));
@@ -42,15 +68,14 @@ class HomeCubit extends Cubit<HomeState> {
         'PageIndex': '1',
         'PageSized': '3',
       },
-      token: token,
     ).then((response) {
       final List<dynamic> responseData = response.data;
-      final List<Data> products =
+      bestSelling =
           responseData.map((json) => Data.fromJson(json)).toList();
-      emit(BestSellingProductsLoadedState(products));
-      if (response.data == null) {
-        emit(BestSellingProductsErrorState("Oops! no results!"));
-      }
+      emit(BestSellingProductsLoadedState());
+      // if (response.data == null) {
+      //   emit(BestSellingProductsErrorState("Oops! no results!"));
+      // }
     }).catchError((error) {
       print(error.toString());
       emit(BestSellingProductsErrorState(error.toString()));

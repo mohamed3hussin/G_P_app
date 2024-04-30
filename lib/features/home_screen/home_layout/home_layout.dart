@@ -37,264 +37,261 @@ class _HomeLayoutState extends State<HomeLayout> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (BuildContext context) => HomeCubit(),
-      child: BlocConsumer<HomeCubit, HomeState>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          var homeCubit = HomeCubit.get(context);
-          return Scaffold(
-            extendBody: true,
-            appBar: AppBar(
-              toolbarHeight: 90.h,
-              backgroundColor: Color(0xFFEFF1F8),
-              leading: Container(
-                  padding: EdgeInsetsDirectional.symmetric(horizontal: 5.w),
-                  child: Image(image: AssetImage(AssetsData.loginImage))),
-              leadingWidth: 45.w,
-              title: currentIndex == 0
-                  ? Material(
-                      elevation: 5,
-                      borderRadius: BorderRadius.circular(10.sp),
-                      child: defaultSearchTextField(
-                        type: TextInputType.name,
-                        controller: searchController,
-                        label: 'Search anything here',
-                        prefix: IconBroken.Search,
-                        enable: false,
-                        validate: (value) {
-                          if (value!.isEmpty) {
-                            return 'Email most not empty';
-                          } else {
-                            return null;
-                          }
-                        },
-                      ),
-                    )
-                  : Text(
-                    title,
-                    style: Styles.textStyle24.copyWith(
-                        color: CustomColors.darkBlue,
-                        fontWeight: FontWeight.w700),
-                  ),
-              titleSpacing: 4,
-              actions: [
-                currentIndex == 0
-                    ? Padding(
-                      padding:EdgeInsets.symmetric(horizontal: 15.w),
-                      child: IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        IconBroken.Buy,
-                        color: Color(0xFF1B72C0),
-                        size: 30,
-                      )),
-                    )
-                    : Row(
-                      children: [
-                        IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              IconBroken.Search,
-                              color: Color(0xFF1B72C0),
-                              size: 30,
-                            )),
-                        IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              IconBroken.Buy,
-                              color: Color(0xFF1B72C0),
-                              size: 30,
-                            ))
-                      ],
+    return BlocConsumer<HomeCubit, HomeState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        var homeCubit = HomeCubit.get(context);
+        return Scaffold(
+          extendBody: true,
+          appBar: AppBar(
+            toolbarHeight: 90.h,
+            backgroundColor: Color(0xFFEFF1F8),
+            leading: Container(
+                padding: EdgeInsetsDirectional.symmetric(horizontal: 5.w),
+                child: Image(image: AssetImage(AssetsData.loginImage))),
+            leadingWidth: 45.w,
+            title: currentIndex == 0
+                ? Material(
+                    elevation: 5,
+                    borderRadius: BorderRadius.circular(10.sp),
+                    child: defaultSearchTextField(
+                      type: TextInputType.name,
+                      controller: searchController,
+                      label: 'Search anything here',
+                      prefix: IconBroken.Search,
+                      enable: false,
+                      validate: (value) {
+                        if (value!.isEmpty) {
+                          return 'Email most not empty';
+                        } else {
+                          return null;
+                        }
+                      },
                     ),
-              ],
-            ),
-            body: PageStorage(
-              bucket: bucket,
-              child: currentScreen,
-            ),
-            floatingActionButton: Container(
-              width: 65.w,
-              height: 65.h,
-              child: FloatingActionButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, DesignExplainScreenOne.routeName);
-                },
-                backgroundColor: Colors.transparent,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(35),
+                  )
+                : Text(
+                  title,
+                  style: Styles.textStyle24.copyWith(
+                      color: CustomColors.darkBlue,
+                      fontWeight: FontWeight.w700),
                 ),
-                child: Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    gradient: LinearGradient(
-                      begin: Alignment(0.69, -0.75),
-                      end: Alignment(-0.69, 0.72),
-                      colors: [Color(0xFFD3E4FF), Color(0xFF1B72C0)],
-                    ),
-                  ),
-                  child: Padding(
-                    padding:EdgeInsets.all(12.r),
-                    child: Image.asset(
-                      'assets/images/floating_action_button_img.png',
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerDocked,
-            bottomNavigationBar: Container(
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadiusDirectional.only(
-                    topEnd: Radius.circular(20), topStart: Radius.circular(20)),
-              ),
-              child: BottomAppBar(
-                color: Colors.white,
-                elevation: 1,
-                shape: const CircularNotchedRectangle(),
-                notchMargin: 7,
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                child: Container(
-                  height: 60.h,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            titleSpacing: 4,
+            actions: [
+              currentIndex == 0
+                  ? Padding(
+                    padding:EdgeInsets.symmetric(horizontal: 15.w),
+                    child: IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      IconBroken.Buy,
+                      color: Color(0xFF1B72C0),
+                      size: 30,
+                    )),
+                  )
+                  : Row(
                     children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          MaterialButton(
-                            minWidth: 40.w,
-                            onPressed: () {
-                              setState(() {
-                                currentScreen = HomeScreen();
-                                currentIndex = 0;
-                              });
-                            },
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  IconBroken.Home,
+                      IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            IconBroken.Search,
+                            color: Color(0xFF1B72C0),
+                            size: 30,
+                          )),
+                      IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            IconBroken.Buy,
+                            color: Color(0xFF1B72C0),
+                            size: 30,
+                          ))
+                    ],
+                  ),
+            ],
+          ),
+          body: PageStorage(
+            bucket: bucket,
+            child: currentScreen,
+          ),
+          floatingActionButton: Container(
+            width: 65.w,
+            height: 65.h,
+            child: FloatingActionButton(
+              onPressed: () {
+                Navigator.pushNamed(context, DesignExplainScreenOne.routeName);
+              },
+              backgroundColor: Colors.transparent,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(35),
+              ),
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: LinearGradient(
+                    begin: Alignment(0.69, -0.75),
+                    end: Alignment(-0.69, 0.72),
+                    colors: [Color(0xFFD3E4FF), Color(0xFF1B72C0)],
+                  ),
+                ),
+                child: Padding(
+                  padding:EdgeInsets.all(12.r),
+                  child: Image.asset(
+                    'assets/images/floating_action_button_img.png',
+                  ),
+                ),
+              ),
+            ),
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          bottomNavigationBar: Container(
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadiusDirectional.only(
+                  topEnd: Radius.circular(20), topStart: Radius.circular(20)),
+            ),
+            child: BottomAppBar(
+              color: Colors.white,
+              elevation: 1,
+              shape: const CircularNotchedRectangle(),
+              notchMargin: 7,
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              child: Container(
+                height: 60.h,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        MaterialButton(
+                          minWidth: 40.w,
+                          onPressed: () {
+                            setState(() {
+                              currentScreen = HomeScreen();
+                              currentIndex = 0;
+                            });
+                          },
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                IconBroken.Home,
+                                color: currentIndex == 0
+                                    ? Color(0xFF74777F)
+                                    : Color(0xFF1B72C0),
+                              ),
+                              Text(
+                                'Home',
+                                style: TextStyle(
                                   color: currentIndex == 0
                                       ? Color(0xFF74777F)
                                       : Color(0xFF1B72C0),
                                 ),
-                                Text(
-                                  'Home',
-                                  style: TextStyle(
-                                    color: currentIndex == 0
-                                        ? Color(0xFF74777F)
-                                        : Color(0xFF1B72C0),
-                                  ),
-                                )
-                              ],
-                            ),
+                              )
+                            ],
                           ),
-                          MaterialButton(
-                            minWidth: 40.w,
-                            onPressed: () {
-                              setState(() {
-                                currentScreen = CartScreen();
-                                currentIndex = 1;
-                                title = 'Cart';
-                              });
-                            },
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  IconBroken.Buy,
+                        ),
+                        MaterialButton(
+                          minWidth: 40.w,
+                          onPressed: () {
+                            setState(() {
+                              currentScreen = CartScreen();
+                              currentIndex = 1;
+                              title = 'Cart';
+                            });
+                          },
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                IconBroken.Buy,
+                                color: currentIndex == 1
+                                    ? Color(0xFF74777F)
+                                    : Color(0xFF1B72C0),
+                              ),
+                              Text(
+                                'Cart',
+                                style: TextStyle(
                                   color: currentIndex == 1
                                       ? Color(0xFF74777F)
                                       : Color(0xFF1B72C0),
                                 ),
-                                Text(
-                                  'Cart',
-                                  style: TextStyle(
-                                    color: currentIndex == 1
-                                        ? Color(0xFF74777F)
-                                        : Color(0xFF1B72C0),
-                                  ),
-                                )
-                              ],
-                            ),
+                              )
+                            ],
                           ),
-                        ],
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          MaterialButton(
-                            minWidth: 40.w,
-                            onPressed: () {
-                              setState(() {
-                                currentScreen = WishListScreen();
-                                currentIndex = 2;
-                                title = 'WishList';
-                              });
-                            },
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  IconBroken.Heart,
+                        ),
+                      ],
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        MaterialButton(
+                          minWidth: 40.w,
+                          onPressed: () {
+                            setState(() {
+                              currentScreen = WishListScreen();
+                              currentIndex = 2;
+                              title = 'WishList';
+                            });
+                          },
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                IconBroken.Heart,
+                                color: currentIndex == 2
+                                    ? Color(0xFF74777F)
+                                    : Color(0xFF1B72C0),
+                              ),
+                              Text(
+                                'WishList',
+                                style: TextStyle(
                                   color: currentIndex == 2
                                       ? Color(0xFF74777F)
                                       : Color(0xFF1B72C0),
                                 ),
-                                Text(
-                                  'WishList',
-                                  style: TextStyle(
-                                    color: currentIndex == 2
-                                        ? Color(0xFF74777F)
-                                        : Color(0xFF1B72C0),
-                                  ),
-                                )
-                              ],
-                            ),
+                              )
+                            ],
                           ),
-                          MaterialButton(
-                            minWidth: 40.w,
-                            onPressed: () {
-                              setState(() {
-                                currentScreen = ProfileScreenView();
-                                currentIndex = 3;
-                                title = 'Profile';
-                              });
-                            },
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  IconBroken.Profile,
+                        ),
+                        MaterialButton(
+                          minWidth: 40.w,
+                          onPressed: () {
+                            setState(() {
+                              currentScreen = ProfileScreenView();
+                              currentIndex = 3;
+                              title = 'Profile';
+                            });
+                          },
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                IconBroken.Profile,
+                                color: currentIndex == 3
+                                    ? Color(0xFF74777F)
+                                    : Color(0xFF1B72C0),
+                              ),
+                              Text(
+                                'Profile',
+                                style: TextStyle(
                                   color: currentIndex == 3
                                       ? Color(0xFF74777F)
                                       : Color(0xFF1B72C0),
                                 ),
-                                Text(
-                                  'Profile',
-                                  style: TextStyle(
-                                    color: currentIndex == 3
-                                        ? Color(0xFF74777F)
-                                        : Color(0xFF1B72C0),
-                                  ),
-                                )
-                              ],
-                            ),
+                              )
+                            ],
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

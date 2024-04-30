@@ -14,11 +14,7 @@ class HomeInitialState extends HomeState{}
 
 class AllProductInitialState extends HomeState {}
 class AllProductLoadingState extends HomeState {}
-class AllProductLoadedState extends HomeState {
-  final AllProducts allProductResponse;
-
-  AllProductLoadedState(this.allProductResponse);
-}
+class AllProductLoadedState extends HomeState {}
 class AllProductErrorState extends HomeState {
   final String errorMessage;
 
@@ -28,9 +24,6 @@ class AllProductErrorState extends HomeState {
 class BestSellingProductsInitialState extends HomeState {}
 class BestSellingProductsLoadingState extends HomeState {}
 class BestSellingProductsLoadedState extends HomeState {
-  final List<Data>? data;
-
-  BestSellingProductsLoadedState(this.data);
 }
 class BestSellingProductsErrorState extends HomeState {
   final String errorMessage;

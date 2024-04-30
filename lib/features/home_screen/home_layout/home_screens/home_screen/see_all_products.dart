@@ -8,74 +8,55 @@ import '../../home_cubit/home_state.dart';
 
 class SeeAllProductsScreen extends StatelessWidget {
   static const String routeName = '/see_all_products';
+  final data;
+
+  SeeAllProductsScreen({this.data});
 
   @override
   Widget build(BuildContext context) {
-    var args = ModalRoute.of(context)?.settings.arguments as HomeCubit;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('See All Products'),
-      ),
-      body: BlocBuilder<HomeCubit, HomeState>(
-        bloc: args,
-        builder: (context, state) {
-          if (state is BestSellingProductsLoadingState) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (state is BestSellingProductsLoadedState) {
-            return Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
-              child: Container(
-                  color: Colors.white,
-                  child: GridView.count(
-                    shrinkWrap: true,
-                    physics: BouncingScrollPhysics(),
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 8,
-                    crossAxisSpacing: 8,
-                    childAspectRatio: 1 / 1.65,
-                    children: List.generate(
-                        state.data!.length,
-                        (index) =>
-                            ProductItemBuilder(context, state.data![index])),
-                  )),
-            );
-          } else if (state is BestSellingProductsErrorState) {
-            return Center(
-              child: Text('Error: ${state.errorMessage}'),
-            );
-          }
-          if (state is AllProductLoadingState) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (state is AllProductLoadedState) {
-            return Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
-              child: Container(
-                  color: Colors.white,
-                  child: GridView.count(
-                    shrinkWrap: true,
-                    physics: BouncingScrollPhysics(),
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 8,
-                    crossAxisSpacing: 8,
-                    childAspectRatio: 1 / 1.65,
-                    children: List.generate(
-                        state.allProductResponse.data!.length,
-                        (index) => ProductItemBuilder(
-                            context, state.allProductResponse.data![index])),
-                  )),
-            );
-          } else if (state is AllProductErrorState) {
-            return Center(
-              child: Text('Error: ${state.errorMessage}'),
-            );
-          }
-          return Container();
-        },
-      ),
+    return BlocConsumer<HomeCubit, HomeState>(
+      listener: (context, state) => {},
+      builder: (context, state){
+        var cubit=HomeCubit.get(context);
+        return Scaffold(
+          appBar: AppBar(
+            title: Text('See All Products'),
+          ),
+          body: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+            child: Container(
+                color: Colors.white,
+                child: GridView.count(
+                  shrinkWrap: true,
+                  physics: BouncingScrollPhysics(),
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 8,
+                  crossAxisSpacing: 8,
+                  childAspectRatio: 1 / 1.65,
+                  children: List.generate(cubit.allProducts!.data!.length,
+                          (index) => ProductItemBuilder(context, cubit.allProducts!.data![index])),
+                )),
+          ),
+        );
+      } ,
     );
   }
 }
+
+// return Padding(
+// padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+// child: Container(
+// color: Colors.white,
+// child: GridView.count(
+// shrinkWrap: true,
+// physics: BouncingScrollPhysics(),
+// crossAxisCount: 2,
+// mainAxisSpacing: 8,
+// crossAxisSpacing: 8,
+// childAspectRatio: 1 / 1.65,
+// children: List.generate(
+// state.allProductResponse.data!.length,
+// (index) => ProductItemBuilder(
+// context, state.allProductResponse.data![index])),
+// )),
+// );
