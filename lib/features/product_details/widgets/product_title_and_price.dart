@@ -29,7 +29,7 @@ class ProductTitleLine extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  args.price.toString(),
+                  "${args.price.toString()} \$",
                   style: Styles.textStyle20!
                       .copyWith(color: CustomColors.green, fontSize: 18),
                 ),
@@ -37,7 +37,7 @@ class ProductTitleLine extends StatelessWidget {
                   width: 5.w,
                 ),
                 Text(
-                  (args.price!/0.8).toStringAsFixed(2),
+                  "${(args.price!/0.8).toStringAsFixed(2)} \$ ",
                   style: Styles.textStyle14!.copyWith(
                       color: CustomColors.darkGrey,
                       decoration: TextDecoration.lineThrough),

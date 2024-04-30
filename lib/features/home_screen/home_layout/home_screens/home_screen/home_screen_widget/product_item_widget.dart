@@ -72,14 +72,14 @@ Widget ProductItemBuilder(context, Data data) => InkWell(
                     SizedBox(
                       height: 5.h,
                     ),
-                    Text(data.price.toString() ?? '',
+                    Text("${data.price.toString()} \$ " ?? '',
                         style: Styles.textStyle14.copyWith(
                             color: Colors.black, fontWeight: FontWeight.w500)),
                     Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          (data.price!/0.8).toStringAsFixed(2),
+                          "${(data.price!/0.8).toStringAsFixed(2)} \$ ",
                           style: Styles.textStyle12.copyWith(
                               color: Colors.grey,
                               decoration: TextDecoration.lineThrough),
