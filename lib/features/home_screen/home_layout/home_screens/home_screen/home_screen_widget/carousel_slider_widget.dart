@@ -26,7 +26,7 @@ class CarouselSliderWidget extends StatelessWidget {
               ),
             )).toList(), options: CarouselOptions(
         autoPlay: true,
-        height: 160.h,
+        height: 185.h,
         initialPage: 0,
         viewportFraction: 1.0,
         enableInfiniteScroll: false,

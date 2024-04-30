@@ -50,6 +50,7 @@ dependencies:
   timeline_tile: ^2.0.0
   mobkit_dashed_border: ^0.0.5
   flutter_image_slideshow: ^0.1.6
+  cached_network_image: ^3.3.1
   readmore: ^2.2.0
   flutter_credit_card: ^4.0.1
   flutter_speed_dial: ^7.0.0

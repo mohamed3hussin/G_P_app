@@ -1,4 +1,5 @@
 import 'package:g_p_app/data/model/response/login_response.dart';
+import 'package:g_p_app/data/model/response/register_response.dart';
 
 abstract class SignUpState{}
 
@@ -9,7 +10,7 @@ class SignUpConfirmPasswordChange extends SignUpState{}
 class RegisterLoadingState extends SignUpState{}
 class RegisterSuccessState extends SignUpState
 {
-  final LoginUserModel model;
+  final RegisterSuccessResponse model;
 
   RegisterSuccessState(this.model);
 }

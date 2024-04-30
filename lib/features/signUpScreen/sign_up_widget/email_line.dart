@@ -17,15 +17,17 @@ class EmailLine extends StatelessWidget {
         controller: emailController,
         label: 'Email',
         prefix: Icons.email,
-        validate: (value)
-        {
-          if(value!.isEmpty)
-          {
-
-            return 'email most not empty';
+        validate: (value) {
+          if (value!.isEmpty) {
+            return 'Email must not empty';
           }
-          else{
-            return null;}
+          bool emailValid = RegExp(
+              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+              .hasMatch(value);
+          if (!emailValid) {
+            return 'Enter a valid email!';
+          }
+          return null;
         },
       ),
     );

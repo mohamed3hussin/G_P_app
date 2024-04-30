@@ -1,8 +1,6 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:g_p_app/data/api/api_constants.dart';
-import 'package:g_p_app/data/model/request/login_request.dart';
 import 'package:g_p_app/data/model/response/login_response.dart';
 
 class ApiManager{
@@ -12,7 +10,7 @@ class ApiManager{
   {
     dio = Dio(
       BaseOptions(
-        baseUrl: 'https://70f6-41-233-222-185.ngrok-free.app/api/' ,
+        baseUrl: 'https://744d-102-41-111-145.ngrok-free.app/api/' ,
         receiveDataWhenStatusError: true,
       ),
     );
@@ -29,7 +27,7 @@ class ApiManager{
     {
       'Content-Type':'application/json',
       'lang':lang,
-      'Authorization':'Bearer ${token != null ? token : ''}',
+      'Authorization':'$token'
     };
     return await dio.get(
       url,
@@ -49,7 +47,7 @@ class ApiManager{
     {
       'Content-Type':'application/json',
       'lang':lang,
-      'Authorization':'Bearer ${token != null ? token : ''}',
+      'Authorization':'$token'
     };
     return await dio.put(
       url,
@@ -70,7 +68,7 @@ class ApiManager{
     {
       'Content-Type':'application/json',
       'lang':lang,
-      'Authorization': 'Bearer ${token != null ? token : ''}',
+      'Authorization':'$token'
     };
     return await dio.post(
       url,

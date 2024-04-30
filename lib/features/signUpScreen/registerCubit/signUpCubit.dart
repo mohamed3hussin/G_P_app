@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:g_p_app/data/api/api_manager.dart';
+import 'package:g_p_app/data/model/response/register_response.dart';
 import 'package:g_p_app/features/signUpScreen/registerCubit/signUpState.dart';
 import '../../../data/model/response/login_response.dart';
 
@@ -21,34 +22,21 @@ class SignUpCubit extends Cubit<SignUpState>{
     isConfirmPasswordShow = !isConfirmPasswordShow;
     emit(SignUpConfirmPasswordChange());
   }
-
-  LoginUserModel? model;
-  void UserRegister({
+  void userRegister({
     required String name,
     required String email,
     required String password,
-  })
-  {
+  }) {
     emit(RegisterLoadingState());
     ApiManager.postData(
-        url: 'accounts/Register',
-        data:
-        {
-          'displayName':name,
-          'email':email,
-          'password':password,
-        }).then((value) {
-      model= LoginUserModel.fromJson(value.data);
-      //print(model!.status);
-      //print(model!.message);
-      //print(model!.data!.token);
-      emit(RegisterSuccessState(model!));
-    }).catchError((error)
-    {
-      print('=======================================================');
-      print(error.toString());
-      print('=======================================================');
-      emit(RegisterErrorState(error.toString()));
+      url: 'accounts/Register',
+      data: RegisterRequest(displayName: name,email: email, password: password).toJson(),
+    ).then((value) {
+      final response = RegisterSuccessResponse.fromJson(value.data);
+      emit(RegisterSuccessState(response));
+    }).catchError((error) {
+      final response = ErrorResponse.fromJson(error.response.data);
+      emit(RegisterErrorState(response.message));
     });
   }
 }

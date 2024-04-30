@@ -9,7 +9,6 @@ import 'package:g_p_app/core/text_style/styles.dart';
 import 'package:g_p_app/features/login_screen/loginScreenView.dart';
 import 'package:g_p_app/features/signUpScreen/registerCubit/signUpCubit.dart';
 import 'package:g_p_app/features/signUpScreen/registerCubit/signUpState.dart';
-import 'package:g_p_app/features/signUpScreen/sign_up_widget/confirm_password_line.dart';
 import 'package:g_p_app/features/signUpScreen/sign_up_widget/email_line.dart';
 import 'package:g_p_app/features/signUpScreen/sign_up_widget/full_name_line.dart';
 import 'package:g_p_app/features/signUpScreen/sign_up_widget/have_account_line.dart';
@@ -57,15 +56,15 @@ class _SignUpScreenViewState extends State<SignUpScreenView> {
             Navigator.pushReplacementNamed(context, LoginScreenView.routeName);
           }
           if (state is RegisterErrorState){
-              WidgetsBinding.instance!.addPostFrameCallback((_) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(state.error,style: Styles.textStyle16,),
-                    backgroundColor: CustomColors.lightGrey,
-                  ),
-                );
-              });
-            }
+            WidgetsBinding.instance!.addPostFrameCallback((_) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Center(child: Text(state.error,style: Styles.textStyle16,)),
+                  backgroundColor: CustomColors.red,
+                ),
+              );
+            });
+          }
         },
         builder: (context, state) {
           return Scaffold(
@@ -115,14 +114,8 @@ class _SignUpScreenViewState extends State<SignUpScreenView> {
                       ),
                       PasswordLine(
                           passwordController: passwordController,
+                          confirmPasswordController: confirmPasswordController,
                           formKey: formKey),
-                      SizedBox(
-                        height: 20.0.h,
-                      ),
-                      ConfirmPasswordLine(
-                        confirmPasswordController: confirmPasswordController,
-                        formKey: formKey,
-                      ),
                       SizedBox(
                         height: 40.0.h,
                       ),
@@ -130,7 +123,7 @@ class _SignUpScreenViewState extends State<SignUpScreenView> {
                         state: state,
                         func: () {
                           if (formKey.currentState!.validate()) {
-                            SignUpCubit.get(context).UserRegister(
+                            SignUpCubit.get(context).userRegister(
                               name: nameController.text,
                               email: emailController.text,
                               password: passwordController.text,

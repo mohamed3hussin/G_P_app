@@ -5,10 +5,10 @@ import 'package:g_p_app/core/shared_widget/default_text.dart';
 import 'package:g_p_app/features/login_screen/loginCubit/loginCubit.dart';
 
 class loginBody extends StatelessWidget {
-  final emailController ;
+  final emailController;
+
   final passwordController;
   final formKey;
-
 
   loginBody({this.emailController, this.passwordController, this.formKey});
 
@@ -24,15 +24,17 @@ class loginBody extends StatelessWidget {
             controller: emailController,
             label: 'User Name',
             prefix: IconBroken.Profile,
-            validate: (value)
-            {
-              if(value!.isEmpty)
-              {
-
+            validate: (value) {
+              if (value!.isEmpty) {
                 return 'Email must not empty';
               }
-              else{
-                return null;}
+              bool emailValid = RegExp(
+                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                  .hasMatch(value);
+              if (!emailValid) {
+                return 'Enter a valid email!';
+              }
+              return null;
             },
           ),
         ),
@@ -47,30 +49,29 @@ class loginBody extends StatelessWidget {
             type: TextInputType.visiblePassword,
             label: 'password',
             prefix: IconBroken.Lock,
-            suffix: LoginScreenViewCubit.get(context).isPasswordShow? IconBroken.Show:IconBroken.Hide,
-            validate: (value)
-            {
-              if(value!.isEmpty)
-              {
-
+            suffix: LoginScreenViewCubit.get(context).isPasswordShow
+                ? IconBroken.Show
+                : IconBroken.Hide,
+            validate: (value) {
+              if (value!.isEmpty) {
                 return 'Password must not empty';
               }
-              else{
-                return null;}
-            },
-            pressed: ()
-            {
-              LoginScreenViewCubit.get(context).PasswordShowed();
-            },
-            fieldSubmitted: (value)
-            {
-              if(formKey.currentState!.validate())
-              {
-
+              bool passValid = RegExp(
+                      r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
+                  .hasMatch(value);
+              if (!passValid) {
+                return 'Enter a valid password!';
+              } else {
+                return null;
               }
             },
+            pressed: () {
+              LoginScreenViewCubit.get(context).PasswordShowed();
+            },
+            fieldSubmitted: (value) {
+              if (formKey.currentState!.validate()) {}
+            },
             isObscure: LoginScreenViewCubit.get(context).isPasswordShow,
-
           ),
         ),
       ],

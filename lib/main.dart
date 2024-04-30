@@ -10,13 +10,14 @@ import 'package:g_p_app/features/home_screen/home_layout/home_layout.dart';
 import 'package:g_p_app/features/login_screen/loginScreenView.dart';
 import 'package:g_p_app/routes/routes.dart';
 import 'core/cach_helper/cach_helper.dart';
+import 'core/shared_widget/constants.dart';
 import 'data/api/api_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.init();
   ApiManager.init();
-  String? token=CacheHelper.getData(key:'token');
+  token=CacheHelper.getData(key:'token');
   if(token !=null) {
     AppRoutes.initialRoute =HomeLayout.routeName;
   } else {

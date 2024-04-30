@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:g_p_app/core/text_style/styles.dart';
 
-class NewArrivalLine extends StatelessWidget {
+class BestSellingLine extends StatelessWidget {
   Function function;
-  NewArrivalLine(this.function);
+  BestSellingLine(this.function);
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Text(
-          'New Arrival',
+          'Best Selling',
           style: Styles.textStyle16.copyWith(fontWeight: FontWeight.w700,color: Color(0xFF1B72C0)),),
         Spacer(),
         TextButton(

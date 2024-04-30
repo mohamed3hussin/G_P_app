@@ -16,34 +16,21 @@ class LoginScreenViewCubit extends Cubit<LoginStates>
     emit(LoginShowPasswordState());
   }
 
-  LoginUserModel? model;
-  void UserLogin({
+  void userLogin({
     required String email,
     required String password,
-  })
-  {
-
+  }) {
     emit(LoginLoadingState());
     ApiManager.postData(
-        url: 'accounts/Login',
-        data:
-        {
-          'email':email,
-          'password':password,
-        }).then((value) {
-      model= LoginUserModel.fromJson(value.data);
-      // print(model!.status);
-      //print(model!.message);
-      emit(LoginSuccessState(model!));
-    }).catchError((error)
-    {
-      print('=======================================================');
-      print(error.toString());
-      print('=======================================================');
-      emit(LoginErrorState(error.toString()));
-    });
+      url: 'accounts/Login',
+      data: LoginRequest(email: email, password: password).toJson(),
+    ).then((value) {
+      final response = LoginSuccessResponse.fromJson(value.data);
+      emit(LoginSuccessState(response));
+    }).catchError((error) {
+      final response = ErrorResponse.fromJson(error.response.data);
+      emit(LoginErrorState(response.message));
+      });
   }
-
-
 
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:g_p_app/core/cach_helper/cach_helper.dart';
+import '../../core/colors/colors.dart';
+import '../../core/text_style/styles.dart';
 import '../home_screen/home_layout/home_layout.dart';
 import 'loginCubit/loginCubit.dart';
 import 'loginCubit/loginState.dart';
@@ -40,8 +42,18 @@ class _LoginScreenViewState extends State<LoginScreenView> {
           {
             if(state is LoginSuccessState)
             {
-              CacheHelper.saveData(key: 'token', value: "Bearer ${state.userModel.data?.token}").then((value) => {
+              CacheHelper.saveData(key: 'token', value: "Bearer ${state.userModel.token}").then((value) => {
               Navigator.pushReplacementNamed(context, HomeLayout.routeName)
+              });
+            }
+            if (state is LoginErrorState){
+              WidgetsBinding.instance!.addPostFrameCallback((_) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Center(child: Text("${state.error}!",style: Styles.textStyle16,)),
+                    backgroundColor: CustomColors.red,
+                  ),
+                );
               });
             }
           },
@@ -72,7 +84,7 @@ class _LoginScreenViewState extends State<LoginScreenView> {
                           {
                             if(formKey.currentState!.validate())
                             {
-                              cubit.UserLogin(email: emailController.text, password: passwordController.text);
+                              cubit.userLogin(email: emailController.text, password: passwordController.text);
                             }
                           },),
 

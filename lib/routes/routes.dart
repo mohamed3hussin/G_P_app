@@ -5,6 +5,7 @@ import 'package:g_p_app/features/design_screens/design_details_view.dart';
 import 'package:g_p_app/features/design_screens/design_explain_screen1.dart';
 import 'package:g_p_app/features/design_screens/design_explain_screen2.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_layout.dart';
+import 'package:g_p_app/features/home_screen/home_layout/home_screens/home_screen/see_all_products.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/account_screen.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/phone/phone_number_view.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/phone/phone_verification.dart';
@@ -89,5 +90,6 @@ class AppRoutes{
     AddDelivery.routeName:(context)=>AddDelivery(),
     EditDelivery.routeName:(context)=>EditDelivery(),
     DrawingRoomScreen.routeName:(context)=>DrawingRoomScreen(),
+    SeeAllProductsScreen.routeName:(context)=>SeeAllProductsScreen()
   };
 }
