@@ -42,7 +42,7 @@ class SeeAllProductsScreen extends StatelessWidget {
                     crossAxisSpacing: 8,
                     childAspectRatio: 1 / 1.65,
                     children: List.generate(data.length,
-                        (index) => ProductItemBuilder(context, data[index])),
+                        (index) => ProductItemBuilder(data[index])),
                   )),
               fallback: (context) => Center(
                 child: CircularProgressIndicator(
@@ -69,21 +69,3 @@ List<Data> selectSeeAllScreenContent(StatesEnum states,HomeCubit cubit) {
       return cubit.bestSelling ?? [];
   }
 }
-
-// return Padding(
-// padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
-// child: Container(
-// color: Colors.white,
-// child: GridView.count(
-// shrinkWrap: true,
-// physics: BouncingScrollPhysics(),
-// crossAxisCount: 2,
-// mainAxisSpacing: 8,
-// crossAxisSpacing: 8,
-// childAspectRatio: 1 / 1.65,
-// children: List.generate(
-// state.allProductResponse.data!.length,
-// (index) => ProductItemBuilder(
-// context, state.allProductResponse.data![index])),
-// )),
-// );

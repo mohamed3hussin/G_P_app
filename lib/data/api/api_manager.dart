@@ -1,7 +1,5 @@
-import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:g_p_app/data/api/api_constants.dart';
-import 'package:g_p_app/data/model/response/login_response.dart';
+
 
 class ApiManager{
 
@@ -10,7 +8,7 @@ class ApiManager{
   {
     dio = Dio(
       BaseOptions(
-        baseUrl: 'https://744d-102-41-111-145.ngrok-free.app/api/' ,
+        baseUrl: 'https://e3e5-102-44-145-198.ngrok-free.app/api/' ,
         receiveDataWhenStatusError: true,
       ),
     );
@@ -27,7 +25,7 @@ class ApiManager{
     {
       'Content-Type':'application/json',
       'lang':lang,
-      'Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9naXZlbm5hbWUiOiJtYWhtb29kbWlkb1Rlc3QxIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoibWFobW9vZG1pZG8xQGdtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IlVzZXIiLCJleHAiOjE3MTQ2NDcwMDQsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjcwODQiLCJhdWQiOiJNeVNlY3VyZUtleSJ9.jupEjS0kEakRZ44QeIZo_l69zV3d0LPlPdVxr93mKQs'
+      'Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9naXZlbm5hbWUiOiJhZG1pbiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6Im1haG1vb2RAZ21haWwuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiVXNlciIsImV4cCI6MTcxNDgzMjg3NSwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NzA4NCIsImF1ZCI6Ik15U2VjdXJlS2V5In0.8Jiyo-sM1Q6SjEjKKfTppEPumH67i6UksYXsJIgk5dg'
     };
     return await dio.get(
       url,

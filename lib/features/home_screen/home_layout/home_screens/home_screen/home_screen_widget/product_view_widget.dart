@@ -14,7 +14,7 @@ Widget ProductViewWidget(BuildContext context,AllProducts data) => Container(
     physics: BouncingScrollPhysics(),
     scrollDirection: Axis.horizontal,
     itemBuilder: (context, index) {
-      return ProductItemBuilder(context, data.data![index]);
+      return ProductItemBuilder(data.data![index]);
     },
     itemCount: data.data!.length,
     separatorBuilder: (BuildContext context, int index) => SizedBox(
@@ -29,7 +29,7 @@ Widget bestSellingProductViewWidget(BuildContext context,List<Data> bestSelling)
     physics: BouncingScrollPhysics(),
     scrollDirection: Axis.horizontal,
     itemBuilder: (context, index) {
-      return ProductItemBuilder(context, bestSelling![index]);
+      return ProductItemBuilder(bestSelling![index]);
     },
     itemCount: bestSelling!.length,
     separatorBuilder: (BuildContext context, int index) => SizedBox(
@@ -37,61 +37,4 @@ Widget bestSellingProductViewWidget(BuildContext context,List<Data> bestSelling)
     ),
   ),
 );
-// Widget newArrivalProductViewWidget(BuildContext context, {String sort = 'name'}) => BlocBuilder(
-//   bloc: HomeCubit.get(context)..getNewArrivalProduct(),
-//   builder: (BuildContext context, state) {
-//     if (state is AllProductLoadedState) {
-//       data = state.allProductResponse.data!;
-//       return Container(
-//         height: 300.h,
-//         child: ListView.separated(
-//           physics: BouncingScrollPhysics(),
-//           scrollDirection: Axis.horizontal,
-//           itemBuilder: (context, index) {
-//             return ProductItemBuilder(context, data[index]);
-//           },
-//           itemCount: data.length,
-//           separatorBuilder: (BuildContext context, int index) => SizedBox(
-//             width: 15.h,
-//           ),
-//         ),
-//       );
-//    }
-//     if (state is AllProductErrorState) {
-//       return Text(state.errorMessage);
-//     } else {
-//       return CircularProgressIndicator(
-//         color: CustomColors.blue,
-//       );
-//     }
-//   },
-// );
-// Widget bestProductViewWidget(context, {String sort = 'name'}) => BlocBuilder(
-//       bloc: HomeCubit.get(context)..getBestSellingProduct(sort: sort),
-//       builder: (BuildContext context, state) {
-//         if (state is BestSellingProductsLoadedState) {
-//           data = state.data!;
-//           return Container(
-//             height: 300.h,
-//             child: ListView.separated(
-//               physics: BouncingScrollPhysics(),
-//               scrollDirection: Axis.horizontal,
-//               itemBuilder: (context, index) {
-//                 return ProductItemBuilder(context, data[index]);
-//               },
-//               itemCount: 5,
-//               separatorBuilder: (BuildContext context, int index) => SizedBox(
-//                 width: 15.h,
-//               ),
-//             ),
-//           );
-//         }
-//         if (state is BestSellingProductsErrorState) {
-//           return Text(state.errorMessage);
-//         } else {
-//           return CircularProgressIndicator(
-//             color: CustomColors.blue,
-//           );
-//         }
-//       },
-//     );
+

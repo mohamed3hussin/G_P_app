@@ -30,3 +30,14 @@ class BestSellingProductsErrorState extends HomeState {
 
   BestSellingProductsErrorState(this.errorMessage);
 }
+
+
+class LogosInitialState extends HomeState {}
+class LogosLoadingState extends HomeState {}
+class LogosLoadedState extends HomeState {
+}
+class LogosErrorState extends HomeState {
+  final String errorMessage;
+
+  LogosErrorState(this.errorMessage);
+}

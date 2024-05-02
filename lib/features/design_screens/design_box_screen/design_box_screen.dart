@@ -169,7 +169,7 @@ class _DrawingRoomScreenState extends State<DrawingRoomScreen> {
                 children:
                 [
                   Padding(
-                    padding: EdgeInsetsDirectional.symmetric(horizontal: 10.w),
+                    padding: EdgeInsetsDirectional.symmetric(horizontal: 5.w),
                     child: CustomButton(
                         backgroundColor: CustomColors.blue,
                         text: 'Add To Cart',
@@ -182,7 +182,7 @@ class _DrawingRoomScreenState extends State<DrawingRoomScreen> {
                   ),
 
                   Padding(
-                    padding: EdgeInsetsDirectional.symmetric(horizontal: 7.w),
+                    padding: EdgeInsetsDirectional.symmetric(horizontal: 5.w),
                     child: CustomButton(
                       backgroundColor: Color(0xffFDFDFD),
                       text: '',
@@ -219,7 +219,7 @@ class _DrawingRoomScreenState extends State<DrawingRoomScreen> {
                     iconColor: CustomColors.blue,
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.symmetric(horizontal: 10.w),
+                    padding: EdgeInsetsDirectional.symmetric(horizontal: 5.w),
                     child: CustomButton(
                       backgroundColor: Color(0xffFDFDFD),
                       text: '',

@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:g_p_app/core/colors/colors.dart';
 import '../../../../../../core/text_style/styles.dart';
 
-Widget CollectionList(CollectionModel model)=>Column(
+Widget CollectionList(CollectionModel model,bool isSelected)=>Column(
   children: [
     Stack(
       alignment: AlignmentDirectional.center,
       children: [
-        CircleAvatar(
-          radius: 45.0,
-          backgroundImage: AssetImage(model.image),
-          backgroundColor: Colors.grey[300],
+        Container(
+          decoration: ShapeDecoration(shape: OvalBorder(side: isSelected?BorderSide(color: Colors.black,width: 2):BorderSide(color: Colors.white))),
+          child: CircleAvatar(
+            radius: 45.0,
+            backgroundImage: AssetImage(model.image),
+            backgroundColor: Colors.grey[300],
+          ),
         ),
       ],
     ),

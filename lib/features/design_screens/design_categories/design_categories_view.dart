@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:g_p_app/features/design_screens/design_categories/best_selling_category.dart';
+import 'package:g_p_app/features/design_screens/design_categories/unisex_design_category.dart';
 import 'package:g_p_app/features/design_screens/design_categories/women_design_category.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/categories_screen/filtered_categories/tab_item.dart';
 import '../../../core/assets_data/iconBroken.dart';
@@ -16,8 +16,8 @@ class DesignCategoriesView extends StatefulWidget {
 }
 class _DesignCategoriesViewState extends State<DesignCategoriesView> {
   int selectedIndex = 0;
-  List<String> categoryList = ['best selling', 'men', 'women', 'unisex'];
-  List<Widget> body=[BestSellingCategoryView(),MenDesignCategoryView(),WomenDesignCategoryView(),SizedBox()];
+  List<String> categoryList = ['men', 'women', 'unisex'];
+  List<Widget> body=[MenDesignCategoryView(),WomenDesignCategoryView(),UniSexDesignCategoryView()];
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +77,6 @@ class _DesignCategoriesViewState extends State<DesignCategoriesView> {
                         setState(() {});
                       },
                       name: categoryList[index],
-                      icon: index==0?Icons.star:null,
                       isSelected: selectedIndex == index);
                 },
                 itemCount: categoryList.length,
