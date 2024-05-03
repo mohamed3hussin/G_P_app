@@ -292,7 +292,12 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
                               SizedBox(
                                 height: 30.h,
                               ),
-                              DesignPayment(cubit.logo![selectedDesignIndex],args),
+                              cubit.logo != null && cubit.logo!.isNotEmpty // Check again before accessing logo data
+                                  ? DesignPayment(
+                                cubit.logo![selectedDesignIndex],
+                                args,
+                              )
+                                  : CircularProgressIndicator(),
                             ],
                           )),
                       ButtonsRow()
