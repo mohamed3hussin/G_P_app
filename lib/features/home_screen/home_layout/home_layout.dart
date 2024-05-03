@@ -38,7 +38,8 @@ class _HomeLayoutState extends State<HomeLayout> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
-      listener: (context, state) {},
+      listener: (context, state)
+      {},
       builder: (context, state) {
         var homeCubit = HomeCubit.get(context);
         return Scaffold(

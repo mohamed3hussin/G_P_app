@@ -43,7 +43,8 @@ class MyApp extends StatelessWidget {
               create: (context) => HomeCubit()
                 ..getAllProduct()
                 ..getBestSellingProduct()
-                ..getNewArrivalProduct(),
+                ..getNewArrivalProduct()
+                ..getWishList()
             )
           ],
           child: MaterialApp(

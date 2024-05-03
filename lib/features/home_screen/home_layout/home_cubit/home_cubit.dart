@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:g_p_app/core/cach_helper/cach_helper.dart';
 import 'package:g_p_app/data/model/response/AllProductResponse.dart';
+import 'package:g_p_app/data/model/response/WishListModel.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_state.dart';
 import '../../../../data/api/api_manager.dart';
 import '../../../../data/model/response/LogoResponse.dart';
@@ -15,6 +17,8 @@ class HomeCubit extends Cubit<HomeState> {
   AllProducts? productsByGender;
   List<Data>? listProductsByGender;
   List<LogoResponse>? logoResponse;
+  WishListModel? wishListModel;
+  WishListModel? updateWishListModel;
 
   void getAllProduct({String sort = 'name'}) {
     emit(AllProductLoadingState());
@@ -39,7 +43,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void getNewArrivalProduct() {
-    emit(AllProductLoadingState());
+    emit(NewArrivalProductLoadingState());
     ApiManager.getData(
       url: 'Product',
       query: {
@@ -50,12 +54,12 @@ class HomeCubit extends Cubit<HomeState> {
       },
     ).then((response) {
       newArrival=AllProducts.fromJson(response.data);
-      emit(AllProductLoadedState());
+      emit(NewArrivalProductLoadedState());
       // if (response.data == null) {
       //   emit(AllProductErrorState("Oops! no results!"));
       // }
     }).catchError((error) {
-      emit(AllProductErrorState(error.toString()));
+      emit(NewArrivalProductErrorState(error.toString()));
     });
   }
 
@@ -84,7 +88,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   void getGenderProductByTypeId({required String typeId, required String gender, String isDesigned='false'}) {
     listProductsByGender=[];
-    emit(AllProductLoadingState());
+    emit(GenderProductByTypeIdLoadingState());
     ApiManager.getData(
       url: 'Product',
       query: {
@@ -98,14 +102,78 @@ class HomeCubit extends Cubit<HomeState> {
     ).then((response) {
       productsByGender=AllProducts.fromJson(response.data);
       listProductsByGender?.addAll(productsByGender!.data!);
-      emit(AllProductLoadedState());
+      emit(GenderProductByTypeIdLoadedState());
       // if (response.data == null) {
       //   emit(AllProductErrorState("Oops! no results!"));
       // }
     }).catchError((error) {
       print(error.toString());
-      emit(AllProductErrorState(error.toString()));
+      emit(GenderProductByTypeIdErrorState(error.toString()));
     });
+  }
+  void getWishList()
+  {
+    emit(WishListLoadingState());
+    ApiManager.getData(
+        url: 'Wishlists/{id}',
+        query:
+        {
+          'Wishlistid':'wishlist1',
+        }).then((value)
+    {
+      wishListModel = WishListModel.fromJson(value.data);
+      print(wishListModel!.items?[0].productName);
+      emit(WishListLoadedState());
+    }).catchError((error){
+      print(error.toString());
+      emit(WishListErrorState(error.toString()));
+    });
+  }
+  // int? id;
+  // String? productName;
+  // String? pictureUrl;
+  // String? size;
+  // String? type;
+  // int? quantity;
+  // double? price;
+  // bool? isFavourite;
+  void updateWishList(
+  {
+    required int productId,
+    required String productName,
+    required String pictureUrl,
+    required String size,
+    required String type,
+    required int quantity,
+    required double price,
+    bool isFavourite =  true,
+    
+})
+  {
+    emit(UpdateWishListLoadingState());
+    ApiManager.updateData(
+        url: 'Wishlists',
+        token: CacheHelper.getData(key: 'token'),
+        data:
+        {
+          'id':productId,
+          'productName':productName,
+          'pictureUrl':pictureUrl,
+          'size':size,
+          'type':type,
+          'quantity':quantity,
+          'price':price,
+          'isFavourite':isFavourite
+        }).then((value)
+    {
+      updateWishListModel = WishListModel.fromJson(value.data);
+      print('${updateWishListModel}');
+      emit(UpdateWishListLoadedState());
+    }).catchError((error)
+    {
+      UpdateWishListErrorState(error.toString());
+    });
+    
   }
 
   void getLogos() {

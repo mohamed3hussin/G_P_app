@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/core/colors/colors.dart';
+import 'package:g_p_app/data/model/response/WishListModel.dart';
 import 'package:g_p_app/features/product_details/product_details_view.dart';
 
 import '../../../../../../core/assets_data/iconBroken.dart';
 import '../../../../../../core/text_style/styles.dart';
 
-Widget WishListItemBuilder(context)=>InkWell(
+Widget WishListItemBuilder(context,Items model)=>InkWell(
   onTap: (){Navigator.pushNamed(context, ProductDetailsView.routeName);},
   child: Material(
     borderRadius: BorderRadius.circular(12),
@@ -19,7 +20,7 @@ Widget WishListItemBuilder(context)=>InkWell(
           alignment: AlignmentDirectional.topEnd,
           children: [
             Image(
-              image: NetworkImage('https://img.freepik.com/free-photo/portrait-man-white-shirt_171337-11986.jpg'),
+              image: NetworkImage("${model.pictureUrl}"),
               width: double.infinity,
 
             ),
@@ -45,21 +46,21 @@ Widget WishListItemBuilder(context)=>InkWell(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                  'S705 T-Shirt',
+                  '${model.productName}',
                   style: Styles.textStyle14.copyWith(color: CustomColors.textColor,fontWeight: FontWeight.w500)
               ),
               SizedBox(height: 5.h,),
               Row(
                 children: [
                   Text(
-                      '\$ ${120.00}',
+                      '\$ ${model.price}',
                       style: Styles.textStyle16.copyWith(color: CustomColors.green,fontWeight: FontWeight.w600)
                   ),
                   SizedBox(width: 2.w,),
-                  Text(
-                    '\$ ${180.00}',
-                    style: Styles.textStyle12.copyWith(color: Colors.grey,decoration: TextDecoration.lineThrough),
-                  ),
+                  // Text(
+                  //   '\$ ${model.price!-20}',
+                  //   style: Styles.textStyle12.copyWith(color: Colors.grey,decoration: TextDecoration.lineThrough),
+                  // ),
                 ],
               ),
               SizedBox(height: 5.h,),

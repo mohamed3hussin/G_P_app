@@ -32,6 +32,26 @@ class BestSellingProductsErrorState extends HomeState {
 }
 
 
+class NewArrivalProductLoadingState extends HomeState {}
+class NewArrivalProductLoadedState extends HomeState {
+}
+class NewArrivalProductErrorState extends HomeState {
+  final String errorMessage;
+
+  NewArrivalProductErrorState(this.errorMessage);
+}
+
+
+class GenderProductByTypeIdLoadingState extends HomeState {}
+class GenderProductByTypeIdLoadedState extends HomeState {
+}
+class GenderProductByTypeIdErrorState extends HomeState {
+  final String errorMessage;
+
+  GenderProductByTypeIdErrorState(this.errorMessage);
+}
+
+
 class LogosInitialState extends HomeState {}
 class LogosLoadingState extends HomeState {}
 class LogosLoadedState extends HomeState {
@@ -40,4 +60,23 @@ class LogosErrorState extends HomeState {
   final String errorMessage;
 
   LogosErrorState(this.errorMessage);
+}
+
+
+class WishListLoadingState extends HomeState {}
+class WishListLoadedState extends HomeState {
+}
+class WishListErrorState extends HomeState {
+  final String errorMessage;
+
+  WishListErrorState(this.errorMessage);
+}
+
+class UpdateWishListLoadingState extends HomeState {}
+class UpdateWishListLoadedState extends HomeState {
+}
+class UpdateWishListErrorState extends HomeState {
+  final String errorMessage;
+
+  UpdateWishListErrorState(this.errorMessage);
 }
