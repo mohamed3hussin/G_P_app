@@ -1,43 +1,51 @@
-/// id : 3
-/// name : "calvin-klein"
-/// dateofCreation : "2023-03-10T08:00:00+00:00"
-/// pictureUrl : "https://e3e5-102-44-145-198.ngrok-free.app/images/Logo/calvin-klein.png"
-/// quantity : 70
-/// cost : 79.99
+import 'dart:convert';
 
-class LogoResponse {
-  LogoResponse({
-      this.id, 
-      this.name, 
-      this.dateofCreation, 
-      this.pictureUrl, 
-      this.quantity, 
-      this.cost,});
+class Logo {
+  int id;
+  String name;
+  String dateofCreation;
+  String pictureUrl;
+  int quantity;
+  double cost;
 
-  LogoResponse.fromJson(dynamic json) {
-    id = json['id'];
-    name = json['name'];
-    dateofCreation = json['dateofCreation'];
-    pictureUrl = json['pictureUrl'];
-    quantity = json['quantity'];
-    cost = json['cost'];
+  Logo({
+    required this.id,
+    required this.name,
+    required this.dateofCreation,
+    required this.pictureUrl,
+    required this.quantity,
+    required this.cost,
+  });
+
+  factory Logo.fromJson(Map<String, dynamic> json) {
+    return Logo(
+      id: json['id'],
+      name: json['name'],
+      dateofCreation: json['dateofCreation'],
+      pictureUrl: json['pictureUrl'],
+      quantity: json['quantity'],
+      cost: json['cost'].toDouble(),
+    );
   }
-  int? id;
-  String? name;
-  String? dateofCreation;
-  String? pictureUrl;
-  int? quantity;
-  double? cost;
 
   Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['id'] = id;
-    map['name'] = name;
-    map['dateofCreation'] = dateofCreation;
-    map['pictureUrl'] = pictureUrl;
-    map['quantity'] = quantity;
-    map['cost'] = cost;
-    return map;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['dateofCreation'] = this.dateofCreation;
+    data['pictureUrl'] = this.pictureUrl;
+    data['quantity'] = this.quantity;
+    data['cost'] = this.cost;
+    return data;
   }
+}
 
+List<Logo> logosFromJson(String str) {
+  final List<dynamic> jsonData = json.decode(str);
+  return List<Logo>.from(jsonData.map((x) => Logo.fromJson(x)));
+}
+
+String logosToJson(List<Logo> data) {
+  final List<dynamic> jsonData = List<dynamic>.from(data.map((x) => x.toJson()));
+  return json.encode(jsonData);
 }

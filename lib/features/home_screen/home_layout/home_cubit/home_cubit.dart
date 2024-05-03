@@ -16,9 +16,9 @@ class HomeCubit extends Cubit<HomeState> {
   List<Data>? bestSelling;
   AllProducts? productsByGender;
   List<Data>? listProductsByGender;
-  List<LogoResponse>? logoResponse;
   WishListModel? wishListModel;
   WishListModel? updateWishListModel;
+  List<Logo>? logo;
 
   void getAllProduct({String sort = 'name'}) {
     emit(AllProductLoadingState());
@@ -181,9 +181,9 @@ class HomeCubit extends Cubit<HomeState> {
     ApiManager.getData(
       url: 'Product/Logo',
     ).then((response) {
-      List<dynamic>? responseData = response.data;
-      logoResponse = responseData?.map((json) => LogoResponse.fromJson(json)).toList();
-
+      List<dynamic> data = response.data;
+       logo = data.map((json) => Logo.fromJson(json)).toList();
+       emit(LogosLoadedState());
       // if (response.data == null) {
       //   emit(BestSellingProductsErrorState("Oops! no results!"));
       // }

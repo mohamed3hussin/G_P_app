@@ -27,7 +27,13 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
   bool isPressed = false;
   bool isVisible = false;
   String selectedDesignImage = '';
-  int selectedDesignIndex = -1;
+  int selectedDesignIndex = 0;
+  double selectedDesignCost = 0;
+  void updateSelectedDesignCost(double cost) {
+    setState(() {
+      selectedDesignCost = cost;
+    });
+  }
 
   @override
   void initState() {
@@ -110,7 +116,7 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
                                 BorderSide(color: Colors.black, width: 2)),
                           ),
                           child: isPressed
-                              ? Image.asset(selectedDesignImage)
+                                ? Image.network(selectedDesignImage)
                               : SizedBox(),
                         ),
                       ),
@@ -168,14 +174,14 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
                               crossAxisCount: 3,
                               mainAxisSpacing: 8,
                               crossAxisSpacing: 12,
-                              childAspectRatio: 1 / 1.12,
-                              children: cubit.logoResponse != null
+                              childAspectRatio: 1 / 1.1,
+                              children: cubit.logo != null // Check if listTestLogo is not null
                                   ? List.generate(
-                                cubit.logoResponse!.length,
+                                cubit.logo!.length,
                                     (index) => GestureDetector(
                                   onTap: () {
                                     isPressed = true;
-                                    selectedDesignImage = cubit.logoResponse![index].pictureUrl!;
+                                    selectedDesignImage = cubit.logo![index].pictureUrl!;
                                     isVisible = true;
                                     selectedDesignIndex = index;
                                     setState(() {});
@@ -186,23 +192,28 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
                                           ? CustomColors.lightBlue
                                           : Colors.transparent,
                                       borderRadius: BorderRadius.circular(
-                                        selectedDesignIndex == index ? 8 : 0,
+                                        selectedDesignIndex == index ? 12 : 8,
                                       ),
                                       border: Border.all(
                                         color: selectedDesignIndex == index
                                             ? CustomColors.blue
-                                            : Colors.transparent,
+                                            : Colors.grey,
                                       ),
                                     ),
                                     child: Stack(
                                       children: [
-                                        Image.network(
-                                          cubit.logoResponse![index].pictureUrl ?? '',
+                                        Center(
+                                          child: Image.network(
+                                            cubit.logo![index].pictureUrl ?? '',
+                                          ),
                                         ),
-                                        Text(
-                                          '30 LE',
-                                          style: Styles.textStyle12!.copyWith(
-                                            color: CustomColors.green,
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(horizontal: 5.w),
+                                          child: Text(
+                                            "${cubit.logo![index].cost.toString()} \$",
+                                            style: Styles.textStyle12!.copyWith(
+                                              color: CustomColors.green,
+                                            ),
                                           ),
                                         )
                                       ],
@@ -212,30 +223,29 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
                               )
                                   : [], // Empty list when cubit.logoResponse is null
                             ),
-
-                            GestureDetector(
-                              onTap: () {},
-                              child: Container(
-                                margin: EdgeInsets.symmetric(vertical: 15.h),
-                                width: 135,
-                                height: 26,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12.r),
-                                  color: CustomColors.lightBlue,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Load More',
-                                      style: Styles.textStyle14!
-                                          .copyWith(color: Colors.black),
-                                    ),
-                                    Icon(Icons.keyboard_arrow_down_rounded)
-                                  ],
-                                ),
-                              ),
-                            ),
+                            // GestureDetector(
+                            //   onTap: () {},
+                            //   child: Container(
+                            //     margin: EdgeInsets.symmetric(vertical: 15.h),
+                            //     width: 135,
+                            //     height: 26,
+                            //     decoration: BoxDecoration(
+                            //       borderRadius: BorderRadius.circular(12.r),
+                            //       color: CustomColors.lightBlue,
+                            //     ),
+                            //     child: Row(
+                            //       mainAxisAlignment: MainAxisAlignment.center,
+                            //       children: [
+                            //         Text(
+                            //           'Load More',
+                            //           style: Styles.textStyle14!
+                            //               .copyWith(color: Colors.black),
+                            //         ),
+                            //         Icon(Icons.keyboard_arrow_down_rounded)
+                            //       ],
+                            //     ),
+                            //   ),
+                            // ),
                           ],
                         ),
                       ),
@@ -282,7 +292,7 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
                               SizedBox(
                                 height: 30.h,
                               ),
-                              DesignPayement()
+                              DesignPayment(cubit.logo![selectedDesignIndex],args),
                             ],
                           )),
                       ButtonsRow()
