@@ -4,7 +4,7 @@ import 'package:g_p_app/features/home_screen/home_layout/home_screens/wish_list_
 import '../../../../../../data/model/response/WishListModel.dart';
 import '../../../../../product_details/product_details_view.dart';
 
-Widget WishListViewWidget(BuildContext context, WishListModel model) => InkWell(
+Widget WishListViewWidget(BuildContext context, List<WishListItem> model) => InkWell(
   onTap: () {
     Navigator.pushNamed(context, ProductDetailsView.routeName);
   },
@@ -19,8 +19,8 @@ Widget WishListViewWidget(BuildContext context, WishListModel model) => InkWell(
       childAspectRatio: 1 / 1.24
       ,
       children: List.generate(
-        model.items!.length,
-            (index) => WishListItemBuilder(context, model.items![index]),
+        model!.length,
+            (index) => WishListItemBuilder(context, model![index]),
       ),
     ),
   ),

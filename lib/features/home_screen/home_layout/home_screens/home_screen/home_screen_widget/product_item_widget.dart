@@ -9,14 +9,21 @@ import 'package:g_p_app/features/product_details/product_details_view.dart';
 import '../../../../../../core/assets_data/iconBroken.dart';
 import '../../../../../../core/text_style/styles.dart';
 
-class ProductItemBuilder extends StatelessWidget {
+class ProductItemBuilder extends StatefulWidget {
   Data data;
 
   ProductItemBuilder(this.data);
 
   @override
+  State<ProductItemBuilder> createState() => _ProductItemBuilderState();
+}
+
+class _ProductItemBuilderState extends State<ProductItemBuilder> {
+  bool isFavorite=false;
+
+  @override
   Widget build(BuildContext context) {
-    List<Color>? colors = data?.productColor
+    List<Color>? colors = widget.data?.productColor
         ?.map(
           (colorMap) => getColorFromName(colorMap.colorname!),
     ).toList() ?? [];
@@ -27,7 +34,7 @@ class ProductItemBuilder extends StatelessWidget {
         var cubit = HomeCubit.get(context);
         return InkWell(
           onTap: () {
-            Navigator.pushNamed(context, ProductDetailsView.routeName,arguments: data);
+            Navigator.pushNamed(context, ProductDetailsView.routeName,arguments: widget.data);
           },
           child: Container(
             width: 150.w,
@@ -47,7 +54,7 @@ class ProductItemBuilder extends StatelessWidget {
                           height: 150.h,
                           width: 155.w,
                           child: Image.network(
-                            data.productPictures?[0] ?? '',
+                            widget.data.productPictures?[0] ?? '',
                             loadingBuilder: (context, child, loadingProgress) {
                               if (loadingProgress == null) {
                                 return child;
@@ -68,14 +75,18 @@ class ProductItemBuilder extends StatelessWidget {
                             padding: EdgeInsets.zero,
                             onPressed: ()
                             {
+                              isFavorite=true;
+                              setState(() {
+
+                              });
                               List<Map<String, dynamic>> items = [
                                 {
-                                  'id': data.id,
-                                  'productName': data.name,
-                                  'pictureUrl': data.productPictures![0],
-                                  'size': data.productSize![0].sizename,
-                                  'type': data.type,
-                                  'price': data.price,
+                                  'id': widget.data.id,
+                                  'productName': widget.data.name,
+                                  'pictureUrl': widget.data.productPictures![0],
+                                  'size': widget.data.productSize![0].sizename,
+                                  'type': widget.data.type,
+                                  'price': widget.data.price,
                                   'quantity': 2,
                                 }
                               ];
@@ -90,7 +101,7 @@ class ProductItemBuilder extends StatelessWidget {
                               radius: 20.w,
                               backgroundColor: Colors.grey[200],
                               child: Icon(
-                                IconBroken.Heart,
+                                isFavorite?Icons.favorite:Icons.favorite_border,
                                 color: Color(0xFFEA3A3D),
                                 size: 30.w,
                               ),
@@ -105,21 +116,21 @@ class ProductItemBuilder extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(data.name ?? '',
+                          Text(widget.data.name ?? '',
                               style: Styles.textStyle12.copyWith(
                                   color: Color(0xFF1B72C0),
                                   fontWeight: FontWeight.w500)),
                           SizedBox(
                             height: 3.h,
                           ),
-                          Text("${data.price.toString()} \$ " ?? '',
+                          Text("${widget.data.price.toString()} \$ " ?? '',
                               style: Styles.textStyle14.copyWith(
                                   color: Colors.black, fontWeight: FontWeight.w500)),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "${(data.price!/0.8).toStringAsFixed(2)} \$ ",
+                                "${(widget.data.price!/0.8).toStringAsFixed(2)} \$ ",
                                 style: Styles.textStyle12.copyWith(
                                     color: Colors.grey,
                                     decoration: TextDecoration.lineThrough),
@@ -141,7 +152,7 @@ class ProductItemBuilder extends StatelessWidget {
                               itemBuilder: (context, index) =>
                                   setCircularAvatarColor(
                                       colors![index]),
-                              itemCount: data.productColor!.length,
+                              itemCount: widget.data.productColor!.length,
                             ),
                           ),
                           Row(
@@ -154,7 +165,7 @@ class ProductItemBuilder extends StatelessWidget {
                                 width: 2.w,
                               ),
                               Text(
-                                double.parse(data.averageRate!.toStringAsFixed(2)).toString() ?? '',
+                                double.parse(widget.data.averageRate!.toStringAsFixed(2)).toString() ?? '',
                                 style: Styles.textStyle12.copyWith(
                                     color: Colors.black, fontWeight: FontWeight.w400),
                               ),

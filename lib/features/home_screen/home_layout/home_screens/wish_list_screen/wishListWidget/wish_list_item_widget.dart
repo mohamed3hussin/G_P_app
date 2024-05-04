@@ -42,7 +42,7 @@ Widget WishListItemBuilder(context, WishListItem model) => InkWell(
                         radius: 20.w,
                         backgroundColor: Colors.grey[200],
                         child: Icon(
-                          IconBroken.Heart,
+                          Icons.favorite,
                           color: Color(0xFFEA3A3D),
                           size: 30.w,
                         ),

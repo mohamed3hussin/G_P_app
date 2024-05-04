@@ -18,6 +18,7 @@ class HomeCubit extends Cubit<HomeState> {
   List<Data>? listProductsByGender;
   WishListModel? wishListModel;
   WishListModel? updateWishListModel;
+  List<WishListItem>? listWishList;
   List<Logo>? logo;
 
   void getAllProduct({String sort = 'name'}) {
@@ -122,7 +123,6 @@ class HomeCubit extends Cubit<HomeState> {
         }).then((value)
     {
       wishListModel = WishListModel.fromJson(value.data);
-      print(wishListModel!.items?[0].productName);
       emit(WishListLoadedState());
     }).catchError((error){
       print(error.toString());
@@ -148,6 +148,15 @@ class HomeCubit extends Cubit<HomeState> {
         data: data
       );
       updateWishListModel = WishListModel.fromJson(response.data);
+      if (listWishList != null) {
+        listWishList!.addAll(updateWishListModel!.items);
+      } else {
+        listWishList = updateWishListModel!.items;
+      }
+      print(listWishList![0].productName);
+      print(listWishList![1].productName);
+      print(listWishList![2].productName);
+      print(listWishList![3].productName);
       print('$updateWishListModel');
       emit(UpdateWishListLoadedState());
     } catch (error) {

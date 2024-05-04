@@ -25,7 +25,7 @@ class _WishListViewState extends State<WishListView> {
       builder: (context, state) {
         var cubit=BlocProvider.of<HomeCubit>(context);
         return ConditionalBuilder(
-          condition: cubit.wishListModel != null,
+          condition: cubit.listWishList != null,
           builder: (context) => SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Padding(
@@ -33,7 +33,7 @@ class _WishListViewState extends State<WishListView> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  WishListViewWidget(context, cubit.wishListModel!),
+                  WishListViewWidget(context, cubit.listWishList!),
                 ],
               ),
             ),
