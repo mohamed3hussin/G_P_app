@@ -68,15 +68,23 @@ class ProductItemBuilder extends StatelessWidget {
                             padding: EdgeInsets.zero,
                             onPressed: ()
                             {
-                              cubit.updateWishList(
-                                  productId: data.id!,
-                                  productName: data.name!,
-                                  pictureUrl: data.productPictures![0],
-                                  size: data.productSize![0].sizename!,
-                                  type: data.type!,
-                                  quantity: 3,
-                                  price: data.price!,
-                              );
+                              List<Map<String, dynamic>> items = [
+                                {
+                                  'id': data.id,
+                                  'productName': data.name,
+                                  'pictureUrl': data.productPictures![0],
+                                  'size': data.productSize![0].sizename,
+                                  'type': data.type,
+                                  'price': data.price,
+                                  'quantity': 2,
+                                }
+                              ];
+
+                              Map<String, dynamic> requestData = {
+                                'id': 'wishlist1',
+                                'items': items,
+                              };
+                              cubit.updateWishList(data: requestData);
                             },
                             icon: CircleAvatar(
                               radius: 20.w,

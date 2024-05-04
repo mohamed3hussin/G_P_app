@@ -137,44 +137,25 @@ class HomeCubit extends Cubit<HomeState> {
   // int? quantity;
   // double? price;
   // bool? isFavourite;
-  void updateWishList(
-  {
-    required int productId,
-    required String productName,
-    required String pictureUrl,
-    required String size,
-    required String type,
-    required int quantity,
-    required double price,
-    bool isFavourite =  true,
-    
-})
-  {
+
+  void updateWishList({required Map<String, dynamic> data
+  }) async {
     emit(UpdateWishListLoadingState());
-    ApiManager.updateData(
-        url: 'Wishlists',
-        token: CacheHelper.getData(key: 'token'),
-        data:
-        {
-          'id':productId,
-          'productName':productName,
-          'pictureUrl':pictureUrl,
-          'size':size,
-          'type':type,
-          'quantity':quantity,
-          'price':price,
-          'isFavourite':isFavourite
-        }).then((value)
-    {
-      updateWishListModel = WishListModel.fromJson(value.data);
-      print('${updateWishListModel}');
+
+    try {
+      final response = await ApiManager.postData(
+        url: 'Wishlists', // Adjust the URL according to your API
+        data: data
+      );
+      updateWishListModel = WishListModel.fromJson(response.data);
+      print('$updateWishListModel');
       emit(UpdateWishListLoadedState());
-    }).catchError((error)
-    {
-      UpdateWishListErrorState(error.toString());
-    });
-    
+    } catch (error) {
+      print(error.toString());
+      emit(UpdateWishListErrorState(error.toString()));
+    }
   }
+
 
   void getLogos() {
     emit(LogosLoadingState());

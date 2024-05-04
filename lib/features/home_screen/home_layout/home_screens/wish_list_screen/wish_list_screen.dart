@@ -8,6 +8,6 @@ class WishListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return wish? noItemWish():wishListView();
+    return wish? noItemWish():WishListView();
   }
 }

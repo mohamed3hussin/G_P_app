@@ -6,31 +6,39 @@ import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_cubit.d
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_state.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/wish_list_screen/wishListWidget/wish_list_view_widget.dart';
 
-class wishListView extends StatelessWidget {
-  const wishListView({Key? key}) : super(key: key);
+class WishListView extends StatefulWidget {
+  const WishListView({Key? key}) : super(key: key);
 
   @override
+  State<WishListView> createState() => _WishListViewState();
+}
+
+class _WishListViewState extends State<WishListView> {
+  void initState() {
+    var cubit=BlocProvider.of<HomeCubit>(context);
+    cubit.getWishList();
+  }
+  @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HomeCubit,HomeState>(
-      listener: (context,state){},
-      builder: (context,state)
-      {
-        var cubit = HomeCubit.get(context);
+    return BlocConsumer<HomeCubit, HomeState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        var cubit=BlocProvider.of<HomeCubit>(context);
         return ConditionalBuilder(
           condition: cubit.wishListModel != null,
-          builder: (context)=>SingleChildScrollView(
+          builder: (context) => SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Padding(
-              padding: EdgeInsetsDirectional.symmetric(horizontal: 10.w),
+              padding: EdgeInsets.symmetric(horizontal: 10.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  WishListViewWidget(context,cubit.wishListModel!),
+                  WishListViewWidget(context, cubit.wishListModel!),
                 ],
               ),
             ),
           ),
-          fallback: (context)=>Center(child: CircularProgressIndicator()),
+          fallback: (context) => Center(child: CircularProgressIndicator()),
         );
       },
     );

@@ -4,35 +4,24 @@ import 'package:g_p_app/features/home_screen/home_layout/home_screens/wish_list_
 import '../../../../../../data/model/response/WishListModel.dart';
 import '../../../../../product_details/product_details_view.dart';
 
-Widget WishListViewWidget(context,WishListModel model)=>InkWell(
-  onTap: (){
+Widget WishListViewWidget(BuildContext context, WishListModel model) => InkWell(
+  onTap: () {
     Navigator.pushNamed(context, ProductDetailsView.routeName);
   },
-  child:   Container(
-
+  child: Container(
     color: Colors.white,
-
     child: GridView.count(
-
       shrinkWrap: true,
-
       physics: NeverScrollableScrollPhysics(),
-
       crossAxisCount: 2,
-
       mainAxisSpacing: 8,
-
       crossAxisSpacing: 8,
-
-      childAspectRatio: 1/1.15,
-
+      childAspectRatio: 1 / 1.24
+      ,
       children: List.generate(
-
-         model.items!.length,
-
-              (index) => WishListItemBuilder(context,model.items![index])),
-
+        model.items!.length,
+            (index) => WishListItemBuilder(context, model.items![index]),
+      ),
     ),
-
   ),
 );

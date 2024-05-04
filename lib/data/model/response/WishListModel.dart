@@ -1,70 +1,78 @@
 class WishListModel {
-  String? id;
-  List<Items>? items;
+  final String id;
+  final List<WishListItem> items;
 
-  WishListModel({this.id, this.items});
+  WishListModel({
+    required this.id,
+    required this.items,
+  });
 
-  WishListModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    if (json['items'] != null) {
-      items = <Items>[];
-      json['items'].forEach((v) {
-        items!.add(new Items.fromJson(v));
-      });
-    }
+  factory WishListModel.fromJson(Map<String, dynamic> json) {
+    List<dynamic> itemList = json['items'];
+    List<WishListItem> parsedItems =
+    itemList.map((itemJson) => WishListItem.fromJson(itemJson)).toList();
+
+    return WishListModel(
+      id: json['id'],
+      items: parsedItems,
+    );
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    if (this.items != null) {
-      data['items'] = this.items!.map((v) => v.toJson()).toList();
-    }
-    return data;
+    List<Map<String, dynamic>> itemsJson =
+    items.map((item) => item.toJson()).toList();
+
+    return {
+      'id': id,
+      'items': itemsJson,
+    };
   }
 }
 
-class Items {
-  int? id;
-  String? productName;
-  String? pictureUrl;
-  String? size;
-  String? type;
-  int? quantity;
-  double? price;
-  bool? isFavourite;
+class WishListItem {
+  final int id;
+  final String productName;
+  final String pictureUrl;
+  final String size;
+  final String type;
+  final int quantity;
+  final double price;
+  final bool isFavourite;
 
-  Items(
-      {this.id,
-        this.productName,
-        this.pictureUrl,
-        this.size,
-        this.type,
-        this.quantity,
-        this.price,
-        this.isFavourite});
+  WishListItem({
+    required this.id,
+    required this.productName,
+    required this.pictureUrl,
+    required this.size,
+    required this.type,
+    required this.quantity,
+    required this.price,
+    required this.isFavourite,
+  });
 
-  Items.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    productName = json['productName'];
-    pictureUrl = json['pictureUrl'];
-    size = json['size'];
-    type = json['type'];
-    quantity = json['quantity'];
-    price = json['price'];
-    isFavourite = json['isFavourite'];
+  factory WishListItem.fromJson(Map<String, dynamic> json) {
+    return WishListItem(
+      id: json['id'],
+      productName: json['productName'],
+      pictureUrl: json['pictureUrl'],
+      size: json['size'],
+      type: json['type'],
+      quantity: json['quantity'],
+      price: json['price'].toDouble(),
+      isFavourite: json['isFavourite'],
+    );
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['productName'] = this.productName;
-    data['pictureUrl'] = this.pictureUrl;
-    data['size'] = this.size;
-    data['type'] = this.type;
-    data['quantity'] = this.quantity;
-    data['price'] = this.price;
-    data['isFavourite'] = this.isFavourite;
-    return data;
+    return {
+      'id': id,
+      'productName': productName,
+      'pictureUrl': pictureUrl,
+      'size': size,
+      'type': type,
+      'quantity': quantity,
+      'price': price,
+      'isFavourite': isFavourite,
+    };
   }
 }
