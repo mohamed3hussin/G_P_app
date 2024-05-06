@@ -25,7 +25,7 @@ class NoItemView extends StatelessWidget {
           ),
         ),
         Container(
-            margin: EdgeInsets.symmetric(horizontal: context.deviceWidth*0.09),
+            margin: EdgeInsets.symmetric(horizontal: context.deviceWidth*0.07),
             width: context.deviceWidth * 0.7,
             height: context.deviceHeight * 0.06,
             child: ElevatedButton(

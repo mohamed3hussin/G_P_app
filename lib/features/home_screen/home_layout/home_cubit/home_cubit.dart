@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:g_p_app/core/cach_helper/cach_helper.dart';
@@ -5,6 +6,7 @@ import 'package:g_p_app/data/model/response/AllProductResponse.dart';
 import 'package:g_p_app/data/model/response/WishListModel.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_state.dart';
 import '../../../../data/api/api_manager.dart';
+import '../../../../data/model/response/CartResponse.dart';
 import '../../../../data/model/response/LogoResponse.dart';
 
 class HomeCubit extends Cubit<HomeState> {
@@ -19,6 +21,9 @@ class HomeCubit extends Cubit<HomeState> {
   WishListModel? wishListModel;
   WishListModel? updateWishListModel;
   List<WishListItem>? listWishList;
+  CartResponse? cartResponse;
+  CartResponse? updateCartModel;
+  List<CartItems>? listCartItems;
   List<Logo>? logo;
 
   void getAllProduct({String sort = 'name'}) {
@@ -112,6 +117,7 @@ class HomeCubit extends Cubit<HomeState> {
       emit(GenderProductByTypeIdErrorState(error.toString()));
     });
   }
+
   void getWishList()
   {
     emit(WishListLoadingState());
@@ -123,6 +129,7 @@ class HomeCubit extends Cubit<HomeState> {
         }).then((value)
     {
       wishListModel = WishListModel.fromJson(value.data);
+
       emit(WishListLoadedState());
     }).catchError((error){
       print(error.toString());
@@ -138,33 +145,87 @@ class HomeCubit extends Cubit<HomeState> {
   // double? price;
   // bool? isFavourite;
 
-  void updateWishList({required Map<String, dynamic> data
-  }) async {
+  void updateWishList({required Map<String, dynamic> data}) async {
     emit(UpdateWishListLoadingState());
-
     try {
       final response = await ApiManager.postData(
         url: 'Wishlists', // Adjust the URL according to your API
-        data: data
+        data: data,
       );
+      // Parse the response to get the updated wish list model
       updateWishListModel = WishListModel.fromJson(response.data);
-      if (listWishList != null) {
-        listWishList!.addAll(updateWishListModel!.items);
-      } else {
-        listWishList = updateWishListModel!.items;
+      listWishList ??= [];
+      for (var newItem in updateWishListModel!.items) {
+        if (!listWishList!.any((existingItem) => existingItem.id == newItem.id)) {
+          // If the item doesn't exist in listWishList, add it
+          listWishList!.add(newItem);
+        }
       }
-      print(listWishList![0].productName);
-      print(listWishList![1].productName);
-      print(listWishList![2].productName);
-      print(listWishList![3].productName);
-      print('$updateWishListModel');
+      // Notify the UI that the operation is completed
       emit(UpdateWishListLoadedState());
     } catch (error) {
+      // Handle any errors that occur during the process
       print(error.toString());
       emit(UpdateWishListErrorState(error.toString()));
     }
   }
 
+  void deleteWishlistItem(WishListItem model)  {
+    listWishList?.remove(model);
+    getWishList();
+    print(listWishList?.length);
+    emit(DeleteWishlistItemLoadedState());
+  }
+
+
+  void getCart()
+  {
+    emit(CartLoadingState());
+    ApiManager.getData(
+        url: 'Baskets/1',
+        query:
+        {
+          'BasketId':'basket1',
+        }).then((value)
+    {
+      cartResponse = CartResponse.fromJson(value.data);
+      emit(CartLoadedState());
+    }).catchError((error){
+      print(error.toString());
+      emit(CartErrorState(error.toString()));
+    });
+  }
+
+  void updateCart({required Map<String, dynamic> data}) async {
+    emit(UpdateCartLoadingState());
+    try {
+      final response = await ApiManager.postData(
+        url: 'Wishlists', // Adjust the URL according to your API
+        data: data,
+      );
+      // Parse the response to get the updated wish list model
+      updateCartModel = CartResponse.fromJson(response.data);
+      listCartItems ??= [];
+      for (var newItem in updateCartModel!.items!) {
+        if (!listCartItems!.any((existingItem) => existingItem.id == newItem.id)) {
+          // If the item doesn't exist in listWishList, add it
+          listCartItems!.add(newItem);
+        }
+      }
+      // Notify the UI that the operation is completed
+      emit(UpdateCartLoadedState());
+    } catch (error) {
+      // Handle any errors that occur during the process
+      print(error.toString());
+      emit(UpdateCartErrorState(error.toString()));
+    }
+  }
+  void deleteCartItem(CartItems model)  {
+    listCartItems?.remove(model);
+    getCart();
+    print(listCartItems?.length);
+    emit(DeleteCartItemLoadedState());
+  }
 
   void getLogos() {
     emit(LogosLoadingState());

@@ -2,19 +2,16 @@ import 'package:g_p_app/features/home_screen/home_layout/home_screens/home_scree
 
 import '../../../../data/model/response/AllProductResponse.dart';
 
-abstract class HomeState{}
+abstract class HomeState {}
 
-class HomeInitialState extends HomeState{}
-
-
-
-
-
-
+class HomeInitialState extends HomeState {}
 
 class AllProductInitialState extends HomeState {}
+
 class AllProductLoadingState extends HomeState {}
+
 class AllProductLoadedState extends HomeState {}
+
 class AllProductErrorState extends HomeState {
   final String errorMessage;
 
@@ -22,50 +19,53 @@ class AllProductErrorState extends HomeState {
 }
 
 class BestSellingProductsInitialState extends HomeState {}
+
 class BestSellingProductsLoadingState extends HomeState {}
-class BestSellingProductsLoadedState extends HomeState {
-}
+
+class BestSellingProductsLoadedState extends HomeState {}
+
 class BestSellingProductsErrorState extends HomeState {
   final String errorMessage;
 
   BestSellingProductsErrorState(this.errorMessage);
 }
 
-
 class NewArrivalProductLoadingState extends HomeState {}
-class NewArrivalProductLoadedState extends HomeState {
-}
+
+class NewArrivalProductLoadedState extends HomeState {}
+
 class NewArrivalProductErrorState extends HomeState {
   final String errorMessage;
 
   NewArrivalProductErrorState(this.errorMessage);
 }
 
-
 class GenderProductByTypeIdLoadingState extends HomeState {}
-class GenderProductByTypeIdLoadedState extends HomeState {
-}
+
+class GenderProductByTypeIdLoadedState extends HomeState {}
+
 class GenderProductByTypeIdErrorState extends HomeState {
   final String errorMessage;
 
   GenderProductByTypeIdErrorState(this.errorMessage);
 }
 
-
 class LogosInitialState extends HomeState {}
+
 class LogosLoadingState extends HomeState {}
-class LogosLoadedState extends HomeState {
-}
+
+class LogosLoadedState extends HomeState {}
+
 class LogosErrorState extends HomeState {
   final String errorMessage;
 
   LogosErrorState(this.errorMessage);
 }
 
-
 class WishListLoadingState extends HomeState {}
-class WishListLoadedState extends HomeState {
-}
+
+class WishListLoadedState extends HomeState {}
+
 class WishListErrorState extends HomeState {
   final String errorMessage;
 
@@ -73,10 +73,29 @@ class WishListErrorState extends HomeState {
 }
 
 class UpdateWishListLoadingState extends HomeState {}
-class UpdateWishListLoadedState extends HomeState {
-}
+
+class UpdateWishListLoadedState extends HomeState {}
+
 class UpdateWishListErrorState extends HomeState {
   final String errorMessage;
 
   UpdateWishListErrorState(this.errorMessage);
 }
+
+class DeleteWishlistItemLoadedState extends HomeState {}
+
+
+class CartLoadingState extends HomeState {}
+class CartLoadedState extends HomeState {}
+class CartErrorState extends HomeState {
+  final String errorMessage;
+  CartErrorState(this.errorMessage);
+}
+class UpdateCartLoadingState extends HomeState {}
+class UpdateCartLoadedState extends HomeState {}
+class UpdateCartErrorState extends HomeState {
+  final String errorMessage;
+  UpdateCartErrorState(this.errorMessage);
+}
+
+class DeleteCartItemLoadedState extends HomeState {}

@@ -87,7 +87,7 @@ class _ProductItemBuilderState extends State<ProductItemBuilder> {
                                   'size': widget.data.productSize![0].sizename,
                                   'type': widget.data.type,
                                   'price': widget.data.price,
-                                  'quantity': 2,
+                                  'quantity': 1,
                                 }
                               ];
 
@@ -147,7 +147,7 @@ class _ProductItemBuilderState extends State<ProductItemBuilder> {
                           Container(
                             height: 10,
                             child: ListView.separated(
-                              separatorBuilder: (context, index) => SizedBox(width: 3.w,),
+                              separatorBuilder: (context, index) => SizedBox(width: 2.w,),
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) =>
                                   setCircularAvatarColor(
@@ -172,7 +172,26 @@ class _ProductItemBuilderState extends State<ProductItemBuilder> {
                               Spacer(),
                               IconButton(
                                   padding: EdgeInsets.zero,
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    List<Map<String, dynamic>> items = [
+                                      {
+                                        'id': widget.data.id,
+                                        'productName': widget.data.name,
+                                        'pictureUrl': widget.data.productPictures![0],
+                                        'size': widget.data.productSize![0].sizename,
+                                        'type': widget.data.type,
+                                        'color':widget.data.productColor![0],
+                                        'price': widget.data.price,
+                                        'quantity': 1,
+                                      }
+                                    ];
+
+                                    Map<String, dynamic> requestData = {
+                                      'id': 'basket1',
+                                      'items': items,
+                                    };
+                                    cubit.updateCart(data: requestData);
+                                  },
                                   icon: CircleAvatar(
                                     radius: 20.w,
                                     backgroundColor: Color(0xFF1B72C0),
@@ -196,12 +215,21 @@ class _ProductItemBuilderState extends State<ProductItemBuilder> {
     );
   }
 }
-
 Widget setCircularAvatarColor(Color? color) {
-  return CircleAvatar(
-    backgroundColor: color,
-    radius: 5,
-  );
+  return Container(
+    decoration: BoxDecoration(
+      shape: BoxShape.circle,
+      border: Border.all(
+        color: Colors.black, // Border color
+        width: 1.0, // Border width
+      ),
+    ),
+    child: CircleAvatar(
+      backgroundColor: color,
+      radius: 7.0,
+    ),
+  )
+  ;
 }
 
 Color getColorFromName(String colorData) {

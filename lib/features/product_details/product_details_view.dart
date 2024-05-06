@@ -12,8 +12,15 @@ import 'package:g_p_app/features/product_details/widgets/product_description.dar
 import 'package:g_p_app/features/product_details/widgets/product_title_and_price.dart';
 import 'package:g_p_app/features/product_details/widgets/size_line.dart';
 
-class ProductDetailsView extends StatelessWidget {
+class ProductDetailsView extends StatefulWidget {
   static const String routeName = 'product_details';
+
+  @override
+  State<ProductDetailsView> createState() => _ProductDetailsViewState();
+}
+
+class _ProductDetailsViewState extends State<ProductDetailsView> {
+  bool isFavorite=false;
 
   @override
   Widget build(BuildContext context) {
@@ -74,16 +81,27 @@ class ProductDetailsView extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(10.r),
-                  child: CircleAvatar(
-                    radius: 20.w,
-                    backgroundColor: Colors.white,
-                    child: Icon(
-                      IconBroken.Heart,
-                      color: Color(0xFFEA3A3D),
-                      size: 30.w,
-                    ),
-                  ),
+                  padding: const EdgeInsets.all(5.0),
+                  child: IconButton(
+                      padding: EdgeInsets.zero,
+                      onPressed: ()
+                      {
+                        isFavorite=true;
+                        setState(() {
+
+                        });
+                      },
+                      icon: CircleAvatar(
+                        radius: 30.w,
+                        backgroundColor: Colors.white,
+                        child: Center(
+                          child: Icon(
+                            isFavorite?Icons.favorite:Icons.favorite_border,
+                            color: Color(0xFFEA3A3D),
+                            size: 40.w,
+                          ),
+                        ),
+                      )),
                 ),
               ],
             ),

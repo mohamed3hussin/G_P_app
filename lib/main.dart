@@ -40,12 +40,12 @@ class MyApp extends StatelessWidget {
         return MultiBlocProvider(
           providers: [
             BlocProvider(
-              create: (context) => HomeCubit()
-                ..getAllProduct()
-                ..getBestSellingProduct()
-                ..getNewArrivalProduct()
-                ..getWishList()
-            )
+                create: (context) => HomeCubit()
+                  ..getAllProduct()
+                  ..getBestSellingProduct()
+                  ..getNewArrivalProduct()
+                  ..getWishList()
+                  ..getCart())
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,

@@ -5,7 +5,14 @@ import 'package:g_p_app/features/product_details/widgets/color_container.dart';
 
 import '../../../data/model/response/AllProductResponse.dart';
 
-class ColorLine extends StatelessWidget {
+class ColorLine extends StatefulWidget {
+  @override
+  State<ColorLine> createState() => _ColorLineState();
+}
+
+class _ColorLineState extends State<ColorLine> {
+  int currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     var args = ModalRoute.of(context)?.settings.arguments as Data;
@@ -13,27 +20,34 @@ class ColorLine extends StatelessWidget {
       String colorName = colorMap.colorname!;
       return getColorFromName(colorName);
     }).toList();
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Colors',
-          style: Styles.textStyle16,
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Text(
+        'Color',
+        style: Styles.textStyle16,
+      ),
+      Container(
+        height: 60.h,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (context, index) {
+            return ColorContainer(
+              color: colors![index],
+              isSelected: currentIndex == index,
+              onTap: () {
+                currentIndex = index;
+                setState(() {});
+              },
+            );
+          },
+          itemCount: args.productColor?.length,
         ),
-        Container(
-          height: 80.h,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) => ColorContainer(colors![index]),
-            itemCount: args.productColor?.length,
-          ),
-        ),
-      ],
-    );
+      )
+    ]);
   }
 }
-Color getColorFromName(String colorData){
-  switch(colorData.toLowerCase()){
+
+Color getColorFromName(String colorData) {
+  switch (colorData.toLowerCase()) {
     case 'green':
       return Colors.green;
     case 'black':
