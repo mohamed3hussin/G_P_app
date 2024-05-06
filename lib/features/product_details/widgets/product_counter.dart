@@ -4,7 +4,9 @@ import '../../../core/colors/colors.dart';
 import '../../../core/text_style/styles.dart';
 
 class ProductCounter extends StatefulWidget {
-  const ProductCounter({Key? key}) : super(key: key);
+  final Function(int) onCounterChanged;
+
+  ProductCounter(this.onCounterChanged);
 
   @override
   _ProductCounterState createState() => _ProductCounterState();
@@ -16,6 +18,7 @@ class _ProductCounterState extends State<ProductCounter> {
   void incrementCounter() {
     setState(() {
       counter++;
+      widget.onCounterChanged!(counter);
     });
   }
 
@@ -23,6 +26,7 @@ class _ProductCounterState extends State<ProductCounter> {
     if (counter > 1) {
       setState(() {
         counter--;
+        widget.onCounterChanged!(counter);
       });
     }
   }

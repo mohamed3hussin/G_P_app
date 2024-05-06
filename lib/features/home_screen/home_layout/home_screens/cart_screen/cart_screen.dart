@@ -30,7 +30,7 @@ class _CartScreenState extends State<CartScreen> {
     return BlocConsumer<HomeCubit,HomeState>(builder: (context, state) {
       var cubit=BlocProvider.of<HomeCubit>(context);
       return ConditionalBuilder(
-        condition: cubit.listCartItems!=null,
+        condition: cubit.listCartItems!=null && cubit.listCartItems!.isNotEmpty,
         builder:(context) => Padding(
           padding: EdgeInsets.symmetric(vertical: 12.h),
           child: Column(

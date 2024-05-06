@@ -288,7 +288,9 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
                               SizedBox(
                                 height: 25.h,
                               ),
-                              ProductCounter(),
+                              ProductCounter((p0) {
+
+                              }),
                               SizedBox(
                                 height: 30.h,
                               ),

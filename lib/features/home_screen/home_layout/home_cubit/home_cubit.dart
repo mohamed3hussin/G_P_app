@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -129,7 +130,6 @@ class HomeCubit extends Cubit<HomeState> {
         }).then((value)
     {
       wishListModel = WishListModel.fromJson(value.data);
-
       emit(WishListLoadedState());
     }).catchError((error){
       print(error.toString());
@@ -200,15 +200,19 @@ class HomeCubit extends Cubit<HomeState> {
     emit(UpdateCartLoadingState());
     try {
       final response = await ApiManager.postData(
-        url: 'Wishlists', // Adjust the URL according to your API
+        url: 'Baskets',
         data: data,
       );
       // Parse the response to get the updated wish list model
       updateCartModel = CartResponse.fromJson(response.data);
       listCartItems ??= [];
       for (var newItem in updateCartModel!.items!) {
-        if (!listCartItems!.any((existingItem) => existingItem.id == newItem.id)) {
-          // If the item doesn't exist in listWishList, add it
+        var existingItem = listCartItems!.firstWhereOrNull((item) => item.id == newItem.id);
+        if (existingItem != null) {
+          // If the item already exists in the cart, update its quantity
+          existingItem.quantity=existingItem.quantity!+1;
+        } else {
+          // If the item doesn't exist in the cart, add it
           listCartItems!.add(newItem);
         }
       }
@@ -220,6 +224,7 @@ class HomeCubit extends Cubit<HomeState> {
       emit(UpdateCartErrorState(error.toString()));
     }
   }
+
   void deleteCartItem(CartItems model)  {
     listCartItems?.remove(model);
     getCart();

@@ -4,16 +4,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_cubit.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_state.dart';
+import 'package:g_p_app/features/home_screen/home_layout/home_screens/cart_screen/no_item.dart';
+import 'package:g_p_app/features/home_screen/home_layout/home_screens/wish_list_screen/no_item_wish.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/wish_list_screen/wishListWidget/wish_list_view_widget.dart';
 
-class WishListView extends StatefulWidget {
-  const WishListView({Key? key}) : super(key: key);
+class WishListScreen extends StatefulWidget {
+
 
   @override
-  State<WishListView> createState() => _WishListViewState();
+  State<WishListScreen> createState() => _WishListScreenState();
 }
 
-class _WishListViewState extends State<WishListView> {
+class _WishListScreenState extends State<WishListScreen> {
   void initState() {
     var cubit=BlocProvider.of<HomeCubit>(context);
     cubit.getWishList();
@@ -26,7 +28,7 @@ class _WishListViewState extends State<WishListView> {
       builder: (context, state) {
         var cubit=BlocProvider.of<HomeCubit>(context);
         return ConditionalBuilder(
-          condition: cubit.wishListModel!.items != null,
+          condition: cubit.listWishList != null && cubit.listWishList!.isNotEmpty,
           builder: (context) => SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Padding(
@@ -39,7 +41,7 @@ class _WishListViewState extends State<WishListView> {
               ),
             ),
           ),
-          fallback: (context) => Center(child: CircularProgressIndicator()),
+          fallback: (context) => noItemWish(),
         );
       },
     );

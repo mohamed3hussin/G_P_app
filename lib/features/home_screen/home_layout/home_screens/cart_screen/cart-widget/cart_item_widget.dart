@@ -7,11 +7,16 @@ import '../../../../../../core/text_style/styles.dart';
 import '../../../../../../data/model/response/CartResponse.dart';
 import '../../../home_cubit/home_cubit.dart';
 
-class CartItemWidget extends StatelessWidget {
+class CartItemWidget extends StatefulWidget {
   final CartItems model;
 
   const CartItemWidget(this.model);
 
+  @override
+  State<CartItemWidget> createState() => _CartItemWidgetState();
+}
+
+class _CartItemWidgetState extends State<CartItemWidget> {
   @override
   Widget build(BuildContext context) {
     var cubit = HomeCubit.get(context);
@@ -32,7 +37,7 @@ class CartItemWidget extends StatelessWidget {
                 child: Row(
                   children: [
                     Image(
-                      image: NetworkImage(model.pictureUrl ?? ''),
+                      image: NetworkImage(widget.model.pictureUrl ?? ''),
                       width: 80.w,
                       height: 80.h,
                       fit: BoxFit.cover,
@@ -43,7 +48,7 @@ class CartItemWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            model.productName ?? '',
+                            widget.model.productName ?? '',
                             style: Styles.textStyle14.copyWith(
                               color: CustomColors.textColor,
                               fontWeight: FontWeight.w600,
@@ -51,13 +56,13 @@ class CartItemWidget extends StatelessWidget {
                           ),
                           SizedBox(height: 5.h),
                           Text(
-                            'Size : ${model.size}',
+                            'Size : ${widget.model.size}',
                             style: Styles.textStyle14,
                           ),
                           Row(
                             children: [
                               Text(
-                                '\$ ${model.price?.toStringAsFixed(2)}',
+                                '\$ ${widget.model.price?.toStringAsFixed(2)}',
                                 style: Styles.textStyle16.copyWith(
                                   color: CustomColors.green,
                                   fontWeight: FontWeight.w600,
@@ -66,7 +71,14 @@ class CartItemWidget extends StatelessWidget {
                               Spacer(),
                               IconButton(
                                 padding: EdgeInsets.zero,
-                                onPressed: () {},
+                                onPressed: () {
+                                  setState(() {
+                                    if(widget.model.quantity!=1)
+                                    {
+                                      widget.model.quantity=(widget.model.quantity!-1);
+                                    }
+                                  });
+                                },
                                 icon: CircleAvatar(
                                   radius: 14.r,
                                   backgroundColor: CustomColors.lightBlue,
@@ -78,7 +90,7 @@ class CartItemWidget extends StatelessWidget {
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 5.w),
                                 child: Text(
-                                  '${model.quantity}',
+                                  '${widget.model.quantity}',
                                   style: Styles.textStyle16.copyWith(
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -86,7 +98,11 @@ class CartItemWidget extends StatelessWidget {
                               ),
                               IconButton(
                                 padding: EdgeInsets.zero,
-                                onPressed: () {},
+                                onPressed: () {
+                                  setState(() {
+                                    widget.model.quantity=(widget.model.quantity!+1);
+                                  });
+                                },
                                 icon: CircleAvatar(
                                   radius: 14.r,
                                   backgroundColor: CustomColors.blue,
@@ -109,7 +125,7 @@ class CartItemWidget extends StatelessWidget {
         ),
         IconButton(
           onPressed: () {
-            cubit.deleteCartItem(model);
+            cubit.deleteCartItem(widget.model);
           },
           icon: Icon(
             IconBroken.Delete,

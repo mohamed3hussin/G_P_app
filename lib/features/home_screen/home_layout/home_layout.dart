@@ -9,11 +9,12 @@ import 'package:g_p_app/core/text_style/styles.dart';
 import 'package:g_p_app/features/design_screens/design_explain_screen1.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_cubit.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_state.dart';
+import 'package:g_p_app/features/home_screen/home_layout/home_screens/home_screen/home_screen_widget/product_view_widget.dart';
 import '../../../core/assets_data/assetsData.dart';
 import 'home_screens/cart_screen/cart_screen.dart';
 import 'home_screens/home_screen/home_screen.dart';
 import 'home_screens/profile_screen/profile_screen_view.dart';
-import 'home_screens/wish_list_screen/wish_list_screen.dart';
+import 'home_screens/wish_list_screen/wish_list_view.dart';
 
 class HomeLayout extends StatefulWidget {
   static const String routeName = 'home_layout';
@@ -38,10 +39,9 @@ class _HomeLayoutState extends State<HomeLayout> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
-      listener: (context, state)
-      {},
+      listener: (context, state) {},
       builder: (context, state) {
-        var homeCubit = HomeCubit.get(context);
+        var cubit = HomeCubit.get(context);
         return Scaffold(
           extendBody: true,
           appBar: AppBar(
@@ -53,60 +53,78 @@ class _HomeLayoutState extends State<HomeLayout> {
             leadingWidth: 45.w,
             title: currentIndex == 0
                 ? Material(
-                    elevation: 5,
-                    borderRadius: BorderRadius.circular(10.sp),
-                    child: defaultSearchTextField(
-                      type: TextInputType.name,
-                      controller: searchController,
-                      label: 'Search anything here',
-                      prefix: IconBroken.Search,
-                      enable: false,
-                      validate: (value) {
-                        if (value!.isEmpty) {
-                          return 'Email most not empty';
-                        } else {
-                          return null;
-                        }
-                      },
-                    ),
-                  )
+              elevation: 5,
+              borderRadius: BorderRadius.circular(10.sp),
+              child: defaultSearchTextField(
+                type: TextInputType.name,
+                controller: searchController,
+                label: 'Search anything here',
+                prefix: IconBroken.Search,
+                enable: false,
+                validate: (value) {
+                  if (value!.isEmpty) {
+                    return 'Email most not empty';
+                  } else {
+                    return null;
+                  }
+                },
+              ),
+            )
                 : Text(
-                  title,
-                  style: Styles.textStyle24.copyWith(
-                      color: CustomColors.darkBlue,
-                      fontWeight: FontWeight.w700),
-                ),
+              title,
+              style: Styles.textStyle24.copyWith(
+                  color: CustomColors.darkBlue,
+                  fontWeight: FontWeight.w700),
+            ),
             titleSpacing: 4,
             actions: [
               currentIndex == 0
                   ? Padding(
-                    padding:EdgeInsets.symmetric(horizontal: 15.w),
-                    child: IconButton(
+                padding: EdgeInsets.symmetric(horizontal: 15.w),
+                child: IconButton(
                     onPressed: () {},
-                    icon: Icon(
-                      IconBroken.Buy,
-                      color: Color(0xFF1B72C0),
-                      size: 30,
+                    icon: Stack(
+                      alignment: Alignment.topRight,
+                      children: [
+                        Icon(
+                          IconBroken.Buy,
+                          color: Color(0xFF1B72C0),
+                          size: 30,
+                        ),
+                        CircleAvatar(backgroundColor: Colors.red,
+                          radius: 8,
+                          child: Text('${cubit.listCartItems?.length==null?0:cubit.listCartItems?.length}', style: TextStyle(
+                              fontSize: 10.sp),),),
+                      ],
                     )),
-                  )
+              )
                   : Row(
-                    children: [
-                      IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            IconBroken.Search,
-                            color: Color(0xFF1B72C0),
-                            size: 30,
-                          )),
-                      IconButton(
-                          onPressed: () {},
-                          icon: Icon(
+                children: [
+                  IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        IconBroken.Search,
+                        color: Color(0xFF1B72C0),
+                        size: 30,
+                      )),
+                  IconButton(
+                      onPressed: () {},
+                      icon: Stack(
+                        alignment: Alignment.topRight,
+                        children: [
+                          Icon(
                             IconBroken.Buy,
                             color: Color(0xFF1B72C0),
                             size: 30,
-                          ))
-                    ],
-                  ),
+                          ),
+                          CircleAvatar(backgroundColor: Colors.red,
+                            radius: 8,
+                            child: Text('${cubit.listCartItems?.length==null?0:cubit.listCartItems?.length}', style: TextStyle(
+                                fontSize: 10.sp),),),
+                        ],
+                      ))
+                ],
+              ),
             ],
           ),
           body: PageStorage(
@@ -134,7 +152,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                   ),
                 ),
                 child: Padding(
-                  padding:EdgeInsets.all(12.r),
+                  padding: EdgeInsets.all(12.r),
                   child: Image.asset(
                     'assets/images/floating_action_button_img.png',
                   ),
@@ -143,7 +161,7 @@ class _HomeLayoutState extends State<HomeLayout> {
             ),
           ),
           floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
+          FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: Container(
             clipBehavior: Clip.antiAliasWithSaveLayer,
             decoration: BoxDecoration(

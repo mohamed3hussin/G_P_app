@@ -179,8 +179,7 @@ class _ProductItemBuilderState extends State<ProductItemBuilder> {
                                         'productName': widget.data.name,
                                         'pictureUrl': widget.data.productPictures![0],
                                         'size': widget.data.productSize![0].sizename,
-                                        'type': widget.data.type,
-                                        'color':widget.data.productColor![0],
+                                        'color':widget.data.productColor![0].colorname,
                                         'price': widget.data.price,
                                         'quantity': 1,
                                       }

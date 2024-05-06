@@ -6,6 +6,10 @@ import 'package:g_p_app/features/product_details/widgets/color_container.dart';
 import '../../../data/model/response/AllProductResponse.dart';
 
 class ColorLine extends StatefulWidget {
+  final void Function(String)? onColorSelected;
+
+  ColorLine({this.onColorSelected}); // Define callback function
+
   @override
   State<ColorLine> createState() => _ColorLineState();
 }
@@ -35,7 +39,10 @@ class _ColorLineState extends State<ColorLine> {
               isSelected: currentIndex == index,
               onTap: () {
                 currentIndex = index;
-                setState(() {});
+                setState(() {
+                    widget.onColorSelected!(args.productColor?[index].colorname ?? args.productColor![0].colorname!);
+
+                });
               },
             );
           },

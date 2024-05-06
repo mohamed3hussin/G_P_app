@@ -6,7 +6,8 @@ import '../../../core/shared_widget/custom_button.dart';
 import '../../../core/text_style/styles.dart';
 
 class ButtonsRow extends StatelessWidget {
-  const ButtonsRow({super.key});
+  Function? addToCart;
+  ButtonsRow({this.addToCart});
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +34,7 @@ class ButtonsRow extends StatelessWidget {
                 icon: Icons.shopping_cart,
                 text: 'Add to Cart',
                 func: () {
+                  addToCart!();
                   showDialog(context: context, builder:(context) => Dialog(child: AddedToCartAlert()),);
                 },
                 style: Styles.textStyle16
