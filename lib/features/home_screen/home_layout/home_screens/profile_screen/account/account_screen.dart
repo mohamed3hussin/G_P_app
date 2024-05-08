@@ -46,12 +46,6 @@ class AccountScreen extends StatelessWidget {
                 icon: IconBroken.Message, text: 'E-mail',description: 'habiba20@gmail.com', arrowIcon: false),
             GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, PhoneNumberView.routeName);
-                },
-                child:
-                    ProfileItem(icon: IconBroken.Call, text: 'Phone number',description: '12345680',)),
-            GestureDetector(
-                onTap: () {
                   Navigator.pushNamed(context, ChangePasswordView.routeName);
                 },
                 child: ProfileItem(
@@ -66,11 +60,6 @@ class AccountScreen extends StatelessWidget {
                   Navigator.pushNamed(context, SelectAddressView.routeName);
                 },
                 child: ProfileItem(icon: Icons.question_mark, text: 'Address')),
-            ProfileItem(
-              icon: IconBroken.Danger,
-              text: 'Delete Account',
-              arrowIcon: false,
-            ),
           ],
         ),
       ),

@@ -184,7 +184,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                             'id': 'basket1',
                             'items': items,
                           };
-                          cubit.updateCart(data: requestData);
+                          cubit.updateCart(data: requestData,quantity: counterValue);
                         },
                       )
                     ],

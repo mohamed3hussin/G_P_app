@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:collection/collection.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,6 +8,7 @@ import 'package:g_p_app/core/cach_helper/cach_helper.dart';
 import 'package:g_p_app/data/model/response/AllProductResponse.dart';
 import 'package:g_p_app/data/model/response/WishListModel.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_state.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../data/api/api_manager.dart';
 import '../../../../data/model/response/CartResponse.dart';
 import '../../../../data/model/response/LogoResponse.dart';
@@ -38,7 +41,7 @@ class HomeCubit extends Cubit<HomeState> {
         'PageSized': '3',
       },
     ).then((response) {
-      allProducts=AllProducts.fromJson(response.data);
+      allProducts = AllProducts.fromJson(response.data);
       emit(AllProductLoadedState());
       // if (response.data == null) {
       //   emit(AllProductErrorState("Oops! no results!"));
@@ -60,7 +63,7 @@ class HomeCubit extends Cubit<HomeState> {
         'PageSized': '3',
       },
     ).then((response) {
-      newArrival=AllProducts.fromJson(response.data);
+      newArrival = AllProducts.fromJson(response.data);
       emit(NewArrivalProductLoadedState());
       // if (response.data == null) {
       //   emit(AllProductErrorState("Oops! no results!"));
@@ -93,21 +96,22 @@ class HomeCubit extends Cubit<HomeState> {
     });
   }
 
-  void getGenderProductByTypeId({required String typeId, required String gender, String isDesigned='false'}) {
-    listProductsByGender=[];
+  void getGenderProductByTypeId(
+      {required String typeId, required String gender, String isDesigned = 'false'}) {
+    listProductsByGender = [];
     emit(GenderProductByTypeIdLoadingState());
     ApiManager.getData(
       url: 'Product',
       query: {
         'sort': 'name',
         'typeId': typeId,
-        'gendertype':gender,
+        'gendertype': gender,
         'isDesigned': isDesigned,
         'PageIndex': '1',
         'PageSized': '3',
       },
     ).then((response) {
-      productsByGender=AllProducts.fromJson(response.data);
+      productsByGender = AllProducts.fromJson(response.data);
       listProductsByGender?.addAll(productsByGender!.data!);
       emit(GenderProductByTypeIdLoadedState());
       // if (response.data == null) {
@@ -119,31 +123,21 @@ class HomeCubit extends Cubit<HomeState> {
     });
   }
 
-  void getWishList()
-  {
+  void getWishList() {
     emit(WishListLoadingState());
     ApiManager.getData(
         url: 'Wishlists/{id}',
         query:
         {
-          'Wishlistid':'wishlist1',
-        }).then((value)
-    {
+          'Wishlistid': 'wishlist1',
+        }).then((value) {
       wishListModel = WishListModel.fromJson(value.data);
       emit(WishListLoadedState());
-    }).catchError((error){
+    }).catchError((error) {
       print(error.toString());
       emit(WishListErrorState(error.toString()));
     });
   }
-  // int? id;
-  // String? productName;
-  // String? pictureUrl;
-  // String? size;
-  // String? type;
-  // int? quantity;
-  // double? price;
-  // bool? isFavourite;
 
   void updateWishList({required Map<String, dynamic> data}) async {
     emit(UpdateWishListLoadingState());
@@ -156,11 +150,13 @@ class HomeCubit extends Cubit<HomeState> {
       updateWishListModel = WishListModel.fromJson(response.data);
       listWishList ??= [];
       for (var newItem in updateWishListModel!.items) {
-        if (!listWishList!.any((existingItem) => existingItem.id == newItem.id)) {
+        if (!listWishList!.any((existingItem) =>
+        existingItem.id == newItem.id)) {
           // If the item doesn't exist in listWishList, add it
           listWishList!.add(newItem);
         }
       }
+      saveWishListToPrefs();
       // Notify the UI that the operation is completed
       emit(UpdateWishListLoadedState());
     } catch (error) {
@@ -170,33 +166,50 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  void deleteWishlistItem(WishListItem model)  {
+  void deleteWishlistItem(WishListItem model) {
     listWishList?.remove(model);
     getWishList();
+    saveWishListToPrefs();
     print(listWishList?.length);
     emit(DeleteWishlistItemLoadedState());
   }
 
+  void saveWishListToPrefs() {
+    List<String> wishListJsonList = listWishList!.map((item) =>
+        jsonEncode(item.toJson())).toList();
+    print(listWishList);
+    print(wishListJsonList[0]);
+    print(wishListJsonList);
+    CacheHelper.sharedPreferences.setStringList('wishlist', wishListJsonList);
+  }
 
-  void getCart()
-  {
+  getWishListFromPrefs() {
+    List<String>? wishListJsonList = CacheHelper.sharedPreferences
+        .getStringList('wishlist');
+    if (wishListJsonList != null) {
+      listWishList = wishListJsonList.map((jsonString) =>
+          WishListItem.fromJson(jsonDecode(jsonString))).toList();
+    }
+  }
+
+  void getCart() {
     emit(CartLoadingState());
     ApiManager.getData(
         url: 'Baskets/1',
         query:
         {
-          'BasketId':'basket1',
-        }).then((value)
-    {
+          'BasketId': 'basket1',
+        }).then((value) {
       cartResponse = CartResponse.fromJson(value.data);
       emit(CartLoadedState());
-    }).catchError((error){
+    }).catchError((error) {
       print(error.toString());
       emit(CartErrorState(error.toString()));
     });
   }
 
-  void updateCart({required Map<String, dynamic> data}) async {
+  void updateCart(
+      {required Map<String, dynamic> data, int quantity = 1}) async {
     emit(UpdateCartLoadingState());
     try {
       final response = await ApiManager.postData(
@@ -207,15 +220,17 @@ class HomeCubit extends Cubit<HomeState> {
       updateCartModel = CartResponse.fromJson(response.data);
       listCartItems ??= [];
       for (var newItem in updateCartModel!.items!) {
-        var existingItem = listCartItems!.firstWhereOrNull((item) => item.id == newItem.id);
+        var existingItem = listCartItems!.firstWhereOrNull((item) =>
+        item.id == newItem.id);
         if (existingItem != null) {
           // If the item already exists in the cart, update its quantity
-          existingItem.quantity=existingItem.quantity!+1;
+          existingItem.quantity = existingItem.quantity! + quantity;
         } else {
           // If the item doesn't exist in the cart, add it
           listCartItems!.add(newItem);
         }
       }
+      saveCartToPrefs();
       // Notify the UI that the operation is completed
       emit(UpdateCartLoadedState());
     } catch (error) {
@@ -225,9 +240,27 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  void deleteCartItem(CartItems model)  {
+  void saveCartToPrefs() {
+    List<String> cartJsonList = listCartItems!.map((item) =>
+        jsonEncode(item.toJson())).toList();
+    print(listCartItems);
+    CacheHelper.sharedPreferences.setStringList('cart', cartJsonList);
+  }
+
+  getCartFromPrefs() {
+    List<String>? cartJsonList = CacheHelper.sharedPreferences
+        .getStringList('cart');
+    if (cartJsonList != null) {
+      listCartItems = cartJsonList.map((jsonString) =>
+          CartItems.fromJson(jsonDecode(jsonString))).toList();
+    }
+  }
+
+
+  void deleteCartItem(CartItems model) {
     listCartItems?.remove(model);
     getCart();
+    saveCartToPrefs();
     print(listCartItems?.length);
     emit(DeleteCartItemLoadedState());
   }
@@ -238,8 +271,8 @@ class HomeCubit extends Cubit<HomeState> {
       url: 'Product/Logo',
     ).then((response) {
       List<dynamic> data = response.data;
-       logo = data.map((json) => Logo.fromJson(json)).toList();
-       emit(LogosLoadedState());
+      logo = data.map((json) => Logo.fromJson(json)).toList();
+      emit(LogosLoadedState());
       // if (response.data == null) {
       //   emit(BestSellingProductsErrorState("Oops! no results!"));
       // }

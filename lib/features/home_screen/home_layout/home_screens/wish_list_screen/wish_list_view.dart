@@ -18,7 +18,7 @@ class WishListScreen extends StatefulWidget {
 class _WishListScreenState extends State<WishListScreen> {
   void initState() {
     var cubit=BlocProvider.of<HomeCubit>(context);
-    cubit.getWishList();
+    cubit.getWishListFromPrefs();
     cubit.getAllProduct();
   }
   @override

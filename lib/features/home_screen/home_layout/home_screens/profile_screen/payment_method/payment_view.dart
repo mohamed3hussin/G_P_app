@@ -30,7 +30,6 @@ class PaymentView extends StatelessWidget {
                   color: CustomColors.darkBlue,
                   fontWeight: FontWeight.w600),),
           ),
-          ProfileItem(icon: Icons.money, text: 'Cash',arrowIcon: false,),
           ProfileItem(icon: Icons.payment, text: 'Debit/Credit Card',arrowIcon: false,),
 
           SizedBox(height: 20.h,),

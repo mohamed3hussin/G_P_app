@@ -31,7 +31,6 @@ static const String routeName='my_orders';
         child: Column(
           children: [
             SizedBox(height: 35.h,),
-            GestureDetector(onTap: (){Navigator.pushNamed(context, TrackOrderView.routeName);},child: ProfileItem(icon: Icons.check_box, text: 'Current Order')),
             GestureDetector(onTap: (){Navigator.pushNamed(context, PastOrdersView.routeName);},child: ProfileItem(icon: Icons.file_copy, text: 'Past Orders')),
           ],
         ),

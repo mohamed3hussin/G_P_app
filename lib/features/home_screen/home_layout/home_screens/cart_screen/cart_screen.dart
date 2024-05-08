@@ -23,6 +23,7 @@ class _CartScreenState extends State<CartScreen> {
   void initState() {
     // TODO: implement initState
     var cubit=BlocProvider.of<HomeCubit>(context);
+    cubit.getCartFromPrefs();
     cubit.getCart();
   }
   @override

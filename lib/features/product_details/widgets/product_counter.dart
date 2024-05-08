@@ -18,7 +18,7 @@ class _ProductCounterState extends State<ProductCounter> {
   void incrementCounter() {
     setState(() {
       counter++;
-      widget.onCounterChanged!(counter);
+      widget.onCounterChanged(counter);
     });
   }
 
@@ -26,7 +26,7 @@ class _ProductCounterState extends State<ProductCounter> {
     if (counter > 1) {
       setState(() {
         counter--;
-        widget.onCounterChanged!(counter);
+        widget.onCounterChanged(counter);
       });
     }
   }
