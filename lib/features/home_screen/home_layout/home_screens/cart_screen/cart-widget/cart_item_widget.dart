@@ -20,7 +20,6 @@ class _CartItemWidgetState extends State<CartItemWidget> {
   @override
   Widget build(BuildContext context) {
     var cubit = HomeCubit.get(context);
-
     return Row(
       children: [
         Expanded(
@@ -76,6 +75,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                     if(widget.model.quantity!=1)
                                     {
                                       widget.model.quantity=(widget.model.quantity!-1);
+                                      cubit.saveCartToPrefs();
                                     }
                                   });
                                 },
@@ -101,6 +101,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                 onPressed: () {
                                   setState(() {
                                     widget.model.quantity=(widget.model.quantity!+1);
+                                    cubit.saveCartToPrefs();
                                   });
                                 },
                                 icon: CircleAvatar(

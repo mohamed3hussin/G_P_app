@@ -6,6 +6,11 @@ import 'package:g_p_app/core/text_style/styles.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/my_order/rate_product/rate_product_view.dart';
 
 class OrderItem extends StatelessWidget {
+  String name;
+  String price;
+  String? productPicture;
+  OrderItem(this.name, this.price,this.productPicture);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -20,19 +25,31 @@ class OrderItem extends StatelessWidget {
         child: Row(
           children: [
             Padding(
-              padding: EdgeInsets.all(8.r),
-              child: Image.asset(AssetsData.orderItem),
+              padding: EdgeInsets.all(7.r),
+              child: productPicture != null
+                  ? Container(clipBehavior: Clip.antiAliasWithSaveLayer,
+                width: 120,
+                height: 130,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(16.r),
+                  image: DecorationImage(image: NetworkImage(
+                    productPicture!,
+
+                  ),)
+                ),
+                  )
+                  : Container(width: 120,child: Icon(Icons.error, size: 30)),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Autumn collection',
+                  name,
                   style: Styles.textStyle16!.copyWith(color: Colors.black,fontSize: 18.sp),
                 ),
                 Text(
-                  '\$ 24.00',
+                  '\$ $price',
                   style:
                       Styles.textStyle20!.copyWith(color: CustomColors.green),
                 ),

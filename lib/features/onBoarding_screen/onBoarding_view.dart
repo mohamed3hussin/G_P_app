@@ -189,10 +189,8 @@ class _onBoardingViewState extends State<onBoardingView> {
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                    side: const BorderSide(color: Color(0xFFFDF1E2)),
+                    foregroundColor: Colors.white, side: const BorderSide(color: Color(0xFFFDF1E2)),
                     shape: const CircleBorder(),
-                    //padding: EdgeInsets.all(22.sp),
-                    onPrimary: Colors.white,
                   ),
                   child: Container(
                     padding:EdgeInsets.all(20.sp) ,

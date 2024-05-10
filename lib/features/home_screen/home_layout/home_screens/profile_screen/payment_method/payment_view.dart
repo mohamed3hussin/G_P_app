@@ -22,14 +22,7 @@ class PaymentView extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding:EdgeInsets.symmetric(horizontal: 16.w,vertical: 25.h),
-            child: Text(
-              'Choose Payment Methods',
-              style: Styles.textStyle16.copyWith(
-                  color: CustomColors.darkBlue,
-                  fontWeight: FontWeight.w600),),
-          ),
+          SizedBox(height: 25.h,),
           ProfileItem(icon: Icons.payment, text: 'Debit/Credit Card',arrowIcon: false,),
 
           SizedBox(height: 20.h,),

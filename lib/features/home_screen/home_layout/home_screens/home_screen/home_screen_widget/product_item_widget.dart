@@ -190,6 +190,7 @@ class _ProductItemBuilderState extends State<ProductItemBuilder> {
                                       'items': items,
                                     };
                                     cubit.updateCart(data: requestData);
+                                    cubit.convertCartToJson();
                                   },
                                   icon: CircleAvatar(
                                     radius: 20.w,

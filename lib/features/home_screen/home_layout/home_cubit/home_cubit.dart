@@ -1,14 +1,12 @@
 import 'dart:convert';
-
 import 'package:collection/collection.dart';
-import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:g_p_app/core/cach_helper/cach_helper.dart';
+import 'package:g_p_app/data/model/response/AllOrdersResponse.dart';
 import 'package:g_p_app/data/model/response/AllProductResponse.dart';
+import 'package:g_p_app/data/model/response/UserAddress.dart';
 import 'package:g_p_app/data/model/response/WishListModel.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_state.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../data/api/api_manager.dart';
 import '../../../../data/model/response/CartResponse.dart';
 import '../../../../data/model/response/LogoResponse.dart';
@@ -29,6 +27,9 @@ class HomeCubit extends Cubit<HomeState> {
   CartResponse? updateCartModel;
   List<CartItems>? listCartItems;
   List<Logo>? logo;
+  CartResponse? paymentIntent;
+  UserAddressResponse? userAddress;
+  List<AllOrdersResponse>? allOrdersResponse;
 
   void getAllProduct({String sort = 'name'}) {
     emit(AllProductLoadingState());
@@ -84,8 +85,7 @@ class HomeCubit extends Cubit<HomeState> {
       },
     ).then((response) {
       final List<dynamic> responseData = response.data;
-      bestSelling =
-          responseData.map((json) => Data.fromJson(json)).toList();
+      bestSelling = responseData.map((json) => Data.fromJson(json)).toList();
       emit(BestSellingProductsLoadedState());
       // if (response.data == null) {
       //   emit(BestSellingProductsErrorState("Oops! no results!"));
@@ -96,8 +96,9 @@ class HomeCubit extends Cubit<HomeState> {
     });
   }
 
-  void getGenderProductByTypeId(
-      {required String typeId, required String gender, String isDesigned = 'false'}) {
+  void getGenderProductByTypeId({required String typeId,
+    required String gender,
+    String isDesigned = 'false'}) {
     listProductsByGender = [];
     emit(GenderProductByTypeIdLoadingState());
     ApiManager.getData(
@@ -125,12 +126,9 @@ class HomeCubit extends Cubit<HomeState> {
 
   void getWishList() {
     emit(WishListLoadingState());
-    ApiManager.getData(
-        url: 'Wishlists/{id}',
-        query:
-        {
-          'Wishlistid': 'wishlist1',
-        }).then((value) {
+    ApiManager.getData(url: 'Wishlists/{id}', query: {
+      'Wishlistid': 'wishlist1',
+    }).then((value) {
       wishListModel = WishListModel.fromJson(value.data);
       emit(WishListLoadedState());
     }).catchError((error) {
@@ -150,8 +148,8 @@ class HomeCubit extends Cubit<HomeState> {
       updateWishListModel = WishListModel.fromJson(response.data);
       listWishList ??= [];
       for (var newItem in updateWishListModel!.items) {
-        if (!listWishList!.any((existingItem) =>
-        existingItem.id == newItem.id)) {
+        if (!listWishList!
+            .any((existingItem) => existingItem.id == newItem.id)) {
           // If the item doesn't exist in listWishList, add it
           listWishList!.add(newItem);
         }
@@ -175,8 +173,8 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void saveWishListToPrefs() {
-    List<String> wishListJsonList = listWishList!.map((item) =>
-        jsonEncode(item.toJson())).toList();
+    List<String> wishListJsonList =
+    listWishList!.map((item) => jsonEncode(item.toJson())).toList();
     print(listWishList);
     print(wishListJsonList[0]);
     print(wishListJsonList);
@@ -184,22 +182,20 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   getWishListFromPrefs() {
-    List<String>? wishListJsonList = CacheHelper.sharedPreferences
-        .getStringList('wishlist');
+    List<String>? wishListJsonList =
+    CacheHelper.sharedPreferences.getStringList('wishlist');
     if (wishListJsonList != null) {
-      listWishList = wishListJsonList.map((jsonString) =>
-          WishListItem.fromJson(jsonDecode(jsonString))).toList();
+      listWishList = wishListJsonList
+          .map((jsonString) => WishListItem.fromJson(jsonDecode(jsonString)))
+          .toList();
     }
   }
 
   void getCart() {
     emit(CartLoadingState());
-    ApiManager.getData(
-        url: 'Baskets/1',
-        query:
-        {
-          'BasketId': 'basket1',
-        }).then((value) {
+    ApiManager.getData(url: 'Baskets/1', query: {
+      'BasketId': 'basket1',
+    }).then((value) {
       cartResponse = CartResponse.fromJson(value.data);
       emit(CartLoadedState());
     }).catchError((error) {
@@ -220,8 +216,8 @@ class HomeCubit extends Cubit<HomeState> {
       updateCartModel = CartResponse.fromJson(response.data);
       listCartItems ??= [];
       for (var newItem in updateCartModel!.items!) {
-        var existingItem = listCartItems!.firstWhereOrNull((item) =>
-        item.id == newItem.id);
+        var existingItem =
+        listCartItems!.firstWhereOrNull((item) => item.id == newItem.id);
         if (existingItem != null) {
           // If the item already exists in the cart, update its quantity
           existingItem.quantity = existingItem.quantity! + quantity;
@@ -231,6 +227,7 @@ class HomeCubit extends Cubit<HomeState> {
         }
       }
       saveCartToPrefs();
+      convertCartToJson();
       // Notify the UI that the operation is completed
       emit(UpdateCartLoadedState());
     } catch (error) {
@@ -241,21 +238,24 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void saveCartToPrefs() {
-    List<String> cartJsonList = listCartItems!.map((item) =>
-        jsonEncode(item.toJson())).toList();
+    List<String> cartJsonList =
+    listCartItems!.map((item) => jsonEncode(item.toJson())).toList();
     print(listCartItems);
     CacheHelper.sharedPreferences.setStringList('cart', cartJsonList);
   }
 
   getCartFromPrefs() {
-    List<String>? cartJsonList = CacheHelper.sharedPreferences
-        .getStringList('cart');
+    List<String>? cartJsonList =
+    CacheHelper.sharedPreferences.getStringList('cart');
     if (cartJsonList != null) {
-      listCartItems = cartJsonList.map((jsonString) =>
-          CartItems.fromJson(jsonDecode(jsonString))).toList();
+      listCartItems = cartJsonList
+          .map((jsonString) => CartItems.fromJson(jsonDecode(jsonString)))
+          .toList();
     }
   }
-
+  deleteCartFromPref(){
+    CacheHelper.sharedPreferences.remove('cart');
+  }
 
   void deleteCartItem(CartItems model) {
     listCartItems?.remove(model);
@@ -279,6 +279,65 @@ class HomeCubit extends Cubit<HomeState> {
     }).catchError((error) {
       print(error.toString());
       emit(LogosErrorState(error.toString()));
+    });
+  }
+
+  List<Map<String, dynamic>>? convertCartToJson() {
+    if (listCartItems != null) {
+      List<Map<String, dynamic>> jsonData = [];
+      for (var item in listCartItems!) {
+        jsonData.add({
+          'id': item.id,
+          'productName': item.productName,
+          'pictureUrl': item.pictureUrl,
+          'size': item.size,
+          'color': item.color,
+          'price': item.price,
+          'quantity': item.quantity,
+        });
+      }
+      return jsonData;
+    } else {
+      return null;
+    }
+  }
+
+  createCartForPayment() async {
+    List<Map<String, dynamic>>? jsonData = convertCartToJson();
+    ApiManager.postData(url: 'Baskets', data: {
+      'id': 'basket1',
+      'items': jsonData,
+      'deliveryMethodId': '1',
+    }).then((value) {
+      final response = CartResponse.fromJson(value.data);
+      createPaymentIntent();
+      print(response.items);
+    });
+  }
+
+  createPaymentIntent({String orderId = 'basket1'}) {
+    final response =
+    ApiManager.postData(url: 'Payment/$orderId', data: {}).then((value) {
+      paymentIntent = CartResponse.fromJson(value.data);
+      print(paymentIntent?.paymentIntentId);
+      print(paymentIntent?.clilentSecret);
+    }).catchError((onError) {
+      print(onError.toString());
+    });
+  }
+
+
+  getCurrentUserAddress() {
+    ApiManager.getData(url: 'accounts/Address/').then((response) {
+      userAddress = UserAddressResponse.fromJson(response.data);
+    });
+  }
+
+
+  getUserOrders() {
+    ApiManager.getData(url: 'Orders').then((response) {
+      final List<dynamic> responseData = response.data;
+      allOrdersResponse = responseData.map((json) => AllOrdersResponse.fromJson(json)).toList();
     });
   }
 }

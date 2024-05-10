@@ -32,7 +32,7 @@ class CartResponse {
   dynamic paymentIntentId;
   dynamic clilentSecret;
   dynamic deliveryMethodId;
-  int? shippingCost;
+  dynamic shippingCost;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

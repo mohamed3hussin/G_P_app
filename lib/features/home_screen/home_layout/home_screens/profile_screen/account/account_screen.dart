@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/core/text_style/styles.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/address/select_address_view.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/change_password/change_password_view.dart';
+import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/my_order/past_order/past_orders_view.dart';
+import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/my_order/past_order_details/past_order_details_view.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/phone/phone_number_view.dart';
 import '../../../../../../core/assets_data/iconBroken.dart';
 import '../../../../../../core/colors/colors.dart';
@@ -52,7 +54,7 @@ class AccountScreen extends StatelessWidget {
                     icon: IconBroken.Setting, text: 'Change password')),
             GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, MyOrdersView.routeName);
+                  Navigator.pushNamed(context, PastOrdersView.routeName);
                 },
                 child: ProfileItem(icon: IconBroken.Call, text: 'My orders')),
             GestureDetector(

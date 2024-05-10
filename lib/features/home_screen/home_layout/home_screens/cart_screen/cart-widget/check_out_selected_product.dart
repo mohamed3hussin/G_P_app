@@ -3,17 +3,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../../core/colors/colors.dart';
 import '../../../../../../core/text_style/styles.dart';
+import '../../../../../../data/model/response/CartResponse.dart';
 
-Widget CheckoutSelectedProduct()=>SizedBox(
+Widget CheckoutSelectedProduct(List<CartItems> cartItems)=>SizedBox(
     width: double.infinity,
-    height: 120.h,
+    height: 400.h,
     child: ListView.separated(
-        itemBuilder: ((context, index) => CheckoutList()),
+        itemBuilder: ((context, index) => CheckoutList(cartItems[index])),
         separatorBuilder: ((context, index) => SizedBox(height: 5.h,)),
-        itemCount: 5)
+        itemCount: cartItems.length)
 );
 
-Widget CheckoutList()=>Material(
+Widget CheckoutList(CartItems cartItems)=>Material(
   borderRadius: BorderRadius.circular(12),
   clipBehavior: Clip.antiAliasWithSaveLayer,
   elevation: 1,
@@ -24,7 +25,7 @@ Widget CheckoutList()=>Material(
         children: [
           SizedBox(width: 10.w,),
           Image(
-            image: NetworkImage('https://img.freepik.com/free-photo/portrait-man-white-shirt_171337-11986.jpg'),
+            image: NetworkImage(cartItems.pictureUrl??''),
             width: 80.w,
             height: 80.h,
             fit:BoxFit.cover,
@@ -34,23 +35,23 @@ Widget CheckoutList()=>Material(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Orlando Watch',
+                cartItems.productName??'',
                 style: Styles.textStyle14.copyWith(color: CustomColors.textColor,fontWeight: FontWeight.w600),
               ),
               SizedBox(height: 5.h,),
               Text(
-                'Size : ${12}',
+                'Size : ${cartItems.size}',
                 style: Styles.textStyle14,
               ),
               Text(
-                  '\$ ${230}',
+                  '\$ ${cartItems.price}',
                   style: Styles.textStyle16.copyWith(color: CustomColors.green,fontWeight: FontWeight.w600)
               ),
             ],
           )),
           Column(
             children: [
-              Text('${1} item',style: Styles.textStyle14.copyWith(fontWeight: FontWeight.w600,color: CustomColors.darkGrey)),
+              Text('${cartItems.quantity} item',style: Styles.textStyle14.copyWith(fontWeight: FontWeight.w600,color: CustomColors.darkGrey)),
             ],
           ),
         ],

@@ -37,7 +37,7 @@ class _CartScreenState extends State<CartScreen> {
           child: Column(
             children: [
               CartListView(cubit.listCartItems!),
-              CheckoutBottun(context),
+              CheckoutBottun(context,cubit.listCartItems??[]),
             ],
           ),
         ),
