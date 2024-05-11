@@ -99,3 +99,7 @@ class UpdateCartErrorState extends HomeState {
 }
 
 class DeleteCartItemLoadedState extends HomeState {}
+
+class CreateReviewLoading extends HomeState{}
+class CreateReviewLoaded extends HomeState{}
+class CreateReviewError extends HomeState{}

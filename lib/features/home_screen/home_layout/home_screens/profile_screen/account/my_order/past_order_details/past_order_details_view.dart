@@ -7,6 +7,7 @@ import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_sc
 import '../../../../../../../../core/assets_data/iconBroken.dart';
 import '../../../../../../../../core/colors/colors.dart';
 import '../../../../../../../../core/text_style/styles.dart';
+import '../rate_product/rate_product_view.dart';
 
 class PastOrderDetailsView extends StatelessWidget {
   static const String routeName = 'past_order_details';
@@ -43,7 +44,7 @@ class PastOrderDetailsView extends StatelessWidget {
                // If not empty, access the first element's pictureUrl
                    ? args.items![index].pictureUrl![0].pictureUrl ?? ''
                // If empty, provide a default value or handle the case as needed
-                   : null);
+                   : null,(){Navigator.pushNamed(context, RateProductView.routeName,arguments: args.items![index]);});
 
           },itemCount: args.items!.length,),)
 

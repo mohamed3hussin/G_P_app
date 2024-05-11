@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/core/colors/colors.dart';
-import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/address/add_address_view.dart';
+import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/address/edit_address_view.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/address/widget/address_item.dart';
 import '../../../../../../../core/assets_data/iconBroken.dart';
 import '../../../../../../../core/text_style/styles.dart';
@@ -42,7 +42,7 @@ class SelectAddressView extends StatelessWidget {
             margin: EdgeInsets.symmetric(horizontal: 20.w),
             child: InkWell(
               onTap: (){
-                Navigator.pushNamed(context, AddAddressView.routeName);
+                Navigator.pushNamed(context, EditAddressView.routeName);
               },
               child: Container(
                 height: 60.h,

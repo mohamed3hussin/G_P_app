@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:g_p_app/core/cach_helper/cach_helper.dart';
+import 'package:g_p_app/data/model/response/AddressResponse.dart';
 import 'package:g_p_app/data/model/response/AllOrdersResponse.dart';
 import 'package:g_p_app/data/model/response/AllProductResponse.dart';
 import 'package:g_p_app/data/model/response/UserAddress.dart';
@@ -96,9 +97,10 @@ class HomeCubit extends Cubit<HomeState> {
     });
   }
 
-  void getGenderProductByTypeId({required String typeId,
-    required String gender,
-    String isDesigned = 'false'}) {
+  void getGenderProductByTypeId(
+      {required String typeId,
+      required String gender,
+      String isDesigned = 'false'}) {
     listProductsByGender = [];
     emit(GenderProductByTypeIdLoadingState());
     ApiManager.getData(
@@ -174,7 +176,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   void saveWishListToPrefs() {
     List<String> wishListJsonList =
-    listWishList!.map((item) => jsonEncode(item.toJson())).toList();
+        listWishList!.map((item) => jsonEncode(item.toJson())).toList();
     print(listWishList);
     print(wishListJsonList[0]);
     print(wishListJsonList);
@@ -183,7 +185,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   getWishListFromPrefs() {
     List<String>? wishListJsonList =
-    CacheHelper.sharedPreferences.getStringList('wishlist');
+        CacheHelper.sharedPreferences.getStringList('wishlist');
     if (wishListJsonList != null) {
       listWishList = wishListJsonList
           .map((jsonString) => WishListItem.fromJson(jsonDecode(jsonString)))
@@ -217,7 +219,7 @@ class HomeCubit extends Cubit<HomeState> {
       listCartItems ??= [];
       for (var newItem in updateCartModel!.items!) {
         var existingItem =
-        listCartItems!.firstWhereOrNull((item) => item.id == newItem.id);
+            listCartItems!.firstWhereOrNull((item) => item.id == newItem.id);
         if (existingItem != null) {
           // If the item already exists in the cart, update its quantity
           existingItem.quantity = existingItem.quantity! + quantity;
@@ -239,21 +241,22 @@ class HomeCubit extends Cubit<HomeState> {
 
   void saveCartToPrefs() {
     List<String> cartJsonList =
-    listCartItems!.map((item) => jsonEncode(item.toJson())).toList();
+        listCartItems!.map((item) => jsonEncode(item.toJson())).toList();
     print(listCartItems);
     CacheHelper.sharedPreferences.setStringList('cart', cartJsonList);
   }
 
   getCartFromPrefs() {
     List<String>? cartJsonList =
-    CacheHelper.sharedPreferences.getStringList('cart');
+        CacheHelper.sharedPreferences.getStringList('cart');
     if (cartJsonList != null) {
       listCartItems = cartJsonList
           .map((jsonString) => CartItems.fromJson(jsonDecode(jsonString)))
           .toList();
     }
   }
-  deleteCartFromPref(){
+
+  deleteCartFromPref() {
     CacheHelper.sharedPreferences.remove('cart');
   }
 
@@ -317,7 +320,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   createPaymentIntent({String orderId = 'basket1'}) {
     final response =
-    ApiManager.postData(url: 'Payment/$orderId', data: {}).then((value) {
+        ApiManager.postData(url: 'Payment/$orderId', data: {}).then((value) {
       paymentIntent = CartResponse.fromJson(value.data);
       print(paymentIntent?.paymentIntentId);
       print(paymentIntent?.clilentSecret);
@@ -326,18 +329,54 @@ class HomeCubit extends Cubit<HomeState> {
     });
   }
 
-
   getCurrentUserAddress() {
     ApiManager.getData(url: 'accounts/Address/').then((response) {
       userAddress = UserAddressResponse.fromJson(response.data);
     });
   }
 
-
   getUserOrders() {
     ApiManager.getData(url: 'Orders').then((response) {
       final List<dynamic> responseData = response.data;
-      allOrdersResponse = responseData.map((json) => AllOrdersResponse.fromJson(json)).toList();
+      allOrdersResponse =
+          responseData.map((json) => AllOrdersResponse.fromJson(json)).toList();
+    });
+  }
+
+  createReview({required int rate, required int id, required String comment}) {
+    emit(CreateReviewLoading());
+    ApiManager.postData(
+            url: 'Product/CreateReview',
+            data: {'Rate': rate, 'ProductId': id, 'Comments': comment})
+        .then((value) {
+      emit(CreateReviewLoaded());
+      getAllProduct();
+      getNewArrivalProduct();
+      getBestSellingProduct();
+    }).catchError((error) {
+      emit(CreateReviewError());
+      print(error.toString());
+    });
+  }
+
+  updateUserAddress(
+      {required String Fname,
+      required String Lname,
+      required String street,
+      required String city,
+      required String country,
+      required String postalCode,required Function onSuccess}) {
+    ApiManager.updateData(url: 'accounts/UpdateAddress', data: {
+      "firstName": Fname,
+      "lName": Lname,
+      "street": street,
+      "city": city,
+      "country": country,
+      "postalCode": postalCode
+    }).then((value){
+      final response=AddressResponse.fromJson(value.data);
+      getCurrentUserAddress();
+      onSuccess();
     });
   }
 }

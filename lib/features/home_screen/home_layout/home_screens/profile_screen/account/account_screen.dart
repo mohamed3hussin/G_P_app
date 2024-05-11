@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/core/text_style/styles.dart';
+import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/address/edit_address_view.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/address/select_address_view.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/change_password/change_password_view.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/my_order/past_order/past_orders_view.dart';
@@ -59,9 +60,9 @@ class AccountScreen extends StatelessWidget {
                 child: ProfileItem(icon: IconBroken.Call, text: 'My orders')),
             GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, SelectAddressView.routeName);
+                  Navigator.pushNamed(context, EditAddressView.routeName);
                 },
-                child: ProfileItem(icon: Icons.question_mark, text: 'Address')),
+                child: ProfileItem(icon: Icons.question_mark, text: 'Edit address')),
           ],
         ),
       ),

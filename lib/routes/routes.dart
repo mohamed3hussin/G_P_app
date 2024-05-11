@@ -31,7 +31,7 @@ import '../features/home_screen/home_layout/home_screens/cart_screen/cart_screen
 import '../features/home_screen/home_layout/home_screens/cart_screen/check_out_screen.dart';
 import '../features/home_screen/home_layout/home_screens/cart_screen/order_success.dart';
 import '../features/home_screen/home_layout/home_screens/categories_screen/filtered_categories/filtered_category_screen_view.dart';
-import '../features/home_screen/home_layout/home_screens/profile_screen/account/address/add_address_view.dart';
+import '../features/home_screen/home_layout/home_screens/profile_screen/account/address/edit_address_view.dart';
 import '../features/home_screen/home_layout/home_screens/profile_screen/account/address/select_address_view.dart';
 import '../features/home_screen/home_layout/home_screens/profile_screen/account/change_password/change_password_view.dart';
 import '../features/home_screen/home_layout/home_screens/profile_screen/account/my_order/Track_order/track_order_view.dart';
@@ -66,7 +66,7 @@ class AppRoutes{
     PastOrderDetailsView.routeName:(context)=>PastOrderDetailsView(),
     RateProductView.routeName:(context)=>RateProductView(),
     SelectAddressView.routeName:(context)=>SelectAddressView(),
-    AddAddressView.routeName:(context)=>AddAddressView(),
+    EditAddressView.routeName:(context)=>EditAddressView(),
     CartScreen.routeName:(context)=>CartScreen(),
     CheckOutScreen.routeName:(context)=>CheckOutScreen(),
     OrderSuccessView.routeName:(context)=>OrderSuccessView(),

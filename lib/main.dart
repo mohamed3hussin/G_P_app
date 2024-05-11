@@ -49,6 +49,7 @@ class MyApp extends StatelessWidget {
                   ..getNewArrivalProduct()
                   ..getWishList()
                   ..getCart()
+                  ..getCurrentUserAddress()
                   ..getUserOrders())
           ],
           child: MaterialApp(

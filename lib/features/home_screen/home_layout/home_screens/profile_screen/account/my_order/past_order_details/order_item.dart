@@ -9,7 +9,8 @@ class OrderItem extends StatelessWidget {
   String name;
   String price;
   String? productPicture;
-  OrderItem(this.name, this.price,this.productPicture);
+  void Function() function;
+  OrderItem(this.name, this.price,this.productPicture,this.function);
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +58,7 @@ class OrderItem extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(left: 90.w, right: 8),
                   child: InkWell(
-                    onTap: (){Navigator.pushNamed(context, RateProductView.routeName);},
+                    onTap: (){function();},
                     child: Container(
                       width: 100.w,
                       height: 32.h,
