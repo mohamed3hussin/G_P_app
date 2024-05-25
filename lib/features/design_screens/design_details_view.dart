@@ -267,7 +267,7 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
                             ),
                             onTap: () {
                               Navigator.pushNamed(
-                                  context, DrawingRoomScreen.routeName);
+                                  context, DrawingRoomScreen.routeName,arguments: args);
                             },
                           ),
                           CustomButton(
