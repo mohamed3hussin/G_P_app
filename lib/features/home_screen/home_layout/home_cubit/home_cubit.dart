@@ -10,6 +10,7 @@ import 'package:g_p_app/data/model/response/WishListModel.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_state.dart';
 import '../../../../data/api/api_manager.dart';
 import '../../../../data/model/response/CartResponse.dart';
+import '../../../../data/model/response/DeliveryMethodsResponse.dart';
 import '../../../../data/model/response/LogoResponse.dart';
 
 class HomeCubit extends Cubit<HomeState> {
@@ -31,6 +32,7 @@ class HomeCubit extends Cubit<HomeState> {
   CartResponse? paymentIntent;
   UserAddressResponse? userAddress;
   List<AllOrdersResponse>? allOrdersResponse;
+  List<DeliveryMethodsResponse>? deliveryMethodsResponse;
 
   void getAllProduct({String sort = 'name'}) {
     emit(AllProductLoadingState());
@@ -97,10 +99,9 @@ class HomeCubit extends Cubit<HomeState> {
     });
   }
 
-  void getGenderProductByTypeId(
-      {required String typeId,
-      required String gender,
-      String isDesigned = 'false'}) {
+  void getGenderProductByTypeId({required String typeId,
+    required String gender,
+    String isDesigned = 'false'}) {
     listProductsByGender = [];
     emit(GenderProductByTypeIdLoadingState());
     ApiManager.getData(
@@ -176,7 +177,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   void saveWishListToPrefs() {
     List<String> wishListJsonList =
-        listWishList!.map((item) => jsonEncode(item.toJson())).toList();
+    listWishList!.map((item) => jsonEncode(item.toJson())).toList();
     print(listWishList);
     print(wishListJsonList[0]);
     print(wishListJsonList);
@@ -185,7 +186,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   getWishListFromPrefs() {
     List<String>? wishListJsonList =
-        CacheHelper.sharedPreferences.getStringList('wishlist');
+    CacheHelper.sharedPreferences.getStringList('wishlist');
     if (wishListJsonList != null) {
       listWishList = wishListJsonList
           .map((jsonString) => WishListItem.fromJson(jsonDecode(jsonString)))
@@ -219,7 +220,7 @@ class HomeCubit extends Cubit<HomeState> {
       listCartItems ??= [];
       for (var newItem in updateCartModel!.items!) {
         var existingItem =
-            listCartItems!.firstWhereOrNull((item) => item.id == newItem.id);
+        listCartItems!.firstWhereOrNull((item) => item.id == newItem.id);
         if (existingItem != null) {
           // If the item already exists in the cart, update its quantity
           existingItem.quantity = existingItem.quantity! + quantity;
@@ -241,14 +242,14 @@ class HomeCubit extends Cubit<HomeState> {
 
   void saveCartToPrefs() {
     List<String> cartJsonList =
-        listCartItems!.map((item) => jsonEncode(item.toJson())).toList();
+    listCartItems!.map((item) => jsonEncode(item.toJson())).toList();
     print(listCartItems);
     CacheHelper.sharedPreferences.setStringList('cart', cartJsonList);
   }
 
   getCartFromPrefs() {
     List<String>? cartJsonList =
-        CacheHelper.sharedPreferences.getStringList('cart');
+    CacheHelper.sharedPreferences.getStringList('cart');
     if (cartJsonList != null) {
       listCartItems = cartJsonList
           .map((jsonString) => CartItems.fromJson(jsonDecode(jsonString)))
@@ -317,10 +318,9 @@ class HomeCubit extends Cubit<HomeState> {
       print(response.items);
     });
   }
-
   createPaymentIntent({String orderId = 'basket1'}) {
     final response =
-        ApiManager.postData(url: 'Payment/$orderId', data: {}).then((value) {
+    ApiManager.postData(url: 'Payment/$orderId', data: {}).then((value) {
       paymentIntent = CartResponse.fromJson(value.data);
       print(paymentIntent?.paymentIntentId);
       print(paymentIntent?.clilentSecret);
@@ -330,8 +330,28 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   getCurrentUserAddress() {
-    ApiManager.getData(url: 'accounts/Address/').then((response) {
+    ApiManager.getData(url: 'accounts/Address').then((response) {
       userAddress = UserAddressResponse.fromJson(response.data);
+    });
+  }
+
+  updateUserAddress({required String Fname,
+    required String Lname,
+    required String street,
+    required String city,
+    required String country,
+    required String postalCode, required Function onSuccess}) {
+    ApiManager.updateData(url: 'accounts/UpdateAddress', data: {
+      "firstName": Fname,
+      "lName": Lname,
+      "street": street,
+      "city": city,
+      "country": country,
+      "postalCode": postalCode
+    }).then((value) {
+      final response = AddressResponse.fromJson(value.data);
+      getCurrentUserAddress();
+      onSuccess();
     });
   }
 
@@ -342,12 +362,20 @@ class HomeCubit extends Cubit<HomeState> {
           responseData.map((json) => AllOrdersResponse.fromJson(json)).toList();
     });
   }
-
+  getDeliveryMethods(){
+    ApiManager.getData(url: 'Orders/deliveryMethods').then((response) {
+      final List<dynamic> responseData = response.data;
+      deliveryMethodsResponse =
+          responseData.map((json) => DeliveryMethodsResponse.fromJson(json)).toList();
+    }).catchError((error){
+      print(error.toString());
+    });
+  }
   createReview({required int rate, required int id, required String comment}) {
     emit(CreateReviewLoading());
     ApiManager.postData(
-            url: 'Product/CreateReview',
-            data: {'Rate': rate, 'ProductId': id, 'Comments': comment})
+        url: 'Product/CreateReview',
+        data: {'Rate': rate, 'ProductId': id, 'Comments': comment})
         .then((value) {
       emit(CreateReviewLoaded());
       getAllProduct();
@@ -359,24 +387,5 @@ class HomeCubit extends Cubit<HomeState> {
     });
   }
 
-  updateUserAddress(
-      {required String Fname,
-      required String Lname,
-      required String street,
-      required String city,
-      required String country,
-      required String postalCode,required Function onSuccess}) {
-    ApiManager.updateData(url: 'accounts/UpdateAddress', data: {
-      "firstName": Fname,
-      "lName": Lname,
-      "street": street,
-      "city": city,
-      "country": country,
-      "postalCode": postalCode
-    }).then((value){
-      final response=AddressResponse.fromJson(value.data);
-      getCurrentUserAddress();
-      onSuccess();
-    });
-  }
+
 }

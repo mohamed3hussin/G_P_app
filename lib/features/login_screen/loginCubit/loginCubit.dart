@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:g_p_app/core/cach_helper/cach_helper.dart';
 import 'package:g_p_app/data/api/api_manager.dart';
 import 'package:g_p_app/data/model/response/login_response.dart';
 import 'package:g_p_app/features/login_screen/loginCubit/loginState.dart';
@@ -26,6 +27,8 @@ class LoginScreenViewCubit extends Cubit<LoginStates>
       data: LoginRequest(email: email, password: password).toJson(),
     ).then((value) {
       final response = LoginSuccessResponse.fromJson(value.data);
+      CacheHelper.saveData(key: 'username', value: response.displayName);
+      CacheHelper.saveData(key: 'email', value: response.email);
       emit(LoginSuccessState(response));
     }).catchError((error) {
       final response = ErrorResponse.fromJson(error.response.data);

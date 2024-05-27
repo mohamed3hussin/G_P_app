@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:g_p_app/core/cach_helper/cach_helper.dart';
 import 'package:g_p_app/core/text_style/styles.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/address/edit_address_view.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/address/select_address_view.dart';
@@ -44,9 +45,9 @@ class AccountScreen extends StatelessWidget {
               height: 35.h,
             ),
             ProfileItem(
-                icon: IconBroken.User, text: 'Username', description: 'Habiba Mohamed',arrowIcon: false),
+                icon: IconBroken.User, text: 'Username', description: CacheHelper.getData(key: 'username'),arrowIcon: false),
             ProfileItem(
-                icon: IconBroken.Message, text: 'E-mail',description: 'habiba20@gmail.com', arrowIcon: false),
+                icon: IconBroken.Message, text: 'E-mail',description: CacheHelper.getData(key: 'email'), arrowIcon: false),
             GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(context, ChangePasswordView.routeName);

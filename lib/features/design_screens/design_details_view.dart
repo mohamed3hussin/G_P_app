@@ -27,7 +27,7 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
   bool isPressed = false;
   bool isVisible = false;
   String selectedDesignImage = '';
-  int selectedDesignIndex = 0;
+  int selectedDesignIndex = -1;
   double selectedDesignCost = 0;
   void updateSelectedDesignCost(double cost) {
     setState(() {
@@ -53,6 +53,7 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
         .arguments as Data;
     return BlocConsumer<HomeCubit, HomeState>(
       builder: (context, state) {
+        String selectedColor=args.productColor![0].colorname!;
         var cubit = HomeCubit.get(context);
         return Scaffold(
           appBar: AppBar(
@@ -151,7 +152,12 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
                       SizedBox(
                         height: 15.h,
                       ),
-                      ColorLine(),
+                      ColorLine(
+                        onColorSelected: (color){
+                          selectedColor=color;
+                          print(color);
+                        },
+                      ),
                       SizedBox(
                         height: 15.h,
                       ),
@@ -296,7 +302,7 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
                               ),
                               cubit.logo != null && cubit.logo!.isNotEmpty // Check again before accessing logo data
                                   ? DesignPayment(
-                                cubit.logo![selectedDesignIndex],
+                                cubit.logo![selectedDesignIndex==-1?0:selectedDesignIndex],
                                 args,
                               )
                                   : CircularProgressIndicator(),

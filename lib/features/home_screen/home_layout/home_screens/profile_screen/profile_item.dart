@@ -40,8 +40,8 @@ class ProfileItem extends StatelessWidget {
               children: [
                 Text(
                   text,
-                  style: Styles.textStyle16),
-                Text(description!,style: Styles.textStyle12,),
+                  style: Styles.textStyle16,),
+                Text(description!,style: Styles.textStyle12,overflow: TextOverflow.ellipsis,),
               ],
             ),
             //SizedBox(width: 100.w,),

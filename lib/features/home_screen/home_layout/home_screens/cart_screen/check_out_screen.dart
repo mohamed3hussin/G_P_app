@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,12 +28,11 @@ class CheckOutScreen extends StatefulWidget {
 
 class _CheckOutScreenState extends State<CheckOutScreen> {
   String groupValue = '';
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
       builder: (context, state) {
-        var cubit = HomeCubit.get(context)
+        var cubit = HomeCubit.get(context)..getCurrentUserAddress()
           ..getCartFromPrefs()
           ..createPaymentIntent();
         return Scaffold(

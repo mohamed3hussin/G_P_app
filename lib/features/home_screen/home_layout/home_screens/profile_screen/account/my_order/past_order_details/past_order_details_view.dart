@@ -27,9 +27,9 @@ class PastOrderDetailsView extends StatelessWidget {
         ),
         leadingWidth: 40.w,
         title: Text(
-                  'Past Orders',
-                  style: Styles.textStyle24,
-                ),
+          'Past Orders',
+          style: Styles.textStyle24,
+        ),
         titleSpacing: 4,
       ),
       body: Column(
@@ -38,13 +38,13 @@ class PastOrderDetailsView extends StatelessWidget {
             height: 8.h,
           ),
           Expanded(child: ListView.builder(physics: BouncingScrollPhysics(),itemBuilder: (context, index) {
-           return OrderItem(args.items![index].productName ?? '',
+            return OrderItem(args.items![index].productName ?? '',
                 args.items![index].price.toString() ?? '',
-               args.items![index].pictureUrl?.isNotEmpty == true
-               // If not empty, access the first element's pictureUrl
-                   ? args.items![index].pictureUrl![0].pictureUrl ?? ''
-               // If empty, provide a default value or handle the case as needed
-                   : null,(){Navigator.pushNamed(context, RateProductView.routeName,arguments: args.items![index]);});
+                args.items![index].pictureUrl?.isNotEmpty == true
+                // If not empty, access the first element's pictureUrl
+                    ? args.items![index].pictureUrl![0].pictureUrl ?? ''
+                // If empty, provide a default value or handle the case as needed
+                    : null,(){Navigator.pushNamed(context, RateProductView.routeName,arguments: args.items![index]);});
 
           },itemCount: args.items!.length,),)
 
