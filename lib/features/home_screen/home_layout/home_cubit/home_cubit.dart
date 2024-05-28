@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:g_p_app/core/cach_helper/cach_helper.dart';
@@ -8,6 +9,7 @@ import 'package:g_p_app/data/model/response/AllProductResponse.dart';
 import 'package:g_p_app/data/model/response/UserAddress.dart';
 import 'package:g_p_app/data/model/response/WishListModel.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_state.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../../../data/api/api_manager.dart';
 import '../../../../data/model/response/CartResponse.dart';
 import '../../../../data/model/response/DeliveryMethodsResponse.dart';
@@ -385,6 +387,24 @@ class HomeCubit extends Cubit<HomeState> {
       emit(CreateReviewError());
       print(error.toString());
     });
+  }
+
+  XFile? uploadLogo;
+  final ImagePicker _picker = ImagePicker();
+
+  Future<void> pickImage() async {
+    try {
+      emit(ImagePickerLoading());
+      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        uploadLogo = image.path as XFile?;
+        emit(LogoImagePickedSuccessState(image));
+      } else {
+        emit(ImagePickerInitial());
+      }
+    } catch (e) {
+      emit(LogoImagePickedErrorState());
+    }
   }
 
 

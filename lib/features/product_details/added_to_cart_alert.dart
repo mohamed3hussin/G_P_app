@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../core/assets_data/assetsData.dart';
 import '../../core/colors/colors.dart';
 import '../../core/text_style/styles.dart';
+import '../home_screen/home_layout/home_layout.dart';
 
 class AddedToCartAlert extends StatelessWidget {
   @override
@@ -36,7 +37,7 @@ class AddedToCartAlert extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Navigator.pop(context);
+                Navigator.pushReplacementNamed(context, HomeLayout.routeName);
               },
               child: Container(
                 width: 280.w,

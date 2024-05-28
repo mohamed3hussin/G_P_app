@@ -9,6 +9,7 @@ import 'package:g_p_app/data/constants.dart';
 import 'package:g_p_app/features/dashboard/dashboard_home.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_cubit.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_layout.dart';
+import 'package:g_p_app/features/home_screen/home_layout/home_screens/home_screen/home_screen.dart';
 import 'package:g_p_app/features/login_screen/loginScreenView.dart';
 import 'package:g_p_app/routes/routes.dart';
 import 'core/cach_helper/cach_helper.dart';
@@ -23,7 +24,14 @@ void main() async {
   await Stripe.instance.applySettings();
   var token = CacheHelper.getData(key: 'token');
   if (token != null) {
-    AppRoutes.initialRoute = DashboardHomeScreen.routeName;
+    if(token == 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9naXZlbm5hbWUiOiJBZG1pbiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6IkFkbWluQGdtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6WyJVc2VyIiwiQWRtaW4iXSwiZXhwIjoxNzE5NDQ3OTY5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo3MDg0IiwiYXVkIjoiTXlTZWN1cmVLZXkifQ.gTeQKfkz9VmnjpQQ8iFJ0EJcbMtcA5jDcXONr3mwllo')
+    {
+      AppRoutes.initialRoute = DashboardHomeScreen.routeName;
+    }else
+    {
+      AppRoutes.initialRoute = HomeLayout.routeName;
+    }
+
   } else {
     AppRoutes.initialRoute = LoginScreenView.routeName;
   }

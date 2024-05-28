@@ -1,3 +1,8 @@
+
+
+import 'dart:ffi';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,11 +14,16 @@ import 'package:g_p_app/features/product_details/widgets/buttons_row.dart';
 import 'package:g_p_app/features/product_details/widgets/color_line.dart';
 import 'package:g_p_app/features/product_details/widgets/product_counter.dart';
 import 'package:g_p_app/features/product_details/widgets/size_line.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mobkit_dashed_border/mobkit_dashed_border.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:screenshot/screenshot.dart';
 import '../../core/assets_data/iconBroken.dart';
 import '../../core/colors/colors.dart';
 import '../../core/text_style/styles.dart';
+import '../../data/api/upload_image_api.dart';
 import '../../data/model/response/AllProductResponse.dart';
+import '../product_details/added_to_cart_alert.dart';
 import 'design_box_screen/design_box_screen.dart';
 
 class DesignDetailsView extends StatefulWidget {
@@ -24,6 +34,8 @@ class DesignDetailsView extends StatefulWidget {
 }
 
 class _DesignDetailsViewState extends State<DesignDetailsView> {
+  ScreenshotController screenshotControllerLogo = ScreenshotController();
+  File? _imageFile;
   bool isPressed = false;
   bool isVisible = false;
   String selectedDesignImage = '';
@@ -43,7 +55,44 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
       cubit.getLogos();
     });
     }
+  String uploadImage = '';
+  void _takeScreenshot() async {
+    final time = DateTime.now().toIso8601String().replaceAll('.', '-').replaceAll(':', '-');
+    final directory = (await getApplicationDocumentsDirectory()).path;
+    final fileName = '$directory/screenshot_$time.png';
 
+    screenshotControllerLogo.capture().then((image) {
+      if (image != null) {
+        File imgFile = File(fileName);
+        imgFile.writeAsBytesSync(image);
+        UploadImageApi().uploadImage(image, fileName).then((value)
+        {
+          print(value.toString());
+          setState(() {
+            uploadImage = value['location'].toString();
+          });
+        }).catchError((error)
+        {
+          print(error);
+        });
+        setState(() {
+          _imageFile = imgFile;
+          print(_imageFile!.path);
+        });
+      }
+    }).catchError((onError) {
+      print(onError);
+    });
+  }
+  File? imagePicked;
+  Future pickImageFromGallery()async
+  {
+    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    setState(() {
+      imagePicked = File(image!.path);
+      isPressed = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,34 +144,43 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Stack(
-                  children: [
-                    Container(
-                      width: 380.w,
-                      height: 345.h,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(
-                              'assets/images/unsplash_WWesmHEgXDs.jpg'),
-                        ),
-                      ),
-                      child: Center(
-                        child: Container(
-                          height: 160.h,
-                          width: 115.w,
-                          decoration: BoxDecoration(
-                            border: DashedBorder.fromBorderSide(
-                                dashLength: 5,
-                                side:
-                                BorderSide(color: Colors.black, width: 2)),
+                Screenshot(
+                  controller: screenshotControllerLogo,
+                  child: Stack(
+                    children: [
+                      Container(
+                        width: 380.w,
+                        height: 345.h,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(args.productPictures![0]),
                           ),
-                          child: isPressed
-                                ? Image.network(selectedDesignImage)
-                              : SizedBox(),
+                        ),
+                        child: Center(
+                          child: Container(
+                            height: 160.h,
+                            width: 115.w,
+                            decoration: BoxDecoration(
+                              border: DashedBorder.fromBorderSide(
+                                  dashLength: 5,
+                                  side:
+                                  BorderSide(color: Colors.black, width: 2)),
+                            ),
+                            child: Stack(
+                              alignment: AlignmentDirectional.center,
+                              children: [
+                                if(isPressed)
+                                  Image.network(selectedDesignImage),
+                                if(imagePicked != null)
+                                  Image.file(imagePicked!),
+
+                              ],
+                            )
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.h),
@@ -187,6 +245,7 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
                                     (index) => GestureDetector(
                                   onTap: () {
                                     isPressed = true;
+                                    imagePicked = null;
                                     selectedDesignImage = cubit.logo![index].pictureUrl!;
                                     isVisible = true;
                                     selectedDesignIndex = index;
@@ -279,7 +338,10 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
                           CustomButton(
                             backgroundColor: CustomColors.blue,
                             text: 'Upload Design',
-                            func: () {},
+                            func: ()
+                            {
+                              pickImageFromGallery();
+                            },
                             style: Styles.textStyle16!
                                 .copyWith(color: Colors.white),
                             borderRadius: BorderRadius.circular(12),
@@ -308,7 +370,52 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
                                   : CircularProgressIndicator(),
                             ],
                           )),
-                      ButtonsRow()
+                      SizedBox(height: 30.h,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CustomButton(
+                              width: 120.w,
+                              height: 50.h,
+                              backgroundColor: CustomColors.blue,
+                              radius: 18,
+                              text: 'Save Logo',
+                              func:_takeScreenshot,
+                              style: Styles.textStyle16
+                                  .copyWith(color: Colors.white)),
+                          CustomButton(
+                              width: 205.w,
+                              height: 50.h,
+                              backgroundColor: Colors.white,
+                              radius: 18,
+                              icon: Icons.shopping_cart,
+                              text: 'Add to Cart',
+                              func: () {
+                                List<Map<String, dynamic>> items = [
+                                  {
+                                    'id': args.id,
+                                    'productName': args.name,
+                                    'pictureUrl':'$uploadImage',
+                                    'size': args.productSize![0].sizename,
+                                    'color':args.productColor![0].colorname,
+                                    'price':isPressed ? args.price! + cubit.logo![selectedDesignIndex].cost:args.price! + 50.0,
+                                    'quantity': 1,
+                                  }
+                                ];
+
+                                Map<String, dynamic> requestData = {
+                                  'id': 'basket1',
+                                  'items': items,
+                                };
+                                HomeCubit.get(context).updateCart(data: requestData);
+                                HomeCubit.get(context).convertCartToJson();
+                                showDialog(context: context, builder:(context) => Dialog(child: AddedToCartAlert()),);
+                              },
+                              style: Styles.textStyle16
+                                  .copyWith(color: CustomColors.blue)),
+                        ],
+                      ),
+                      SizedBox(height: 30.h,),
                     ],
                   ),
                 ),

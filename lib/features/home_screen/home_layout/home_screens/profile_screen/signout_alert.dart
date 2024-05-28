@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/core/colors/colors.dart';
+import 'package:g_p_app/features/login_screen/loginScreenView.dart';
 import 'package:g_p_app/features/splash_screen/splash_view.dart';
 import '../../../../../core/assets_data/assetsData.dart';
+import '../../../../../core/cach_helper/cach_helper.dart';
 import '../../../../../core/text_style/styles.dart';
 
 class SignOutAlert extends StatelessWidget {
@@ -65,7 +67,9 @@ class SignOutAlert extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-               Navigator.pushNamed(context, CustomSplashScreen.routeName);
+                CacheHelper.removeData(key: 'token').then((value) => {
+                  Navigator.pushReplacementNamed(context, LoginScreenView.routeName)
+                });
               },
               child: Container(
                 width: 280.w,

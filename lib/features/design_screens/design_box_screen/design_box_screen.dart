@@ -93,65 +93,69 @@ class _DrawingRoomScreenState extends State<DrawingRoomScreen> {
         return Scaffold(
           body: Stack(
             children: [
-              SizedBox(
-                  height:context.deviceHeight ,
-                  width:  context.deviceWidth,
-                  child: Image.network(args.productPictures![0])),
               Screenshot(
                 controller: screenshotController,
-                child: Align(
-                  alignment: AlignmentDirectional.center,
-                  child: Container(
-                    height: 370.h,
-                    width: 240.w,
-                    decoration: BoxDecoration(
-                      border: DashedBorder.fromBorderSide(
-                          dashLength: 5,
-                          side: BorderSide(color: Colors.black, width: 2)),
-                    ),
-                    child: GestureDetector(
-                      onPanStart: (details) {
-                        setState(() {
-                          currentDrawingPoint = DrawingPoint(
-                            id: DateTime.now().microsecondsSinceEpoch,
-                            offsets: [
-                              details.localPosition,
-                            ],
-                            color: selectedColor,
-                            width: selectedWidth,
-                          );
-
-                          if (currentDrawingPoint == null) return;
-                          drawingPoints.add(currentDrawingPoint!);
-                          historyDrawingPoints = List.of(drawingPoints);
-                        });
-                      },
-                      onPanUpdate: (details) {
-                        setState(() {
-                          if (currentDrawingPoint == null) return;
-
-                          currentDrawingPoint = currentDrawingPoint?.copyWith(
-                            offsets: currentDrawingPoint!.offsets
-                              ..add(details.localPosition),
-                          );
-                          drawingPoints.last = currentDrawingPoint!;
-                          historyDrawingPoints = List.of(drawingPoints);
-                        });
-                      },
-                      onPanEnd: (_) {
-                        currentDrawingPoint = null;
-                      },
-                      child: CustomPaint(
-                        painter: DrawingPainter(
-                          drawingPoints: drawingPoints,
+                child: Stack(
+                  children: [
+                    SizedBox(
+                        height:context.deviceHeight ,
+                        width:  context.deviceWidth,
+                        child: Image.network(args.productPictures![0])),
+                    Align(
+                      alignment: AlignmentDirectional.center,
+                      child: Container(
+                        height: 370.h,
+                        width: 240.w,
+                        decoration: BoxDecoration(
+                          border: DashedBorder.fromBorderSide(
+                              dashLength: 5,
+                              side: BorderSide(color: Colors.black, width: 2)),
                         ),
-                        child: SizedBox(
-                          width: 240.w,
-                          height: 370.h,
+                        child: GestureDetector(
+                          onPanStart: (details) {
+                            setState(() {
+                              currentDrawingPoint = DrawingPoint(
+                                id: DateTime.now().microsecondsSinceEpoch,
+                                offsets: [
+                                  details.localPosition,
+                                ],
+                                color: selectedColor,
+                                width: selectedWidth,
+                              );
+
+                              if (currentDrawingPoint == null) return;
+                              drawingPoints.add(currentDrawingPoint!);
+                              historyDrawingPoints = List.of(drawingPoints);
+                            });
+                          },
+                          onPanUpdate: (details) {
+                            setState(() {
+                              if (currentDrawingPoint == null) return;
+
+                              currentDrawingPoint = currentDrawingPoint?.copyWith(
+                                offsets: currentDrawingPoint!.offsets
+                                  ..add(details.localPosition),
+                              );
+                              drawingPoints.last = currentDrawingPoint!;
+                              historyDrawingPoints = List.of(drawingPoints);
+                            });
+                          },
+                          onPanEnd: (_) {
+                            currentDrawingPoint = null;
+                          },
+                          child: CustomPaint(
+                            painter: DrawingPainter(
+                              drawingPoints: drawingPoints,
+                            ),
+                            child: SizedBox(
+                              width: 240.w,
+                              height: 370.h,
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
               ),
 
