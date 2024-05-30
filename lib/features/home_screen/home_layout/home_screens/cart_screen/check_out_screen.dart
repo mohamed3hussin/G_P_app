@@ -149,13 +149,15 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               ))));
       await Stripe.instance.presentPaymentSheet();
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        duration: Duration(seconds: 1),
           content: Center(
               child: Text(
-            "Paid successfully",
+            "Paid successfully!",
             style: Styles.textStyle16,
           )),
           backgroundColor: CustomColors.green));
       Future.delayed(Duration(seconds: 2), () {
+        HomeCubit.get(context).createCheckOut('basket1');
         Navigator.pushReplacementNamed(context, HomeLayout.routeName);
         HomeCubit.get(context).listCartItems = [];
         HomeCubit.get(context).deleteCartFromPref();
@@ -164,6 +166,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
+          duration: Duration(seconds: 1),
           content: Center(
               child: Text(
             "Payment is Canceled!",

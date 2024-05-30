@@ -24,15 +24,9 @@ void main() async {
   await Stripe.instance.applySettings();
   var token = CacheHelper.getData(key: 'token');
   if (token != null) {
-    if(token == 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9naXZlbm5hbWUiOiJBZG1pbiIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6IkFkbWluQGdtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6WyJVc2VyIiwiQWRtaW4iXSwiZXhwIjoxNzE5NDQ3OTY5LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo3MDg0IiwiYXVkIjoiTXlTZWN1cmVLZXkifQ.gTeQKfkz9VmnjpQQ8iFJ0EJcbMtcA5jDcXONr3mwllo')
-    {
       AppRoutes.initialRoute = DashboardHomeScreen.routeName;
-    }else
-    {
-      AppRoutes.initialRoute = HomeLayout.routeName;
     }
-
-  } else {
+   else {
     AppRoutes.initialRoute = LoginScreenView.routeName;
   }
   Bloc.observer = MyBlocObserver();

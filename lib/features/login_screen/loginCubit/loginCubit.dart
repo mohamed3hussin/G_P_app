@@ -29,6 +29,8 @@ class LoginScreenViewCubit extends Cubit<LoginStates>
       final response = LoginSuccessResponse.fromJson(value.data);
       CacheHelper.saveData(key: 'username', value: response.displayName);
       CacheHelper.saveData(key: 'email', value: response.email);
+      CacheHelper.saveData(key: 'role', value: response.roles);
+      print(response.roles);
       emit(LoginSuccessState(response));
     }).catchError((error) {
       final response = ErrorResponse.fromJson(error.response.data);

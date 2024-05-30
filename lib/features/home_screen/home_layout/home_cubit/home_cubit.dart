@@ -19,6 +19,7 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitialState());
 
   static HomeCubit get(context) => BlocProvider.of(context);
+
   AllProducts? allProducts;
   AllProducts? newArrival;
   List<Data>? bestSelling;
@@ -35,7 +36,8 @@ class HomeCubit extends Cubit<HomeState> {
   UserAddressResponse? userAddress;
   List<AllOrdersResponse>? allOrdersResponse;
   List<DeliveryMethodsResponse>? deliveryMethodsResponse;
-
+  Map<String,dynamic>? userAddressCheckOut;
+  AllProducts? searchResults;
   void getAllProduct({String sort = 'name'}) {
     emit(AllProductLoadingState());
     ApiManager.getData(
@@ -101,9 +103,10 @@ class HomeCubit extends Cubit<HomeState> {
     });
   }
 
-  void getGenderProductByTypeId({required String typeId,
-    required String gender,
-    String isDesigned = 'false'}) {
+  void getGenderProductByTypeId(
+      {required String typeId,
+      required String gender,
+      String isDesigned = 'false'}) {
     listProductsByGender = [];
     emit(GenderProductByTypeIdLoadingState());
     ApiManager.getData(
@@ -173,22 +176,20 @@ class HomeCubit extends Cubit<HomeState> {
     listWishList?.remove(model);
     getWishList();
     saveWishListToPrefs();
-    print(listWishList?.length);
     emit(DeleteWishlistItemLoadedState());
   }
 
   void saveWishListToPrefs() {
     List<String> wishListJsonList =
-    listWishList!.map((item) => jsonEncode(item.toJson())).toList();
+        listWishList!.map((item) => jsonEncode(item.toJson())).toList();
     print(listWishList);
-    print(wishListJsonList[0]);
     print(wishListJsonList);
     CacheHelper.sharedPreferences.setStringList('wishlist', wishListJsonList);
   }
 
   getWishListFromPrefs() {
     List<String>? wishListJsonList =
-    CacheHelper.sharedPreferences.getStringList('wishlist');
+        CacheHelper.sharedPreferences.getStringList('wishlist');
     if (wishListJsonList != null) {
       listWishList = wishListJsonList
           .map((jsonString) => WishListItem.fromJson(jsonDecode(jsonString)))
@@ -222,7 +223,7 @@ class HomeCubit extends Cubit<HomeState> {
       listCartItems ??= [];
       for (var newItem in updateCartModel!.items!) {
         var existingItem =
-        listCartItems!.firstWhereOrNull((item) => item.id == newItem.id);
+            listCartItems!.firstWhereOrNull((item) => item.id == newItem.id);
         if (existingItem != null) {
           // If the item already exists in the cart, update its quantity
           existingItem.quantity = existingItem.quantity! + quantity;
@@ -244,14 +245,14 @@ class HomeCubit extends Cubit<HomeState> {
 
   void saveCartToPrefs() {
     List<String> cartJsonList =
-    listCartItems!.map((item) => jsonEncode(item.toJson())).toList();
+        listCartItems!.map((item) => jsonEncode(item.toJson())).toList();
     print(listCartItems);
     CacheHelper.sharedPreferences.setStringList('cart', cartJsonList);
   }
 
   getCartFromPrefs() {
     List<String>? cartJsonList =
-    CacheHelper.sharedPreferences.getStringList('cart');
+        CacheHelper.sharedPreferences.getStringList('cart');
     if (cartJsonList != null) {
       listCartItems = cartJsonList
           .map((jsonString) => CartItems.fromJson(jsonDecode(jsonString)))
@@ -320,9 +321,10 @@ class HomeCubit extends Cubit<HomeState> {
       print(response.items);
     });
   }
+
   createPaymentIntent({String orderId = 'basket1'}) {
     final response =
-    ApiManager.postData(url: 'Payment/$orderId', data: {}).then((value) {
+        ApiManager.postData(url: 'Payment/$orderId', data: {}).then((value) {
       paymentIntent = CartResponse.fromJson(value.data);
       print(paymentIntent?.paymentIntentId);
       print(paymentIntent?.clilentSecret);
@@ -333,16 +335,20 @@ class HomeCubit extends Cubit<HomeState> {
 
   getCurrentUserAddress() {
     ApiManager.getData(url: 'accounts/Address').then((response) {
+      userAddressCheckOut=response.data;
+      print(userAddressCheckOut);
       userAddress = UserAddressResponse.fromJson(response.data);
     });
   }
 
-  updateUserAddress({required String Fname,
-    required String Lname,
-    required String street,
-    required String city,
-    required String country,
-    required String postalCode, required Function onSuccess}) {
+  updateUserAddress(
+      {required String Fname,
+      required String Lname,
+      required String street,
+      required String city,
+      required String country,
+      required String postalCode,
+      required Function onSuccess}) {
     ApiManager.updateData(url: 'accounts/UpdateAddress', data: {
       "firstName": Fname,
       "lName": Lname,
@@ -351,6 +357,14 @@ class HomeCubit extends Cubit<HomeState> {
       "country": country,
       "postalCode": postalCode
     }).then((value) {
+      userAddressCheckOut={
+        "firstName": Fname,
+        "lName": Lname,
+        "street": street,
+        "city": city,
+        "country": country,
+        "postalCode": postalCode
+      };
       final response = AddressResponse.fromJson(value.data);
       getCurrentUserAddress();
       onSuccess();
@@ -364,20 +378,23 @@ class HomeCubit extends Cubit<HomeState> {
           responseData.map((json) => AllOrdersResponse.fromJson(json)).toList();
     });
   }
-  getDeliveryMethods(){
+
+  getDeliveryMethods() {
     ApiManager.getData(url: 'Orders/deliveryMethods').then((response) {
       final List<dynamic> responseData = response.data;
-      deliveryMethodsResponse =
-          responseData.map((json) => DeliveryMethodsResponse.fromJson(json)).toList();
-    }).catchError((error){
+      deliveryMethodsResponse = responseData
+          .map((json) => DeliveryMethodsResponse.fromJson(json))
+          .toList();
+    }).catchError((error) {
       print(error.toString());
     });
   }
+
   createReview({required int rate, required int id, required String comment}) {
     emit(CreateReviewLoading());
     ApiManager.postData(
-        url: 'Product/CreateReview',
-        data: {'Rate': rate, 'ProductId': id, 'Comments': comment})
+            url: 'Product/CreateReview',
+            data: {'Rate': rate, 'ProductId': id, 'Comments': comment})
         .then((value) {
       emit(CreateReviewLoaded());
       getAllProduct();
@@ -407,5 +424,32 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-
+  createCheckOut(String basketId) {
+    ApiManager.postData(url: 'Orders', data: {
+      "buyerEmail":CacheHelper.getData(key: 'email'),
+      "basketId": basketId,
+      "deliveryMethodId":1,
+      "shippingAddress": userAddressCheckOut
+    }).then((value) {
+      print(value.data);
+    });
+  }
+  void getSearch({String sort = 'name',required String search}) {
+    ApiManager.getData(
+      url: 'Product',
+      query: {
+        'sort': sort,
+        'isDesigned': 'false',
+        'PageIndex': '1',
+        'PageSized': '3',
+        'search':search
+      },
+    ).then((response) {
+      searchResults = AllProducts.fromJson(response.data);
+      //emit(AllProductLoadedState());
+    }).catchError((error) {
+      print(error.toString());
+      //emit(AllProductErrorState(error.toString()));
+    });
+  }
 }

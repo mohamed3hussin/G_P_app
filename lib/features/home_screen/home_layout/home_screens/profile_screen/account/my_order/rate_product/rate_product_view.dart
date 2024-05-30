@@ -66,15 +66,18 @@ class _RateProductViewState extends State<RateProductView> {
                   height: 220.h,
                   child: Column(
                     children: [
-                      Container(
+                      args.pictureUrl != null && args.pictureUrl!.isNotEmpty
+                          ? Container(clipBehavior: Clip.antiAliasWithSaveLayer,
+                        width: 120,
+                        height: 130,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16.r),
-                            image: DecorationImage(
-                                image: NetworkImage(
-                                    args.pictureUrl![0].pictureUrl ?? ''))),
-                        height: 130.h,
-                        width: 130.w,
-                      ),
+                            image: DecorationImage(image: NetworkImage(
+                              args.pictureUrl![0].pictureUrl!
+                            ),)
+                        ),
+                      )
+                          : Container(width: 120,height:130,child: Icon(Icons.error, size: 30)),
                       SizedBox(
                         height: 5.h,
                       ),

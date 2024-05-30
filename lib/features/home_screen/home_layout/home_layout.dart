@@ -14,6 +14,7 @@ import '../../../core/assets_data/assetsData.dart';
 import 'home_screens/cart_screen/cart_screen.dart';
 import 'home_screens/home_screen/home_screen.dart';
 import 'home_screens/profile_screen/profile_screen_view.dart';
+import 'home_screens/search_screen/search_view.dart';
 import 'home_screens/wish_list_screen/wish_list_view.dart';
 
 class HomeLayout extends StatefulWidget {
@@ -55,19 +56,22 @@ class _HomeLayoutState extends State<HomeLayout> {
                 ? Material(
               elevation: 5,
               borderRadius: BorderRadius.circular(10.sp),
-              child: defaultSearchTextField(
-                type: TextInputType.name,
-                controller: searchController,
-                label: 'Search anything here',
-                prefix: IconBroken.Search,
-                enable: false,
-                validate: (value) {
-                  if (value!.isEmpty) {
-                    return 'Email most not empty';
-                  } else {
-                    return null;
-                  }
-                },
+              child: GestureDetector(
+                onTap: ()=>showSearch(context: context, delegate: SearchView()),
+                child: defaultSearchTextField(
+                  type: TextInputType.name,
+                  controller: searchController,
+                  label: 'Search anything here',
+                  prefix: IconBroken.Search,
+                  enable: false,
+                  validate: (value) {
+                    if (value!.isEmpty) {
+                      return 'search field must not empty';
+                    } else {
+                      return null;
+                    }
+                  },
+                ),
               ),
             )
                 : Text(
