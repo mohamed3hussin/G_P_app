@@ -9,7 +9,7 @@ class ApiManager{
   {
     dio = Dio(
       BaseOptions(
-        baseUrl: 'https://8219-41-236-222-70.ngrok-free.app/api/' ,
+        baseUrl: 'https://7fd7-41-233-215-63.ngrok-free.app/api/' ,
         receiveDataWhenStatusError: true,
       ),
     );
@@ -26,7 +26,7 @@ class ApiManager{
     {
       'Content-Type':'application/json',
       'lang':lang,
-      'Authorization':CacheHelper.getData(key: 'token')
+      'Authorization':token != null? token :''
     };
     return await dio.get(
       url,
@@ -46,7 +46,7 @@ class ApiManager{
     {
       'Content-Type':'application/json',
       'lang':lang,
-      'Authorization':CacheHelper.getData(key: 'token')
+      'Authorization':token != null? token :''
     };
     return await dio.put(
       url,
@@ -67,7 +67,7 @@ class ApiManager{
     {
       'Content-Type':'application/json',
       'lang':lang,
-      'Authorization':CacheHelper.getData(key: 'token')
+      'Authorization':token != null? token :''
     };
     return await dio.post(
       url,

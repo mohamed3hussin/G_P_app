@@ -6,6 +6,7 @@ import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:g_p_app/core/app_theme/application_theme.dart';
 import 'package:g_p_app/core/blocObserver/myBlocObserver.dart';
 import 'package:g_p_app/data/constants.dart';
+import 'package:g_p_app/features/dashboard/dashBoardCubit/dash_board_cubit.dart';
 import 'package:g_p_app/features/dashboard/dashboard_home.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_cubit.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_layout.dart';
@@ -24,7 +25,7 @@ void main() async {
   await Stripe.instance.applySettings();
   var token = CacheHelper.getData(key: 'token');
   if (token != null) {
-      AppRoutes.initialRoute = DashboardHomeScreen.routeName;
+      AppRoutes.initialRoute = HomeLayout.routeName;
     }
    else {
     AppRoutes.initialRoute = LoginScreenView.routeName;
@@ -56,6 +57,9 @@ class MyApp extends StatelessWidget {
                   ..getUserOrders()),
             BlocProvider(
               create:(context)=>LoginScreenViewCubit(),
+            ),
+            BlocProvider(
+              create:(context)=>DashBoardCubit()..getDeliveryMethods()..getAdminAllProduct(),
             )
           ],
           child: MaterialApp(

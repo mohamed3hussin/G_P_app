@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/core/colors/colors.dart';
 import 'package:g_p_app/core/text_style/styles.dart';
+import 'package:g_p_app/features/dashboard/dashBoardCubit/dash_board_cubit.dart';
+import 'package:g_p_app/features/dashboard/dashBoardCubit/dash_board_state.dart';
 import 'package:g_p_app/features/dashboard/widget/drawer.dart';
 import 'package:g_p_app/features/dashboard/widget/product_item.dart';
 import 'package:g_p_app/features/dashboard/widget/search_field.dart';
@@ -19,14 +21,14 @@ class ProductDashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HomeCubit, HomeState>(
+    return BlocConsumer<DashBoardCubit, DashBoardState>(
       builder: (context, state) {
-        var cubit = HomeCubit.get(context);
+        var cubit = DashBoardCubit.get(context);
         return Expanded(
           child: ListView.builder(
             itemBuilder: (context, index) {
               return Container(
-                width: 350,
+                width: 340,
                 height: 80,
                 padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
                 margin: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
@@ -41,7 +43,7 @@ class ProductDashboard extends StatelessWidget {
                       style: Styles.textStyle14,
                     ),
                     SizedBox(
-                      width: 8.w,
+                      width: 6.w,
                     ),
                     Container(
                       width: 42,
@@ -64,16 +66,18 @@ class ProductDashboard extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               SizedBox(
-                                width: 8.w,
+                                width: 6.w,
                               ),
                               Text(
                                 cubit.allProducts?.data?[index].name ?? '',
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                                 style: Styles.textStyle14!.copyWith(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold),
                               ),
                               SizedBox(
-                                width: 16.w,
+                                width: 12.w,
                               ),
                               Text(
                                 cubit.allProducts?.data?[index].price
@@ -83,7 +87,7 @@ class ProductDashboard extends StatelessWidget {
                                     .copyWith(color: Colors.green),
                               ),
                               SizedBox(
-                                width: 16.w,
+                                width: 12.w,
                               ),
                               Text(
                                 cubit.allProducts?.data?[index].genderType ?? '',
@@ -91,7 +95,7 @@ class ProductDashboard extends StatelessWidget {
                                     .copyWith(color: Colors.red),
                               ),
                               SizedBox(
-                                width: 20.w,
+                                width: 18.w,
                               ),
                               Row(
                                 children: [
@@ -121,7 +125,7 @@ class ProductDashboard extends StatelessWidget {
                                     ),
                                   ),
                                   SizedBox(
-                                    width: 8.w,
+                                    width: 6.w,
                                   ),
                                   InkWell(
                                     onTap: () {
@@ -152,7 +156,7 @@ class ProductDashboard extends StatelessWidget {
                                       child: Icon(
                                         Icons.delete_forever_outlined,
                                         color: CustomColors.red,
-                                        size: 22,
+                                        size: 21,
                                       ),
                                     ),
                                   ),
