@@ -15,7 +15,6 @@ import 'package:g_p_app/features/dashboard/widget/drawer.dart';
 import 'package:g_p_app/features/dashboard/widget/edit_item.dart';
 import 'package:g_p_app/features/dashboard/widget/search_field.dart';
 import '../home_screen/home_layout/home_screens/cart_screen/order_success.dart';
-import 'all_categories/all_category_dashbord.dart';
 
 class DashboardHomeScreen extends StatefulWidget {
   static const String routeName = 'dashboard_view';
@@ -25,7 +24,7 @@ class DashboardHomeScreen extends StatefulWidget {
 }
 
 class _DashboardHomeScreenState extends State<DashboardHomeScreen> {
-  int selectedDrawerItem = DashboardDrawer.drawerAllCategoriesId;
+  int selectedDrawerItem = DashboardDrawer.drawerProductId;
 
   void onDrawerClick(int newSelectedDrawerItem) {
     selectedDrawerItem = newSelectedDrawerItem;
@@ -47,9 +46,7 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen> {
       appBar: AppBar(
         backgroundColor: CustomColors.blue,
         title: Text(
-          selectedDrawerItem == DashboardDrawer.drawerAllCategoriesId
-              ? 'All Categories'
-              : selectedDrawerItem == DashboardDrawer.drawerProductId
+          selectedDrawerItem ==DashboardDrawer.drawerProductId
               ? 'Products'
               : selectedDrawerItem == DashboardDrawer.drawerLogoId
               ? 'Logos'
@@ -57,10 +54,10 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen> {
           style: Styles.textStyle24!.copyWith(color: Colors.white),
         ),
         iconTheme: IconThemeData(color: Colors.white, size: 35),
-        leading: Icon(
-          Icons.arrow_back,
-          color: Colors.white,
-          size: 35,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back,
+              color: Colors.white,
+              size: 35), onPressed: () { Navigator.pop(context); },
         ),
       ),
       floatingActionButton: SpeedDial(
@@ -99,9 +96,7 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen> {
       body: Column(
         children: [
           SearchField(),
-          selectedDrawerItem == DashboardDrawer.drawerAllCategoriesId
-              ? AllCategoryDashboard()
-              : selectedDrawerItem == DashboardDrawer.drawerProductId
+          selectedDrawerItem == DashboardDrawer.drawerProductId
               ? ProductDashboard()
               : selectedDrawerItem == DashboardDrawer.drawerLogoId
               ? LogoDashboard()

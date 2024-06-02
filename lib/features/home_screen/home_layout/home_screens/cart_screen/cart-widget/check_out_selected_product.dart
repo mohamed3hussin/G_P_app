@@ -7,7 +7,7 @@ import '../../../../../../data/model/response/CartResponse.dart';
 
 Widget CheckoutSelectedProduct(List<CartItems> cartItems)=>SizedBox(
     width: double.infinity,
-    height: 400.h,
+    height: 300.h,
     child: ListView.separated(
         itemBuilder: ((context, index) => CheckoutList(cartItems[index])),
         separatorBuilder: ((context, index) => SizedBox(height: 5.h,)),

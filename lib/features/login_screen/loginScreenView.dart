@@ -42,6 +42,7 @@ class _LoginScreenViewState extends State<LoginScreenView> {
           {
             if(state is LoginSuccessState)
             {
+              CacheHelper.saveData(key: 'role', value: state.userModel.roles);
               CacheHelper.saveData(key: 'token', value: "Bearer ${state.userModel.token}").then((value) => {
               Navigator.pushReplacementNamed(context, HomeLayout.routeName)
               });

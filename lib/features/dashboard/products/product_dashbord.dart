@@ -90,7 +90,8 @@ class ProductDashboard extends StatelessWidget {
                                 width: 12.w,
                               ),
                               Text(
-                                cubit.allProducts?.data?[index].genderType ?? '',
+                                cubit.allProducts?.data?[index].genderType ??
+                                    '',
                                 style: Styles.textStyle14!
                                     .copyWith(color: Colors.red),
                               ),
@@ -134,9 +135,12 @@ class ProductDashboard extends StatelessWidget {
                                         builder: (context) => Dialog(
                                           child: DeleteItemAlert(
                                               'Want To delete this product ?',
-                                              'You will delete this item if you click the delete button'),
+                                              'You will delete this item if you click the delete button',
+                                              cubit.allProducts!.data![index].id
+                                                  .toString()),
                                         ),
                                       );
+                                      print(cubit.allProducts!.data![index].id);
                                     },
                                     child: Container(
                                       width: 25,

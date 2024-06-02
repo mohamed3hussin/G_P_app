@@ -115,12 +115,6 @@ class LogoImagePickedErrorState extends HomeState{}
 class ImagePickerLoading extends HomeState{}
 class ImagePickerInitial extends HomeState{}
 
-class getDeliveryMethodsLoadedState extends HomeState{}
-class getDeliveryMethodsLoadingState extends HomeState{}
-class getDeliveryMethodsErrorState extends HomeState
-{
-  final String errorMessage;
-
-  getDeliveryMethodsErrorState(this.errorMessage);
-
-}
+class UserAddressLoading extends HomeState{}
+class UserAddressLoaded extends HomeState{}
+class UserAddressError extends HomeState{}

@@ -55,4 +55,33 @@ class DashBoardCubit extends Cubit<DashBoardState>
       emit(AdminAllProductErrorState(error.toString()));
     });
   }
+  void getAdminAllProductDesigned({String sort = 'name'}) {
+    emit(AdminAllProductLoadingState());
+    ApiManager.getData(
+        url: 'Product',
+        query: {
+          'sort': sort,
+          'isDesigned': 'true',
+          'PageIndex': '1',
+          'PageSize': '9',
+        },
+        token: CacheHelper.getData(key: 'token')
+    ).then((response) {
+      allProducts = AllProducts.fromJson(response.data);
+      print('==================================================');
+      print(allProducts!.data!.length);
+      print('==================================================');
+      emit(AdminAllProductLoadedState());
+      // if (response.data == null) {
+      //   emit(AllProductErrorState("Oops! no results!"));
+      // }
+    }).catchError((error) {
+      print(error.toString());
+      emit(AdminAllProductErrorState(error.toString()));
+    });
+  }
+  void deleteProduct(String productId){
+    ApiManager.deleteData(url: 'Product/$productId');
+    getAdminAllProductDesigned();
+  }
 }

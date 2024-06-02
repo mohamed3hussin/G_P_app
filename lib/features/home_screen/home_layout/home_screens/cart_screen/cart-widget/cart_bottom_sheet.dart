@@ -53,7 +53,6 @@ Widget CartBottomSheet(context,List<CartItems> cartItems) {
                 backgroundColor: CustomColors.blue,
                 text: 'Checkout Now',
                 func: () {
-                  HomeCubit.get(context).createCartForPayment();
                   Navigator.pop(context);
                   Navigator.of(context).pushNamed(CheckOutScreen.routeName);
                 },

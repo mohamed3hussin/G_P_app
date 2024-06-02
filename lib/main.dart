@@ -12,6 +12,7 @@ import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_cubit.d
 import 'package:g_p_app/features/home_screen/home_layout/home_layout.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/home_screen/home_screen.dart';
 import 'package:g_p_app/features/login_screen/loginScreenView.dart';
+import 'package:g_p_app/features/splash_screen/splash_view.dart';
 import 'package:g_p_app/routes/routes.dart';
 import 'core/cach_helper/cach_helper.dart';
 import 'data/api/api_manager.dart';
@@ -28,7 +29,7 @@ void main() async {
       AppRoutes.initialRoute = HomeLayout.routeName;
     }
    else {
-    AppRoutes.initialRoute = LoginScreenView.routeName;
+    AppRoutes.initialRoute = CustomSplashScreen.routeName;
   }
   Bloc.observer = MyBlocObserver();
   runApp(const MyApp());
@@ -59,7 +60,7 @@ class MyApp extends StatelessWidget {
               create:(context)=>LoginScreenViewCubit(),
             ),
             BlocProvider(
-              create:(context)=>DashBoardCubit()..getDeliveryMethods()..getAdminAllProduct(),
+              create:(context)=>DashBoardCubit()..getDeliveryMethods()..getAdminAllProductDesigned(),
             )
           ],
           child: MaterialApp(

@@ -9,7 +9,7 @@ class ApiManager{
   {
     dio = Dio(
       BaseOptions(
-        baseUrl: 'https://7fd7-41-233-215-63.ngrok-free.app/api/' ,
+        baseUrl: 'https://c444-156-195-58-20.ngrok-free.app/api/' ,
         receiveDataWhenStatusError: true,
       ),
     );
@@ -73,6 +73,23 @@ class ApiManager{
       url,
       queryParameters: query,
       data: data,
+    );
+  }
+  static Future<Response> deleteData(
+      {
+        required String url,
+        String lang ='en',
+        String? token,
+      })async
+  {
+    dio.options.headers=
+    {
+      'Content-Type':'application/json',
+      'lang':lang,
+      'Authorization':token != null? token :''
+    };
+    return await dio.delete(
+      url,
     );
   }
 }

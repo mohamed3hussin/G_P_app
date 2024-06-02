@@ -3,13 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/core/assets_data/iconBroken.dart';
+import 'package:g_p_app/core/cach_helper/cach_helper.dart';
 import 'package:g_p_app/core/colors/colors.dart';
 import 'package:g_p_app/core/shared_widget/default_search_text.dart';
 import 'package:g_p_app/core/text_style/styles.dart';
+import 'package:g_p_app/features/dashboard/dashboard_home.dart';
 import 'package:g_p_app/features/design_screens/design_explain_screen1.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_cubit.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_state.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/home_screen/home_screen_widget/product_view_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/assets_data/assetsData.dart';
 import 'home_screens/cart_screen/cart_screen.dart';
 import 'home_screens/home_screen/home_screen.dart';
@@ -33,6 +36,7 @@ class _HomeLayoutState extends State<HomeLayout> {
     WishListScreen(),
     ProfileScreenView(),
   ];
+  List<String>? roles = CacheHelper.sharedPreferences.getStringList('role');
   PageStorageBucket bucket = PageStorageBucket();
   Widget currentScreen = HomeScreen();
   late String title;
@@ -54,81 +58,124 @@ class _HomeLayoutState extends State<HomeLayout> {
             leadingWidth: 45.w,
             title: currentIndex == 0
                 ? Material(
-              elevation: 5,
-              borderRadius: BorderRadius.circular(10.sp),
-              child: GestureDetector(
-                onTap: ()=>showSearch(context: context, delegate: SearchView()),
-                child: defaultSearchTextField(
-                  type: TextInputType.name,
-                  controller: searchController,
-                  label: 'Search anything here',
-                  prefix: IconBroken.Search,
-                  enable: false,
-                  validate: (value) {
-                    if (value!.isEmpty) {
-                      return 'search field must not empty';
-                    } else {
-                      return null;
-                    }
-                  },
-                ),
-              ),
-            )
+                    elevation: 5,
+                    borderRadius: BorderRadius.circular(10.sp),
+                    child: GestureDetector(
+                      onTap: () =>
+                          showSearch(context: context, delegate: SearchView()),
+                      child: defaultSearchTextField(
+                        type: TextInputType.name,
+                        controller: searchController,
+                        label: 'Search anything here',
+                        prefix: IconBroken.Search,
+                        enable: false,
+                        validate: (value) {
+                          if (value!.isEmpty) {
+                            return 'search field must not empty';
+                          } else {
+                            return null;
+                          }
+                        },
+                      ),
+                    ),
+                  )
                 : Text(
-              title,
-              style: Styles.textStyle24.copyWith(
-                  color: CustomColors.darkBlue,
-                  fontWeight: FontWeight.w700),
-            ),
+                    title,
+                    style: Styles.textStyle24.copyWith(
+                        color: CustomColors.darkBlue,
+                        fontWeight: FontWeight.w700),
+                  ),
             titleSpacing: 4,
             actions: [
               currentIndex == 0
-                  ? Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15.w),
-                child: IconButton(
-                    onPressed: () {},
-                    icon: Stack(
-                      alignment: Alignment.topRight,
-                      children: [
-                        Icon(
-                          IconBroken.Buy,
-                          color: Color(0xFF1B72C0),
-                          size: 30,
-                        ),
-                        CircleAvatar(backgroundColor: Colors.red,
-                          radius: 8,
-                          child: Text('${cubit.listCartItems?.length==null?0:cubit.listCartItems?.length}', style: TextStyle(
-                              fontSize: 10.sp),),),
-                      ],
-                    )),
-              )
+                  ? roles?.length == 1
+                      ? Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 15.w),
+                          child: IconButton(
+                              onPressed: () {},
+                              icon: Stack(
+                                alignment: Alignment.topRight,
+                                children: [
+                                  Icon(
+                                    IconBroken.Buy,
+                                    color: Color(0xFF1B72C0),
+                                    size: 30,
+                                  ),
+                                  CircleAvatar(
+                                    backgroundColor: Colors.red,
+                                    radius: 8,
+                                    child: Text(
+                                      '${cubit.listCartItems?.length == null ? 0 : cubit.listCartItems?.length}',
+                                      style: TextStyle(fontSize: 10.sp),
+                                    ),
+                                  ),
+                                ],
+                              )),
+                        )
+                      : Row(
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                      context, DashboardHomeScreen.routeName);
+                                },
+                                icon: Icon(
+                                  IconBroken.Profile,
+                                  size: 30,
+                                )),
+                            IconButton(
+                                onPressed: () {},
+                                icon: Stack(
+                                  alignment: Alignment.topRight,
+                                  children: [
+                                    Icon(
+                                      IconBroken.Buy,
+                                      color: Color(0xFF1B72C0),
+                                      size: 30,
+                                    ),
+                                    CircleAvatar(
+                                      backgroundColor: Colors.red,
+                                      radius: 8,
+                                      child: Text(
+                                        '${cubit.listCartItems?.length == null ? 0 : cubit.listCartItems?.length}',
+                                        style: TextStyle(fontSize: 10.sp),
+                                      ),
+                                    ),
+                                  ],
+                                )),
+                          ],
+                        )
                   : Row(
-                children: [
-                  IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        IconBroken.Search,
-                        color: Color(0xFF1B72C0),
-                        size: 30,
-                      )),
-                  IconButton(
-                      onPressed: () {},
-                      icon: Stack(
-                        alignment: Alignment.topRight,
-                        children: [
-                          Icon(
-                            IconBroken.Buy,
-                            color: Color(0xFF1B72C0),
-                            size: 30,
-                          ),
-                          CircleAvatar(backgroundColor: Colors.red,
-                            radius: 8,
-                            child: Text('${cubit.listCartItems?.length==null?0:cubit.listCartItems?.length}', style: TextStyle(
-                                fontSize: 10.sp),),),
-                        ],
-                      ))
-                ],
-              ),
+                      children: [
+                        IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              IconBroken.Search,
+                              color: Color(0xFF1B72C0),
+                              size: 30,
+                            )),
+                        IconButton(
+                            onPressed: () {},
+                            icon: Stack(
+                              alignment: Alignment.topRight,
+                              children: [
+                                Icon(
+                                  IconBroken.Buy,
+                                  color: Color(0xFF1B72C0),
+                                  size: 30,
+                                ),
+                                CircleAvatar(
+                                  backgroundColor: Colors.red,
+                                  radius: 8,
+                                  child: Text(
+                                    '${cubit.listCartItems?.length == null ? 0 : cubit.listCartItems?.length}',
+                                    style: TextStyle(fontSize: 10.sp),
+                                  ),
+                                ),
+                              ],
+                            ))
+                      ],
+                    ),
             ],
           ),
           body: PageStorage(
@@ -165,7 +212,7 @@ class _HomeLayoutState extends State<HomeLayout> {
             ),
           ),
           floatingActionButtonLocation:
-          FloatingActionButtonLocation.centerDocked,
+              FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: Container(
             clipBehavior: Clip.antiAliasWithSaveLayer,
             decoration: BoxDecoration(

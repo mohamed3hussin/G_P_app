@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/core/colors/colors.dart';
+import 'package:g_p_app/features/dashboard/dashBoardCubit/dash_board_cubit.dart';
 import '../../../../../core/text_style/styles.dart';
 
 class DeleteItemAlert extends StatelessWidget {
   String alertTitle;
   String alertDescription;
-  DeleteItemAlert(this.alertTitle,this.alertDescription);
+  String productId;
+  DeleteItemAlert(this.alertTitle,this.alertDescription,this.productId);
 
   @override
   Widget build(BuildContext context) {
+    var cubit=DashBoardCubit.get(context);
     return SizedBox(
       height: 300.h,
       width: 335.w,
@@ -64,6 +67,7 @@ class DeleteItemAlert extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
+                    cubit.deleteProduct(productId);
                     Navigator.pop(context);
                   },
                   child: Container(

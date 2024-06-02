@@ -5,6 +5,7 @@ import 'package:g_p_app/features/design_screens/design_details_view.dart';
 import 'package:g_p_app/features/design_screens/design_explain_screen1.dart';
 import 'package:g_p_app/features/design_screens/design_explain_screen2.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_layout.dart';
+import 'package:g_p_app/features/home_screen/home_layout/home_screens/cart_screen/checkout_buynow_screen.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/home_screen/see_all_products.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/account_screen.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/phone/phone_number_view.dart';
@@ -69,6 +70,7 @@ class AppRoutes{
     EditAddressView.routeName:(context)=>EditAddressView(),
     CartScreen.routeName:(context)=>CartScreen(),
     CheckOutScreen.routeName:(context)=>CheckOutScreen(),
+    CheckOutScreenBuyNow.routeName:(context)=>CheckOutScreenBuyNow(),
     OrderSuccessView.routeName:(context)=>OrderSuccessView(),
     PaymentView.routeName:(context)=>PaymentView(),
     FilteredCategoryScreenView.routeName:(context)=>FilteredCategoryScreenView(),

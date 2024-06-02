@@ -5,10 +5,9 @@ import 'package:g_p_app/core/colors/colors.dart';
 import 'package:g_p_app/core/text_style/styles.dart';
 
 class DashboardDrawer extends StatelessWidget {
-  static const int drawerAllCategoriesId=1;
-  static const int drawerProductId=2;
-  static const int drawerLogoId=3;
-  static const int drawerDeliveryId=4;
+  static const int drawerProductId=1;
+  static const int drawerLogoId=2;
+  static const int drawerDeliveryId=3;
   Function onDrawerClick;
 
   DashboardDrawer({required this.onDrawerClick});
@@ -26,21 +25,6 @@ class DashboardDrawer extends StatelessWidget {
             width: mediaQuery.width,
             color: CustomColors.blue,
             child: Center(child: Text('Admin dashboard',style: Styles.textStyle16!.copyWith(fontSize: 20.sp,fontWeight: FontWeight.bold,color: Colors.white))),
-          ),
-          InkWell(
-            onTap: (){
-              onDrawerClick(DashboardDrawer.drawerAllCategoriesId);
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Icon(IconBroken.Document,size: 40,color: CustomColors.blue,),
-                  SizedBox(width: 20,),
-                  Text('All Categories',style: Styles.textStyle16,)
-                ],
-              ),
-            ),
           ),
           InkWell(
             onTap: (){

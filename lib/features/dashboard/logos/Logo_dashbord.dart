@@ -111,36 +111,36 @@ class _LogoDashboardState extends State<LogoDashboard> {
                                     ),
                                   ),
                                   SizedBox(width: 8.w),
-                                  InkWell(
-                                    onTap: () {
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) => Dialog(
-                                          child: DeleteItemAlert(
-                                            'Want To delete this Logo ?',
-                                            'You will delete this logo if you click the delete button',
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    child: Container(
-                                      width: 25,
-                                      height: 25,
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFFFCFCFC),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Color(0x3F000000),
-                                            blurRadius: 6.60,
-                                            offset: Offset(2, 4),
-                                            spreadRadius: 0,
-                                          ),
-                                        ],
-                                        borderRadius: BorderRadius.circular(50.r),
-                                      ),
-                                      child: Icon(Icons.delete_forever_outlined, color: CustomColors.red, size: 22),
-                                    ),
-                                  ),
+                                  // InkWell(
+                                  //   onTap: () {
+                                  //     showDialog(
+                                  //       context: context,
+                                  //       builder: (context) => Dialog(
+                                  //         child: DeleteItemAlert(
+                                  //           'Want To delete this Logo ?',
+                                  //           'You will delete this logo if you click the delete button',
+                                  //         ),
+                                  //       ),
+                                  //     );
+                                  //   },
+                                  //   child: Container(
+                                  //     width: 25,
+                                  //     height: 25,
+                                  //     decoration: BoxDecoration(
+                                  //       color: Color(0xFFFCFCFC),
+                                  //       boxShadow: [
+                                  //         BoxShadow(
+                                  //           color: Color(0x3F000000),
+                                  //           blurRadius: 6.60,
+                                  //           offset: Offset(2, 4),
+                                  //           spreadRadius: 0,
+                                  //         ),
+                                  //       ],
+                                  //       borderRadius: BorderRadius.circular(50.r),
+                                  //     ),
+                                  //     child: Icon(Icons.delete_forever_outlined, color: CustomColors.red, size: 22),
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ],

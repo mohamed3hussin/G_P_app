@@ -5,6 +5,7 @@ import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:g_p_app/core/colors/colors.dart';
 import 'package:g_p_app/data/model/response/AllProductResponse.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_cubit.dart';
+import 'package:g_p_app/features/home_screen/home_layout/home_screens/cart_screen/checkout_buynow_screen.dart';
 import 'package:g_p_app/features/product_details/widgets/buttons_row.dart';
 import 'package:g_p_app/features/product_details/widgets/color_line.dart';
 import 'package:g_p_app/features/product_details/widgets/product_counter.dart';
@@ -185,6 +186,20 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                             'items': items,
                           };
                           cubit.updateCart(data: requestData,quantity: counterValue);
+                        },
+                        buyNow: (){
+                          Map<String, dynamic> items =
+                            {
+                              'id': args.id,
+                              'productName': args.name ?? '',
+                              'pictureUrl': args.productPictures![0],
+                              'size': selectedSize ?? '',
+                              'color': selectedColor ?? '',
+                              'price': args.price,
+                              'quantity': counterValue,
+                            };
+                          cubit.buyNowForPayment(items);
+                          Navigator.pushNamed(context, CheckOutScreenBuyNow.routeName,arguments: items);
                         },
                       )
                     ],

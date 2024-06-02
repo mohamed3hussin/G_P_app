@@ -1,34 +1,29 @@
-import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:g_p_app/core/assets_data/iconBroken.dart';
-import 'package:g_p_app/core/cach_helper/cach_helper.dart';
 import 'package:g_p_app/core/colors/colors.dart';
 import 'package:g_p_app/core/text_style/styles.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_state.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_layout.dart';
-import 'package:g_p_app/features/home_screen/home_layout/home_screens/home_screen/home_screen_widget/product_view_widget.dart';
 import '../../../../../core/shared_widget/custom_button.dart';
 import '../../home_cubit/home_cubit.dart';
 import 'cart-widget/check_out_addrees.dart';
-import 'cart-widget/check_out_confirm_payment.dart';
-import 'cart-widget/check_out_selected_product.dart';
 import 'cart-widget/togglebutton_widget_list.dart';
 
-class CheckOutScreen extends StatefulWidget {
-  static const String routeName = 'check_out_screen';
+class CheckOutScreenBuyNow extends StatefulWidget {
+  static const String routeName = 'check_out_buy_now';
 
   @override
-  State<CheckOutScreen> createState() => _CheckOutScreenState();
+  State<CheckOutScreenBuyNow> createState() => _CheckOutScreenState();
 }
 
-class _CheckOutScreenState extends State<CheckOutScreen> {
+class _CheckOutScreenState extends State<CheckOutScreenBuyNow> {
   String groupValue = '';
-  List<bool> isSelected = [true, false, false, false];
-  int deliveryMethodNumber = 1;
+  List<bool> isSelected = [true,false, false,false];
+  int deliveryMethodNumber=1;
 
   @override
   void initState() {
@@ -38,11 +33,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var args=ModalRoute.of(context)?.settings.arguments as Map<String,dynamic>;
     return BlocConsumer<HomeCubit, HomeState>(
       builder: (context, state) {
-        var cubit = HomeCubit.get(context)
-          ..getCartFromPrefs()
-          ..createPaymentIntent();
+        var cubit = HomeCubit.get(context)..createPaymentIntent(orderId: 'temp_basket');
         return Scaffold(
           appBar: AppBar(
             toolbarHeight: 90.h,
@@ -110,28 +104,22 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   SizedBox(
                     height: 7.h,
                   ),
-                  ToggleButtons(
-                    borderRadius: BorderRadius.circular(12.r),
-                    borderWidth: 1,
-                    borderColor: Colors.black,
+                  ToggleButtons(borderRadius: BorderRadius.circular(12.r),borderWidth: 1,borderColor: Colors.black,
                     selectedBorderColor: CustomColors.blue,
                     isSelected: isSelected,
                     onPressed: (index) {
                       setState(() {
                         for (int i = 0; i < isSelected.length; i++) {
-                          deliveryMethodNumber = index + 1;
+                          deliveryMethodNumber=index+1;
                           isSelected[i] = i == index;
                         }
-                        HomeCubit.get(context).createCartForPayment(
-                            deliveryMethodId: deliveryMethodNumber);
+                        cubit.updateDeliveryMethodId(deliveryMethodNumber);
                         print(deliveryMethodNumber);
                       });
                     },
                     children: toggleButtonWidgetList(),
                   ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
+                  SizedBox(height: 10.h,),
                   Align(
                       alignment: AlignmentDirectional.topStart,
                       child: Text(
@@ -140,12 +128,52 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             color: CustomColors.textColor,
                             fontWeight: FontWeight.w600),
                       )),
-                  SizedBox(
-                    height: 10.h,
+              Material(
+                borderRadius: BorderRadius.circular(12),
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                elevation: 1,
+                child: Container(
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.symmetric(horizontal: 6),
+                    child: Row(
+                      children: [
+                        SizedBox(width: 10.w,),
+                        Image(
+                          image: NetworkImage(args['pictureUrl']),
+                          width: 80.w,
+                          height: 80.h,
+                          fit:BoxFit.cover,
+                        ),
+                        SizedBox(width: 10.w,),
+                        Expanded(child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              args['productName']??'',
+                              style: Styles.textStyle14.copyWith(color: CustomColors.textColor,fontWeight: FontWeight.w600),
+                            ),
+                            SizedBox(height: 5.h,),
+                            Text(
+                              'Size : ${args['size']}',
+                              style: Styles.textStyle14,
+                            ),
+                            Text(
+                                '\$ ${args['price']}',
+                                style: Styles.textStyle16.copyWith(color: CustomColors.green,fontWeight: FontWeight.w600)
+                            ),
+                          ],
+                        )),
+                        Column(
+                          children: [
+                            Text('${args['quantity']} item',style: Styles.textStyle14.copyWith(fontWeight: FontWeight.w600,color: CustomColors.darkGrey)),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                  CheckoutSelectedProduct(cubit.listCartItems!),
+                ),),
                   SizedBox(
-                    height: 15.h,
+                    height: 240.h,
                   ),
                   CustomButton(
                       width: double.infinity,
@@ -170,11 +198,11 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
   Future<void> initPaymentSheet() async {
     try {
-      var data = HomeCubit.get(context).paymentIntent;
+       var data = HomeCubit.get(context).paymentIntent;
       // 2. initialize the payment sheet
       await Stripe.instance.initPaymentSheet(
           paymentSheetParameters: SetupPaymentSheetParameters(
-              // Set to true for custom flow
+            // Set to true for custom flow
               customFlow: false,
               // Main params
               merchantDisplayName: 'Flutter Stripe Store Demo',
@@ -185,23 +213,22 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
               style: ThemeMode.light,
               appearance: PaymentSheetAppearance(
                   colors: PaymentSheetAppearanceColors(
-                primary: CustomColors.blue,
-                componentBorder: CustomColors.blue,
-              ))));
+                    primary: CustomColors.blue,
+                    componentBorder: CustomColors.blue,
+                  ))));
       await Stripe.instance.presentPaymentSheet();
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           duration: Duration(seconds: 1),
           content: Center(
               child: Text(
-            "Paid successfully!",
-            style: Styles.textStyle16,
-          )),
+                "Paid successfully!",
+                style: Styles.textStyle16,
+              )),
           backgroundColor: CustomColors.green));
       Future.delayed(Duration(seconds: 2), () {
-        HomeCubit.get(context).createCheckOut('basket1');
+        HomeCubit.get(context).createCheckOut('temp_basket');
         Navigator.pushReplacementNamed(context, HomeLayout.routeName);
-        HomeCubit.get(context).listCartItems = [];
-        HomeCubit.get(context).deleteCartFromPref();
+
       });
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -209,9 +236,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           duration: Duration(seconds: 1),
           content: Center(
               child: Text(
-            "Payment is Canceled!",
-            style: Styles.textStyle16,
-          )),
+                "Payment is Canceled!",
+                style: Styles.textStyle16,
+              )),
           backgroundColor: CustomColors.red,
         ),
       );

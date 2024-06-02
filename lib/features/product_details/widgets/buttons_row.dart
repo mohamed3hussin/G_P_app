@@ -7,7 +7,8 @@ import '../../../core/text_style/styles.dart';
 
 class ButtonsRow extends StatelessWidget {
   Function? addToCart;
-  ButtonsRow({this.addToCart});
+  Function? buyNow;
+  ButtonsRow({this.addToCart,this.buyNow});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,9 @@ class ButtonsRow extends StatelessWidget {
                 backgroundColor: CustomColors.blue,
                 radius: 18,
                 text: 'Buy Now',
-                func: () {},
+                func: () {
+                  buyNow!();
+                },
                 style: Styles.textStyle16
                     .copyWith(color: Colors.white)),
             CustomButton(
