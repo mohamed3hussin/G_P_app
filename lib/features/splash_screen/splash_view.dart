@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/core/assets_data/assetsData.dart';
+import 'package:g_p_app/core/cach_helper/cach_helper.dart';
 import 'package:g_p_app/core/helper/hundel_size.dart';
 import 'package:g_p_app/features/onBoarding_screen/onBoarding_view.dart';
 import '../../core/text_style/styles.dart';
+import '../login_screen/loginScreenView.dart';
 
 class CustomSplashScreen extends StatefulWidget {
   static const String routeName = 'splash_screen';
@@ -56,7 +58,11 @@ class _CustomSplashScreenState extends State<CustomSplashScreen>
       });
 
       Future.delayed(Duration(seconds: 3), () {
-        Navigator.of(context).pushReplacementNamed(onBoardingView.routeName);
+        if(CacheHelper.getData(key: 'onBoarding') != null)
+        {
+          Navigator.of(context).pushReplacementNamed(LoginScreenView.routeName);
+        }
+        else{Navigator.of(context).pushReplacementNamed(onBoardingView.routeName);}
       });
     });
   }

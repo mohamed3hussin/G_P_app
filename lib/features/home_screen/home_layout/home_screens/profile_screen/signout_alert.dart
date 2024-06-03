@@ -69,7 +69,7 @@ class SignOutAlert extends StatelessWidget {
               onTap: () {
                 CacheHelper.removeData(key: 'role');
                 CacheHelper.removeData(key: 'token').then((value) => {
-                  Navigator.pushReplacementNamed(context, CustomSplashScreen.routeName)
+                  Navigator.pushReplacementNamed(context, LoginScreenView.routeName)
                 });
               },
               child: Container(

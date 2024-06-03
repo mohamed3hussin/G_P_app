@@ -9,7 +9,7 @@ class ApiManager{
   {
     dio = Dio(
       BaseOptions(
-        baseUrl: 'https://c444-156-195-58-20.ngrok-free.app/api/' ,
+        baseUrl: 'https://6d7e-196-132-15-123.ngrok-free.app/api/' ,
         receiveDataWhenStatusError: true,
       ),
     );
@@ -92,4 +92,5 @@ class ApiManager{
       url,
     );
   }
+
 }

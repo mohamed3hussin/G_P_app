@@ -37,7 +37,8 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen> {
     return BlocConsumer<DashBoardCubit,DashBoardState>
     (
     listener: (context,state){},
-    builder: (context,state){return Scaffold(
+    builder: (context,state){
+      return Scaffold(
       endDrawer: Drawer(
         child: DashboardDrawer(
           onDrawerClick: onDrawerClick,

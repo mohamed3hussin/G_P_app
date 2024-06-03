@@ -25,6 +25,7 @@ void main() async {
   Stripe.publishableKey = publishKey;
   await Stripe.instance.applySettings();
   var token = CacheHelper.getData(key: 'token');
+  var admin = CacheHelper.getData(key: 'role');
   if (token != null) {
       AppRoutes.initialRoute = HomeLayout.routeName;
     }
@@ -60,7 +61,7 @@ class MyApp extends StatelessWidget {
               create:(context)=>LoginScreenViewCubit(),
             ),
             BlocProvider(
-              create:(context)=>DashBoardCubit()..getDeliveryMethods()..getAdminAllProductDesigned(),
+              create:(context)=>DashBoardCubit()..getDeliveryMethods()..getAdminAllProduct()..getAdminLogos(),
             )
           ],
           child: MaterialApp(
