@@ -27,9 +27,8 @@ void main() async {
   var token = CacheHelper.getData(key: 'token');
   var admin = CacheHelper.getData(key: 'role');
   if (token != null) {
-      AppRoutes.initialRoute = HomeLayout.routeName;
-    }
-   else {
+    AppRoutes.initialRoute = HomeLayout.routeName;
+  } else {
     AppRoutes.initialRoute = CustomSplashScreen.routeName;
   }
   Bloc.observer = MyBlocObserver();
@@ -58,10 +57,14 @@ class MyApp extends StatelessWidget {
                   ..getCart()
                   ..getUserOrders()),
             BlocProvider(
-              create:(context)=>LoginScreenViewCubit(),
+              create: (context) => LoginScreenViewCubit(),
             ),
             BlocProvider(
-              create:(context)=>DashBoardCubit()..getDeliveryMethods()..getAdminAllProduct()..getAdminLogos(),
+              create: (context) => DashBoardCubit()
+                ..getDeliveryMethods()
+                ..getAdminAllProduct()
+                ..getAdminAllProductDesigned()
+                ..getAdminLogos(),
             )
           ],
           child: MaterialApp(

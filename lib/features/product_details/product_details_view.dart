@@ -1,13 +1,16 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/core/assets_data/iconBroken.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:g_p_app/core/colors/colors.dart';
+import 'package:g_p_app/core/text_style/styles.dart';
 import 'package:g_p_app/data/model/response/AllProductResponse.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_cubit.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/cart_screen/checkout_buynow_screen.dart';
 import 'package:g_p_app/features/product_details/widgets/buttons_row.dart';
 import 'package:g_p_app/features/product_details/widgets/color_line.dart';
+import 'package:g_p_app/features/product_details/widgets/getBottomSheet.dart';
 import 'package:g_p_app/features/product_details/widgets/product_counter.dart';
 import 'package:g_p_app/features/product_details/widgets/product_description.dart';
 import 'package:g_p_app/features/product_details/widgets/product_title_and_price.dart';
@@ -21,14 +24,15 @@ class ProductDetailsView extends StatefulWidget {
 }
 
 class _ProductDetailsViewState extends State<ProductDetailsView> {
-  bool isFavorite=false;
-  int counterValue=1;
+  bool isFavorite = false;
+  int counterValue = 1;
+
   @override
   Widget build(BuildContext context) {
-    var args= ModalRoute.of(context)?.settings.arguments as Data;
-    String selectedSize=args.productSize![0].sizename!;
-    String selectedColor=args.productColor![0].colorname!;
-    var cubit=HomeCubit.get(context);
+    var args = ModalRoute.of(context)?.settings.arguments as Data;
+    String selectedSize = args.productSize![0].sizename!;
+    String selectedColor = args.productColor![0].colorname!;
+    var cubit = HomeCubit.get(context);
     return Scaffold(
       appBar: AppBar(
         leading: GestureDetector(
@@ -39,8 +43,8 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
         ),
         leadingWidth: 40.w,
         title: Text(
-                  'Product Details',
-                ),
+          'Product Details',
+        ),
         actions: [
           IconButton(
               onPressed: () {},
@@ -59,10 +63,14 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                     color: Color(0xFF1B72C0),
                     size: 30,
                   ),
-                  CircleAvatar(backgroundColor: Colors.red,
+                  CircleAvatar(
+                    backgroundColor: Colors.red,
                     radius: 8,
-                    child: Text('${cubit.listCartItems?.length==null?0:cubit.listCartItems?.length}', style: TextStyle(
-                        fontSize: 10.sp),),),
+                    child: Text(
+                      '${cubit.listCartItems?.length == null ? 0 : cubit.listCartItems?.length}',
+                      style: TextStyle(fontSize: 10.sp),
+                    ),
+                  ),
                 ],
               ))
         ],
@@ -95,26 +103,36 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(5.0),
-                  child: IconButton(
-                      padding: EdgeInsets.zero,
-                      onPressed: ()
-                      {
-                        isFavorite=true;
-                        setState(() {
-
-                        });
-                      },
-                      icon: CircleAvatar(
-                        radius: 30.w,
-                        backgroundColor: Colors.white,
-                        child: Center(
-                          child: Icon(
-                            isFavorite?Icons.favorite:Icons.favorite_border,
-                            color: Color(0xFFEA3A3D),
-                            size: 40.w,
-                          ),
-                        ),
-                      )),
+                  child: Column(
+                    children: [
+                      getMachineModel(context,
+                          name: args.name ?? '',
+                          type: args.type ?? '',
+                          imagePath: args.productPictures![0]),
+                      SizedBox(
+                        height: 5.h,
+                      ),
+                      IconButton(
+                          padding: EdgeInsets.zero,
+                          onPressed: () {
+                            isFavorite = true;
+                            setState(() {});
+                          },
+                          icon: CircleAvatar(
+                            radius: 25.w,
+                            backgroundColor: Colors.white,
+                            child: Center(
+                              child: Icon(
+                                isFavorite
+                                    ? Icons.favorite
+                                    : Icons.favorite_border,
+                                color: Color(0xFFEA3A3D),
+                                size: 40.w,
+                              ),
+                            ),
+                          )),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -136,19 +154,16 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                   SizedBox(
                     height: 30.h,
                   ),
-                  SizeLine(
-                    onSizeSelected: (size) {
-                        selectedSize = size;
-                        print(size);
-                      }
-
-                  ),
+                  SizeLine(onSizeSelected: (size) {
+                    selectedSize = size;
+                    print(size);
+                  }),
                   SizedBox(
                     height: 20.h,
                   ),
                   ColorLine(
-                    onColorSelected: (color){
-                      selectedColor=color;
+                    onColorSelected: (color) {
+                      selectedColor = color;
                       print(color);
                     },
                   ),
@@ -164,7 +179,8 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                       ),
                       ProductCounter((value) {
                         setState(() {
-                          counterValue = value; // Update the counter value in the main screen
+                          counterValue =
+                              value; // Update the counter value in the main screen
                         });
                       }),
                       ButtonsRow(
@@ -185,21 +201,23 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                             'id': 'basket1',
                             'items': items,
                           };
-                          cubit.updateCart(data: requestData,quantity: counterValue);
+                          cubit.updateCart(
+                              data: requestData, quantity: counterValue);
                         },
-                        buyNow: (){
-                          Map<String, dynamic> items =
-                            {
-                              'id': args.id,
-                              'productName': args.name ?? '',
-                              'pictureUrl': args.productPictures![0],
-                              'size': selectedSize ?? '',
-                              'color': selectedColor ?? '',
-                              'price': args.price,
-                              'quantity': counterValue,
-                            };
+                        buyNow: () {
+                          Map<String, dynamic> items = {
+                            'id': args.id,
+                            'productName': args.name ?? '',
+                            'pictureUrl': args.productPictures![0],
+                            'size': selectedSize ?? '',
+                            'color': selectedColor ?? '',
+                            'price': args.price,
+                            'quantity': counterValue,
+                          };
                           cubit.buyNowForPayment(items);
-                          Navigator.pushNamed(context, CheckOutScreenBuyNow.routeName,arguments: items);
+                          Navigator.pushNamed(
+                              context, CheckOutScreenBuyNow.routeName,
+                              arguments: items);
                         },
                       )
                     ],

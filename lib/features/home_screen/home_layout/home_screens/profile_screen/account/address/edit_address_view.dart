@@ -16,6 +16,7 @@ class EditAddressView extends StatefulWidget {
 }
 
 class _EditAddressViewState extends State<EditAddressView> {
+  var formKey = GlobalKey<FormState>();
   TextEditingController firstNameEditingController = TextEditingController();
   TextEditingController lastNameEditingController = TextEditingController();
   TextEditingController streetEditingController = TextEditingController();
@@ -49,74 +50,78 @@ class _EditAddressViewState extends State<EditAddressView> {
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 20.h,
-              ),
-              EditAddressField(
-                  'First name:',
-                  cubit.userAddress?.firstName ?? '',
-                  firstNameEditingController),
-              EditAddressField('Last name:', cubit.userAddress?.lName ?? '',
-                  lastNameEditingController),
-              EditAddressField('Street:', cubit.userAddress?.street ?? '',
-                  streetEditingController),
-              EditAddressField('City:', cubit.userAddress?.city ?? '',
-                  cityEditingController),
-              EditAddressField('Country:', cubit.userAddress?.country ?? '',
-                  countryEditingController),
-              EditAddressField(
-                  'Postal Code:',
-                  cubit.userAddress?.postalCode ?? '',
-                  postalCodeEditingController),
-              SizedBox(
-                height: 20.h,
-              ),
-              InkWell(
-                onTap: () {
-                  cubit.updateUserAddress(
-                      Fname: firstNameEditingController.text,
-                      Lname: lastNameEditingController.text,
-                      street: streetEditingController.text,
-                      city: cityEditingController.text,
-                      country: countryEditingController.text,
-                      postalCode: postalCodeEditingController.text,
-                      onSuccess: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Center(
-                                child: Text(
-                              'Address updated successfully !',
-                              style: Styles.textStyle16.copyWith(color: Colors.white),
-                            )),
-                            backgroundColor: CustomColors.green,
-                          ),
-                        );
-                        // Navigate to the home screen
-                        Future.delayed(Duration(seconds: 2), () {
-                          Navigator.pushReplacementNamed(
-                              context, AccountScreen.routeName);
+          child: Form(
+            key: formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 20.h,
+                ),
+                EditAddressField(
+                    'First name:',
+                    cubit.userAddress?.firstName ?? '',
+                    firstNameEditingController),
+                EditAddressField('Last name:', cubit.userAddress?.lName ?? '',
+                    lastNameEditingController),
+                EditAddressField('Street:', cubit.userAddress?.street ?? '',
+                    streetEditingController),
+                EditAddressField('City:', cubit.userAddress?.city ?? '',
+                    cityEditingController),
+                EditAddressField('Country:', cubit.userAddress?.country ?? '',
+                    countryEditingController),
+                EditAddressField(
+                    'Postal Code:',
+                    cubit.userAddress?.postalCode ?? '',
+                    postalCodeEditingController),
+                SizedBox(
+                  height: 20.h,
+                ),
+                InkWell(
+                  onTap: () {
+                    if (formKey.currentState!.validate()){
+                    cubit.updateUserAddress(
+                        Fname: firstNameEditingController.text,
+                        Lname: lastNameEditingController.text,
+                        street: streetEditingController.text,
+                        city: cityEditingController.text,
+                        country: countryEditingController.text,
+                        postalCode: postalCodeEditingController.text,
+                        onSuccess: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Center(
+                                  child: Text(
+                                'Address updated successfully !',
+                                style: Styles.textStyle16.copyWith(color: Colors.white),
+                              )),
+                              backgroundColor: CustomColors.green,
+                            ),
+                          );
+                          // Navigate to the home screen
+                          Future.delayed(Duration(seconds: 2), () {
+                            Navigator.pushReplacementNamed(
+                                context, AccountScreen.routeName);
+                          });
                         });
-                      });
-                },
-                child: Container(
-                  width: 330.w,
-                  height: 55.h,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15.r),
-                    color: CustomColors.blue,
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Save Address',
-                      style: Styles.textStyle20.copyWith(color: Colors.white),
+                  }},
+                  child: Container(
+                    width: 330.w,
+                    height: 55.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15.r),
+                      color: CustomColors.blue,
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Save Address',
+                        style: Styles.textStyle20.copyWith(color: Colors.white),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

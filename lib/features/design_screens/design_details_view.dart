@@ -1,5 +1,3 @@
-
-
 import 'dart:ffi';
 import 'dart:io';
 
@@ -12,6 +10,7 @@ import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_cubit.d
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_state.dart';
 import 'package:g_p_app/features/product_details/widgets/buttons_row.dart';
 import 'package:g_p_app/features/product_details/widgets/color_line.dart';
+import 'package:g_p_app/features/product_details/widgets/getBottomSheet.dart';
 import 'package:g_p_app/features/product_details/widgets/product_counter.dart';
 import 'package:g_p_app/features/product_details/widgets/size_line.dart';
 import 'package:image_picker/image_picker.dart';
@@ -41,6 +40,7 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
   String selectedDesignImage = '';
   int selectedDesignIndex = -1;
   double selectedDesignCost = 0;
+
   void updateSelectedDesignCost(double cost) {
     setState(() {
       selectedDesignCost = cost;
@@ -54,10 +54,15 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
       var cubit = BlocProvider.of<HomeCubit>(context);
       cubit.getLogos();
     });
-    }
+  }
+
   String uploadImage = '';
+
   void _takeScreenshot() async {
-    final time = DateTime.now().toIso8601String().replaceAll('.', '-').replaceAll(':', '-');
+    final time = DateTime.now()
+        .toIso8601String()
+        .replaceAll('.', '-')
+        .replaceAll(':', '-');
     final directory = (await getApplicationDocumentsDirectory()).path;
     final fileName = '$directory/screenshot_$time.png';
 
@@ -65,14 +70,12 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
       if (image != null) {
         File imgFile = File(fileName);
         imgFile.writeAsBytesSync(image);
-        UploadImageApi().uploadImage(image, fileName).then((value)
-        {
+        UploadImageApi().uploadImage(image, fileName).then((value) {
           print(value.toString());
           setState(() {
             uploadImage = value['location'].toString();
           });
-        }).catchError((error)
-        {
+        }).catchError((error) {
           print(error);
         });
         setState(() {
@@ -84,9 +87,10 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
       print(onError);
     });
   }
+
   File? imagePicked;
-  Future pickImageFromGallery()async
-  {
+
+  Future pickImageFromGallery() async {
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
     setState(() {
       imagePicked = File(image!.path);
@@ -96,13 +100,10 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
 
   @override
   Widget build(BuildContext context) {
-    var args = ModalRoute
-        .of(context)
-        ?.settings
-        .arguments as Data;
+    var args = ModalRoute.of(context)?.settings.arguments as Data;
     return BlocConsumer<HomeCubit, HomeState>(
       builder: (context, state) {
-        String selectedColor=args.productColor![0].colorname!;
+        String selectedColor = args.productColor![0].colorname!;
         var cubit = HomeCubit.get(context);
         return Scaffold(
           appBar: AppBar(
@@ -147,6 +148,7 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
                 Screenshot(
                   controller: screenshotControllerLogo,
                   child: Stack(
+                    alignment: Alignment.bottomRight,
                     children: [
                       Container(
                         width: 380.w,
@@ -158,27 +160,33 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
                         ),
                         child: Center(
                           child: Container(
-                            height: 160.h,
-                            width: 115.w,
-                            decoration: BoxDecoration(
-                              border: DashedBorder.fromBorderSide(
-                                  dashLength: 5,
-                                  side:
-                                  BorderSide(color: Colors.black, width: 2)),
-                            ),
-                            child: Stack(
-                              alignment: AlignmentDirectional.center,
-                              children: [
-                                if(isPressed)
-                                  Image.network(selectedDesignImage),
-                                if(imagePicked != null)
-                                  Image.file(imagePicked!),
-
-                              ],
-                            )
-                          ),
+                              height: 160.h,
+                              width: 115.w,
+                              decoration: BoxDecoration(
+                                border: DashedBorder.fromBorderSide(
+                                    dashLength: 5,
+                                    side: BorderSide(
+                                        color: Colors.black, width: 2)),
+                              ),
+                              child: Stack(
+                                alignment: AlignmentDirectional.center,
+                                children: [
+                                  if (isPressed)
+                                    Image.network(selectedDesignImage),
+                                  if (imagePicked != null)
+                                    Image.file(imagePicked!),
+                                ],
+                              )),
                         ),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: getMachineModel(context,
+                            name: cubit.logo![selectedDesignIndex].name,
+                            type: 'Logo',
+                            imagePath:
+                                cubit.logo![selectedDesignIndex].pictureUrl,ratio: 1/0.8),
+                      )
                     ],
                   ),
                 ),
@@ -211,8 +219,8 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
                         height: 15.h,
                       ),
                       ColorLine(
-                        onColorSelected: (color){
-                          selectedColor=color;
+                        onColorSelected: (color) {
+                          selectedColor = color;
                           print(color);
                         },
                       ),
@@ -239,53 +247,62 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
                               mainAxisSpacing: 8,
                               crossAxisSpacing: 12,
                               childAspectRatio: 1 / 1.1,
-                              children: cubit.logo != null // Check if listTestLogo is not null
+                              children: cubit.logo !=
+                                      null // Check if listTestLogo is not null
                                   ? List.generate(
-                                cubit.logo!.length,
-                                    (index) => GestureDetector(
-                                  onTap: () {
-                                    isPressed = true;
-                                    imagePicked = null;
-                                    selectedDesignImage = cubit.logo![index].pictureUrl!;
-                                    isVisible = true;
-                                    selectedDesignIndex = index;
-                                    setState(() {});
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: selectedDesignIndex == index
-                                          ? CustomColors.lightBlue
-                                          : Colors.transparent,
-                                      borderRadius: BorderRadius.circular(
-                                        selectedDesignIndex == index ? 12 : 8,
-                                      ),
-                                      border: Border.all(
-                                        color: selectedDesignIndex == index
-                                            ? CustomColors.blue
-                                            : Colors.grey,
-                                      ),
-                                    ),
-                                    child: Stack(
-                                      children: [
-                                        Center(
-                                          child: Image.network(
-                                            cubit.logo![index].pictureUrl ?? '',
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.symmetric(horizontal: 5.w),
-                                          child: Text(
-                                            "${cubit.logo![index].cost.toString()} \$",
-                                            style: Styles.textStyle12!.copyWith(
-                                              color: CustomColors.green,
+                                      cubit.logo!.length,
+                                      (index) => GestureDetector(
+                                        onTap: () {
+                                          isPressed = true;
+                                          imagePicked = null;
+                                          selectedDesignImage =
+                                              cubit.logo![index].pictureUrl!;
+                                          isVisible = true;
+                                          selectedDesignIndex = index;
+                                          setState(() {});
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: selectedDesignIndex == index
+                                                ? CustomColors.lightBlue
+                                                : Colors.transparent,
+                                            borderRadius: BorderRadius.circular(
+                                              selectedDesignIndex == index
+                                                  ? 12
+                                                  : 8,
+                                            ),
+                                            border: Border.all(
+                                              color:
+                                                  selectedDesignIndex == index
+                                                      ? CustomColors.blue
+                                                      : Colors.grey,
                                             ),
                                           ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              )
+                                          child: Stack(
+                                            children: [
+                                              Center(
+                                                child: Image.network(
+                                                  cubit.logo![index]
+                                                          .pictureUrl ??
+                                                      '',
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 5.w),
+                                                child: Text(
+                                                  "${cubit.logo![index].cost.toString()} \$",
+                                                  style: Styles.textStyle12!
+                                                      .copyWith(
+                                                    color: CustomColors.green,
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    )
                                   : [], // Empty list when cubit.logoResponse is null
                             ),
                             // GestureDetector(
@@ -332,14 +349,14 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
                             ),
                             onTap: () {
                               Navigator.pushNamed(
-                                  context, DrawingRoomScreen.routeName,arguments: args);
+                                  context, DrawingRoomScreen.routeName,
+                                  arguments: args);
                             },
                           ),
                           CustomButton(
                             backgroundColor: CustomColors.blue,
                             text: 'Upload Design',
-                            func: ()
-                            {
+                            func: () {
                               pickImageFromGallery();
                             },
                             style: Styles.textStyle16!
@@ -356,21 +373,25 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
                               SizedBox(
                                 height: 25.h,
                               ),
-                              ProductCounter((p0) {
-
-                              }),
+                              ProductCounter((p0) {}),
                               SizedBox(
                                 height: 30.h,
                               ),
-                              cubit.logo != null && cubit.logo!.isNotEmpty // Check again before accessing logo data
+                              cubit.logo != null &&
+                                      cubit.logo!
+                                          .isNotEmpty // Check again before accessing logo data
                                   ? DesignPayment(
-                                cubit.logo![selectedDesignIndex==-1?0:selectedDesignIndex],
-                                args,
-                              )
+                                      cubit.logo![selectedDesignIndex == -1
+                                          ? 0
+                                          : selectedDesignIndex],
+                                      args,
+                                    )
                                   : CircularProgressIndicator(),
                             ],
                           )),
-                      SizedBox(height: 30.h,),
+                      SizedBox(
+                        height: 30.h,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -380,7 +401,7 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
                               backgroundColor: CustomColors.blue,
                               radius: 18,
                               text: 'Save Logo',
-                              func:_takeScreenshot,
+                              func: _takeScreenshot,
                               style: Styles.textStyle16
                                   .copyWith(color: Colors.white)),
                           CustomButton(
@@ -395,10 +416,14 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
                                   {
                                     'id': args.id,
                                     'productName': args.name,
-                                    'pictureUrl':'$uploadImage',
+                                    'pictureUrl': '$uploadImage',
                                     'size': args.productSize![0].sizename,
-                                    'color':args.productColor![0].colorname,
-                                    'price':isPressed ? args.price! + cubit.logo![selectedDesignIndex].cost:args.price! + 50.0,
+                                    'color': args.productColor![0].colorname,
+                                    'price': isPressed
+                                        ? args.price! +
+                                            cubit
+                                                .logo![selectedDesignIndex].cost
+                                        : args.price! + 50.0,
                                     'quantity': 1,
                                   }
                                 ];
@@ -407,15 +432,22 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
                                   'id': 'basket1',
                                   'items': items,
                                 };
-                                HomeCubit.get(context).updateCart(data: requestData);
+                                HomeCubit.get(context)
+                                    .updateCart(data: requestData);
                                 HomeCubit.get(context).convertCartToJson();
-                                showDialog(context: context, builder:(context) => Dialog(child: AddedToCartAlert()),);
+                                showDialog(
+                                  context: context,
+                                  builder: (context) =>
+                                      Dialog(child: AddedToCartAlert()),
+                                );
                               },
                               style: Styles.textStyle16
                                   .copyWith(color: CustomColors.blue)),
                         ],
                       ),
-                      SizedBox(height: 30.h,),
+                      SizedBox(
+                        height: 30.h,
+                      ),
                     ],
                   ),
                 ),

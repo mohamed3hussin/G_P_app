@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:g_p_app/features/dashboard/dashBoardCubit/dash_board_state.dart';
@@ -59,6 +57,8 @@ class DashBoardCubit extends Cubit<DashBoardState>
       emit(AdminAllProductErrorState(error.toString()));
     });
   }
+
+  AllProducts? allDesignedProducts;
   void getAdminAllProductDesigned({String sort = 'name'}) {
     emit(AdminAllProductLoadingState());
     ApiManager.getData(
@@ -84,6 +84,8 @@ class DashBoardCubit extends Cubit<DashBoardState>
       emit(AdminAllProductErrorState(error.toString()));
     });
   }
+
+
   void deleteProduct(String productId){
     ApiManager.deleteData(url: 'Product/DeleteProduct/$productId',token: CacheHelper.getData(key: 'token'))
         .then((value)
@@ -120,7 +122,7 @@ class DashBoardCubit extends Cubit<DashBoardState>
     try {
       FormData formData = new FormData.fromMap(body);
       var response = await dio.post(
-          'https://6d7e-196-132-15-123.ngrok-free.app/api/Product',
+          'https://c858-41-232-123-145.ngrok-free.app/api/Product',
           data: formData,
           options: Options(
             headers: {

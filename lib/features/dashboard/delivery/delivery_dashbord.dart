@@ -71,64 +71,6 @@ class _DeliverMethodDashboardState extends State<DeliverMethodDashboard> {
                                       style: Styles.textStyle14!.copyWith(color: Colors.green),),
                                   ],
                                 ),
-                                Row(
-                                  children: [
-                                    Container(
-                                      width: 25,
-                                      height: 25,
-                                      decoration: BoxDecoration(
-                                          color: Color(0xFFFCFCFC),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Color(0x3F000000),
-                                              blurRadius: 6.60,
-                                              offset: Offset(2, 4),
-                                              spreadRadius: 0,
-                                            )
-                                          ],
-                                          borderRadius: BorderRadius.circular(50.r)
-                                      ),
-                                      child: InkWell(
-                                        onTap: ()=>Navigator.of(context).pushNamed(EditDelivery.routeName),
-                                        child: Icon(
-                                          Icons.edit, color: Color(0xFFF8B84E), size: 21,),
-                                      ),
-                                    ),
-                                    SizedBox(width: 8.w,),
-                                    // InkWell(
-                                    //   onTap: () {
-                                    //     showDialog(
-                                    //       context: context,
-                                    //       builder: (context)
-                                    //       =>
-                                    //           Dialog(
-                                    //             child: DeleteItemAlert(
-                                    //                 'Want To delete this Delivery Method ?',
-                                    //                 'You will delete this Method if you click the delete button'),
-                                    //           ),
-                                    //     );
-                                    //   },
-                                    //   child: Container(
-                                    //     width: 25,
-                                    //     height: 25,
-                                    //     decoration: BoxDecoration(
-                                    //         color: Color(0xFFFCFCFC),
-                                    //         boxShadow: [
-                                    //           BoxShadow(
-                                    //             color: Color(0x3F000000),
-                                    //             blurRadius: 6.60,
-                                    //             offset: Offset(2, 4),
-                                    //             spreadRadius: 0,
-                                    //           )
-                                    //         ],
-                                    //         borderRadius: BorderRadius.circular(50.r)
-                                    //     ),
-                                    //     child: Icon(Icons.delete_forever_outlined,
-                                    //       color: CustomColors.red, size: 22,),
-                                    //   ),
-                                    // ),
-                                  ],
-                                ),
                               ],
                             ),
                             SizedBox(height: 8.h,),

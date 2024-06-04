@@ -18,8 +18,18 @@ class EditAddressField extends StatelessWidget {
         Text(fieldTitle,style: Styles.textStyle16,),
         SizedBox(height: 8.h,),
         SizedBox(
-          height: 50.h,
           child: TextFormField(
+              validator: (value)
+              {
+                if(value!.isEmpty)
+                {
+
+                  return 'Field must not empty!';
+                }
+                else{
+                  return null;}
+
+            },
             style: Styles.textStyle16,
             controller: textEditController,
             decoration: InputDecoration(
