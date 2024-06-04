@@ -12,6 +12,7 @@ import 'package:g_p_app/features/dashboard/widget/satus_container.dart';
 import '../../../core/colors/colors.dart';
 import '../../../core/shared_widget/default_text.dart';
 import '../../../core/text_style/styles.dart';
+import '../../../data/model/response/AllProductResponse.dart';
 import '../../product_details/widgets/size_container.dart';
 
 class EditItem extends StatefulWidget {
@@ -34,6 +35,10 @@ class _EditItemState extends State<EditItem> {
   }
   @override
   Widget build(BuildContext context) {
+    var args = ModalRoute
+        .of(context)
+        ?.settings
+        .arguments as Data;
     return Scaffold(
       body: Padding(
         padding: EdgeInsetsDirectional.symmetric(horizontal: 20.w,vertical: 30.h),

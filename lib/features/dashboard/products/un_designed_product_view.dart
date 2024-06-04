@@ -98,7 +98,7 @@ class UnDesignedProductDashboard extends StatelessWidget {
                                   children: [
                                     InkWell(
                                       onTap: () => Navigator.of(context)
-                                          .pushNamed(EditItem.routeName),
+                                          .pushNamed(EditItem.routeName,arguments: cubit.allProducts!.data![index]),
                                       child: Container(
                                         width: 25,
                                         height: 25,

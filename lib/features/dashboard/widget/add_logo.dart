@@ -1,5 +1,12 @@
+import 'dart:io';
+import 'package:http_parser/http_parser.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:g_p_app/features/dashboard/dashBoardCubit/dash_board_cubit.dart';
+import 'package:g_p_app/features/dashboard/dashBoardCubit/dash_board_state.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../core/assets_data/iconBroken.dart';
 import '../../../core/colors/colors.dart';
@@ -16,239 +23,205 @@ class AddLogo extends StatefulWidget {
 }
 
 class _AddLogoState extends State<AddLogo> {
-  late int counter;
-  String groupValue ='';
-  String isDesign ='';
-  var textController = TextEditingController();
+
+  var nameController = TextEditingController();
+  var dateController = TextEditingController();
+  var quantityController = TextEditingController();
+  var priceController = TextEditingController();
   bool image =true;
-  void initState() {
-    super.initState();
-    counter=0; // Setting the initial value for the field.
+  File? imagePicked ;
+  Future pickImageFromGallery()async
+  {
+    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    setState(() {
+      imagePicked = File(image!.path);
+    });
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: EdgeInsetsDirectional.symmetric(horizontal: 20.w,vertical: 30.h),
-        child: Column(
+    return BlocConsumer<DashBoardCubit,DashBoardState>(
+      listener: (context,state) {},
+      builder: (context,state)
+      {
+        var cubit = DashBoardCubit.get(context);
+        return Scaffold(
+          body: Padding(
+            padding: EdgeInsetsDirectional.symmetric(horizontal: 20.w,vertical: 30.h),
+            child: Column(
 
-          children:
-          [
-            Row(
               children:
               [
-                Text(
-                  'Add Logo',
-                  style: Styles.textStyle16.copyWith(fontWeight: FontWeight.w600,color: Color(0xFF000000)),),
-                Spacer(),
-                IconButton(onPressed: (){Navigator.pop(context);}, icon: Icon(IconBroken.Close_Square))
-              ],
-            ),
-            SizedBox(height: 10.h,),
-            Row(
-              children: [
-                Expanded(
-                    child:
+                Row(
+                  children:
+                  [
+                    Text(
+                      'Add Logo',
+                      style: Styles.textStyle16.copyWith(fontWeight: FontWeight.w600,color: Color(0xFF000000)),),
+                    Spacer(),
+                    IconButton(onPressed: (){Navigator.pop(context);}, icon: Icon(IconBroken.Close_Square))
+                  ],
+                ),
+                SizedBox(height: 10.h,),
+                Row(
+                  children: [
+                    Expanded(
+                        child:
+                        Column(
+                          children: [
+                            Align(
+                              child: Text(
+                                'logo name',
+                                style: Styles.textStyle14.copyWith(
+                                    fontWeight: FontWeight.w400,color: Color(0xFF270008)),),
+                              alignment: AlignmentDirectional.topStart,
+                            ),
+                            SizedBox(height: 5.h,),
+                            defaultTextField(
+                              controller: nameController,
+                              type: TextInputType.text,
+                              border: Colors.grey,
+                              hint: 'ex: adidas',
+
+                            ),
+                          ],
+                        )),
+                    SizedBox(width: 10.w,),
                     Column(
                       children: [
                         Align(
                           child: Text(
-                            'logo name',
-                            style: Styles.textStyle14.copyWith(fontWeight: FontWeight.w400,color: Color(0xFF270008)),),
+                            'logo Quantity',
+                            style: Styles.textStyle14.copyWith(
+                                fontWeight: FontWeight.w400,color: Color(0xFF270008)),),
                           alignment: AlignmentDirectional.topStart,
                         ),
-                        SizedBox(height: 5.h,),
-                        defaultTextField(
-                          type: TextInputType.text,
-                          border: Colors.grey,
-                          hint: 'ex: dress',
-
+                        SizedBox(height: 7.h,),
+                        Container(
+                          width: 90.w,
+                          child: defaultTextField(
+                            controller: quantityController,
+                            type:TextInputType.number,
+                            hint: '0-99',
+                            border: Colors.grey,
+                          ),
                         ),
                       ],
-                    )),
-                SizedBox(width: 10.w,),
-                Column(
-                  children: [
-                    Align(
-                      child: Text(
-                        'logo Quantity',
-                        style: Styles.textStyle14.copyWith(fontWeight: FontWeight.w400,color: Color(0xFF270008)),),
-                      alignment: AlignmentDirectional.topStart,
-                    ),
-                    SizedBox(height: 7.h,),
-                    Container(
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey),
-                          borderRadius: BorderRadius.all(Radius.circular(10))
-                      ),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.symmetric(horizontal: 10),
-                        child: Row(
-                          children: [
-                            Text('${counter}'),
-                            SizedBox(width: 70.w,),
-                            Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                MaterialButton(
-                                  padding: EdgeInsets.all(0),
-                                  minWidth: 0,
-                                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                  child: Container(
-                                      margin: EdgeInsets.all(0),
-                                      padding: EdgeInsets.all(0),
-                                      child: Icon(Icons.arrow_drop_up,)),
-                                  onPressed: () {
-                                    setState(() {
-                                      counter++;
-                                      // incrementing value
-                                    });
-                                  },
-                                ),
-                                MaterialButton(
-                                  padding: EdgeInsets.all(0),
-                                  minWidth: 0,
-                                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                  child: Container(
-                                      margin: EdgeInsets.all(0),
-                                      padding: EdgeInsets.all(0),
-                                      child: Icon(Icons.arrow_drop_down,)),
-                                  onPressed: () {
-                                    setState(() {
-                                      counter--;
-                                      // incrementing value
-                                    });
-                                  },
-                                ),
-
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
                     ),
                   ],
                 ),
-              ],
-            ),
-            SizedBox(height: 15.h,),
-            Row(
-              children: [
-                Expanded(
-                    child:
+                SizedBox(height: 15.h,),
+                Row(
+                  children: [
+                    Expanded(
+                        child:
+                        Column(
+                          children: [
+                            Align(
+                              child: Text(
+                                'Date of creation',
+                                style: Styles.textStyle14.copyWith(
+                                    fontWeight: FontWeight.w400,color: Color(0xFF270008)),),
+                              alignment: AlignmentDirectional.topStart,
+                            ),
+                            SizedBox(height: 5.h,),
+                            defaultTextField(
+                              controller: dateController,
+                              type: TextInputType.datetime,
+                              border: Colors.grey,
+                              hint: 'mm/dd/yyyy',
+
+                            ),
+                          ],
+                        )),
+                    SizedBox(width: 10.w,),
                     Column(
                       children: [
                         Align(
                           child: Text(
-                            'Date of creation',
-                            style: Styles.textStyle14.copyWith(fontWeight: FontWeight.w400,color: Color(0xFF270008)),),
+                            'logo price',
+                            style: Styles.textStyle14.copyWith(
+                                fontWeight: FontWeight.w400,color: Color(0xFF270008)),),
                           alignment: AlignmentDirectional.topStart,
                         ),
-                        SizedBox(height: 5.h,),
-                        defaultTextField(
-                          type: TextInputType.datetime,
-                          border: Colors.grey,
-                          hint: 'mm/dd/yyyy',
-
+                        SizedBox(height: 7.h,),
+                        Container(
+                          width: 90.w,
+                          child: defaultTextField(
+                            controller: priceController,
+                            type:TextInputType.number,
+                            hint: '0-99',
+                            border: Colors.grey,
+                          ),
                         ),
                       ],
-                    )),
-                SizedBox(width: 10.w,),
-                Column(
-                  children: [
-                    Align(
-                      child: Text(
-                        'logo price',
-                        style: Styles.textStyle14.copyWith(fontWeight: FontWeight.w400,color: Color(0xFF270008)),),
-                      alignment: AlignmentDirectional.topStart,
-                    ),
-                    SizedBox(height: 7.h,),
-                    Container(
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey),
-                          borderRadius: BorderRadius.all(Radius.circular(10))
-                      ),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.symmetric(horizontal: 10),
-                        child: Row(
-                          children: [
-                            Text('${counter}'),
-                            SizedBox(width: 70.w,),
-                            Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                MaterialButton(
-                                  padding: EdgeInsets.all(0),
-                                  minWidth: 0,
-                                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                  child: Container(
-                                      margin: EdgeInsets.all(0),
-                                      padding: EdgeInsets.all(0),
-                                      child: Icon(Icons.arrow_drop_up,)),
-                                  onPressed: () {
-                                    setState(() {
-                                      counter++;
-                                      // incrementing value
-                                    });
-                                  },
-                                ),
-                                MaterialButton(
-                                  padding: EdgeInsets.all(0),
-                                  minWidth: 0,
-                                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                  child: Container(
-                                      margin: EdgeInsets.all(0),
-                                      padding: EdgeInsets.all(0),
-                                      child: Icon(Icons.arrow_drop_down,)),
-                                  onPressed: () {
-                                    setState(() {
-                                      counter--;
-                                      // incrementing value
-                                    });
-                                  },
-                                ),
-
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
                     ),
                   ],
                 ),
+                SizedBox(height: 15.h,),
+                if(imagePicked != null)
+                  Container(
+                    height: 90.h,
+                    width: 90.w,
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: Colors.black)
+                    ),
+                    child:  Stack(
+                      alignment: AlignmentDirectional.center,
+                      children: [
+                        if(imagePicked != null)
+                          Image.file(imagePicked!),
+
+                      ],
+                    ),
+                  ),
+                if(imagePicked != null)
+                  SizedBox(height: 15.h,),
+                CustomButton(
+                    icon: IconBroken.Upload,
+                    iconColor: Colors.white,
+                    radius: 12,
+                    width: 195.w,
+                    height: 50.h,
+                    backgroundColor: CustomColors.blue,
+                    text: 'Upload a logo',
+                    func: ()
+                    {
+                      pickImageFromGallery();
+                    },
+                    style: Styles.textStyle16.copyWith(color: Colors.white)
+                ),
+                SizedBox(height: 20.h,),
+                CustomButton(
+                    icon: IconBroken.Plus,
+                    iconColor: Colors.white,
+                    radius: 12,
+                    width: 195.w,
+                    height: 50.h,
+                    backgroundColor: CustomColors.blue,
+                    text: 'Add Logo',
+                    func: ()
+                    async {
+                      cubit.createLogo(
+                          {
+                            'Name':nameController.text,
+                            'Cost':priceController.text,
+                            'Quantity':quantityController.text,
+                            'PictureUrl':await MultipartFile.fromFile(
+                              imagePicked!.path
+                              ,filename: imagePicked!.path.split('/').last,
+                              contentType: MediaType("image", "jpeg"),),
+                          });
+                    },
+                    style: Styles.textStyle16.copyWith(color: Colors.white)
+                ),
               ],
             ),
-            SizedBox(height: 15.h,),
-            if(image)
-              Container(
-                width: 70.w,
-                height: 70.h,
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image:NetworkImage('https://mostaql.hsoubcdn.com/uploads/thumbnails/845832/5fc67c65f2e65/b6e2ef894ef8e63a8a3e8c35a6e6144a.png'),
-                      fit: BoxFit.cover,
-                    ),
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Colors.black)
-                ),
-              ),
-            if(image)
-              SizedBox(height: 15.h,),
-            CustomButton(
-                icon: IconBroken.Upload,
-                iconColor: Colors.white,
-                radius: 12,
-                width: 195.w,
-                height: 50.h,
-                backgroundColor: CustomColors.blue,
-                text: 'Upload a logo',
-                func: (){},
-                style: Styles.textStyle16.copyWith(color: Colors.white)
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
+
     );
   }
 }

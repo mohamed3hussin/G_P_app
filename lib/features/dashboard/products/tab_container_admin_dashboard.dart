@@ -9,10 +9,10 @@ class TabContainerDashBoard extends StatefulWidget {
   TabContainerDashBoard({required this.onIndexChanged});
 
   @override
-  State<TabContainerDashBoard> createState() => _TabContainerState();
+  State<TabContainerDashBoard> createState() => _TabContainerDashBoard();
 }
 
-class _TabContainerState extends State<TabContainerDashBoard> {
+class _TabContainerDashBoard extends State<TabContainerDashBoard> {
   int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {

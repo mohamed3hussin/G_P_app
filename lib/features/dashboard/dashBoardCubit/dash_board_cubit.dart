@@ -122,7 +122,7 @@ class DashBoardCubit extends Cubit<DashBoardState>
     try {
       FormData formData = new FormData.fromMap(body);
       var response = await dio.post(
-          'https://c858-41-232-123-145.ngrok-free.app/api/Product',
+          'https://6739-196-132-107-23.ngrok-free.app/api/Product',
           data: formData,
           options: Options(
             headers: {
@@ -140,6 +140,41 @@ class DashBoardCubit extends Cubit<DashBoardState>
       print(response.data);
       if (response.statusCode == 200) {
         print('File uploaded successfully');
+        getAdminAllProduct();
+        getAdminAllProductDesigned();
+      } else {
+        print('File upload failed: ${response.statusCode}');
+      }
+      return response.data;
+
+    } catch (e) {
+      print(e);
+    }
+  }
+  createLogo(Map<String, dynamic> body)async{
+    var dio = Dio();
+    try {
+      FormData formData = new FormData.fromMap(body);
+      var response = await dio.post(
+        'https://6739-196-132-107-23.ngrok-free.app/api/Product/CreateLogo',
+        data: formData,
+        options: Options(
+          headers: {
+            'Content-Type':'multipart/form-data',
+            'lang':'en',
+            'Authorization':CacheHelper.getData(key: 'token'),
+          },
+          followRedirects: true,
+          validateStatus: (status) {
+            return status! < 500; // Accept status codes less than 500
+          },
+        ),
+      );
+
+      print(response.data);
+      if (response.statusCode == 200) {
+        print('File uploaded successfully');
+        getAdminLogos();
       } else {
         print('File upload failed: ${response.statusCode}');
       }
