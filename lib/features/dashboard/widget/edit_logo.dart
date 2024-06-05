@@ -17,7 +17,13 @@ import '../dashBoardCubit/dash_board_state.dart';
 
 class EditLogo extends StatefulWidget {
   static const String routeName = 'edit_logo';
-  const EditLogo({Key? key}) : super(key: key);
+  String logoName;
+  String logoPrice;
+  String productQuantity;
+  int logoId;
+  String networkImage;
+
+  EditLogo(this.logoName, this.logoPrice, this.productQuantity, this.logoId,this.networkImage);
 
   @override
   State<EditLogo> createState() => _EditLogoState();
@@ -25,10 +31,8 @@ class EditLogo extends StatefulWidget {
 
 class _EditLogoState extends State<EditLogo> {
   var nameController = TextEditingController();
-  var dateController = TextEditingController();
   var quantityController = TextEditingController();
   var priceController = TextEditingController();
-  String netImage = '';
   bool image =true;
   File? imagePicked ;
   Future pickImageFromGallery()async
@@ -39,16 +43,16 @@ class _EditLogoState extends State<EditLogo> {
     });
   }
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    nameController.text = widget.logoName;
+    quantityController.text = widget.productQuantity;
+    priceController.text = widget.logoPrice;
+
+  }
+  @override
   Widget build(BuildContext context) {
-    var args = ModalRoute
-        .of(context)
-        ?.settings
-        .arguments as Logo;
-    nameController.text = args.name;
-    dateController.text = args.dateofCreation;
-    quantityController.text = args.quantity.toString();
-    priceController.text = args.cost.toString();
-    netImage = args.pictureUrl;
 
     return BlocConsumer<DashBoardCubit,DashBoardState>(
       listener: (context,state) {},
@@ -85,7 +89,7 @@ class _EditLogoState extends State<EditLogo> {
                     child:  Stack(
                       alignment: AlignmentDirectional.center,
                       children: [
-                        Image(image: NetworkImage(netImage ??
+                        Image(image: NetworkImage(widget.networkImage ??
                             ''),fit: BoxFit.cover,)
                       ],
                     ),
@@ -148,43 +152,23 @@ class _EditLogoState extends State<EditLogo> {
                           children: [
                             Align(
                               child: Text(
-                                'Date of creation',
+                                'logo price',
                                 style: Styles.textStyle14.copyWith(
                                     fontWeight: FontWeight.w400,color: Color(0xFF270008)),),
                               alignment: AlignmentDirectional.topStart,
                             ),
-                            SizedBox(height: 5.h,),
-                            defaultTextField(
-                              controller: dateController,
-                              type: TextInputType.datetime,
-                              border: Colors.grey,
-                              hint: 'mm/dd/yyyy',
-
+                            SizedBox(height: 7.h,),
+                            Container(
+                              width: 90.w,
+                              child: defaultTextField(
+                                controller: priceController,
+                                type:TextInputType.number,
+                                hint: '0-99',
+                                border: Colors.grey,
+                              ),
                             ),
                           ],
-                        )),
-                    SizedBox(width: 10.w,),
-                    Column(
-                      children: [
-                        Align(
-                          child: Text(
-                            'logo price',
-                            style: Styles.textStyle14.copyWith(
-                                fontWeight: FontWeight.w400,color: Color(0xFF270008)),),
-                          alignment: AlignmentDirectional.topStart,
-                        ),
-                        SizedBox(height: 7.h,),
-                        Container(
-                          width: 90.w,
-                          child: defaultTextField(
-                            controller: priceController,
-                            type:TextInputType.number,
-                            hint: '0-99',
-                            border: Colors.grey,
-                          ),
-                        ),
-                      ],
-                    ),
+                        ),),
                   ],
                 ),
                 SizedBox(height: 15.h,),
@@ -235,7 +219,7 @@ class _EditLogoState extends State<EditLogo> {
                     async {
                       if(imagePicked != null)
                       {
-                        cubit.editLogo(args.id.toString(),
+                        cubit.editLogo(widget.logoId.toString(),
                             {
                               'Name':nameController.text,
                               'Cost':priceController.text,
@@ -248,7 +232,7 @@ class _EditLogoState extends State<EditLogo> {
                       }
                       else
                       {
-                        cubit.editLogo(args.id.toString(),
+                        cubit.editLogo(widget.logoId.toString(),
                             {
                               'Name':nameController.text,
                               'Cost':priceController.text,

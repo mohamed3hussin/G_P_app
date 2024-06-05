@@ -24,7 +24,34 @@ import '../../product_details/widgets/size_container.dart';
 
 class EditItem extends StatefulWidget {
   static const String routeName = 'edit_item';
-  const EditItem({Key? key}) : super(key: key);
+  String productName;
+  String productPrice;
+  String productType;
+  String productQuantity;
+  int productSizeId;
+  String productStatus;
+  String productGender;
+  String productDescription;
+  int productColorId;
+  String isDesign;
+  String networkImage;
+  int productId;
+
+
+  EditItem(
+      this.productName,
+      this.productPrice,
+      this.productType,
+      this.productQuantity,
+      this.productSizeId,
+      this.productStatus,
+      this.productGender,
+      this.productDescription,
+      this.productColorId,
+      this.isDesign,
+      this.networkImage,
+      this.productId
+      );
 
   @override
   State<EditItem> createState() => _EditItemState();
@@ -55,41 +82,41 @@ class _EditItemState extends State<EditItem> {
       imagePicked = File(image!.path);
     });
   }
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    nameController.text = widget.productName;
+    typeController.text = widget.productType;
+    priceController.text = widget.productPrice;
+    quantityController.text = widget.productQuantity;
+    descriptionController.text = widget.productDescription;
+    sizeNumber = widget.productSizeId;
+    isSizeSelected = sizeNumber == 1 ?[true, false, false, false,false]
+        :sizeNumber == 2 ?[false, true, false, false,false]
+        :sizeNumber == 3 ?[false, false, true, false,false]
+        :sizeNumber == 4 ?[false, false, false, true,false]
+        :[false, false, false, false,true];
+    colorNumber = widget.productColorId;
+    isSelected = colorNumber == 1 ?[true, false, false, false,false]
+        :colorNumber == 2 ?[false, true, false, false,false]
+        :colorNumber == 3 ?[false, false, true, false,false]
+        :colorNumber == 4 ?[false, false, false, true,false]
+        :[false, false, false, false,true];
+    groupValue = widget.productGender == 'Female'?'0'
+        : widget.productGender == 'Male'?'1':'2';
+    inStoke = widget.productStatus == 'In Stock'?'0':'1';
+    isDesign = widget.isDesign;
+    netImage = widget.networkImage;
+  }
   @override
   Widget build(BuildContext context) {
-    var args = ModalRoute
-        .of(context)
-        ?.settings
-        .arguments as Data;
+
     return BlocConsumer<DashBoardCubit,DashBoardState>(
       listener: (context,state){},
       builder: (context,state)
       {
         var cubit = DashBoardCubit.get(context);
-        nameController.text = args.name!;
-        typeController.text = args.typeId.toString()!;
-        priceController.text = args.price.toString()!;
-        quantityController.text = '13';
-        descriptionController.text = args.description!;
-        sizeNumber = 1;
-        isSizeSelected = sizeNumber == 1 ?[true, false, false, false,false]
-            :sizeNumber == 2 ?[false, true, false, false,false]
-            :sizeNumber == 3 ?[false, false, true, false,false]
-            :sizeNumber == 4 ?[false, false, false, true,false]
-            :[false, false, false, false,true];
-        colorNumber = 2;
-        isSelected = colorNumber == 1 ?[true, false, false, false,false]
-            :colorNumber == 2 ?[false, true, false, false,false]
-            :colorNumber == 3 ?[false, false, true, false,false]
-            :colorNumber == 4 ?[false, false, false, true,false]
-            :[false, false, false, false,true];
-        groupValue = args.genderType! == 'Female'?'0'
-            : args.genderType! == 'Male'?'1':'2';
-        inStoke = args.productStatus! == 'In Stock'?'0':'1';
-        isDesign = 'false';
-        netImage = args.productPictures![0];
-
         return Scaffold(
           body: Padding(
             padding: EdgeInsetsDirectional.symmetric(horizontal: 20.w,vertical: 30.h),
@@ -533,8 +560,7 @@ class _EditItemState extends State<EditItem> {
                     child:  Stack(
                       alignment: AlignmentDirectional.center,
                       children: [
-                        Image(image: NetworkImage(args
-                            .productPictures?[0] ??
+                        Image(image: NetworkImage(widget.networkImage ??
                             ''),fit: BoxFit.cover,)
                       ],
                     ),
@@ -593,7 +619,7 @@ class _EditItemState extends State<EditItem> {
                       async {
                         if(imagePicked != null)
                         {
-                          cubit.editProduct(args.id.toString(),
+                          cubit.editProduct(widget.productId.toString(),
                               {
                                 'Name':nameController.text,
                                 'Description':descriptionController.text,
@@ -610,7 +636,8 @@ class _EditItemState extends State<EditItem> {
                         }
                         else
                         {
-                          cubit.editProduct(args.id.toString(),
+                          print('===============================');
+                          cubit.editProduct(widget.productId.toString(),
                               {
                                 'Name':nameController.text,
                                 'Description':descriptionController.text,

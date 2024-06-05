@@ -114,8 +114,26 @@ class _ProductDashboardState extends State<ProductDashboard> {
                                 Row(
                                   children: [
                                     InkWell(
-                                      onTap: () => Navigator.of(context)
-                                          .pushNamed(EditItem.routeName,arguments: cubit.allProducts!.data![index]),
+                                      onTap: ()
+                                      {
+                                        Navigator.push(context,
+                                          MaterialPageRoute(
+                                            builder:(context)=>EditItem(
+                                              cubit.allProducts!.data![index].name.toString(),
+                                              cubit.allProducts!.data![index].price.toString(),
+                                                cubit.allProducts!.data![index].typeId.toString(),
+                                                cubit.allProducts!.data![index].quantity.toString(),
+                                                cubit.allProducts!.data![index].productSize![0].sizeId!,
+                                                cubit.allProducts!.data![index].productStatus.toString(),
+                                                cubit.allProducts!.data![index].genderType.toString(),
+                                                cubit.allProducts!.data![index].description.toString(),
+                                                cubit.allProducts!.data![index].productColor![0].colorId!,
+                                              'false',
+                                                cubit.allProducts!.data![index].productPictures![0].toString(),
+                                                cubit.allProducts!.data![index].id!,
+                                            ) ,
+                                          ),);
+                                      },
                                       child: Container(
                                         width: 25,
                                         height: 25,

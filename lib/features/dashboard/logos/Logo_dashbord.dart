@@ -109,7 +109,19 @@ class _LogoDashboardState extends State<LogoDashboard> {
                                       borderRadius: BorderRadius.circular(50.r),
                                     ),
                                     child: InkWell(
-                                      onTap: () => Navigator.of(context).pushNamed(EditLogo.routeName,arguments: cubit.logo![index]),
+                                      onTap: ()
+                                      {
+                                        Navigator.push(context,
+                                          MaterialPageRoute(
+                                            builder:(context)=>EditLogo(
+                                              cubit.logo![index].name,
+                                              cubit.logo![index].cost.toString(),
+                                              cubit.logo![index].quantity.toString(),
+                                              cubit.logo![index].id,
+                                              cubit.logo![index].pictureUrl
+                                            ) ,
+                                          ),);
+                                      },
                                       child: Icon(Icons.edit, color: Color(0xFFF8B84E), size: 21),
                                     ),
                                   ),

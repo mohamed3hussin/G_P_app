@@ -39,6 +39,7 @@ class Data {
   String? type;
   String? genderType;
   String? productStatus;
+  int? quantity;
   List<String>? productPictures;
   List<ProductSize>? productSize;
   List<ProductColor>? productColor;
@@ -54,6 +55,7 @@ class Data {
         this.type,
         this.genderType,
         this.productStatus,
+        this.quantity,
         this.productPictures,
         this.productSize,
         this.productColor,
@@ -69,6 +71,7 @@ class Data {
     type = json['type'];
     genderType = json['genderType'];
     productStatus = json['productStatus'];
+    quantity = json['quantity'];
     productPictures = json['productPictures'].cast<String>();
     if (json['productSize'] != null) {
       productSize = <ProductSize>[];
@@ -101,6 +104,7 @@ class Data {
     data['type'] = type;
     data['genderType'] = genderType;
     data['productStatus'] = productStatus;
+    data['quantity'] = quantity;
     data['productPictures'] = productPictures;
     if (productSize != null) {
       data['productSize'] = productSize!.map((v) => v.toJson()).toList();
