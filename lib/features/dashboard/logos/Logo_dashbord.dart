@@ -13,6 +13,7 @@ import '../../home_screen/home_layout/home_cubit/home_cubit.dart';
 import '../../home_screen/home_layout/home_cubit/home_state.dart';
 import '../dashBoardCubit/dash_board_cubit.dart';
 import '../widget/delete_alert.dart';
+import '../widget/delete_logo_alert.dart';
 import '../widget/edit_item.dart';
 import '../widget/edit_logo.dart';
 
@@ -108,41 +109,43 @@ class _LogoDashboardState extends State<LogoDashboard> {
                                       borderRadius: BorderRadius.circular(50.r),
                                     ),
                                     child: InkWell(
-                                      onTap: () => Navigator.of(context).pushNamed(EditLogo.routeName),
+                                      onTap: () => Navigator.of(context).pushNamed(EditLogo.routeName,arguments: cubit.logo![index]),
                                       child: Icon(Icons.edit, color: Color(0xFFF8B84E), size: 21),
                                     ),
                                   ),
                                   SizedBox(width: 8.w),
-                                  // InkWell(
-                                  //   onTap: () {
-                                  //     showDialog(
-                                  //       context: context,
-                                  //       builder: (context) => Dialog(
-                                  //         child: DeleteItemAlert(
-                                  //           'Want To delete this Logo ?',
-                                  //           'You will delete this logo if you click the delete button',
-                                  //         ),
-                                  //       ),
-                                  //     );
-                                  //   },
-                                  //   child: Container(
-                                  //     width: 25,
-                                  //     height: 25,
-                                  //     decoration: BoxDecoration(
-                                  //       color: Color(0xFFFCFCFC),
-                                  //       boxShadow: [
-                                  //         BoxShadow(
-                                  //           color: Color(0x3F000000),
-                                  //           blurRadius: 6.60,
-                                  //           offset: Offset(2, 4),
-                                  //           spreadRadius: 0,
-                                  //         ),
-                                  //       ],
-                                  //       borderRadius: BorderRadius.circular(50.r),
-                                  //     ),
-                                  //     child: Icon(Icons.delete_forever_outlined, color: CustomColors.red, size: 22),
-                                  //   ),
-                                  // ),
+                                  InkWell(
+                                    onTap: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) => Dialog(
+                                          child: DeleteLogoAlert(
+                                            'Want To delete this Logo ?',
+                                            'You will delete this logo if you click the delete button',
+                                              cubit.logo![index].id
+                                                  .toString()
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      width: 25,
+                                      height: 25,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFFFCFCFC),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Color(0x3F000000),
+                                            blurRadius: 6.60,
+                                            offset: Offset(2, 4),
+                                            spreadRadius: 0,
+                                          ),
+                                        ],
+                                        borderRadius: BorderRadius.circular(50.r),
+                                      ),
+                                      child: Icon(Icons.delete_forever_outlined, color: CustomColors.red, size: 22),
+                                    ),
+                                  ),
                                 ],
                               ),
                             ],

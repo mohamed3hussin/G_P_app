@@ -5,6 +5,7 @@ import 'package:g_p_app/core/colors/colors.dart';
 import 'package:g_p_app/core/text_style/styles.dart';
 import 'package:g_p_app/features/dashboard/dashBoardCubit/dash_board_cubit.dart';
 import 'package:g_p_app/features/dashboard/dashBoardCubit/dash_board_state.dart';
+import 'package:g_p_app/features/dashboard/dash_board_design_product/dash_board_design_product.dart';
 import 'package:g_p_app/features/dashboard/delivery/delivery_dashbord.dart';
 import 'package:g_p_app/features/dashboard/logos/Logo_dashbord.dart';
 import 'package:g_p_app/features/dashboard/products/product_dashbord.dart';
@@ -51,7 +52,9 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen> {
               ? 'Products'
               : selectedDrawerItem == DashboardDrawer.drawerLogoId
               ? 'Logos'
-              : 'Delivery Methods',
+              :selectedDrawerItem == DashboardDrawer.drawerDeliveryId
+              ? 'Delivery Methods'
+              :'Design Product',
           style: Styles.textStyle24!.copyWith(color: Colors.white),
         ),
         iconTheme: IconThemeData(color: Colors.white, size: 35),
@@ -101,7 +104,9 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen> {
               ? ProductDashboard()
               : selectedDrawerItem == DashboardDrawer.drawerLogoId
               ? LogoDashboard()
-              : DeliverMethodDashboard()
+              :selectedDrawerItem == DashboardDrawer.drawerDeliveryId
+              ? DeliverMethodDashboard()
+              :DashboardDesignProduct()
         ],
       ),
     );},

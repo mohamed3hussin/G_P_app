@@ -71,9 +71,9 @@ class DashBoardCubit extends Cubit<DashBoardState>
         },
         token: CacheHelper.getData(key: 'token')
     ).then((response) {
-      allProducts = AllProducts.fromJson(response.data);
+      allDesignedProducts = AllProducts.fromJson(response.data);
       print('==================================================');
-      print(allProducts!.data!.length);
+      print(allDesignedProducts!.data!.length);
       print('==================================================');
       emit(AdminAllProductLoadedState());
       // if (response.data == null) {
@@ -92,6 +92,19 @@ class DashBoardCubit extends Cubit<DashBoardState>
     {
       emit(AdminDeleteLoadedState());
       getAdminAllProduct();
+    }).catchError((error)
+    {
+      emit(AdminDeleteErrorState());
+    });
+
+  }
+
+  void deleteLogo(String logoId){
+    ApiManager.deleteData(url: 'Product/DeleteLogo/$logoId',token: CacheHelper.getData(key: 'token'))
+        .then((value)
+    {
+      emit(AdminDeleteLoadedState());
+      getAdminLogos();
     }).catchError((error)
     {
       emit(AdminDeleteErrorState());
@@ -156,7 +169,109 @@ class DashBoardCubit extends Cubit<DashBoardState>
     try {
       FormData formData = new FormData.fromMap(body);
       var response = await dio.post(
-        'https://6739-196-132-107-23.ngrok-free.app/api/Product/CreateLogo',
+        'https://5f76-41-232-112-200.ngrok-free.app/api/Product/CreateLogo',
+        data: formData,
+        options: Options(
+          headers: {
+            'Content-Type':'multipart/form-data',
+            'lang':'en',
+            'Authorization':CacheHelper.getData(key: 'token'),
+          },
+          followRedirects: true,
+          validateStatus: (status) {
+            return status! < 500; // Accept status codes less than 500
+          },
+        ),
+      );
+
+      print(response.data);
+      if (response.statusCode == 200) {
+        print('File uploaded successfully');
+        getAdminLogos();
+      } else {
+        print('File upload failed: ${response.statusCode}');
+      }
+      return response.data;
+
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  editProduct(String productId,Map<String, dynamic> body)async{
+    var dio = Dio();
+    try {
+      FormData formData = new FormData.fromMap(body);
+      var response = await dio.put(
+        'https://5f76-41-232-112-200.ngrok-free.app/api/Product/$productId',
+        data: formData,
+        options: Options(
+          headers: {
+            'Content-Type':'multipart/form-data',
+            'lang':'en',
+            'Authorization':CacheHelper.getData(key: 'token'),
+          },
+          followRedirects: true,
+          validateStatus: (status) {
+            return status! < 500; // Accept status codes less than 500
+          },
+        ),
+      );
+
+      print(response.data);
+      if (response.statusCode == 200) {
+        print('File uploaded successfully');
+        getAdminAllProduct();
+      } else {
+        print('File upload failed: ${response.statusCode}');
+      }
+      return response.data;
+
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  editDesignProduct(String productId,Map<String, dynamic> body)async{
+    var dio = Dio();
+    try {
+      FormData formData = new FormData.fromMap(body);
+      var response = await dio.put(
+        'https://5f76-41-232-112-200.ngrok-free.app/api/Product/$productId',
+        data: formData,
+        options: Options(
+          headers: {
+            'Content-Type':'multipart/form-data',
+            'lang':'en',
+            'Authorization':CacheHelper.getData(key: 'token'),
+          },
+          followRedirects: true,
+          validateStatus: (status) {
+            return status! < 500; // Accept status codes less than 500
+          },
+        ),
+      );
+
+      print(response.data);
+      if (response.statusCode == 200) {
+        print('File uploaded successfully');
+        getAdminAllProductDesigned();
+      } else {
+        print('File upload failed: ${response.statusCode}');
+      }
+      return response.data;
+
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  editLogo(String logoId,Map<String, dynamic> body)async{
+    var dio = Dio();
+    try {
+      FormData formData = new FormData.fromMap(body);
+      var response = await dio.post(
+        'https://5f76-41-232-112-200.ngrok-free.app/api/Product/UpdateLogo/$logoId',
         data: formData,
         options: Options(
           headers: {

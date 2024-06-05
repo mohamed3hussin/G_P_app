@@ -8,6 +8,7 @@ class DashboardDrawer extends StatelessWidget {
   static const int drawerProductId=1;
   static const int drawerLogoId=2;
   static const int drawerDeliveryId=3;
+  static const int drawerDesignProductId=4;
   Function onDrawerClick;
 
   DashboardDrawer({required this.onDrawerClick});
@@ -67,6 +68,21 @@ class DashboardDrawer extends StatelessWidget {
                   Icon(IconBroken.Buy,size: 40,color: CustomColors.blue,),
                   SizedBox(width: 20,),
                   Text('Delivery Methods',style: Styles.textStyle16)
+                ],
+              ),
+            ),
+          ),
+          InkWell(
+            onTap: (){
+              onDrawerClick(DashboardDrawer.drawerDesignProductId);
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Icon(IconBroken.Image,size: 40,color: CustomColors.blue,),
+                  SizedBox(width: 20,),
+                  Text('Design Product',style: Styles.textStyle16)
                 ],
               ),
             ),

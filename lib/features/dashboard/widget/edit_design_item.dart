@@ -1,5 +1,3 @@
-//import 'dart:ffi';
-
 import 'dart:io';
 import 'package:http_parser/http_parser.dart';
 import 'package:dio/dio.dart';
@@ -22,15 +20,15 @@ import '../../../core/text_style/styles.dart';
 import '../../../data/model/response/AllProductResponse.dart';
 import '../../product_details/widgets/size_container.dart';
 
-class EditItem extends StatefulWidget {
-  static const String routeName = 'edit_item';
-  const EditItem({Key? key}) : super(key: key);
+class EditDesignItem extends StatefulWidget {
+  static const String routeName = 'edit_design_item';
+  const EditDesignItem({Key? key}) : super(key: key);
 
   @override
-  State<EditItem> createState() => _EditItemState();
+  State<EditDesignItem> createState() => _EditDesignItemState();
 }
 
-class _EditItemState extends State<EditItem> {
+class _EditDesignItemState extends State<EditDesignItem> {
 
   String groupValue ='';
   String isDesign ='';
@@ -593,7 +591,7 @@ class _EditItemState extends State<EditItem> {
                       async {
                         if(imagePicked != null)
                         {
-                          cubit.editProduct(args.id.toString(),
+                          cubit.editDesignProduct(args.id.toString(),
                               {
                                 'Name':nameController.text,
                                 'Description':descriptionController.text,
@@ -610,7 +608,7 @@ class _EditItemState extends State<EditItem> {
                         }
                         else
                         {
-                          cubit.editProduct(args.id.toString(),
+                          cubit.editDesignProduct(args.id.toString(),
                               {
                                 'Name':nameController.text,
                                 'Description':descriptionController.text,

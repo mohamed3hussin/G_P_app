@@ -1,34 +1,24 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:g_p_app/core/colors/colors.dart';
-import 'package:g_p_app/core/text_style/styles.dart';
-import 'package:g_p_app/features/dashboard/dashBoardCubit/dash_board_cubit.dart';
-import 'package:g_p_app/features/dashboard/dashBoardCubit/dash_board_state.dart';
-import 'package:g_p_app/features/dashboard/products/designed_product_view.dart';
-import 'package:g_p_app/features/dashboard/products/tab_container_admin_dashboard.dart';
-import 'package:g_p_app/features/dashboard/products/un_designed_product_view.dart';
-import 'package:g_p_app/features/dashboard/widget/drawer.dart';
-import 'package:g_p_app/features/dashboard/widget/product_item.dart';
-import 'package:g_p_app/features/dashboard/widget/search_field.dart';
-import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_cubit.dart';
-import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_state.dart';
+import 'package:g_p_app/features/dashboard/widget/edit_design_item.dart';
 
-import '../../../core/assets_data/assetsData.dart';
-import '../../home_screen/home_layout/home_screens/categories_screen/filtered_categories/tab_container.dart';
+import '../../../core/colors/colors.dart';
+import '../../../core/text_style/styles.dart';
+import '../dashBoardCubit/dash_board_cubit.dart';
+import '../dashBoardCubit/dash_board_state.dart';
 import '../widget/delete_alert.dart';
 import '../widget/edit_item.dart';
 
-class ProductDashboard extends StatefulWidget {
-  static const String routeName = 'product_dashboard_view';
+class DashboardDesignProduct extends StatefulWidget {
+  static const String routeName = 'design_product_dashboard';
 
   @override
-  State<ProductDashboard> createState() => _ProductDashboardState();
+  State<DashboardDesignProduct> createState() => _DashboardDesignProductState();
 }
 
-class _ProductDashboardState extends State<ProductDashboard> {
+class _DashboardDesignProductState extends State<DashboardDesignProduct> {
   int selectedIndex=0;
   @override
   Widget build(BuildContext context) {
@@ -36,7 +26,7 @@ class _ProductDashboardState extends State<ProductDashboard> {
       builder: (context, state) {
         var cubit = DashBoardCubit.get(context);
         return ConditionalBuilder(
-          condition: cubit.allProducts != null,
+          condition: cubit.allDesignedProducts != null,
           builder: (context){return Expanded(
             child: ListView.builder(
               itemBuilder: (context, index) {
@@ -63,7 +53,7 @@ class _ProductDashboardState extends State<ProductDashboard> {
                         height: 42,
                         decoration: ShapeDecoration(
                           image: DecorationImage(
-                            image: NetworkImage(cubit.allProducts?.data?[index]
+                            image: NetworkImage(cubit.allDesignedProducts?.data?[index]
                                 .productPictures?[0] ??
                                 ''),
                             fit: BoxFit.cover,
@@ -82,7 +72,7 @@ class _ProductDashboardState extends State<ProductDashboard> {
                                   width: 6.w,
                                 ),
                                 Text(
-                                  cubit.allProducts?.data?[index].name ?? '',
+                                  cubit.allDesignedProducts?.data?[index].name ?? '',
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: Styles.textStyle14!.copyWith(
@@ -93,7 +83,7 @@ class _ProductDashboardState extends State<ProductDashboard> {
                                   width: 12.w,
                                 ),
                                 Text(
-                                  cubit.allProducts?.data?[index].price
+                                  cubit.allDesignedProducts?.data?[index].price
                                       .toString() ??
                                       '',
                                   style: Styles.textStyle14!
@@ -103,7 +93,7 @@ class _ProductDashboardState extends State<ProductDashboard> {
                                   width: 12.w,
                                 ),
                                 Text(
-                                  cubit.allProducts?.data?[index].genderType ??
+                                  cubit.allDesignedProducts?.data?[index].genderType ??
                                       '',
                                   style: Styles.textStyle14!
                                       .copyWith(color: Colors.red),
@@ -115,7 +105,7 @@ class _ProductDashboardState extends State<ProductDashboard> {
                                   children: [
                                     InkWell(
                                       onTap: () => Navigator.of(context)
-                                          .pushNamed(EditItem.routeName,arguments: cubit.allProducts!.data![index]),
+                                          .pushNamed(EditDesignItem.routeName,arguments: cubit.allDesignedProducts!.data![index]),
                                       child: Container(
                                         width: 25,
                                         height: 25,
@@ -149,11 +139,11 @@ class _ProductDashboardState extends State<ProductDashboard> {
                                             child: DeleteItemAlert(
                                                 'Want To delete this product ?',
                                                 'You will delete this item if you click the delete button',
-                                                cubit.allProducts!.data![index].id
+                                                cubit.allDesignedProducts!.data![index].id
                                                     .toString()),
                                           ),
                                         );
-                                        print(cubit.allProducts!.data![index].id);
+                                        print(cubit.allDesignedProducts!.data![index].id);
                                       },
                                       child: Container(
                                         width: 25,
@@ -197,13 +187,13 @@ class _ProductDashboardState extends State<ProductDashboard> {
                                   width: 15.w,
                                 ),
                                 Text(
-                                    'Size : ${cubit.allProducts?.data?[index].productSize?[0].sizename ?? ''}',
+                                    'Size : ${cubit.allDesignedProducts?.data?[index].productSize?[0].sizename ?? ''}',
                                     style: Styles.textStyle12),
                                 SizedBox(
                                   width: 15.w,
                                 ),
                                 Text(
-                                    'Color : ${cubit.allProducts?.data?[index].productColor?[0].colorname ?? ''}',
+                                    'Color : ${cubit.allDesignedProducts?.data?[index].productColor?[0].colorname ?? ''}',
                                     style: Styles.textStyle12),
                               ],
                             ),
@@ -214,7 +204,7 @@ class _ProductDashboardState extends State<ProductDashboard> {
                   ),
                 );
               },
-              itemCount: cubit.allProducts?.data?.length,
+              itemCount: cubit.allDesignedProducts?.data?.length,
             ),
           );},
           fallback:(context)=> Center(child: CircularProgressIndicator()),
