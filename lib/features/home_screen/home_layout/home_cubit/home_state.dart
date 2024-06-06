@@ -1,3 +1,4 @@
+import 'package:g_p_app/data/model/response/ChangePasswordModel.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/home_screen/home_screen_widget/product_view_widget.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -118,3 +119,28 @@ class ImagePickerInitial extends HomeState{}
 class UserAddressLoading extends HomeState{}
 class UserAddressLoaded extends HomeState{}
 class UserAddressError extends HomeState{}
+
+class ChangePasswordLoading extends HomeState{}
+class ChangePasswordSuccess extends HomeState{
+  ChangePasswordResponse passwordResponse;
+
+  ChangePasswordSuccess(this.passwordResponse);
+}
+class ChangePasswordError extends HomeState{
+  final String errorMessage;
+  ChangePasswordError(this.errorMessage);
+}
+
+class ForgetPasswordLoading extends HomeState{}
+class ForgetPasswordSuccess extends HomeState{}
+class ForgetPasswordError extends HomeState{
+  final String errorMessage;
+  ForgetPasswordError(this.errorMessage);
+}
+
+class ResetPasswordLoading extends HomeState{}
+class ResetPasswordSuccess extends HomeState{}
+class ResetPasswordError extends HomeState{
+  final String errorMessage;
+  ResetPasswordError(this.errorMessage);
+}

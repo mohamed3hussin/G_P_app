@@ -85,7 +85,7 @@ class PastOrdersView extends StatelessWidget {
                       SizedBox(height: 100.h,),
                       Image.asset(AssetsData.sadRobotImage, width: 120.w),
                       Text(
-                        'Oops! there is no \n reviews for this\n product!',
+                        'Oops! you haven\'t \n ordered any orders yet.',
                         style: Styles.textStyle24.copyWith(
                           color: CustomColors.blue,
                         ),

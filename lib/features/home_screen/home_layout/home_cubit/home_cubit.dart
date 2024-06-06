@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:collection/collection.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:g_p_app/core/cach_helper/cach_helper.dart';
 import 'package:g_p_app/data/model/response/AddressResponse.dart';
@@ -12,6 +13,7 @@ import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_state.d
 import 'package:image_picker/image_picker.dart';
 import '../../../../data/api/api_manager.dart';
 import '../../../../data/model/response/CartResponse.dart';
+import '../../../../data/model/response/ChangePasswordModel.dart';
 import '../../../../data/model/response/DeliveryMethodsResponse.dart';
 import '../../../../data/model/response/LogoResponse.dart';
 
@@ -35,7 +37,7 @@ class HomeCubit extends Cubit<HomeState> {
   CartResponse? paymentIntent;
   UserAddressResponse? userAddress;
   List<AllOrdersResponse>? allOrdersResponse;
-  int deliveryMethodId=1;
+  int deliveryMethodId = 1;
   Map<String, dynamic>? userAddressCheckOut;
   AllProducts? searchResults;
 
@@ -299,10 +301,13 @@ class HomeCubit extends Cubit<HomeState> {
     print(listCartItems?.length);
     emit(DeleteCartItemLoadedState());
   }
-  void updateDeliveryMethodId(int id) async{
+
+  void updateDeliveryMethodId(int id) async {
     deliveryMethodId = id;
   }
-  buyNowForPayment(Map<String, dynamic> data, {int deliveryMethodId = 1}) async {
+
+  buyNowForPayment(Map<String, dynamic> data,
+      {int deliveryMethodId = 1}) async {
     // Create a temporary cart for the "Buy Now" item
     await ApiManager.postData(
       url: 'Baskets',
@@ -319,12 +324,12 @@ class HomeCubit extends Cubit<HomeState> {
             'quantity': data['quantity'],
           }
         ],
-        'deliveryMethodId':deliveryMethodId,
+        'deliveryMethodId': deliveryMethodId,
       },
       token: CacheHelper.getData(key: 'token'),
-    ).then((value)async {
+    ).then((value) async {
       final response = CartResponse.fromJson(value.data);
-      await createPaymentIntent(orderId:'temp_basket');
+      await createPaymentIntent(orderId: 'temp_basket');
     });
   }
 
@@ -387,11 +392,10 @@ class HomeCubit extends Cubit<HomeState> {
       print(userAddressCheckOut);
       userAddress = UserAddressResponse.fromJson(response.data);
       emit(UserAddressLoaded());
-    }).catchError((error){
+    }).catchError((error) {
       print(error.toString());
       emit(UserAddressError());
     });
-
   }
 
   updateUserAddress(
@@ -435,24 +439,6 @@ class HomeCubit extends Cubit<HomeState> {
           responseData.map((json) => AllOrdersResponse.fromJson(json)).toList();
     });
   }
-
-  // DeliveryMethodsResponse? deliveryMethodsResponse;
-  // List<DeliveryMethodsResponse>? deliveryMethodsResponseList;
-  // getDeliveryMethods() {
-  //   ApiManager.getData(url: 'Orders/deliveryMethods',token: CacheHelper.getData(key: 'token'))
-  //       .then((response) {
-  //         // deliveryMethodsResponse = DeliveryMethodsResponse.fromJson(response);
-  //         // print(deliveryMethodsResponse!.id);
-  //     final List<dynamic> responseData = response.data;
-  //     deliveryMethodsResponseList = responseData
-  //         .map((json) => DeliveryMethodsResponse.fromJson(json))
-  //         .toList();
-  //     emit(getDeliveryMethodsLoadedState());
-  //   }).catchError((error) {
-  //     emit(getDeliveryMethodsErrorState(error));
-  //     print(error.toString());
-  //   });
-  // }
 
   createReview({required int rate, required int id, required String comment}) {
     emit(CreateReviewLoading());
@@ -521,6 +507,67 @@ class HomeCubit extends Cubit<HomeState> {
     }).catchError((error) {
       print(error.toString());
       //emit(AllProductErrorState(error.toString()));
+    });
+  }
+
+  void changePassword(
+      {required String currentPassword, required String newPassword}) {
+    emit(ChangePasswordLoading());
+    ApiManager.postData(
+      url: 'accounts/ChangePassword',
+      data: ChangePasswordRequest(
+              currentPassword: currentPassword, newPassword: newPassword)
+          .toJson(),
+    ).then((value) {
+      final response = ChangePasswordResponse.fromJson(value.data);
+      emit(ChangePasswordSuccess(response));
+    }).catchError((error) {
+      emit(ChangePasswordError(error.toString()));
+      print(error.toString());
+    });
+  }
+
+  String? forgotPasswordToken;
+  String? forgotPasswordEmail;
+
+  void forgotPassword(String email) async {
+    emit(ForgetPasswordLoading());
+    ApiManager.postData(
+        url: 'accounts/ForgotPassword',
+        data: {},
+        query: {'email': email}).then((response) {
+      final data = response.data;
+      final resetLink = data['resetPasswordUrl'];
+      final uri = Uri.parse(resetLink);
+      final token = uri.queryParameters['token'];
+      print(token);
+      forgotPasswordEmail = email;
+      forgotPasswordToken = token;
+      emit(ForgetPasswordSuccess());
+    }).catchError((onError) {
+      emit(ForgetPasswordError(onError.toString()));
+      print(onError.toString());
+    });
+  }
+
+  void resetPassword(String newPassword) {
+    emit(ResetPasswordLoading());
+    Map<String,dynamic> body={
+      'NewPassword':newPassword
+    };
+    FormData formData = FormData.fromMap(body);
+
+    ApiManager.postFormData(url: 'accounts/ResetPassword', data: formData,query: {
+      'email':forgotPasswordEmail,
+      'token':forgotPasswordToken
+    }).then((value) {
+      print("password have been reset successfully");
+      emit(ResetPasswordSuccess());
+    }).catchError((onError) {
+      emit(ResetPasswordError(onError.toString()));
+      print('=====================');
+      print(onError.toString());
+      print('=====================');
     });
   }
 }

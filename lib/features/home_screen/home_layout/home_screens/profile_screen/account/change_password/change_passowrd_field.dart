@@ -7,8 +7,8 @@ import '../../../../../../../core/text_style/styles.dart';
 class ChangePasswordField extends StatefulWidget {
   bool isObscure=false;
   String fieldName;
-
-  ChangePasswordField(this.fieldName);
+  TextEditingController textEditController;
+  ChangePasswordField(this.fieldName,this.textEditController);
 
   @override
   State<ChangePasswordField> createState() => _ChangePasswordFieldState();
@@ -24,7 +24,25 @@ class _ChangePasswordFieldState extends State<ChangePasswordField> {
         Text(widget.fieldName,style: Styles.textStyle14!.copyWith(color: Colors.black),),
         SizedBox(height: 15.h,),
         TextFormField(
+          validator: (value)
+          {
+            if(value!.isEmpty && value.trim().isEmpty)
+            {
+
+              return 'Field must not empty!';
+            }
+            bool passValid = RegExp(
+                r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
+                .hasMatch(value);
+            if (!passValid) {
+              return 'Enter a valid password!';
+            } else {
+              return null;
+            }
+
+          },
           obscureText: widget.isObscure,
+          controller: widget.textEditController,
           decoration: InputDecoration(
               suffixIcon: GestureDetector(onTap: (){ widget.isObscure=!widget.isObscure;setState(() {
 

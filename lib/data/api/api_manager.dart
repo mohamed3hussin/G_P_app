@@ -9,7 +9,7 @@ class ApiManager{
   {
     dio = Dio(
       BaseOptions(
-        baseUrl: 'https://c368-41-233-212-95.ngrok-free.app/api/' ,
+        baseUrl: 'https://a655-41-233-198-206.ngrok-free.app/api/' ,
         receiveDataWhenStatusError: true,
       ),
     );
@@ -26,7 +26,7 @@ class ApiManager{
     {
       'Content-Type':'application/json',
       'lang':lang,
-      'Authorization':token != null? token :''
+      'Authorization':CacheHelper.getData(key: 'token')
     };
     return await dio.get(
       url,
@@ -46,7 +46,7 @@ class ApiManager{
     {
       'Content-Type':'application/json',
       'lang':lang,
-      'Authorization':token != null? token :''
+      'Authorization':CacheHelper.getData(key: 'token')
     };
     return await dio.put(
       url,
@@ -67,7 +67,7 @@ class ApiManager{
     {
       'Content-Type':'application/json',
       'lang':lang,
-      'Authorization':token != null? token :''
+      'Authorization':CacheHelper.getData(key: 'token')
     };
     return await dio.post(
       url,
@@ -75,6 +75,29 @@ class ApiManager{
       data: data,
     );
   }
+
+  static Future<Response> postFormData(
+      {
+        required String url,
+        Map<String,dynamic>? query,
+        required FormData data,
+        String lang ='en',
+        String? token,
+      })async
+  {
+    dio.options.headers=
+    {
+      'Content-Type':'multipart/form-data',
+      'lang':lang,
+      'Authorization':CacheHelper.getData(key: 'token')
+    };
+    return await dio.post(
+      url,
+      queryParameters: query,
+      data: data,
+    );
+  }
+
   static Future<Response> deleteData(
       {
         required String url,
@@ -86,11 +109,12 @@ class ApiManager{
     {
       'Content-Type':'application/json',
       'lang':lang,
-      'Authorization':token != null? token :''
+      'Authorization':CacheHelper.getData(key: 'token')
     };
     return await dio.delete(
       url,
     );
   }
+
 
 }
