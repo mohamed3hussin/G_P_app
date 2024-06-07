@@ -1,6 +1,8 @@
 import 'dart:ffi';
 import 'dart:io';
-
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:http_parser/http_parser.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,6 +20,7 @@ import 'package:mobkit_dashed_border/mobkit_dashed_border.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
 import '../../core/assets_data/iconBroken.dart';
+import '../../core/cach_helper/cach_helper.dart';
 import '../../core/colors/colors.dart';
 import '../../core/text_style/styles.dart';
 import '../../data/api/upload_image_api.dart';
@@ -86,6 +89,62 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
     }).catchError((onError) {
       print(onError);
     });
+  }
+  List<String> _imageUrls = [];
+
+  Future<File?> _pickImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      return File(pickedFile.path);
+    } else {
+      return null;
+    }
+  }
+  Future<List<String>> uploadImage2(File imageFile) async {
+    final String url = 'https://e684-196-132-75-85.ngrok-free.app/api/Product/RecommendLogo';
+    final dio = Dio();
+
+    FormData formData = FormData.fromMap({
+      'file': await MultipartFile.fromFile(imagePicked!.path,filename: imagePicked!.path.split('/').last,contentType: MediaType("image", "jpeg"),),
+    });
+
+    final response = await dio.post(url, data: formData,options:Options(
+      headers: {
+        'Content-Type':'multipart/form-data',
+        'lang':'en',
+        'Authorization':CacheHelper.getData(key: 'token'),
+      },
+      followRedirects: true,
+      validateStatus: (status) {
+        return status! < 500; // Accept status codes less than 500
+      },
+    ), );
+
+    print(response.data);
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      final List<dynamic> jsonResponse = response.data['recommended_images'];
+      final List<String> imageUrls = jsonResponse.cast<String>();
+      return imageUrls;
+    } else {
+      throw Exception('Failed to upload image');
+    }
+  }
+  Future<void> _handleUpload() async {
+
+    final imageFile = await _pickImage() ;
+    if (imageFile != null) {
+      try {
+        final imageUrls = await uploadImage2(imageFile);
+        setState(() {
+          _imageUrls = imageUrls;
+        });
+      } catch (e) {
+        print(e);
+      }
+    }
   }
 
   File? imagePicked;
@@ -179,14 +238,78 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
                               )),
                         ),
                       ),
-                      Padding(
+                      isPressed? Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: getMachineModel(context,
-                            name: cubit.logo![selectedDesignIndex].name,
                             type: 'Logo',
                             imagePath:
                                 cubit.logo![selectedDesignIndex].pictureUrl,ratio: 1/0.8),
-                      )
+                      ):imagePicked != null?
+                      IconButton(
+                          padding: EdgeInsets.zero,
+                          onPressed: () async {
+                           _handleUpload();
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return ConditionalBuilder(
+                                    condition: _imageUrls.length >0,
+                                    builder: (context)
+                                    {
+                                      return  Container(
+                                        height: 400.h,
+                                        decoration: BoxDecoration(
+                                            color: CustomColors.lightGrey,
+                                            borderRadius: BorderRadius.circular(25.r)
+                                        ),
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 8.h),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Center(
+                                                child: Container(
+                                                  margin: EdgeInsets.all(7.h),
+                                                  width: 35.w,
+                                                  height: 5.h,
+                                                  decoration: BoxDecoration(
+                                                      color: CustomColors.darkGrey,
+                                                      borderRadius: BorderRadius.circular(3.r)),
+                                                ),
+                                              ),
+                                              Text('Logo',style: Styles.textStyle16),
+                                              Expanded(
+                                                child: GridView.count(
+                                                    shrinkWrap: true,
+                                                    physics: BouncingScrollPhysics(),
+                                                    crossAxisCount: 2,
+                                                    mainAxisSpacing: 3,
+                                                    crossAxisSpacing: 3,
+                                                    childAspectRatio: 1/1.1,
+                                                    children: List.generate(_imageUrls.length,
+                                                          (index) => Image.network(_imageUrls[index]),
+                                                    )),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                    fallback: (context)=>Center(child: CircularProgressIndicator()),
+                                  );
+                                });
+                          },
+                          icon: CircleAvatar(
+                            radius: 25.w,
+                            backgroundColor: Colors.white,
+                            child: Center(
+                              child: Icon(
+                                Icons.camera_alt_outlined,
+                                color: CustomColors.blue,
+                                size: 40.w,
+                              ),
+                            ),
+                          )): SizedBox()
                     ],
                   ),
                 ),

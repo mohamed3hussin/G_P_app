@@ -116,7 +116,7 @@ class _RateProductViewState extends State<RateProductView> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Add Description',
+                        'Add Review',
                         style: Styles.textStyle16,
                       ),
                       SizedBox(

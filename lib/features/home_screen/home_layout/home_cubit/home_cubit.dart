@@ -40,6 +40,7 @@ class HomeCubit extends Cubit<HomeState> {
   int deliveryMethodId = 1;
   Map<String, dynamic>? userAddressCheckOut;
   AllProducts? searchResults;
+  List<String>? modelImages;
 
   void getAllProduct({String sort = 'name'}) {
     emit(AllProductLoadingState());
@@ -457,23 +458,6 @@ class HomeCubit extends Cubit<HomeState> {
     });
   }
 
-  XFile? uploadLogo;
-  final ImagePicker _picker = ImagePicker();
-
-  Future<void> pickImage() async {
-    try {
-      emit(ImagePickerLoading());
-      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-      if (image != null) {
-        uploadLogo = image.path as XFile?;
-        emit(LogoImagePickedSuccessState(image));
-      } else {
-        emit(ImagePickerInitial());
-      }
-    } catch (e) {
-      emit(LogoImagePickedErrorState());
-    }
-  }
 
   createCheckOut(String basketId) {
     ApiManager.postData(
@@ -570,4 +554,45 @@ class HomeCubit extends Cubit<HomeState> {
       print('=====================');
     });
   }
+List? images;
+  uploadModelImage(Map<String, dynamic> body)async{
+    var dio = Dio();
+    try {
+      images=[];
+      FormData formData = new FormData.fromMap(body);
+      Response response = await dio.post(
+        'https://e684-196-132-75-85.ngrok-free.app/api/Product/RecommendLogo',
+        data: formData,
+        options: Options(
+          headers: {
+            'Content-Type':'multipart/form-data',
+            'lang':'en',
+          },
+          followRedirects: true,
+          validateStatus: (status) {
+            return status! < 500; // Accept status codes less than 500
+          },
+        ),
+      );
+
+      print(response.data);
+      if (response.statusCode == 200) {
+        print('File uploaded successfully');
+        if (response.data is Map<String, dynamic> && response.data['recommended_images'] is List) {
+          List<dynamic> rawPaths = response.data['recommended_images'];
+          List<String> imagePaths = rawPaths.map((path) => path.toString()).toList();
+          images = imagePaths;
+          return imagePaths;}
+      } else {
+        print('File upload failed: ${response.statusCode}');
+      }
+      return response.data;
+
+    } catch (e) {
+      print(e);
+    }
+  }
+
+
+
 }

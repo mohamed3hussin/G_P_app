@@ -88,13 +88,13 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen> {
             labelWidget: Text('Add Logo',style:Styles.textStyle16!.copyWith(color: Colors.black,fontWeight: FontWeight.w400)),
             labelBackgroundColor: Colors.transparent,
           ),
-          SpeedDialChild(
-            onTap:()=> Navigator.of(context).pushNamed(AddDelivery.routeName),
-            shape: CircleBorder(),
-            child: Icon(Icons.add),
-            labelWidget: Text('Add Delivery Method',style:Styles.textStyle16!.copyWith(color: Colors.black,fontWeight: FontWeight.w400)),
-            labelBackgroundColor: Colors.transparent,
-          ),
+          // SpeedDialChild(
+          //   onTap:()=> Navigator.of(context).pushNamed(AddDelivery.routeName),
+          //   shape: CircleBorder(),
+          //   child: Icon(Icons.add),
+          //   labelWidget: Text('Add Delivery Method',style:Styles.textStyle16!.copyWith(color: Colors.black,fontWeight: FontWeight.w400)),
+          //   labelBackgroundColor: Colors.transparent,
+          // ),
         ],
       ),
       body: Column(

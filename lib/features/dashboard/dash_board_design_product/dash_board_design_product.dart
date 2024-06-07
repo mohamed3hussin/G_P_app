@@ -71,13 +71,15 @@ class _DashboardDesignProductState extends State<DashboardDesignProduct> {
                                 SizedBox(
                                   width: 6.w,
                                 ),
-                                Text(
-                                  cubit.allDesignedProducts?.data?[index].name ?? '',
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: Styles.textStyle14!.copyWith(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
+                                Container(
+                                  width: 60.w,
+                                  child: Text(
+                                    cubit.allDesignedProducts?.data?[index].name ?? '',
+                                    overflow: TextOverflow.ellipsis,
+                                    style: Styles.textStyle14!.copyWith(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
                                 SizedBox(
                                   width: 12.w,

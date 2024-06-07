@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/colors/colors.dart';
 import '../../../core/text_style/styles.dart';
 
-IconButton getMachineModel(context,{required String name, required String type, required String imagePath,double ratio=1/1.1}){
+IconButton getMachineModel(context,{required String type, required String imagePath,double ratio=1/1.1}){
   return IconButton(
       padding: EdgeInsets.zero,
       onPressed: () {
@@ -32,7 +32,6 @@ IconButton getMachineModel(context,{required String name, required String type, 
                               borderRadius: BorderRadius.circular(3.r)),
                         ),
                       ),
-                      Text(name,style: Styles.textStyle20,),
                       Text(type,style: Styles.textStyle16),
                       Expanded(
                         child: GridView.count(

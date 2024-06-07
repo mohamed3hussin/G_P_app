@@ -106,7 +106,6 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                   child: Column(
                     children: [
                       getMachineModel(context,
-                          name: args.name ?? '',
                           type: args.type ?? '',
                           imagePath: args.productPictures![0]),
                       SizedBox(

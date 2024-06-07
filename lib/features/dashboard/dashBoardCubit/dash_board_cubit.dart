@@ -135,7 +135,7 @@ class DashBoardCubit extends Cubit<DashBoardState>
     try {
       FormData formData = new FormData.fromMap(body);
       var response = await dio.post(
-          'https://4128-102-46-46-201.ngrok-free.app/api/Product',
+          'https://e684-196-132-75-85.ngrok-free.app/api/Product',
           data: formData,
           options: Options(
             headers: {
@@ -169,7 +169,7 @@ class DashBoardCubit extends Cubit<DashBoardState>
     try {
       FormData formData = new FormData.fromMap(body);
       var response = await dio.post(
-        'https://4128-102-46-46-201.ngrok-free.app/api/Product/CreateLogo',
+        'https://e684-196-132-75-85.ngrok-free.app/api/Product/CreateLogo',
         data: formData,
         options: Options(
           headers: {
@@ -203,7 +203,7 @@ class DashBoardCubit extends Cubit<DashBoardState>
     try {
       FormData formData = new FormData.fromMap(body);
       var response = await dio.put(
-        'https://4128-102-46-46-201.ngrok-free.app/api/Product/$productId',
+        'https://e684-196-132-75-85.ngrok-free.app/api/Product/$productId',
         data: formData,
         options: Options(
           headers: {
@@ -237,7 +237,7 @@ class DashBoardCubit extends Cubit<DashBoardState>
     try {
       FormData formData = new FormData.fromMap(body);
       var response = await dio.put(
-        'https://4128-102-46-46-201.ngrok-free.app/api/Product/$productId',
+        'https://e684-196-132-75-85.ngrok-free.app/api/Product/$productId',
         data: formData,
         options: Options(
           headers: {
@@ -271,7 +271,7 @@ class DashBoardCubit extends Cubit<DashBoardState>
     try {
       FormData formData = new FormData.fromMap(body);
       var response = await dio.post(
-        'https://4128-102-46-46-201.ngrok-free.app/api/Product/UpdateLogo/$logoId',
+        'https://e684-196-132-75-85.ngrok-free.app/api/Product/UpdateLogo/$logoId',
         data: formData,
         options: Options(
           headers: {
