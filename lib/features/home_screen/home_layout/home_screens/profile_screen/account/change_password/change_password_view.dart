@@ -122,7 +122,19 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
                     alignment: Alignment.bottomCenter,
                     child: InkWell(
                       onTap: () {
-                        if (formKey.currentState!.validate()) {
+                        if(confirmNewPasswordController.text !=newPasswordController.text){
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Center(
+                                  child: Text(
+                                    "Password and confirm password don't match!",
+                                    style: Styles.textStyle16.copyWith(color: Colors.white),
+                                  )),
+                              backgroundColor: CustomColors.red,
+                            ),
+                          );
+                        }
+                        if (formKey.currentState!.validate() && confirmNewPasswordController.text==newPasswordController.text) {
                           cubit.changePassword(
                               currentPassword: oldPasswordController.text,
                               newPassword: confirmNewPasswordController.text,);

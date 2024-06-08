@@ -554,50 +554,50 @@ class HomeCubit extends Cubit<HomeState> {
       print('=====================');
     });
   }
-List? images;
-  uploadModelImage(File? imagePicked)async{
-    var dio = Dio();
-    try {
-      images=[];
-        FormData formData = FormData.fromMap({
-          'file': await MultipartFile.fromFile(imagePicked!.path),
-        });
-      emit(MachineModelLoading());
-      Response response = await dio.post(
-        'https://e684-196-132-75-85.ngrok-free.app/api/Product/RecommendLogo',
-        data: formData,
-        options: Options(
-          headers: {
-            'Content-Type':'multipart/form-data',
-            'lang':'en',
-          },
-          followRedirects: true,
-          validateStatus: (status) {
-            return status! < 500; // Accept status codes less than 500
-          },
-        ),
-      );
-
-      print(response.data);
-      if (response.statusCode == 200) {
-        print('File uploaded successfully');
-        if (response.data is Map<String, dynamic> && response.data['recommended_images'] is List) {
-          List<dynamic> rawPaths = response.data['recommended_images'];
-          List<String> imagePaths = rawPaths.map((path) => path.toString()).toList();
-          images = imagePaths;
-          emit(MachineModelSuccess());
-          return imagePaths;}
-      } else {
-        emit((MachineModelError(response.statusMessage??'')));
-        print('File upload failed: ${response.statusCode}');
-      }
-      return response.data;
-
-    } catch (e) {
-      emit(MachineModelError(e.toString()));
-      print(e.toString());
-    }
-  }
+// List? images;
+//   uploadModelImage(File? imagePicked)async{
+//     var dio = Dio();
+//     try {
+//       images=[];
+//         FormData formData = FormData.fromMap({
+//           'file': await MultipartFile.fromFile(imagePicked!.path),
+//         });
+//       emit(MachineModelLoading());
+//       Response response = await dio.post(
+//         'https://e684-196-132-75-85.ngrok-free.app/api/Product/RecommendLogo',
+//         data: formData,
+//         options: Options(
+//           headers: {
+//             'Content-Type':'multipart/form-data',
+//             'lang':'en',
+//           },
+//           followRedirects: true,
+//           validateStatus: (status) {
+//             return status! < 500; // Accept status codes less than 500
+//           },
+//         ),
+//       );
+//
+//       print(response.data);
+//       if (response.statusCode == 200) {
+//         print('File uploaded successfully');
+//         if (response.data is Map<String, dynamic> && response.data['recommended_images'] is List) {
+//           List<dynamic> rawPaths = response.data['recommended_images'];
+//           List<String> imagePaths = rawPaths.map((path) => path.toString()).toList();
+//           images = imagePaths;
+//           emit(MachineModelSuccess());
+//           return imagePaths;}
+//       } else {
+//         emit((MachineModelError(response.statusMessage??'')));
+//         print('File upload failed: ${response.statusCode}');
+//       }
+//       return response.data;
+//
+//     } catch (e) {
+//       emit(MachineModelError(e.toString()));
+//       print(e.toString());
+//     }
+//   }
 
 
 

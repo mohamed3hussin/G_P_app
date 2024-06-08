@@ -108,7 +108,7 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
 
   Future<List<String>> uploadImage2(File imageFile) async {
     const String url =
-        'https://e684-196-132-75-85.ngrok-free.app/api/Product/RecommendLogo';
+        'https://1a54-41-233-199-23.ngrok-free.app/api/Product/RecommendLogo';
     final dio = Dio();
 
     FormData formData = FormData.fromMap({

@@ -95,5 +95,6 @@ class AppRoutes{
     DrawingRoomScreen.routeName:(context)=>DrawingRoomScreen(),
     SeeAllProductsScreen.routeName:(context)=>SeeAllProductsScreen(),
     CustomerServiceView.routeName:(context)=>CustomerServiceView()
+
   };
 }

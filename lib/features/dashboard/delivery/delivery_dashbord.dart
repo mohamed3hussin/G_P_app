@@ -41,6 +41,7 @@ class _DeliverMethodDashboardState extends State<DeliverMethodDashboard> {
           condition:cubit.deliveryMethodsResponseList!.isNotEmpty,
           builder: (context){return Expanded(
             child: ListView.builder(
+              physics: BouncingScrollPhysics(),
               itemBuilder: (context, index) {
                 return Container(
                   width: 350,

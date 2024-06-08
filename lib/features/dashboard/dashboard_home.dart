@@ -98,18 +98,21 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen> {
           // ),
         ],
       ),
-      body: Column(
-        children: [
-          //SearchField(),
-          SizedBox(height: 20.h,),
-          selectedDrawerItem == DashboardDrawer.drawerProductId
-              ? ProductDashboard()
-              : selectedDrawerItem == DashboardDrawer.drawerLogoId
-              ? LogoDashboard()
-              :selectedDrawerItem == DashboardDrawer.drawerDeliveryId
-              ? DeliverMethodDashboard()
-              :DashboardDesignProduct()
-        ],
+      body: Padding(
+        padding: EdgeInsets.only(bottom: 20.h),
+        child: Column(
+          children: [
+            //SearchField(),
+            SizedBox(height: 20.h,),
+            selectedDrawerItem == DashboardDrawer.drawerProductId
+                ? ProductDashboard()
+                : selectedDrawerItem == DashboardDrawer.drawerLogoId
+                ? LogoDashboard()
+                :selectedDrawerItem == DashboardDrawer.drawerDeliveryId
+                ? DeliverMethodDashboard()
+                :DashboardDesignProduct(),
+          ],
+        ),
       ),
     );},
         );

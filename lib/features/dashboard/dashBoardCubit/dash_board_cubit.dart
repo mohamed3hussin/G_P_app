@@ -135,7 +135,7 @@ class DashBoardCubit extends Cubit<DashBoardState>
     try {
       FormData formData = new FormData.fromMap(body);
       var response = await dio.post(
-          'https://e684-196-132-75-85.ngrok-free.app/api/Product',
+          'https://1a54-41-233-199-23.ngrok-free.app/api/Product',
           data: formData,
           options: Options(
             headers: {
@@ -169,7 +169,7 @@ class DashBoardCubit extends Cubit<DashBoardState>
     try {
       FormData formData = new FormData.fromMap(body);
       var response = await dio.post(
-        'https://e684-196-132-75-85.ngrok-free.app/api/Product/CreateLogo',
+        'https://1a54-41-233-199-23.ngrok-free.app/api/Product/CreateLogo',
         data: formData,
         options: Options(
           headers: {
@@ -203,7 +203,7 @@ class DashBoardCubit extends Cubit<DashBoardState>
     try {
       FormData formData = new FormData.fromMap(body);
       var response = await dio.put(
-        'https://e684-196-132-75-85.ngrok-free.app/api/Product/$productId',
+        'https://1a54-41-233-199-23.ngrok-free.app/api/Product/$productId',
         data: formData,
         options: Options(
           headers: {
@@ -237,7 +237,7 @@ class DashBoardCubit extends Cubit<DashBoardState>
     try {
       FormData formData = new FormData.fromMap(body);
       var response = await dio.put(
-        'https://e684-196-132-75-85.ngrok-free.app/api/Product/$productId',
+        'https://1a54-41-233-199-23.ngrok-free.app/api/Product/$productId',
         data: formData,
         options: Options(
           headers: {
@@ -270,8 +270,8 @@ class DashBoardCubit extends Cubit<DashBoardState>
     var dio = Dio();
     try {
       FormData formData = new FormData.fromMap(body);
-      var response = await dio.post(
-        'https://e684-196-132-75-85.ngrok-free.app/api/Product/UpdateLogo/$logoId',
+      var response = await dio.put(
+        'https://1a54-41-233-199-23.ngrok-free.app/api/Product/UpdateLogo/$logoId',
         data: formData,
         options: Options(
           headers: {
@@ -290,13 +290,14 @@ class DashBoardCubit extends Cubit<DashBoardState>
       if (response.statusCode == 200) {
         print('File uploaded successfully');
         getAdminLogos();
-      } else {
+      }
+      else {
         print('File upload failed: ${response.statusCode}');
       }
       return response.data;
 
     } catch (e) {
-      print(e);
+      print(e.toString());
     }
   }
 }

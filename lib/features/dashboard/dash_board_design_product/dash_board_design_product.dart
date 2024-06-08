@@ -29,6 +29,7 @@ class _DashboardDesignProductState extends State<DashboardDesignProduct> {
           condition: cubit.allDesignedProducts != null,
           builder: (context){return Expanded(
             child: ListView.builder(
+              physics: BouncingScrollPhysics(),
               itemBuilder: (context, index) {
                 return Container(
                   width: 340,
@@ -106,8 +107,23 @@ class _DashboardDesignProductState extends State<DashboardDesignProduct> {
                                 Row(
                                   children: [
                                     InkWell(
-                                      onTap: () => Navigator.of(context)
-                                          .pushNamed(EditDesignItem.routeName,arguments: cubit.allDesignedProducts!.data![index]),
+                                      onTap: () => Navigator.push(context,
+                                        MaterialPageRoute(
+                                          builder:(context)=>EditItem(
+                                            cubit.allDesignedProducts!.data![index].name.toString(),
+                                            cubit.allDesignedProducts!.data![index].price.toString(),
+                                            cubit.allDesignedProducts!.data![index].typeId.toString(),
+                                            cubit.allDesignedProducts!.data![index].quantity.toString(),
+                                            cubit.allDesignedProducts!.data![index].productSize![0].sizeId!,
+                                            cubit.allDesignedProducts!.data![index].productStatus.toString(),
+                                            cubit.allDesignedProducts!.data![index].genderType.toString(),
+                                            cubit.allDesignedProducts!.data![index].description.toString(),
+                                            cubit.allDesignedProducts!.data![index].productColor![0].colorId!,
+                                            'false',
+                                            cubit.allDesignedProducts!.data![index].productPictures![0].toString(),
+                                            cubit.allDesignedProducts!.data![index].id!,
+                                          ) ,
+                                        ),),
                                       child: Container(
                                         width: 25,
                                         height: 25,

@@ -39,6 +39,7 @@ class _ProductDashboardState extends State<ProductDashboard> {
           condition: cubit.allProducts != null,
           builder: (context){return Expanded(
             child: ListView.builder(
+              physics: BouncingScrollPhysics(),
               itemBuilder: (context, index) {
                 return Container(
                   width: 340,

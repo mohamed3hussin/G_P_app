@@ -42,6 +42,7 @@ class _LogoDashboardState extends State<LogoDashboard> {
         var cubit = DashBoardCubit.get(context);
         return Expanded(
           child: ListView.builder(
+            physics: BouncingScrollPhysics(),
             itemBuilder: (context, index) {
               return Container(
                 width: 350,

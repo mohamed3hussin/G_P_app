@@ -131,10 +131,17 @@ class _NewPasswordViewState extends State<NewPasswordView> {
                     },
                     label: 'password',
                     validate: (value) {
-                      if (value.isEmpty) {
+                      if (value.isEmpty && value.trim().isEmpty) {
                         return 'Please enter your password';
                       }
-                      return null;
+                      bool passValid = RegExp(
+                          r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
+                          .hasMatch(value);
+                      if (!passValid) {
+                        return 'Enter a valid password!';
+                      } else {
+                        return null;
+                      }
                     },
                     controller: _passwordController),
 
@@ -146,13 +153,20 @@ class _NewPasswordViewState extends State<NewPasswordView> {
                     },
                     label: 'confirm password',
                     validate: (value) {
-                      if (value.isEmpty) {
+                      if (value.isEmpty && value.trim().isEmpty) {
                         return 'Please confirm your password';
                       }
                       if (value != _passwordController.text) {
                         return 'Passwords do not match';
                       }
-                      return null;
+                      bool passValid = RegExp(
+                          r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$')
+                          .hasMatch(value);
+                      if (!passValid) {
+                        return 'Enter a valid password!';
+                      } else {
+                        return null;
+                      }
                     },
                     controller: _confirmPasswordController),
                 SizedBox(

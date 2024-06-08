@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/core/assets_data/iconBroken.dart';
 import 'package:g_p_app/core/colors/colors.dart';
 import 'package:g_p_app/core/text_style/styles.dart';
+import 'package:g_p_app/features/login_screen/loginScreenView.dart';
 
 class DashboardDrawer extends StatelessWidget {
   static const int drawerProductId=1;
@@ -89,6 +90,7 @@ class DashboardDrawer extends StatelessWidget {
           ),
           InkWell(
             onTap: (){
+              Navigator.pushNamed(context, LoginScreenView.routeName);
             },
             child: Padding(
               padding: const EdgeInsets.all(8.0),
