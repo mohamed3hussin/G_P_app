@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/core/assets_data/iconBroken.dart';
 import 'package:g_p_app/features/design_screens/design_explain_screen1.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/account_screen.dart';
+import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/customer_service_view.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/payment_method/payment_view.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/settings/settings_view.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/signout_alert.dart';
@@ -43,7 +45,7 @@ class ProfileScreenView extends StatelessWidget {
                 Navigator.pushNamed(context, SettingsView.routeName);
               },
               child: ProfileItem(icon: IconBroken.Setting, text: 'Settings')),
-          ProfileItem(icon: IconBroken.Call, text: 'Customer service'),
+          GestureDetector(onTap: (){Navigator.pushNamed(context, CustomerServiceView.routeName);},child: ProfileItem(icon: IconBroken.Call, text: 'Customer service')),
           ProfileItem(icon: Icons.question_mark, text: 'About us'),
           GestureDetector(onTap: (){Navigator.pushNamed(context, DesignExplainScreenOne.routeName);},child: ProfileItem(icon: IconBroken.Danger, text: 'Our Features')),
           GestureDetector(

@@ -10,6 +10,7 @@ import 'package:g_p_app/core/colors/colors.dart';
 import 'package:g_p_app/core/text_style/styles.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_state.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_layout.dart';
+import 'package:g_p_app/features/home_screen/home_layout/home_screens/cart_screen/cart-widget/admin_address.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/home_screen/home_screen_widget/product_view_widget.dart';
 import '../../../../../core/shared_widget/custom_button.dart';
 import '../../home_cubit/home_cubit.dart';
@@ -27,8 +28,9 @@ class CheckOutScreen extends StatefulWidget {
 
 class _CheckOutScreenState extends State<CheckOutScreen> {
   String groupValue = '';
-  List<bool> isSelected = [true, false, false, false];
-  int deliveryMethodNumber = 1;
+  List<bool> isSelected = [false, false, false, true];
+  int deliveryMethodNumber = 4;
+  List<String>? roles = CacheHelper.sharedPreferences.getStringList('role');
 
   @override
   void initState() {
@@ -95,7 +97,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   SizedBox(
                     height: 10.h,
                   ),
-                  CheckoutAddress(),
+                  roles?.length == 1?CheckoutAddress():AdminAddress(),
                   SizedBox(
                     height: 10.h,
                   ),

@@ -144,3 +144,10 @@ class ResetPasswordError extends HomeState{
   final String errorMessage;
   ResetPasswordError(this.errorMessage);
 }
+
+class MachineModelLoading extends HomeState{}
+class MachineModelSuccess extends HomeState{}
+class MachineModelError extends HomeState{
+  final String errorMessage;
+  MachineModelError(this.errorMessage);
+}

@@ -208,7 +208,7 @@ class _ProductDashboardState extends State<ProductDashboard> {
                                   width: 8.w,
                                 ),
                                 Text(
-                                  'designable',
+                                  'not designable',
                                   style: Styles.textStyle12,
                                 ),
                                 SizedBox(

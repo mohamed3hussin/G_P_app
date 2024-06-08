@@ -44,7 +44,7 @@ Widget CheckoutList(CartItems cartItems)=>Material(
                 style: Styles.textStyle14,
               ),
               Text(
-                  '\$ ${cartItems.price}',
+                  '\$ ${cartItems.price?.toStringAsFixed(2)}',
                   style: Styles.textStyle16.copyWith(color: CustomColors.green,fontWeight: FontWeight.w600)
               ),
             ],

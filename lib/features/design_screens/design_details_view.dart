@@ -1,6 +1,7 @@
 import 'dart:ffi';
 import 'dart:io';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,8 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
   String selectedDesignImage = '';
   int selectedDesignIndex = -1;
   double selectedDesignCost = 0;
-
+  String networkImagePath='';
+  bool isNetworkImagePath=false;
   void updateSelectedDesignCost(double cost) {
     setState(() {
       selectedDesignCost = cost;
@@ -90,6 +92,7 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
       print(onError);
     });
   }
+
   List<String> _imageUrls = [];
 
   Future<File?> _pickImage() async {
@@ -102,25 +105,35 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
       return null;
     }
   }
+
   Future<List<String>> uploadImage2(File imageFile) async {
-    final String url = 'https://e684-196-132-75-85.ngrok-free.app/api/Product/RecommendLogo';
+    const String url =
+        'https://e684-196-132-75-85.ngrok-free.app/api/Product/RecommendLogo';
     final dio = Dio();
 
     FormData formData = FormData.fromMap({
-      'file': await MultipartFile.fromFile(imagePicked!.path,filename: imagePicked!.path.split('/').last,contentType: MediaType("image", "jpeg"),),
+      'file': await MultipartFile.fromFile(
+        imagePicked!.path,
+        filename: imagePicked!.path.split('/').last,
+        contentType: MediaType("image", "jpeg"),
+      ),
     });
 
-    final response = await dio.post(url, data: formData,options:Options(
-      headers: {
-        'Content-Type':'multipart/form-data',
-        'lang':'en',
-        'Authorization':CacheHelper.getData(key: 'token'),
-      },
-      followRedirects: true,
-      validateStatus: (status) {
-        return status! < 500; // Accept status codes less than 500
-      },
-    ), );
+    final response = await dio.post(
+      url,
+      data: formData,
+      options: Options(
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'lang': 'en',
+          'Authorization': CacheHelper.getData(key: 'token'),
+        },
+        followRedirects: true,
+        validateStatus: (status) {
+          return status! < 500; // Accept status codes less than 500
+        },
+      ),
+    );
 
     print(response.data);
     print(response.statusCode);
@@ -132,19 +145,115 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
       throw Exception('Failed to upload image');
     }
   }
-  Future<void> _handleUpload() async {
 
-    final imageFile = await _pickImage() ;
+  Future<void> _handleUpload(File image) async {
+    _imageUrls = [];
+    final imageFile = image;
     if (imageFile != null) {
       try {
         final imageUrls = await uploadImage2(imageFile);
         setState(() {
           _imageUrls = imageUrls;
+          _showImageBottomSheet();
+          print(_imageUrls);
         });
       } catch (e) {
-        print(e);
+        print(e.toString());
       }
     }
+  }
+
+  void _showImageBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return ConditionalBuilder(
+              condition: _imageUrls.isNotEmpty,
+              builder: (context) {
+                return Container(
+                  height: 400.h,
+                  decoration: BoxDecoration(
+                    color: CustomColors.lightGrey,
+                    borderRadius: BorderRadius.circular(25.r),
+                  ),
+                  child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Center(
+                          child: Container(
+                            margin: EdgeInsets.all(7.h),
+                            width: 35.w,
+                            height: 5.h,
+                            decoration: BoxDecoration(
+                              color: CustomColors.darkGrey,
+                              borderRadius: BorderRadius.circular(3.r),
+                            ),
+                          ),
+                        ),
+                        Text('Logo', style: Styles.textStyle16),
+                        Expanded(
+                          child: GridView.count(
+                            shrinkWrap: true,
+                            physics: BouncingScrollPhysics(),
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 3,
+                            crossAxisSpacing: 3,
+                            childAspectRatio: 1 / 1.1,
+                            children: List.generate(
+                              _imageUrls.length,
+                              (index) => InkWell(
+                                onTap: (){
+                                  networkImagePath=_imageUrls[index];
+                                  isNetworkImagePath=true;
+                                  Navigator.pop(context);
+                },
+                                child: Image.network(
+                                  _imageUrls[index],
+                                  loadingBuilder: (BuildContext context,
+                                      Widget child,
+                                      ImageChunkEvent? loadingProgress) {
+                                    if (loadingProgress == null) {
+                                      return child;
+                                    }
+                                    return Center(
+                                      child: CircularProgressIndicator(
+                                        value: loadingProgress
+                                                    .expectedTotalBytes !=
+                                                null
+                                            ? loadingProgress
+                                                    .cumulativeBytesLoaded /
+                                                (loadingProgress
+                                                        .expectedTotalBytes ??
+                                                    1)
+                                            : null,
+                                      ),
+                                    );
+                                  },
+                                  errorBuilder: (BuildContext context,
+                                      Object error, StackTrace? stackTrace) {
+                                    return Center(child: Icon(Icons.error));
+                                  },
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+              fallback: (context) => Center(child: CircularProgressIndicator()),
+            );
+          },
+        );
+      },
+    );
   }
 
   File? imagePicked;
@@ -163,6 +272,7 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
     return BlocConsumer<HomeCubit, HomeState>(
       builder: (context, state) {
         String selectedColor = args.productColor![0].colorname!;
+        String selectedSize = args.productSize![0].sizename!;
         var cubit = HomeCubit.get(context);
         return Scaffold(
           appBar: AppBar(
@@ -234,82 +344,13 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
                                     Image.network(selectedDesignImage),
                                   if (imagePicked != null)
                                     Image.file(imagePicked!),
+                                  if (isNetworkImagePath)
+                                    Image.network(networkImagePath),
                                 ],
                               )),
                         ),
                       ),
-                      isPressed? Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: getMachineModel(context,
-                            type: 'Logo',
-                            imagePath:
-                                cubit.logo![selectedDesignIndex].pictureUrl,ratio: 1/0.8),
-                      ):imagePicked != null?
-                      IconButton(
-                          padding: EdgeInsets.zero,
-                          onPressed: () async {
-                           _handleUpload();
-                            showModalBottomSheet(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return ConditionalBuilder(
-                                    condition: _imageUrls.length >0,
-                                    builder: (context)
-                                    {
-                                      return  Container(
-                                        height: 400.h,
-                                        decoration: BoxDecoration(
-                                            color: CustomColors.lightGrey,
-                                            borderRadius: BorderRadius.circular(25.r)
-                                        ),
-                                        child: Padding(
-                                          padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 8.h),
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Center(
-                                                child: Container(
-                                                  margin: EdgeInsets.all(7.h),
-                                                  width: 35.w,
-                                                  height: 5.h,
-                                                  decoration: BoxDecoration(
-                                                      color: CustomColors.darkGrey,
-                                                      borderRadius: BorderRadius.circular(3.r)),
-                                                ),
-                                              ),
-                                              Text('Logo',style: Styles.textStyle16),
-                                              Expanded(
-                                                child: GridView.count(
-                                                    shrinkWrap: true,
-                                                    physics: BouncingScrollPhysics(),
-                                                    crossAxisCount: 2,
-                                                    mainAxisSpacing: 3,
-                                                    crossAxisSpacing: 3,
-                                                    childAspectRatio: 1/1.1,
-                                                    children: List.generate(_imageUrls.length,
-                                                          (index) => Image.network(_imageUrls[index]),
-                                                    )),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    fallback: (context)=>Center(child: CircularProgressIndicator()),
-                                  );
-                                });
-                          },
-                          icon: CircleAvatar(
-                            radius: 25.w,
-                            backgroundColor: Colors.white,
-                            child: Center(
-                              child: Icon(
-                                Icons.camera_alt_outlined,
-                                color: CustomColors.blue,
-                                size: 40.w,
-                              ),
-                            ),
-                          )): SizedBox()
+
                     ],
                   ),
                 ),
@@ -318,16 +359,35 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
-                        height: 20.h,
-                      ),
-                      Text(
-                        args.name ?? '',
-                        style: Styles.textStyle20!
-                            .copyWith(color: CustomColors.blue, fontSize: 18),
-                      ),
-                      SizedBox(
-                        height: 7.h,
+                      SizedBox(height: 5.h,),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              args.name ?? '',
+                              style: Styles.textStyle20!
+                                  .copyWith(color: CustomColors.blue, fontSize: 18),
+                            ),
+                          ),
+                          imagePicked != null
+                              ? IconButton(
+                                  padding: EdgeInsets.zero,
+                                  onPressed: () async {
+                                    _handleUpload(imagePicked!);
+                                  },
+                                  icon: CircleAvatar(
+                                    radius: 25.w,
+                                    backgroundColor: Colors.white,
+                                    child: Center(
+                                      child: Icon(
+                                        Icons.camera_alt_outlined,
+                                        color: CustomColors.blue,
+                                        size: 40.w,
+                                      ),
+                                    ),
+                                  ))
+                              : SizedBox()
+                        ],
                       ),
                       Text(
                         "${args.price.toString()} \$",
@@ -337,13 +397,22 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
                       SizedBox(
                         height: 10.h,
                       ),
-                      SizeLine(),
+                      SizeLine(onSizeSelected: (size) {
+                        selectedSize = size;
+                        setState(() {
+
+                        });
+                        print(size);
+                      }),
                       SizedBox(
                         height: 15.h,
                       ),
                       ColorLine(
                         onColorSelected: (color) {
                           selectedColor = color;
+                          setState(() {
+
+                          });
                           print(color);
                         },
                       ),
@@ -378,6 +447,7 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
                                         onTap: () {
                                           isPressed = true;
                                           imagePicked = null;
+                                          isNetworkImagePath=false;
                                           selectedDesignImage =
                                               cubit.logo![index].pictureUrl!;
                                           isVisible = true;
@@ -401,56 +471,17 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
                                                       : Colors.grey,
                                             ),
                                           ),
-                                          child: Stack(
-                                            children: [
-                                              Center(
-                                                child: Image.network(
-                                                  cubit.logo![index]
-                                                          .pictureUrl ??
-                                                      '',
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 5.w),
-                                                child: Text(
-                                                  "${cubit.logo![index].cost.toString()} \$",
-                                                  style: Styles.textStyle12!
-                                                      .copyWith(
-                                                    color: CustomColors.green,
-                                                  ),
-                                                ),
-                                              )
-                                            ],
+                                          child: Center(
+                                            child: Image.network(
+                                              cubit.logo![index].pictureUrl ??
+                                                  '',
+                                            ),
                                           ),
                                         ),
                                       ),
                                     )
                                   : [], // Empty list when cubit.logoResponse is null
                             ),
-                            // GestureDetector(
-                            //   onTap: () {},
-                            //   child: Container(
-                            //     margin: EdgeInsets.symmetric(vertical: 15.h),
-                            //     width: 135,
-                            //     height: 26,
-                            //     decoration: BoxDecoration(
-                            //       borderRadius: BorderRadius.circular(12.r),
-                            //       color: CustomColors.lightBlue,
-                            //     ),
-                            //     child: Row(
-                            //       mainAxisAlignment: MainAxisAlignment.center,
-                            //       children: [
-                            //         Text(
-                            //           'Load More',
-                            //           style: Styles.textStyle14!
-                            //               .copyWith(color: Colors.black),
-                            //         ),
-                            //         Icon(Icons.keyboard_arrow_down_rounded)
-                            //       ],
-                            //     ),
-                            //   ),
-                            // ),
                           ],
                         ),
                       ),
@@ -540,13 +571,9 @@ class _DesignDetailsViewState extends State<DesignDetailsView> {
                                     'id': args.id,
                                     'productName': args.name,
                                     'pictureUrl': '$uploadImage',
-                                    'size': args.productSize![0].sizename,
-                                    'color': args.productColor![0].colorname,
-                                    'price': isPressed
-                                        ? args.price! +
-                                            cubit
-                                                .logo![selectedDesignIndex].cost
-                                        : args.price! + 50.0,
+                                    'size': selectedSize,
+                                    'color': selectedColor,
+                                    'price': args.price,
                                     'quantity': 1,
                                   }
                                 ];

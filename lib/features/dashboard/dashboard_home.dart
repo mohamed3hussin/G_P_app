@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:g_p_app/core/colors/colors.dart';
 import 'package:g_p_app/core/text_style/styles.dart';
@@ -99,7 +100,8 @@ class _DashboardHomeScreenState extends State<DashboardHomeScreen> {
       ),
       body: Column(
         children: [
-          SearchField(),
+          //SearchField(),
+          SizedBox(height: 20.h,),
           selectedDrawerItem == DashboardDrawer.drawerProductId
               ? ProductDashboard()
               : selectedDrawerItem == DashboardDrawer.drawerLogoId

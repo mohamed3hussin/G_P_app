@@ -12,7 +12,7 @@ class DesignPayment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var totalPayment=data.price!+logo.cost;
+    var totalPayment=data.price!;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -22,16 +22,16 @@ class DesignPayment extends StatelessWidget {
           Text('Total payment:',style: Styles.textStyle16,),
           Text('${totalPayment.toStringAsFixed(2)} \$ ',style: Styles.textStyle16!.copyWith(color: CustomColors.blue),),
         ],),
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text('Product:',style: Styles.textStyle16,),
-            Text('${data.price} \$'.toString(),style: Styles.textStyle16,),
-          ],),
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text('Design:',style: Styles.textStyle16,),
-            Text('${logo.cost} \$',style: Styles.textStyle16,),
-          ],),
+        // Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //   children: [
+        //     Text('Product:',style: Styles.textStyle16,),
+        //     Text('${data.price} \$'.toString(),style: Styles.textStyle16,),
+        //   ],),
+        // Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //   children: [
+        //     Text('Design:',style: Styles.textStyle16,),
+        //     Text('${logo.cost} \$',style: Styles.textStyle16,),
+        //   ],),
       ],
     );
   }

@@ -220,7 +220,7 @@ class _DrawingRoomScreenState extends State<DrawingRoomScreen> {
                                 'pictureUrl':'$uploadImage',
                                 'size': args.productSize![0].sizename,
                                 'color':args.productColor![0].colorname,
-                                'price':args.price!+50.0,
+                                'price':args.price,
                                 'quantity': 1,
                               }
                             ];

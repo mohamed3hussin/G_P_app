@@ -105,9 +105,6 @@ class _ProductDetailsViewState extends State<ProductDetailsView> {
                   padding: const EdgeInsets.all(5.0),
                   child: Column(
                     children: [
-                      getMachineModel(context,
-                          type: args.type ?? '',
-                          imagePath: args.productPictures![0]),
                       SizedBox(
                         height: 5.h,
                       ),

@@ -31,7 +31,7 @@ Widget CartBottomSheet(context,List<CartItems> cartItems) {
                       children: [
                         Text("${cartItems[index].productName}:" ?? '',
                           style: Styles.textStyle16,),
-                        Text("\$ ${cartItems[index].price.toString()}",
+                        Text("\$ ${cartItems[index].price?.toStringAsFixed(2)}",
                           style: Styles.textStyle16,),
                       ],
                     ), itemCount: cartItems.length,),
