@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:collection/collection.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,11 +9,9 @@ import 'package:g_p_app/data/model/response/AllProductResponse.dart';
 import 'package:g_p_app/data/model/response/UserAddress.dart';
 import 'package:g_p_app/data/model/response/WishListModel.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_state.dart';
-import 'package:image_picker/image_picker.dart';
 import '../../../../data/api/api_manager.dart';
 import '../../../../data/model/response/CartResponse.dart';
 import '../../../../data/model/response/ChangePasswordModel.dart';
-import '../../../../data/model/response/DeliveryMethodsResponse.dart';
 import '../../../../data/model/response/LogoResponse.dart';
 
 class HomeCubit extends Cubit<HomeState> {
@@ -41,6 +38,9 @@ class HomeCubit extends Cubit<HomeState> {
   Map<String, dynamic>? userAddressCheckOut;
   AllProducts? searchResults;
   List<String>? modelImages;
+
+
+///get products and logo functions:-
 
   void getAllProduct({String sort = 'name'}) {
     emit(AllProductLoadingState());
@@ -157,6 +157,31 @@ class HomeCubit extends Cubit<HomeState> {
     });
   }
 
+  void getSearch({String sort = 'name', required String search}) {
+    emit(AllProductLoadingState());
+    ApiManager.getData(
+        url: 'Product',
+        query: {
+          'sort': sort,
+          'isDesigned': 'false',
+          'PageIndex': '1',
+          'PageSized': '3',
+          'search': search
+        },
+        token: CacheHelper.getData(key: 'token'))
+        .then((response) {
+      searchResults = AllProducts.fromJson(response.data);
+      emit(AllProductLoadedState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(AllProductErrorState(error.toString()));
+    });
+  }
+
+
+
+///wishlist functions:-
+
   void getWishList() {
     emit(WishListLoadingState());
     ApiManager.getData(
@@ -225,6 +250,10 @@ class HomeCubit extends Cubit<HomeState> {
           .toList();
     }
   }
+
+
+
+///cart functions:-
 
   void getCart() {
     emit(CartLoadingState());
@@ -303,12 +332,73 @@ class HomeCubit extends Cubit<HomeState> {
     emit(DeleteCartItemLoadedState());
   }
 
+
+
+///payment and checkout functions:-
+
+  createCartForPayment({int deliveryMethodId = 1}) async {
+    List<Map<String, dynamic>>? jsonData = convertCartToJson();
+    emit(CartPaymentLoading());
+    await ApiManager.postData(
+            url: 'Baskets',
+            data: {
+              'id': 'basket1',
+              'items': jsonData,
+              'deliveryMethodId': deliveryMethodId,
+            },
+            token: CacheHelper.getData(key: 'token'))
+        .then((value) {
+      final response = CartResponse.fromJson(value.data);
+      emit(CartPaymentLoaded());
+      createPaymentIntent();
+    }).catchError((onError){
+      emit(CartPaymentError(onError.toString()));
+    });
+  }
+
+  createPaymentIntent({String orderId = 'basket1'}) {
+    emit(PaymentIntentLoading());
+    final response = ApiManager.postData(
+            url: 'Payment/$orderId',
+            data: {},
+            token: CacheHelper.getData(key: 'token'))
+        .then((value) {
+      paymentIntent = CartResponse.fromJson(value.data);
+      print(paymentIntent?.paymentIntentId);
+      print(paymentIntent?.clilentSecret);
+      emit(PaymentIntentLoaded());
+    }).catchError((onError) {
+      print(onError.toString());
+      emit(PaymentIntentError(onError.toString()));
+    });
+  }
+
+  createCheckOut(String basketId) {
+    emit(CheckOutLoading());
+    ApiManager.postData(
+        url: 'Orders',
+        data: {
+          "buyerEmail": CacheHelper.getData(key: 'email'),
+          "basketId": basketId,
+          "deliveryMethodId": 1,
+          "shippingAddress": userAddressCheckOut
+        },
+        token: CacheHelper.getData(key: 'token'))
+        .then((value) {
+      print(value.data);
+      emit(CheckOutLoaded());
+    }).catchError((onError){
+      emit(CheckOutError(onError.toString()));
+    });
+  }
   void updateDeliveryMethodId(int id) async {
     deliveryMethodId = id;
+    emit(UpdatedDeliveryMethod());
   }
 
   buyNowForPayment(Map<String, dynamic> data,
       {int deliveryMethodId = 1}) async {
+    emit(BuyNowLoading());
     // Create a temporary cart for the "Buy Now" item
     await ApiManager.postData(
       url: 'Baskets',
@@ -330,7 +420,10 @@ class HomeCubit extends Cubit<HomeState> {
       token: CacheHelper.getData(key: 'token'),
     ).then((value) async {
       final response = CartResponse.fromJson(value.data);
+      emit(BuyNowLoaded());
       await createPaymentIntent(orderId: 'temp_basket');
+    }).catchError((onError){
+      emit(BuyNowError(onError.toString()));
     });
   }
 
@@ -354,35 +447,9 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  createCartForPayment({int deliveryMethodId = 1}) async {
-    List<Map<String, dynamic>>? jsonData = convertCartToJson();
-    ApiManager.postData(
-            url: 'Baskets',
-            data: {
-              'id': 'basket1',
-              'items': jsonData,
-              'deliveryMethodId': deliveryMethodId,
-            },
-            token: CacheHelper.getData(key: 'token'))
-        .then((value) {
-      final response = CartResponse.fromJson(value.data);
-      createPaymentIntent();
-    });
-  }
 
-  createPaymentIntent({String orderId = 'basket1'}) {
-    final response = ApiManager.postData(
-            url: 'Payment/$orderId',
-            data: {},
-            token: CacheHelper.getData(key: 'token'))
-        .then((value) {
-      paymentIntent = CartResponse.fromJson(value.data);
-      print(paymentIntent?.paymentIntentId);
-      print(paymentIntent?.clilentSecret);
-    }).catchError((onError) {
-      print(onError.toString());
-    });
-  }
+
+///user address functions:-
 
   getCurrentUserAddress() {
     emit(UserAddressLoading());
@@ -395,7 +462,7 @@ class HomeCubit extends Cubit<HomeState> {
       emit(UserAddressLoaded());
     }).catchError((error) {
       print(error.toString());
-      emit(UserAddressError());
+      emit(UserAddressError(error.toString()));
     });
   }
 
@@ -427,17 +494,28 @@ class HomeCubit extends Cubit<HomeState> {
         "postalCode": postalCode
       };
       final response = AddressResponse.fromJson(value.data);
+      emit(UpdateUserAddressLoaded());
       getCurrentUserAddress();
       onSuccess();
+    }).catchError((onError){
+      emit(UpdateUserAddressError(onError.toString()));
     });
   }
 
+
+
+///user orders and review functions:-
+
   getUserOrders() {
+    emit(UserOrdersLoading());
     ApiManager.getData(url: 'Orders', token: CacheHelper.getData(key: 'token'))
         .then((response) {
       final List<dynamic> responseData = response.data;
       allOrdersResponse =
           responseData.map((json) => AllOrdersResponse.fromJson(json)).toList();
+      emit(UserOrdersLoaded());
+    }).catchError((onError){
+      emit(UserOrdersError(onError.toString()));
     });
   }
 
@@ -453,46 +531,14 @@ class HomeCubit extends Cubit<HomeState> {
       getNewArrivalProduct();
       getBestSellingProduct();
     }).catchError((error) {
-      emit(CreateReviewError());
+      emit(CreateReviewError(error.toString()));
       print(error.toString());
     });
   }
 
 
-  createCheckOut(String basketId) {
-    ApiManager.postData(
-            url: 'Orders',
-            data: {
-              "buyerEmail": CacheHelper.getData(key: 'email'),
-              "basketId": basketId,
-              "deliveryMethodId": 1,
-              "shippingAddress": userAddressCheckOut
-            },
-            token: CacheHelper.getData(key: 'token'))
-        .then((value) {
-      print(value.data);
-    });
-  }
 
-  void getSearch({String sort = 'name', required String search}) {
-    ApiManager.getData(
-            url: 'Product',
-            query: {
-              'sort': sort,
-              'isDesigned': 'false',
-              'PageIndex': '1',
-              'PageSized': '3',
-              'search': search
-            },
-            token: CacheHelper.getData(key: 'token'))
-        .then((response) {
-      searchResults = AllProducts.fromJson(response.data);
-      //emit(AllProductLoadedState());
-    }).catchError((error) {
-      print(error.toString());
-      //emit(AllProductErrorState(error.toString()));
-    });
-  }
+///security module (change/forgot/reset password) functions:-
 
   void changePassword(
       {required String currentPassword, required String newPassword}) {
@@ -510,7 +556,6 @@ class HomeCubit extends Cubit<HomeState> {
       print(error.toString());
     });
   }
-
   String? forgotPasswordToken;
   String? forgotPasswordEmail;
 
@@ -545,60 +590,10 @@ class HomeCubit extends Cubit<HomeState> {
       'email':forgotPasswordEmail,
       'token':forgotPasswordToken
     }).then((value) {
-      print("password have been reset successfully");
       emit(ResetPasswordSuccess());
     }).catchError((onError) {
       emit(ResetPasswordError(onError.toString()));
-      print('=====================');
       print(onError.toString());
-      print('=====================');
     });
   }
-// List? images;
-//   uploadModelImage(File? imagePicked)async{
-//     var dio = Dio();
-//     try {
-//       images=[];
-//         FormData formData = FormData.fromMap({
-//           'file': await MultipartFile.fromFile(imagePicked!.path),
-//         });
-//       emit(MachineModelLoading());
-//       Response response = await dio.post(
-//         'https://e684-196-132-75-85.ngrok-free.app/api/Product/RecommendLogo',
-//         data: formData,
-//         options: Options(
-//           headers: {
-//             'Content-Type':'multipart/form-data',
-//             'lang':'en',
-//           },
-//           followRedirects: true,
-//           validateStatus: (status) {
-//             return status! < 500; // Accept status codes less than 500
-//           },
-//         ),
-//       );
-//
-//       print(response.data);
-//       if (response.statusCode == 200) {
-//         print('File uploaded successfully');
-//         if (response.data is Map<String, dynamic> && response.data['recommended_images'] is List) {
-//           List<dynamic> rawPaths = response.data['recommended_images'];
-//           List<String> imagePaths = rawPaths.map((path) => path.toString()).toList();
-//           images = imagePaths;
-//           emit(MachineModelSuccess());
-//           return imagePaths;}
-//       } else {
-//         emit((MachineModelError(response.statusMessage??'')));
-//         print('File upload failed: ${response.statusCode}');
-//       }
-//       return response.data;
-//
-//     } catch (e) {
-//       emit(MachineModelError(e.toString()));
-//       print(e.toString());
-//     }
-//   }
-
-
-
 }

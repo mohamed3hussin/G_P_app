@@ -16,23 +16,28 @@ class DashBoardCubit extends Cubit<DashBoardState>
 
   DeliveryMethodsResponse? deliveryMethodsResponse;
   List<DeliveryMethodsResponse>? deliveryMethodsResponseList;
+  AllProducts? allProducts;
+  AllProducts? allDesignedProducts;
+  List<Logo>? logo;
+
+///get admin dashboard functions:-
+
   getDeliveryMethods() {
-    emit(getDeliveryMethodsLoadingState());
+    emit(DeliveryMethodsLoadingState());
     ApiManager.getData(url: 'Orders/deliveryMethods',token: CacheHelper.getData(key: 'token'))
         .then((response) {
       final List<dynamic> responseData = response.data;
       deliveryMethodsResponseList = responseData
           .map((json) => DeliveryMethodsResponse.fromJson(json))
           .toList();
-      emit(getDeliveryMethodsLoadedState());
+      emit(DeliveryMethodsLoadedState());
     }).catchError((error) {
-      emit(getDeliveryMethodsErrorState(error));
+      emit(DeliveryMethodsErrorState(error));
       print(error.toString());
     });
   }
 
-  AllProducts? allProducts;
-  void getAdminAllProduct({String sort = 'name'}) {
+  getAdminAllProduct({String sort = 'name'}) {
     emit(AdminAllProductLoadingState());
     ApiManager.getData(
         url: 'Product',
@@ -58,8 +63,7 @@ class DashBoardCubit extends Cubit<DashBoardState>
     });
   }
 
-  AllProducts? allDesignedProducts;
-  void getAdminAllProductDesigned({String sort = 'name'}) {
+  getAdminAllProductDesigned({String sort = 'name'}) {
     emit(AdminAllProductLoadingState());
     ApiManager.getData(
         url: 'Product',
@@ -85,35 +89,7 @@ class DashBoardCubit extends Cubit<DashBoardState>
     });
   }
 
-
-  void deleteProduct(String productId){
-    ApiManager.deleteData(url: 'Product/DeleteProduct/$productId',token: CacheHelper.getData(key: 'token'))
-        .then((value)
-    {
-      emit(AdminDeleteLoadedState());
-      getAdminAllProduct();
-    }).catchError((error)
-    {
-      emit(AdminDeleteErrorState());
-    });
-
-  }
-
-  void deleteLogo(String logoId){
-    ApiManager.deleteData(url: 'Product/DeleteLogo/$logoId',token: CacheHelper.getData(key: 'token'))
-        .then((value)
-    {
-      emit(AdminDeleteLoadedState());
-      getAdminLogos();
-    }).catchError((error)
-    {
-      emit(AdminDeleteErrorState());
-    });
-
-  }
-
-  List<Logo>? logo;
-  void getAdminLogos() {
+  getAdminLogos() {
     emit(AdminLogosLoadingState());
     ApiManager.getData(
         url: 'Product/Logo', token: CacheHelper.getData(key: 'token'))
@@ -129,6 +105,10 @@ class DashBoardCubit extends Cubit<DashBoardState>
       emit(AdminLogosErrorState(error.toString()));
     });
   }
+
+
+
+///create admin dashboard functions:-
 
   postData(Map<String, dynamic> body)async{
     var dio = Dio();
@@ -155,15 +135,19 @@ class DashBoardCubit extends Cubit<DashBoardState>
         print('File uploaded successfully');
         getAdminAllProduct();
         getAdminAllProductDesigned();
+        emit(AddProductLoadedState());
       } else {
         print('File upload failed: ${response.statusCode}');
+        emit(AddProductErrorState(response.statusMessage??''));
       }
       return response.data;
 
     } catch (e) {
-      print(e);
+      emit(AddProductErrorState(e.toString()));
+      print(e.toString());
     }
   }
+
   createLogo(Map<String, dynamic> body)async{
     var dio = Dio();
     try {
@@ -187,16 +171,23 @@ class DashBoardCubit extends Cubit<DashBoardState>
       print(response.data);
       if (response.statusCode == 200) {
         print('File uploaded successfully');
+        emit(AddLogoLoadedState());
         getAdminLogos();
       } else {
         print('File upload failed: ${response.statusCode}');
+        emit(AddLogoErrorState(response.statusMessage??''));
       }
       return response.data;
 
     } catch (e) {
       print(e);
+      emit(AddLogoErrorState(e.toString()));
     }
   }
+
+
+
+///edit admin dashboard functions:-
 
   editProduct(String productId,Map<String, dynamic> body)async{
     var dio = Dio();
@@ -222,13 +213,16 @@ class DashBoardCubit extends Cubit<DashBoardState>
       if (response.statusCode == 200) {
         print('File uploaded successfully');
         getAdminAllProduct();
+        emit(EditProductSuccessState());
       } else {
         print('File upload failed: ${response.statusCode}');
+        emit(EditProductErrorState(response.statusMessage??''));
       }
       return response.data;
 
     } catch (e) {
-      print(e);
+      print(e.toString());
+      emit(EditProductErrorState(e.toString()));
     }
   }
 
@@ -256,13 +250,17 @@ class DashBoardCubit extends Cubit<DashBoardState>
       if (response.statusCode == 200) {
         print('File uploaded successfully');
         getAdminAllProductDesigned();
+        emit(EditProductSuccessState());
       } else {
         print('File upload failed: ${response.statusCode}');
+        emit(EditProductErrorState(response.statusMessage??''));
       }
       return response.data;
 
     } catch (e) {
-      print(e);
+      print(e.toString());
+      emit(EditProductErrorState(e.toString()));
+
     }
   }
 
@@ -290,14 +288,50 @@ class DashBoardCubit extends Cubit<DashBoardState>
       if (response.statusCode == 200) {
         print('File uploaded successfully');
         getAdminLogos();
-      }
-      else {
+        emit(EditLogoSuccessState());
+      } else {
         print('File upload failed: ${response.statusCode}');
+        emit(EditLogoErrorState(response.statusMessage??''));
       }
       return response.data;
 
     } catch (e) {
       print(e.toString());
+      emit(EditLogoErrorState(e.toString()));
+
     }
   }
+
+
+
+///delete admin dashboard functions:-
+
+  deleteProduct(String productId){
+    ApiManager.deleteData(url: 'Product/DeleteProduct/$productId',token: CacheHelper.getData(key: 'token'))
+        .then((value)
+    {
+      emit(AdminDeleteLoadedState());
+      getAdminAllProduct();
+    }).catchError((error)
+    {
+      emit(AdminDeleteErrorState());
+    });
+
+  }
+
+  deleteLogo(String logoId){
+    ApiManager.deleteData(url: 'Product/DeleteLogo/$logoId',token: CacheHelper.getData(key: 'token'))
+        .then((value)
+    {
+      emit(AdminDeleteLoadedState());
+      getAdminLogos();
+    }).catchError((error)
+    {
+      emit(AdminDeleteErrorState());
+    });
+
+  }
+
+
+
 }

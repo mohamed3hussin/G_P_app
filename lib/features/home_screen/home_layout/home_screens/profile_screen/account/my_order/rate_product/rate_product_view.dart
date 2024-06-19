@@ -154,7 +154,7 @@ class _RateProductViewState extends State<RateProductView> {
                           child: ElevatedButton(
                             onPressed: () {
                               cubit.createReview(rate: userRating, id: args.productId!, comment: commentController.text);
-                              print(args.id);
+                              Navigator.pop(context);
                             },
                             child: Text(
                               'Submit Feedback',
