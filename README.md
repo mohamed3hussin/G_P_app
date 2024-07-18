@@ -1,16 +1,13 @@
 # g_p_app
 
-A new Flutter project.
+Our Graduation Project repository.
 
-## Getting Started
+# Important Notice
+Note: The application will not function as expected if cloned from this repository due to the backend APIs not being deployed on a server. We used ngrok during development to tunnel local backend APIs for testing purposes. As a result, the API endpoints are not accessible publicly.
 
-This project is a starting point for a Flutter application.
+## Reason
+The backend team has not deployed the APIs on a server. Therefore, any attempt to run this application without the proper API endpoints will result in errors.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Demo
+To see the application in action, please check out the demo video available at the following link:
+https://drive.google.com/file/d/1r3_JirBgrM9IwtnjlZT7oVPx3ZaSFD4I/view?usp=sharing
