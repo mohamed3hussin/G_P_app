@@ -5,7 +5,7 @@ class AssetsData{
   static const String onBoardingImage_3 = 'assets/images/onBoardingImage3.png';
   static const String loginImage = 'assets/images/loginImage.png';
   static const String gmailImage = 'assets/images/gmailImage.svg';
-  static const String instaImage = 'assets/images/instaImage.svg';
+  static const String instagramImage = 'assets/images/instaImage.svg';
   static const String facebookImage = 'assets/images/facebookImage.svg';
   static const String designBoxImage = 'assets/images/designBoxImage.png';
   static const String carouselImage = 'assets/images/carousel1.png';

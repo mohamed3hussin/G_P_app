@@ -4,7 +4,7 @@ import 'package:g_p_app/features/home_screen/home_layout/home_screens/categories
 
 class TabContainer extends StatefulWidget {
   final ValueChanged<int> onIndexChanged;
-  TabContainer({required this.onIndexChanged});
+  const TabContainer({super.key, required this.onIndexChanged});
 
   @override
   State<TabContainer> createState() => _TabContainerState();
@@ -12,6 +12,7 @@ class TabContainer extends StatefulWidget {
 
 class _TabContainerState extends State<TabContainer> {
   int selectedIndex = 0;
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
       final arguments = ModalRoute.of(context)?.settings.arguments as int;

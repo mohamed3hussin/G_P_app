@@ -1,9 +1,9 @@
 import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+
+
 class UploadImageApi
 {
   Future<dynamic> uploadImage(Uint8List bytes,String fileName) async
@@ -29,24 +29,4 @@ class UploadImageApi
     else
     { return null;}
   }
-
-  // Future<List<String>> uploadModelImage(File imageFile) async {
-  //   final uri = Uri.parse('https://1a54-41-233-199-23.ngrok-free.app/api/Product/RecommendLogo');
-  //   final request = http.MultipartRequest('POST', uri)
-  //     ..files.add(await http.MultipartFile.fromPath(
-  //       'file', // The name attribute for the image field in your API
-  //       imageFile.path,
-  //     ));
-  //
-  //   StreamedResponse response = await request.send();
-  //
-  //   if (response.statusCode == 200) {
-  //     final responseData = await response.stream.bytesToString();
-  //     // final List<dynamic> jsonResponse = json.decode(responseData.body);
-  //     // final List<String> imageUrls = jsonResponse.cast<String>();
-  //     return jsonDecode(responseData);
-  //   } else {
-  //     throw Exception('Failed to upload image');
-  //   }
-  // }
 }

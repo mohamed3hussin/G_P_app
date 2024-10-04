@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/core/colors/colors.dart';
 import 'package:g_p_app/core/text_style/styles.dart';
@@ -8,7 +7,7 @@ class EditAddressField extends StatelessWidget {
   String fieldTitle;
   String initValue;
   TextEditingController textEditController;
-  EditAddressField(this.fieldTitle,this.initValue,this.textEditController);
+  EditAddressField(this.fieldTitle,this.initValue,this.textEditController, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +33,7 @@ class EditAddressField extends StatelessWidget {
             controller: textEditController,
             decoration: InputDecoration(
               hintText: initValue,
-              hintStyle: TextStyle(color: Colors.grey),
+              hintStyle: const TextStyle(color: Colors.grey),
               contentPadding: EdgeInsets.only(bottom: 5.h,left: 15.w),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.r,),

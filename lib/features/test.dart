@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -10,9 +12,9 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bottom App Bar with FAB Notch'),
+        title: const Text('Bottom App Bar with FAB Notch'),
       ),
-      body: Center(
+      body: const Center(
         child: Text('Content goes here'),
       ),
       floatingActionButton: FloatingActionButton(
@@ -20,23 +22,23 @@ class _MyHomePageState extends State<MyHomePage> {
           // Add your FAB action here
           print('FAB Pressed');
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
+        shape: const CircularNotchedRectangle(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             IconButton(
-              icon: Icon(Icons.menu),
+              icon: const Icon(Icons.menu),
               onPressed: () {
                 // Add your menu action here
                 print('Menu Pressed');
               },
             ),
             IconButton(
-              icon: Icon(Icons.search),
+              icon: const Icon(Icons.search),
               onPressed: () {
                 // Add your search action here
                 print('Search Pressed');

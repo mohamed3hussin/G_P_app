@@ -10,12 +10,14 @@ import '../../../../../../core/text_style/styles.dart';
 class SettingsView extends StatelessWidget {
   static const String routeName = 'settings_view';
 
+  const SettingsView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 90.h,
-        backgroundColor: Color(0xFFEFF1F8),
+        backgroundColor: const Color(0xFFEFF1F8),
         leading: GestureDetector(
           onTap: () {
             Navigator.pop(context);

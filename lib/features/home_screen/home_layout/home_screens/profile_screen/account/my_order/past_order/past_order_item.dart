@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/core/colors/colors.dart';
 import 'package:g_p_app/core/text_style/styles.dart';
-import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/my_order/past_order_details/past_order_details_view.dart';
 
 class PastOrderItem extends StatelessWidget {
   String orderId;
@@ -15,7 +14,7 @@ class PastOrderItem extends StatelessWidget {
   bool isDelivered;
 
   PastOrderItem(
-      {required this.orderId,
+      {super.key, required this.orderId,
       required this.orderStatus,
       required this.arrivalTime,
       required this.numOfItems,
@@ -49,7 +48,7 @@ class PastOrderItem extends StatelessWidget {
                     Text(
                       orderId,
                       style: Styles.textStyle16.copyWith(
-                          color: isArrived ? Colors.black : Color(0xFF74777F)),
+                          color: isArrived ? Colors.black : const Color(0xFF74777F)),
                     ),
                     Container(
                       height: 30.h,
@@ -67,7 +66,7 @@ class PastOrderItem extends StatelessWidget {
                             horizontal: 10.w, vertical: 5.h),
                         child: Text(
                           orderStatus,
-                          style: Styles.textStyle12!.copyWith(color: isArrived ? Colors.black : Color(0xFF74777F)),
+                          style: Styles.textStyle12.copyWith(color: isArrived ? Colors.black : const Color(0xFF74777F)),
                         ),
                       )),
                     ),
@@ -85,7 +84,7 @@ class PastOrderItem extends StatelessWidget {
                 ),
                 Text(
                   numOfItems,
-                  style: Styles.textStyle14!.copyWith(
+                  style: Styles.textStyle14.copyWith(
                       fontWeight: FontWeight.w700, color: Colors.black),
                 ),
                 SizedBox(

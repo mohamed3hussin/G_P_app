@@ -1,14 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/core/assets_data/iconBroken.dart';
-import 'package:g_p_app/features/design_screens/design_explain_screen1.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/account_screen.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/customer_service_view.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/payment_method/payment_view.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/settings/settings_view.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/signout_alert.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/profile_item.dart';
+
+import '../../../design_screens/design_explain_screen1.dart';
 
 class ProfileScreenView extends StatelessWidget {
   const ProfileScreenView({super.key});
@@ -52,7 +52,7 @@ class ProfileScreenView extends StatelessWidget {
               onTap: () {
                 showDialog(
                   context: context,
-                  builder: (context) => Dialog(
+                  builder: (context) => const Dialog(
                     child: SignOutAlert(),
                   ),
                 );

@@ -4,8 +4,8 @@ import 'package:g_p_app/core/colors/colors.dart';
 import 'package:g_p_app/data/model/response/AllProductResponse.dart';
 import 'package:g_p_app/data/model/response/WishListModel.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_cubit.dart';
-import 'package:g_p_app/features/product_details/product_details_view.dart';
 import '../../../../../../core/text_style/styles.dart';
+import '../../../../product_details/product_details_view.dart';
 
 class WishListItemWidget extends StatefulWidget {
   final WishListItem model;
@@ -27,7 +27,7 @@ class _WishListItemWidgetState extends State<WishListItemWidget> {
       onTap: (){
         Navigator.pushNamed(context, ProductDetailsView.routeName,arguments: widget.data);
       },
-      child: Container(
+      child: SizedBox(
         width: 150.w,
         child: Material(
           borderRadius: BorderRadius.circular(12),
@@ -43,7 +43,7 @@ class _WishListItemWidgetState extends State<WishListItemWidget> {
                 Stack(
                   alignment: AlignmentDirectional.bottomEnd,
                   children: [
-                    Container(
+                    SizedBox(
                       height: 140.h,
                       child: Image.network(
                         widget.model.pictureUrl ?? '',
@@ -60,7 +60,7 @@ class _WishListItemWidgetState extends State<WishListItemWidget> {
                         backgroundColor: Colors.grey[200],
                         child: Icon(
                           Icons.favorite,
-                          color: Color(0xFFEA3A3D),
+                          color: const Color(0xFFEA3A3D),
                           size: 30.w,
                         ),
                       ),
@@ -76,7 +76,7 @@ class _WishListItemWidgetState extends State<WishListItemWidget> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('${widget.model.productName}',
+                      Text(widget.model.productName,
                           style: Styles.textStyle14.copyWith(
                               color: CustomColors.textColor,
                               fontWeight: FontWeight.w500)),

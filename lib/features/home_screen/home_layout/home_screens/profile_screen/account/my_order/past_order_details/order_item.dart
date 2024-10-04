@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:g_p_app/core/assets_data/assetsData.dart';
 import 'package:g_p_app/core/colors/colors.dart';
 import 'package:g_p_app/core/text_style/styles.dart';
-import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/my_order/rate_product/rate_product_view.dart';
 
 class OrderItem extends StatelessWidget {
   String name;
   String price;
   String? productPicture;
   void Function() function;
-  OrderItem(this.name, this.price,this.productPicture,this.function);
+  OrderItem(this.name, this.price,this.productPicture,this.function, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +37,7 @@ class OrderItem extends StatelessWidget {
                   ),)
                 ),
                   )
-                  : Container(width: 120,child: Icon(Icons.error, size: 30)),
+                  : const SizedBox(width: 120,child: Icon(Icons.error, size: 30)),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,12 +45,12 @@ class OrderItem extends StatelessWidget {
               children: [
                 Text(
                   name,
-                  style: Styles.textStyle16!.copyWith(color: Colors.black,fontSize: 18.sp),
+                  style: Styles.textStyle16.copyWith(color: Colors.black,fontSize: 18.sp),
                 ),
                 Text(
                   '\$ $price',
                   style:
-                      Styles.textStyle20!.copyWith(color: CustomColors.green),
+                      Styles.textStyle20.copyWith(color: CustomColors.green),
                 ),
                 SizedBox(height: 15.h,),
                 Padding(
@@ -70,7 +68,7 @@ class OrderItem extends StatelessWidget {
                       child: Center(
                         child: Text(
                           'Add Review',
-                          style: Styles.textStyle12!.copyWith(color: Colors.black),
+                          style: Styles.textStyle12.copyWith(color: Colors.black),
                         ),
                       ),
                     ),

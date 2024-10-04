@@ -8,6 +8,8 @@ import '../../../../../../../../core/text_style/styles.dart';
 
 class TrackOrderView extends StatefulWidget {
   static const String routeName = 'track_order';
+
+  const TrackOrderView({super.key});
   @override
   State<TrackOrderView> createState() => _TrackOrderViewState();
 }
@@ -19,7 +21,7 @@ class _TrackOrderViewState extends State<TrackOrderView>
       backgroundColor: CustomColors.lightGrey,
       appBar: AppBar(
         toolbarHeight: 90.h,
-        backgroundColor: Color(0xFFEFF1F8),
+        backgroundColor: const Color(0xFFEFF1F8),
         leading: GestureDetector(
           onTap: () {
             Navigator.pop(context);
@@ -37,7 +39,7 @@ class _TrackOrderViewState extends State<TrackOrderView>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            OrderDetails(),
+            const OrderDetails(),
             Padding(
               padding: EdgeInsets.only(left: 15.w),
               child: Text(
@@ -57,7 +59,7 @@ class _TrackOrderViewState extends State<TrackOrderView>
                   color: Colors.white),
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 12.w),
-                child: Column(
+                child: const Column(
                   children: [
                     CustomTimeLine(
                       isFirst: true,

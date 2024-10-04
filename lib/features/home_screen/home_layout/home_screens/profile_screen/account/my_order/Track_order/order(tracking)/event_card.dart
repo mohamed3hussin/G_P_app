@@ -5,7 +5,7 @@ import 'package:g_p_app/core/text_style/styles.dart';
 class EventCard extends StatelessWidget {
   String process;
   String address;
-  EventCard({required this.process,required this.address});
+  EventCard({super.key, required this.process,required this.address});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -15,7 +15,7 @@ class EventCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(process,style: Styles.textStyle14!.copyWith(fontWeight: FontWeight.bold,overflow: TextOverflow.ellipsis),),
+          Text(process,style: Styles.textStyle14.copyWith(fontWeight: FontWeight.bold,overflow: TextOverflow.ellipsis),),
           SizedBox(height: 5.h,),
           Text(address,style: Styles.textStyle12,),
         ],

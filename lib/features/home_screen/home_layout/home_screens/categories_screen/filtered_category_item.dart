@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:g_p_app/features/design_screens/design_details_view.dart';
-import 'package:g_p_app/features/product_details/product_details_view.dart';
 import '../../../../../core/assets_data/iconBroken.dart';
 import '../../../../../core/colors/colors.dart';
 import '../../../../../core/text_style/styles.dart';
 import '../../../../../data/model/response/AllProductResponse.dart';
+import '../../../design_screens/design_details_view.dart';
+import '../../../product_details/product_details_view.dart';
 
 
 class FilteredCategoryItemBuilder extends StatelessWidget {
@@ -20,7 +20,7 @@ class FilteredCategoryItemBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Color>? colors = data?.productColor
+    List<Color>? colors = data.productColor
         ?.map(
           (colorMap) => getColorFromName(colorMap.colorname!),
     ).toList() ?? [];
@@ -29,7 +29,7 @@ class FilteredCategoryItemBuilder extends StatelessWidget {
         Navigator.pushNamed(context, ProductDetailsView.routeName,
             arguments: data);
       },
-      child: Container(
+      child: SizedBox(
         width: 150.w,
         child: Material(
           borderRadius: BorderRadius.circular(12),
@@ -45,7 +45,7 @@ class FilteredCategoryItemBuilder extends StatelessWidget {
                 Stack(
                   alignment: AlignmentDirectional.bottomEnd,
                   children: [
-                    Container(
+                    SizedBox(
                       height: 150.h,
                       width: 155.w,
                       child: Image.network(
@@ -63,7 +63,7 @@ class FilteredCategoryItemBuilder extends StatelessWidget {
                           }
                         },
                         errorBuilder: (context, error, stackTrace) {
-                          return Icon(Icons.error);
+                          return const Icon(Icons.error);
                         },
                       ),
                     ),
@@ -75,7 +75,7 @@ class FilteredCategoryItemBuilder extends StatelessWidget {
                         backgroundColor: Colors.grey[200],
                         child: Icon(
                           IconBroken.Heart,
-                          color: Color(0xFFEA3A3D),
+                          color: const Color(0xFFEA3A3D),
                           size: 30.w,
                         ),
                       ),
@@ -93,7 +93,7 @@ class FilteredCategoryItemBuilder extends StatelessWidget {
                       Text(
                         data.name ?? '',
                         style: Styles.textStyle12.copyWith(
-                            color: Color(0xFF1B72C0),
+                            color: const Color(0xFF1B72C0),
                             fontWeight: FontWeight.w500),
                       ),
                       Text(
@@ -114,25 +114,25 @@ class FilteredCategoryItemBuilder extends StatelessWidget {
                           Text(
                             '20% OFF',
                             style: Styles.textStyle14.copyWith(
-                                color: Color(0xFF117828),
+                                color: const Color(0xFF117828),
                                 fontWeight: FontWeight.w500),
                           ),
                         ],
                       ),
-                      Container(
+                      SizedBox(
                         height: 10,
                         child: ListView.separated(
                           separatorBuilder: (context, index) => SizedBox(width: 3.w,),
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) =>
                               setCircularAvatarColor(
-                                  colors![index]),
+                                  colors[index]),
                           itemCount: data.productColor!.length,
                         ),
                       ),
                       Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.star,
                             color: Colors.amber,
                           ),
@@ -148,13 +148,13 @@ class FilteredCategoryItemBuilder extends StatelessWidget {
                                 color: Colors.black,
                                 fontWeight: FontWeight.w400),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           IconButton(
                             padding: EdgeInsets.zero,
                             onPressed: () {},
                             icon: CircleAvatar(
                               radius: 20.w,
-                              backgroundColor: Color(0xFF1B72C0),
+                              backgroundColor: const Color(0xFF1B72C0),
                               child: GestureDetector(
                                 onTap: () {
                                   isDesignable == true

@@ -8,11 +8,11 @@ Widget CategoriesListWidget(CategoriesModel model)=>Column(
     Stack(
       alignment: AlignmentDirectional.center,
       children: [
-        CircleAvatar(
+        const CircleAvatar(
           radius: 48.0,
           backgroundColor: Colors.black,
         ),
-        CircleAvatar(
+        const CircleAvatar(
           radius: 47.0,
           backgroundColor: Colors.white,
         ),
@@ -25,8 +25,8 @@ Widget CategoriesListWidget(CategoriesModel model)=>Column(
     ),
     SizedBox(height: 5.h,),
     Text(
-      '${model.title}',
-      style: Styles.textStyle14.copyWith(color: Color(0xFF001C38),fontWeight: FontWeight.w500),
+      model.title,
+      style: Styles.textStyle14.copyWith(color: const Color(0xFF001C38),fontWeight: FontWeight.w500),
     ),
   ],
 );

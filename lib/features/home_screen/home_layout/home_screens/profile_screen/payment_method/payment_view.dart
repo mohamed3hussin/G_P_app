@@ -7,15 +7,17 @@ import '../../../../../../core/text_style/styles.dart';
 
 class PaymentView extends StatelessWidget {
   static const String routeName = 'payment_View';
+
+  const PaymentView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 90.h,
-        backgroundColor: Color(0xFFEFF1F8),
+        backgroundColor: const Color(0xFFEFF1F8),
         leading: IconButton(
           onPressed: (){Navigator.pop(context);},icon: Icon(IconBroken.Arrow___Left_2,color: CustomColors.blue,),),
-        title: Text('Payment Methods'),
+        title: const Text('Payment Methods'),
         titleTextStyle: Styles.textStyle24.copyWith(color: CustomColors.darkBlue,fontWeight: FontWeight.w700),
         centerTitle: true,
       ),

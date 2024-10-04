@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/core/assets_data/assetsData.dart';
-import 'package:g_p_app/core/cach_helper/cach_helper.dart';
-import 'package:g_p_app/core/helper/hundel_size.dart';
+import 'package:g_p_app/core/helper/handle_size.dart';
 import 'package:g_p_app/features/onBoarding_screen/onBoarding_view.dart';
+import '../../core/cache_helper/cache_helper.dart';
 import '../../core/text_style/styles.dart';
-import '../login_screen/loginScreenView.dart';
+import '../authentication/login_screen/loginScreenView.dart';
 
 class CustomSplashScreen extends StatefulWidget {
   static const String routeName = 'splash_screen';
+
+  const CustomSplashScreen({super.key});
 
   @override
   _CustomSplashScreenState createState() => _CustomSplashScreenState();
@@ -28,17 +30,17 @@ class _CustomSplashScreenState extends State<CustomSplashScreen>
 
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 1500),
+      duration: const Duration(milliseconds: 1500),
     );
 
     _textAnimationController = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 1),
+      duration: const Duration(seconds: 1),
     );
 
     animation = Tween<Offset>(
-      begin: Offset(0.0, 1.0),
-      end: Offset(0.0, 0.0),
+      begin: const Offset(0.0, 1.0),
+      end: const Offset(0.0, 0.0),
     ).animate(CurvedAnimation(
       parent: _animationController,
       curve: Curves.easeOutBack,
@@ -50,14 +52,14 @@ class _CustomSplashScreenState extends State<CustomSplashScreen>
     ).animate(_textAnimationController);
 
     _animationController.forward().whenComplete(() {
-      Future.delayed(Duration(seconds: 1), () {
+      Future.delayed(const Duration(seconds: 1), () {
         setState(() {
           isTextVisible = true;
           _textAnimationController.forward();
         });
       });
 
-      Future.delayed(Duration(seconds: 3), () {
+      Future.delayed(const Duration(seconds: 3), () {
         if(CacheHelper.getData(key: 'onBoarding') != null)
         {
           Navigator.of(context).pushReplacementNamed(LoginScreenView.routeName);
@@ -78,7 +80,7 @@ class _CustomSplashScreenState extends State<CustomSplashScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment(0.00, -1.00),
             end: Alignment(0, 1),
@@ -111,7 +113,7 @@ class _CustomSplashScreenState extends State<CustomSplashScreen>
                   child: Text(
                     'AI Shop',
                     style: Styles.textStyle24.copyWith(
-                      color: Color(0XFF001C38),
+                      color: const Color(0XFF001C38),
                       fontWeight: FontWeight.w700,
                     ),
                   ),

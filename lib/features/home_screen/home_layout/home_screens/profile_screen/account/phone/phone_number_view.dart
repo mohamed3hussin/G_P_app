@@ -10,6 +10,8 @@ class PhoneNumberView extends StatefulWidget {
   static const String routeName = 'phone_view';
   List<String> list = ['+20', '+968', '+966', '+971'];
 
+  PhoneNumberView({super.key});
+
   @override
   State<PhoneNumberView> createState() => _PhoneNumberViewState();
 }
@@ -21,7 +23,7 @@ class _PhoneNumberViewState extends State<PhoneNumberView> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 90.h,
-        backgroundColor: Color(0xFFEFF1F8),
+        backgroundColor: const Color(0xFFEFF1F8),
         leading: GestureDetector(
           onTap: () {
             Navigator.pop(context);
@@ -72,18 +74,18 @@ class _PhoneNumberViewState extends State<PhoneNumberView> {
                         .toList(),
                     style: Styles.textStyle16,
                     // add extra sugar..
-                    icon: Icon(Icons.arrow_drop_down),
-                    underline: SizedBox(),
+                    icon: const Icon(Icons.arrow_drop_down),
+                    underline: const SizedBox(),
                   ),
                 ),
-                Container(
+                SizedBox(
                   width: 260.w,
                   height: 48.h,
                   child: TextFormField(
                       keyboardType: TextInputType.phone,
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.black,width: 1),
+                          borderSide: const BorderSide(color: Colors.black,width: 1),
                           borderRadius: BorderRadius.circular(8.r)
                         ),
                           focusedBorder: OutlineInputBorder(
@@ -104,7 +106,7 @@ class _PhoneNumberViewState extends State<PhoneNumberView> {
                 func: () {
                 Navigator.pushNamed(context, PhoneVerificationView.routeName);
                 },
-                style: Styles.textStyle16!.copyWith(color: Colors.white))
+                style: Styles.textStyle16.copyWith(color: Colors.white))
           ],
         ),
       ),

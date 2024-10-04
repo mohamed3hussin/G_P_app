@@ -11,6 +11,8 @@ import '../../../home_cubit/home_state.dart';
 import '../filtered_category_item.dart';
 
 class MenCategoryView extends StatefulWidget {
+  const MenCategoryView({super.key});
+
   @override
   State<MenCategoryView> createState() => _MenCategoryViewState();
 }
@@ -76,10 +78,10 @@ class _MenCategoryViewState extends State<MenCategoryView> {
                   height: 10.h,
                 ),
                 ConditionalBuilder(
-                  condition: cubit.listProductsByGender!.length !=0,
+                  condition: cubit.listProductsByGender!.isNotEmpty,
                   builder: (context) =>GridView.count(
                     shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     crossAxisCount: 2,
                     mainAxisSpacing: 8,
                     crossAxisSpacing: 12,

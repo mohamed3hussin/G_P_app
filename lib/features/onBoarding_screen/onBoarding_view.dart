@@ -1,11 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/core/assets_data/assetsData.dart';
-import 'package:g_p_app/core/cach_helper/cach_helper.dart';
-import 'package:g_p_app/core/helper/hundel_size.dart';
-import 'package:g_p_app/features/login_screen/loginScreenView.dart';
+import 'package:g_p_app/core/helper/handle_size.dart';
+import '../../core/cache_helper/cache_helper.dart';
 import '../../core/text_style/styles.dart';
+import '../authentication/login_screen/loginScreenView.dart';
 import 'onBoarding_model.dart';
 
 class onBoardingView extends StatefulWidget {
@@ -21,16 +20,16 @@ class _onBoardingViewState extends State<onBoardingView> {
   [
     onBoardingModel(
         1,
-        '${AssetsData.onBoardingImage_1}',
+        AssetsData.onBoardingImage_1,
         'Search Your Favourite Product',
         'Find your favourite product in an easy and fast way'),
     onBoardingModel(
         2,
-        '${AssetsData.onBoardingImage_2}',
+        AssetsData.onBoardingImage_2,
         'Shopping And Add To Cart Product', 'Ease of shopping andproduct selection'),
     onBoardingModel(3,''
         '${AssetsData.onBoardingImage_3}'
-        , 'Order arrivedsuccessfully', 'Deliver the order as soon as possible and successfully'),
+        , 'Order arrived successfully', 'Deliver the order as soon as possible and successfully'),
   ];
   var boardController = PageController();
   bool isLast = false;
@@ -66,12 +65,12 @@ class _onBoardingViewState extends State<onBoardingView> {
                 child: Text('Skip',style:Styles.textStyle14.copyWith(color: Colors.black,fontWeight: FontWeight.w700)),),
             ),
           ),
-          Container(
+          SizedBox(
             width: 300.w,
             height: 500.h,
             child: PageView.builder(
               controller: boardController ,
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               onPageChanged: (index)
               {
                   count = index;
@@ -111,55 +110,11 @@ class _onBoardingViewState extends State<onBoardingView> {
           Stack(
             alignment: AlignmentDirectional.center,
             children: [
-              //  if(model[count].id == 3)
-              //   Container(
-              //   child: SvgPicture.asset(
-              //       AssetsData.onBoardingLoadingImage_1,
-              //       width: 108.w,
-              //       height: 108.h,
-              //   ),
-              // ),
-              // if(model[count].id == 2)
-              //   Container(
-              //     width: 123.w,
-              //     height: 115.h,
-              //   child: Align(
-              //     alignment: AlignmentDirectional.centerEnd,
-              //     child: SvgPicture.asset(
-              //       AssetsData.onBoardingLoadingImage_2,
-              //       width: 119.w,
-              //       height: 108.h,
-              //     ),
-              //   ),
-              // ),
-              // if(model[count].id == 1)
-              //   Container(
-              //     width: 123.w,
-              //     height: 108.h,
-              //   child: Align(
-              //     alignment: AlignmentDirectional.topEnd,
-              //     child: SvgPicture.asset(
-              //       AssetsData.onBoardingLoadingImage_3,
-              //       width: 100.w,
-              //       height: 92.h,
-              //     ),
-              //   ),
-              // ),
-
-              // SizedBox(
-              //   child: CircularProgressIndicator(
-              //     color: Color(0xFF760019),
-              //     value: value,
-              //
-              //   ),
-              //   width: context.deviceWidth/3.2,
-              //   height: context.deviceHeight/6.9,
-              // ),
               Transform.scale(
               scale: 3,
               child:  CircularProgressIndicator(
-              color: Color(0xFF001C38),
-              backgroundColor: Color(0xFF1B72C0),
+              color: const Color(0xFF001C38),
+              backgroundColor: const Color(0xFF1B72C0),
               value: value,
               strokeWidth: 3,
               )),
@@ -172,17 +127,18 @@ class _onBoardingViewState extends State<onBoardingView> {
                     }
                     else
                     {
-
-                      if(model[count].id==1)
+                      if(model[count].id==1) {
                         setState(() {
                           value = 0.666;
                         });
-                      if(model[count].id==2)
+                      }
+                      if(model[count].id==2) {
                         setState(() {
                           value = 1;
                         });
+                      }
                       boardController.nextPage(
-                          duration: Duration(
+                          duration: const Duration(
                             milliseconds: 1500,
                           ),
                           curve: Curves.fastLinearToSlowEaseIn);
@@ -195,25 +151,14 @@ class _onBoardingViewState extends State<onBoardingView> {
                   child: Container(
                     padding:EdgeInsets.all(20.sp) ,
                     decoration: BoxDecoration(
-                      border:Border.all(width: 2,color: Color(0xFF1B72C0)),
+                      border:Border.all(width: 2,color: const Color(0xFF1B72C0)),
                       shape: BoxShape.circle,
                     ),
-                    child: Icon(Icons.arrow_forward_ios,color: Color(0xFF001C38),) ,
+                    child: const Icon(Icons.arrow_forward_ios,color: Color(0xFF001C38),) ,
                   ),
               ),
             ],
           ),
-          // SmoothPageIndicator(
-          //   controller: boardController,
-          //   effect: WormEffect(
-          //     activeDotColor: Colors.black,
-          //     dotHeight: 5.0,
-          //
-          //   ),
-          //   count: model.length,
-          // ),
-
-
         ],
       ),
     );
@@ -222,7 +167,7 @@ class _onBoardingViewState extends State<onBoardingView> {
     crossAxisAlignment: CrossAxisAlignment.center,
     children:
     [
-      Container(
+      SizedBox(
         width: 300.w,
           height: 325.h,
           child: Card(
@@ -231,16 +176,16 @@ class _onBoardingViewState extends State<onBoardingView> {
               ),
               child: Align(
                 alignment: AlignmentDirectional.bottomCenter,
-                  child: Image(image: AssetImage('${model.image}'))))),
+                  child: Image(image: AssetImage(model.image))))),
       Padding(padding:EdgeInsets.all(8.r),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text('${model.title}',
+            Text(model.title,
               style: Styles.textStyle24.copyWith(fontWeight: FontWeight.w900,),textAlign: TextAlign.center,),
             SizedBox(height: 20.h,),
             Text('${model.description}',
-              style: Styles.textStyle16.copyWith(color: Color(0xFF44474E)),textAlign: TextAlign.center,
+              style: Styles.textStyle16.copyWith(color: const Color(0xFF44474E)),textAlign: TextAlign.center,
             ),
           ],
         ),

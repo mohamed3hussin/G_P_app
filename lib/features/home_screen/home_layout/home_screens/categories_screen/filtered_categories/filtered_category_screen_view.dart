@@ -12,6 +12,8 @@ import '../../../../../../core/assets_data/iconBroken.dart';
 class FilteredCategoryScreenView extends StatefulWidget {
   static const String routeName = 'filtered_categories';
 
+  const FilteredCategoryScreenView({super.key});
+
   @override
   State<FilteredCategoryScreenView> createState() =>
       _FilteredCategoryScreenViewState();
@@ -22,6 +24,7 @@ class _FilteredCategoryScreenViewState
   int selectedIndex = 0;
   bool isTabIndexSet = false;
 
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (!isTabIndexSet) {
@@ -40,7 +43,7 @@ class _FilteredCategoryScreenViewState
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 90.h,
-        backgroundColor: Color(0xFFEFF1F8),
+        backgroundColor: const Color(0xFFEFF1F8),
         leading: GestureDetector(
           onTap: () {
             Navigator.pop(context);
@@ -59,7 +62,7 @@ class _FilteredCategoryScreenViewState
         actions: [
           IconButton(
               onPressed: () {},
-              icon: Icon(
+              icon: const Icon(
                 IconBroken.Search,
                 color: Color(0xFF1B72C0),
                 size: 30,
@@ -69,14 +72,14 @@ class _FilteredCategoryScreenViewState
               icon: Stack(
                 alignment: Alignment.topRight,
                 children: [
-                  Icon(
+                  const Icon(
                     IconBroken.Buy,
                     color: Color(0xFF1B72C0),
                     size: 30,
                   ),
                   CircleAvatar(backgroundColor: Colors.red,
                     radius: 8,
-                    child: Text('${cubit.listCartItems?.length==null?0:cubit.listCartItems?.length}', style: TextStyle(
+                    child: Text('${cubit.listCartItems?.length ?? 0}', style: TextStyle(
                         fontSize: 10.sp),),),
                 ],
               ))
@@ -85,7 +88,7 @@ class _FilteredCategoryScreenViewState
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 15.w),
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -103,10 +106,10 @@ class _FilteredCategoryScreenViewState
                 selectedIndex == 0
                     ? 'Men\'s collection'
                     : 'Women\'s collection',
-                style: Styles.textStyle16!.copyWith(
+                style: Styles.textStyle16.copyWith(
                     color: CustomColors.blue, fontWeight: FontWeight.bold),
               ),
-              selectedIndex == 0 ? MenCategoryView() : WomenCategoryView(),
+              selectedIndex == 0 ? const MenCategoryView() : const WomenCategoryView(),
               SizedBox(height: 15.h,),
             ],
           ),

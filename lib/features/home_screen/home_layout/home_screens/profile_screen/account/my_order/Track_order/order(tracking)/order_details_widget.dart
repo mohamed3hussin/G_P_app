@@ -54,7 +54,7 @@ class OrderDetails extends StatelessWidget {
             SizedBox(
               height: 10.h,
             ),
-            Container(
+            SizedBox(
                 width: 300.w,
                 height: 45.h,
                 child: Text(
@@ -75,12 +75,12 @@ class OrderDetails extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(
                     vertical: 11.h, horizontal: 31.w),
-                child: Container(
+                child: SizedBox(
                   width: 250.w,
                   child: Text(
                     'You can change pick-up time for your order by 9:00 21 Aug',
                     textAlign: TextAlign.center,
-                    style: Styles.textStyle14!
+                    style: Styles.textStyle14
                         .copyWith(color: CustomColors.green),
                   ),
                 ),

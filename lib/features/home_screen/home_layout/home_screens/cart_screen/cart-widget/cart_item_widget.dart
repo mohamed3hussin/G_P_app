@@ -10,7 +10,7 @@ import '../../../home_cubit/home_cubit.dart';
 class CartItemWidget extends StatefulWidget {
   final CartItems model;
 
-  const CartItemWidget(this.model);
+  const CartItemWidget(this.model, {super.key});
 
   @override
   State<CartItemWidget> createState() => _CartItemWidgetState();
@@ -67,7 +67,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               IconButton(
                                 padding: EdgeInsets.zero,
                                 onPressed: () {
@@ -82,7 +82,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                 icon: CircleAvatar(
                                   radius: 14.r,
                                   backgroundColor: CustomColors.lightBlue,
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.remove,
                                   ),
                                 ),
@@ -107,7 +107,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                 icon: CircleAvatar(
                                   radius: 14.r,
                                   backgroundColor: CustomColors.blue,
-                                  child: Icon(
+                                  child: const Icon(
                                     Icons.add,
                                     color: Colors.white,
                                   ),

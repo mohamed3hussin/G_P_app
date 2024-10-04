@@ -7,6 +7,8 @@ import '../../../../../core/text_style/styles.dart';
 
 class OrderSuccessView extends StatelessWidget {
   static const String routeName='order_success_view';
+
+  const OrderSuccessView({super.key});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -24,7 +26,7 @@ class OrderSuccessView extends StatelessWidget {
               child: Center(
                 child: Text(
                   'Order Success',
-                  style: Styles.textStyle24.copyWith(color: Color(0xFF1B72C0),fontWeight: FontWeight.w400),
+                  style: Styles.textStyle24.copyWith(color: const Color(0xFF1B72C0),fontWeight: FontWeight.w400),
                 ),
               ),
             ),

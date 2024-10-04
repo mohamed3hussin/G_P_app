@@ -5,9 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_cubit.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_state.dart';
+import 'package:g_p_app/features/home_screen/home_layout/home_screens/cart_screen/cart-widget/check_out_button.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/cart_screen/no_item.dart';
 import 'cart-widget/cart_list_view.dart';
-import 'cart-widget/check_out_bottun.dart';
 
 class CartScreen extends StatefulWidget {
   static const String routeName='cart_screen';
@@ -21,7 +21,6 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
 @override
   void initState() {
-    // TODO: implement initState
     var cubit=BlocProvider.of<HomeCubit>(context);
     cubit.getCartFromPrefs();
     cubit.getCart();
@@ -37,11 +36,11 @@ class _CartScreenState extends State<CartScreen> {
           child: Column(
             children: [
               CartListView(cubit.listCartItems!),
-              CheckoutBottun(context,cubit.listCartItems??[]),
+              checkoutButton(context,cubit.listCartItems??[]),
             ],
           ),
         ),
-        fallback: (context) => NoItemView(),
+        fallback: (context) => const NoItemView(),
       );
     }, listener: (context, state) {
 

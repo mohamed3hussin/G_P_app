@@ -5,7 +5,7 @@ import 'package:g_p_app/core/colors/colors.dart';
 class RatingWidget extends StatelessWidget {
   final double rating;
   final double? size;
-  RatingWidget({required this.rating,this.size=30});
+  const RatingWidget({super.key, required this.rating,this.size=30});
 
   @override
   Widget build(BuildContext context) {

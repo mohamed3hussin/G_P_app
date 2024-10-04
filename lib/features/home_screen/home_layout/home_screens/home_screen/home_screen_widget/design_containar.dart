@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:g_p_app/features/design_screens/design_explain_screen1.dart';
-
 import '../../../../../../core/assets_data/assetsData.dart';
 import '../../../../../../core/shared_widget/custom_button.dart';
 import '../../../../../../core/text_style/styles.dart';
+import '../../../../design_screens/design_explain_screen1.dart';
 
 class DesignContainer extends StatelessWidget {
   const DesignContainer({Key? key}) : super(key: key);
@@ -14,7 +13,7 @@ class DesignContainer extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Color(0xFFD3E4FF))
+          border: Border.all(color: const Color(0xFFD3E4FF))
       ),
       child: Row(
         children: [
@@ -26,10 +25,10 @@ class DesignContainer extends StatelessWidget {
                 children: [
                   Text(
                     'Unleash your creativity',
-                    style: Styles.textStyle14.copyWith(color: Color(0xFF1B72C0)),),
+                    style: Styles.textStyle14.copyWith(color: const Color(0xFF1B72C0)),),
                   Text(
                     'and fashion sense.',
-                    style: Styles.textStyle14.copyWith(color: Color(0xFF1B72C0)),),
+                    style: Styles.textStyle14.copyWith(color: const Color(0xFF1B72C0)),),
                   SizedBox(height: 10.h,),
                   CustomButton(
                     backgroundColor: const Color(0xFF1B72C0),
@@ -40,7 +39,7 @@ class DesignContainer extends StatelessWidget {
               ),
             ),
           ),
-          Image(image: AssetImage(AssetsData.designButtonImage),)
+          const Image(image: AssetImage(AssetsData.designButtonImage),)
         ],
       ),
     );

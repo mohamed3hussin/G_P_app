@@ -9,6 +9,8 @@ import '../../../../../../core/text_style/styles.dart';
 import '../../../home_cubit/home_state.dart';
 
 class CheckoutAddress extends StatefulWidget {
+  const CheckoutAddress({super.key});
+
   @override
   State<CheckoutAddress> createState() => _CheckoutAddressState();
 }
@@ -56,7 +58,7 @@ class _CheckoutAddressState extends State<CheckoutAddress> {
                                       child: Row(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
-                                          Icon(IconBroken.Home),
+                                          const Icon(IconBroken.Home),
                                           Text(
                                             'Home',
                                             style: Styles.textStyle12.copyWith(fontWeight: FontWeight.w600, color: CustomColors.darkTextColor),
@@ -98,7 +100,7 @@ class _CheckoutAddressState extends State<CheckoutAddress> {
                 ),
               ),
             );
-          }, fallback: (context) => Center(child: CircularProgressIndicator(),),);
+          }, fallback: (context) => const Center(child: CircularProgressIndicator(),),);
         }
 
     );

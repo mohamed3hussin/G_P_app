@@ -10,12 +10,14 @@ import '../../../../../../../core/text_style/styles.dart';
 class PhoneVerificationView extends StatelessWidget {
   static const String routeName = 'phone_verification';
 
+  const PhoneVerificationView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 90.h,
-        backgroundColor: Color(0xFFEFF1F8),
+        backgroundColor: const Color(0xFFEFF1F8),
         leading: GestureDetector(
           onTap: () {
             Navigator.pop(context);
@@ -34,7 +36,7 @@ class PhoneVerificationView extends StatelessWidget {
           SizedBox(
             height: 105.h,
           ),
-          Container(
+          SizedBox(
             height: 65.h,
             width: 340.w,
             child: Text(
@@ -45,7 +47,7 @@ class PhoneVerificationView extends StatelessWidget {
           ),
           SizedBox(height: 35.h,),
           OtpTextField(
-            focusedBorderColor: Color(0XFF1B72C0),
+            focusedBorderColor: const Color(0XFF1B72C0),
             fieldWidth: 50.w,
             numberOfFields: 6,
             borderRadius: BorderRadius.circular(8.r),
@@ -61,8 +63,8 @@ class PhoneVerificationView extends StatelessWidget {
               child: TextButton(
                   onPressed: () {},
                   child: Text('Send again',
-                      style: Styles.textStyle14!.copyWith(
-                        color: Color(0XFF1B72C0),
+                      style: Styles.textStyle14.copyWith(
+                        color: const Color(0XFF1B72C0),
                         fontWeight: FontWeight.bold,
                         decoration: TextDecoration.underline,
                       ))),

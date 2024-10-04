@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:g_p_app/core/assets_data/assetsData.dart';
 import 'package:g_p_app/core/colors/colors.dart';
 import 'package:g_p_app/data/model/response/AllOrdersResponse.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_cubit.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_state.dart';
-import 'package:g_p_app/features/home_screen/home_layout/home_screens/profile_screen/account/my_order/rate_product/rating_widget.dart';
 
 import '../../../../../../../../core/assets_data/iconBroken.dart';
 import '../../../../../../../../core/text_style/styles.dart';
 
 class RateProductView extends StatefulWidget {
   static const String routeName = 'rate_product';
+
+  const RateProductView({super.key});
 
   @override
   State<RateProductView> createState() => _RateProductViewState();
@@ -37,7 +37,7 @@ class _RateProductViewState extends State<RateProductView> {
         return Scaffold(
           appBar: AppBar(
             toolbarHeight: 90.h,
-            backgroundColor: Color(0xFFEFF1F8),
+            backgroundColor: const Color(0xFFEFF1F8),
             leading: GestureDetector(
               onTap: () {
                 Navigator.pop(context);
@@ -61,7 +61,7 @@ class _RateProductViewState extends State<RateProductView> {
                 SizedBox(
                   height: 40.h,
                 ),
-                Container(
+                SizedBox(
                   width: 150.w,
                   height: 220.h,
                   child: Column(
@@ -77,7 +77,7 @@ class _RateProductViewState extends State<RateProductView> {
                             ),)
                         ),
                       )
-                          : Container(width: 120,height:130,child: Icon(Icons.error, size: 30)),
+                          : const SizedBox(width: 120,height:130,child: Icon(Icons.error, size: 30)),
                       SizedBox(
                         height: 5.h,
                       ),
@@ -94,7 +94,7 @@ class _RateProductViewState extends State<RateProductView> {
                         direction: Axis.horizontal,
                         allowHalfRating: false,
                         itemCount: 5,
-                        itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                        itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
                         itemBuilder: (context, _) => Icon(
                           Icons.star,
                           color: CustomColors.yellow,
@@ -122,7 +122,7 @@ class _RateProductViewState extends State<RateProductView> {
                       SizedBox(
                         height: 10.h,
                       ),
-                      Container(
+                      SizedBox(
                         height: 160.h,
                         child: TextFormField(
                           controller: commentController,
@@ -132,14 +132,14 @@ class _RateProductViewState extends State<RateProductView> {
                           keyboardType: TextInputType.multiline,
                           decoration: InputDecoration(
                               hintText: 'Type your opinion here.',
-                              hintStyle: Styles.textStyle16!.copyWith(
+                              hintStyle: Styles.textStyle16.copyWith(
                                   fontWeight: FontWeight.w400,
                                   color: Colors.grey),
                               contentPadding: const EdgeInsets.symmetric(
                                   vertical: 10.0, horizontal: 10.0),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8.r),
-                                  borderSide: BorderSide(
+                                  borderSide: const BorderSide(
                                     color: Colors.black,
                                   ))),
                         ),
@@ -148,7 +148,7 @@ class _RateProductViewState extends State<RateProductView> {
                         height: 40.h,
                       ),
                       Center(
-                        child: Container(
+                        child: SizedBox(
                           width: 325.w,
                           height: 55,
                           child: ElevatedButton(
@@ -156,16 +156,16 @@ class _RateProductViewState extends State<RateProductView> {
                               cubit.createReview(rate: userRating, id: args.productId!, comment: commentController.text);
                               Navigator.pop(context);
                             },
-                            child: Text(
-                              'Submit Feedback',
-                              style: Styles.textStyle20!
-                                  .copyWith(color: Colors.white),
-                            ),
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: CustomColors.blue,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8.r),
                                 )),
+                            child: Text(
+                              'Submit Feedback',
+                              style: Styles.textStyle20
+                                  .copyWith(color: Colors.white),
+                            ),
                           ),
                         ),
                       )

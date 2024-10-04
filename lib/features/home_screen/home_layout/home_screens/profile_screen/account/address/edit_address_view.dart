@@ -11,6 +11,8 @@ import '../../../../../../../core/text_style/styles.dart';
 class EditAddressView extends StatefulWidget {
   static const String routeName = 'add_address';
 
+  const EditAddressView({super.key});
+
   @override
   State<EditAddressView> createState() => _EditAddressViewState();
 }
@@ -30,7 +32,7 @@ class _EditAddressViewState extends State<EditAddressView> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 90.h,
-        backgroundColor: Color(0xFFEFF1F8),
+        backgroundColor: const Color(0xFFEFF1F8),
         leading: GestureDetector(
           onTap: () {
             Navigator.pop(context);
@@ -99,7 +101,7 @@ class _EditAddressViewState extends State<EditAddressView> {
                             ),
                           );
                           // Navigate to the home screen
-                          Future.delayed(Duration(seconds: 2), () {
+                          Future.delayed(const Duration(seconds: 2), () {
                             Navigator.pushReplacementNamed(
                                 context, AccountScreen.routeName);
                           });

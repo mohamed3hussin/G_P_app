@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:g_p_app/core/cach_helper/cach_helper.dart';
+import '../../core/cache_helper/cache_helper.dart';
 
 
 class ApiManager{

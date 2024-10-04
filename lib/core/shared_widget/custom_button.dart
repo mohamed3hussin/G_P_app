@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../text_style/styles.dart';
-
 class CustomButton extends StatelessWidget {
   const CustomButton({
     Key? key,
@@ -40,7 +38,6 @@ class CustomButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: func,
         style: ElevatedButton.styleFrom(
-          // minimumSize: const Size(double.infinity, 0),
           backgroundColor: backgroundColor,
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
           shape: RoundedRectangleBorder(
@@ -54,7 +51,7 @@ class CustomButton extends StatelessWidget {
             icon!=null?Padding(
               padding:EdgeInsets.symmetric(horizontal: 5.w),
               child: Icon(icon,color: iconColor,),
-            ):SizedBox(),
+            ):const SizedBox(),
             Text(
               text,
               style: style,

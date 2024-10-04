@@ -5,22 +5,22 @@ import '../../../../../../core/colors/colors.dart';
 import '../../../../../../core/text_style/styles.dart';
 import '../../../../../../data/model/response/CartResponse.dart';
 
-Widget CheckoutSelectedProduct(List<CartItems> cartItems)=>SizedBox(
+Widget checkoutSelectedProduct(List<CartItems> cartItems)=>SizedBox(
     width: double.infinity,
     height: 300.h,
     child: ListView.separated(
-        itemBuilder: ((context, index) => CheckoutList(cartItems[index])),
+        itemBuilder: ((context, index) => checkoutList(cartItems[index])),
         separatorBuilder: ((context, index) => SizedBox(height: 5.h,)),
         itemCount: cartItems.length)
 );
 
-Widget CheckoutList(CartItems cartItems)=>Material(
+Widget checkoutList(CartItems cartItems)=>Material(
   borderRadius: BorderRadius.circular(12),
   clipBehavior: Clip.antiAliasWithSaveLayer,
   elevation: 1,
   child: Container(
     child: Padding(
-      padding: EdgeInsetsDirectional.symmetric(horizontal: 6),
+      padding: const EdgeInsetsDirectional.symmetric(horizontal: 6),
       child: Row(
         children: [
           SizedBox(width: 10.w,),

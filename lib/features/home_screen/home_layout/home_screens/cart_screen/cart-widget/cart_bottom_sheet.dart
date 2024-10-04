@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_cubit.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/cart_screen/check_out_screen.dart';
 
 import '../../../../../../core/colors/colors.dart';
@@ -13,14 +12,14 @@ Widget CartBottomSheet(context,List<CartItems> cartItems) {
     0.0,
         (previousValue, cartItem) => previousValue + (cartItem.price! * cartItem.quantity!.toInt()),
   );
-  return Container(
+  return SizedBox(
       height: 250.h,
       child: Padding(
         padding: EdgeInsetsDirectional.symmetric(
             vertical: 10.h, horizontal: 20.w),
         child: Column(
           children: [
-            Container(
+            SizedBox(
               height: 120.h,
               child: ListView.builder(
                 padding: EdgeInsets.symmetric(vertical: 10.h),
@@ -40,7 +39,7 @@ Widget CartBottomSheet(context,List<CartItems> cartItems) {
               children: [
                 Text('Total Payment:', style: Styles.textStyle16.copyWith(
                     color: CustomColors.textColor),),
-                Spacer(),
+                const Spacer(),
                 Text("\$ ${totalPrice.toStringAsFixed(2)}", style: Styles.textStyle16.copyWith(
                     fontWeight: FontWeight.w600, color: CustomColors.blue),)
               ],

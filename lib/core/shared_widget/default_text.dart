@@ -4,7 +4,6 @@ import 'package:g_p_app/core/colors/colors.dart';
 import 'package:g_p_app/core/text_style/styles.dart';
 
 Widget defaultTextField({
-  // final String? Function(String?)? validator,
   TextEditingController? controller,
   required TextInputType type,
   Function(String)? onChange,
@@ -29,12 +28,12 @@ Widget defaultTextField({
       controller: controller,
       obscureText: isObscure,
       decoration: InputDecoration(
-        floatingLabelStyle: TextStyle(color: Color(0xFF270008)),
+        floatingLabelStyle: const TextStyle(color: Color(0xFF270008)),
         labelText: label,
-        labelStyle: TextStyle(color: Colors.grey),
+        labelStyle: const TextStyle(color: Colors.grey),
         hintText: hint,
         hintStyle: Styles.textStyle14.copyWith(color: CustomColors.grey,fontWeight: FontWeight.w400),
-        prefixIcon: prefix != null? Icon(prefix,color: Color(0xFF001E2F),) : null,
+        prefixIcon: prefix != null? Icon(prefix,color: const Color(0xFF001E2F),) : null,
         suffixIcon: suffix != null
             ? IconButton(
           onPressed: pressed,
@@ -48,7 +47,7 @@ Widget defaultTextField({
           borderRadius: BorderRadius.circular(radius.r),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.black, width: 1.0),
+          borderSide: const BorderSide(color: Colors.black, width: 1.0),
           borderRadius: BorderRadius.all(Radius.circular(radius.r)),
         ),
         enabledBorder: OutlineInputBorder(

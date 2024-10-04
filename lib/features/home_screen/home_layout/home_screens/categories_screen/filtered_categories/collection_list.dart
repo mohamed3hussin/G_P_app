@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:g_p_app/core/colors/colors.dart';
 import '../../../../../../core/text_style/styles.dart';
 
 Widget CollectionList(CollectionModel model,bool isSelected)=>Column(
@@ -9,7 +8,7 @@ Widget CollectionList(CollectionModel model,bool isSelected)=>Column(
       alignment: AlignmentDirectional.center,
       children: [
         Container(
-          decoration: ShapeDecoration(shape: OvalBorder(side: isSelected?BorderSide(color: Colors.black,width: 2):BorderSide(color: Colors.white))),
+          decoration: ShapeDecoration(shape: OvalBorder(side: isSelected?const BorderSide(color: Colors.black,width: 2):const BorderSide(color: Colors.white))),
           child: CircleAvatar(
             radius: 45.0,
             backgroundImage: AssetImage(model.image),
@@ -20,8 +19,8 @@ Widget CollectionList(CollectionModel model,bool isSelected)=>Column(
     ),
     SizedBox(height: 5.h,),
     Text(
-      '${model.title}',
-      style: Styles.textStyle14.copyWith(color: Color(0xFF001C38),fontWeight: FontWeight.w500),
+      model.title,
+      style: Styles.textStyle14.copyWith(color: const Color(0xFF001C38),fontWeight: FontWeight.w500),
     ),
   ],
 );

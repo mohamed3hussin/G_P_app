@@ -12,13 +12,13 @@ import '../home_screen/home_screen_widget/product_item_widget.dart';
 class SearchView extends SearchDelegate {
   @override
   List<Widget>? buildActions(BuildContext context) {
-    return [IconButton(onPressed: ()=>showResults(context), icon:Icon(Icons.search))];
+    return [IconButton(onPressed: ()=>showResults(context), icon:const Icon(Icons.search))];
   }
 
   @override
   Widget? buildLeading(BuildContext context) {
     // TODO: implement buildLeading
-    return IconButton(onPressed: (){Navigator.pop(context);}, icon: Icon(IconBroken.Arrow___Left));
+    return IconButton(onPressed: (){Navigator.pop(context);}, icon: const Icon(IconBroken.Arrow___Left));
   }
 
   @override
@@ -45,7 +45,7 @@ class SearchView extends SearchDelegate {
             padding: const EdgeInsets.all(16),
             child: GridView.count(
               shrinkWrap: true,
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               crossAxisCount: 2,
               mainAxisSpacing: 8,
               crossAxisSpacing: 8,

@@ -1,7 +1,5 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_cubit.dart';
@@ -16,6 +14,8 @@ import '../../../../../../../../core/text_style/styles.dart';
 class PastOrdersView extends StatelessWidget {
   static const String routeName = 'past_orders';
 
+  const PastOrdersView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
@@ -25,7 +25,7 @@ class PastOrdersView extends StatelessWidget {
           backgroundColor: Colors.white,
           appBar: AppBar(
             toolbarHeight: 90.h,
-            backgroundColor: Color(0xFFEFF1F8),
+            backgroundColor: const Color(0xFFEFF1F8),
             leading: GestureDetector(
               onTap: () {
                 Navigator.pop(context);

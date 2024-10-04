@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,6 +14,8 @@ import 'cart-widget/togglebutton_widget_list.dart';
 
 class CheckOutScreenBuyNow extends StatefulWidget {
   static const String routeName = 'check_out_buy_now';
+
+  const CheckOutScreenBuyNow({super.key});
 
   @override
   State<CheckOutScreenBuyNow> createState() => _CheckOutScreenState();
@@ -40,7 +41,7 @@ class _CheckOutScreenState extends State<CheckOutScreenBuyNow> {
         return Scaffold(
           appBar: AppBar(
             toolbarHeight: 90.h,
-            backgroundColor: Color(0xFFEFF1F8),
+            backgroundColor: const Color(0xFFEFF1F8),
             leading: IconButton(
               onPressed: () {
                 Navigator.pop(context);
@@ -50,21 +51,21 @@ class _CheckOutScreenState extends State<CheckOutScreenBuyNow> {
                 color: CustomColors.blue,
               ),
             ),
-            title: Text('Checkout'),
+            title: const Text('Checkout'),
             titleTextStyle: Styles.textStyle24.copyWith(
                 color: CustomColors.darkBlue, fontWeight: FontWeight.w700),
             centerTitle: true,
             actions: [
               IconButton(
                   onPressed: () {},
-                  icon: Icon(
+                  icon: const Icon(
                     IconBroken.Search,
                     color: Color(0xFF1B72C0),
                     size: 30,
                   )),
               IconButton(
                   onPressed: () {},
-                  icon: Icon(
+                  icon: const Icon(
                     IconBroken.Buy,
                     color: Color(0xFF1B72C0),
                     size: 30,
@@ -89,7 +90,7 @@ class _CheckOutScreenState extends State<CheckOutScreenBuyNow> {
                   SizedBox(
                     height: 10.h,
                   ),
-                  CheckoutAddress(),
+                  const CheckoutAddress(),
                   SizedBox(
                     height: 10.h,
                   ),
@@ -134,7 +135,7 @@ class _CheckOutScreenState extends State<CheckOutScreenBuyNow> {
                 elevation: 1,
                 child: Container(
                   child: Padding(
-                    padding: EdgeInsetsDirectional.symmetric(horizontal: 6),
+                    padding: const EdgeInsetsDirectional.symmetric(horizontal: 6),
                     child: Row(
                       children: [
                         SizedBox(width: 10.w,),
@@ -218,14 +219,14 @@ class _CheckOutScreenState extends State<CheckOutScreenBuyNow> {
                   ))));
       await Stripe.instance.presentPaymentSheet();
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          duration: Duration(seconds: 1),
+          duration: const Duration(seconds: 1),
           content: Center(
               child: Text(
                 "Paid successfully!",
                 style: Styles.textStyle16,
               )),
           backgroundColor: CustomColors.green));
-      Future.delayed(Duration(seconds: 2), () {
+      Future.delayed(const Duration(seconds: 2), () {
         HomeCubit.get(context).createCheckOut('temp_basket');
         Navigator.pushReplacementNamed(context, HomeLayout.routeName);
 
@@ -233,7 +234,7 @@ class _CheckOutScreenState extends State<CheckOutScreenBuyNow> {
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          duration: Duration(seconds: 1),
+          duration: const Duration(seconds: 1),
           content: Center(
               child: Text(
                 "Payment is Canceled!",

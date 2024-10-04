@@ -8,6 +8,8 @@ import '../../../../../../core/text_style/styles.dart';
 class LanguageSettingsView extends StatefulWidget {
   static const String routeName = 'languages_view';
 
+  const LanguageSettingsView({super.key});
+
   @override
   State<LanguageSettingsView> createState() => _LanguageSettingsViewState();
 }
@@ -20,7 +22,7 @@ class _LanguageSettingsViewState extends State<LanguageSettingsView> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 90.h,
-        backgroundColor: Color(0xFFEFF1F8),
+        backgroundColor: const Color(0xFFEFF1F8),
         leading: GestureDetector(
           onTap: () {
             Navigator.pop(context);

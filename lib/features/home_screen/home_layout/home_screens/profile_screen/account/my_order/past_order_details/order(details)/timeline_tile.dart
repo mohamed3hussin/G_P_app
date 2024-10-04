@@ -12,8 +12,8 @@ class CustomTimeLine extends StatelessWidget {
   final String date;
 
 
-  CustomTimeLine(
-      {required this.isFirst,
+  const CustomTimeLine(
+      {super.key, required this.isFirst,
       required this.isLast,
         required this.icon,
       required this.process,
@@ -32,7 +32,7 @@ class CustomTimeLine extends StatelessWidget {
           isFirst: isFirst,
           isLast: isLast,
           beforeLineStyle:
-              LineStyle(color: Colors.black,thickness: 3),
+              const LineStyle(color: Colors.black,thickness: 3),
           indicatorStyle: IndicatorStyle(
 
             color: CustomColors.lightBlue,

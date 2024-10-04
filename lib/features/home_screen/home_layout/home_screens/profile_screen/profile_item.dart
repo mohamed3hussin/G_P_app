@@ -10,7 +10,7 @@ class ProfileItem extends StatelessWidget {
   bool arrowIcon;
   Function? onClicked;
 
-  ProfileItem({required this.icon, required this.text, this.description,this.arrowIcon = true,this.onClicked});
+  ProfileItem({super.key, required this.icon, required this.text, this.description,this.arrowIcon = true,this.onClicked});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class ProfileItem extends StatelessWidget {
         width: 340.w,
         height: 60.h,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8.r), color: Color(0xFFEFEFEF)),
+            borderRadius: BorderRadius.circular(8.r), color: const Color(0xFFEFEFEF)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -55,7 +55,7 @@ class ProfileItem extends StatelessWidget {
                           Icons.arrow_forward_ios_sharp,
                           color: CustomColors.blue,
                         )
-                      : SizedBox()),
+                      : const SizedBox()),
             ))
           ],
         ),

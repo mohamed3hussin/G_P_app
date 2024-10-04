@@ -11,7 +11,7 @@ class CategoriesLine extends StatelessWidget {
       children: [
         Text(
           'Categories',
-          style: Styles.textStyle16.copyWith(fontWeight: FontWeight.w700,color: Color(0xFF1B72C0)),),
+          style: Styles.textStyle16.copyWith(fontWeight: FontWeight.w700,color: const Color(0xFF1B72C0)),),
       ],
     );
   }

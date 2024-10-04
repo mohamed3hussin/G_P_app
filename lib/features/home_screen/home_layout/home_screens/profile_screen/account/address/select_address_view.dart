@@ -9,13 +9,15 @@ import 'package:mobkit_dashed_border/mobkit_dashed_border.dart';
 
 class SelectAddressView extends StatelessWidget {
   static const String routeName='select_address';
+
+  const SelectAddressView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         toolbarHeight: 90.h,
-        backgroundColor: Color(0xFFEFF1F8),
+        backgroundColor: const Color(0xFFEFF1F8),
         leading: GestureDetector(
           onTap: () {
             Navigator.pop(context);
@@ -46,7 +48,7 @@ class SelectAddressView extends StatelessWidget {
               },
               child: Container(
                 height: 60.h,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     border: DashedBorder.fromBorderSide(
                         dashLength: 5, side: BorderSide(color: Color(0xFF74777F), width: 2)),
                     borderRadius: BorderRadius.all(Radius.circular(8))
@@ -55,8 +57,8 @@ class SelectAddressView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(Icons.add,color: Color(0xFF74777F)),
-                    Text('Add Delivery Address',style: Styles.textStyle16!.copyWith(color: Color(0xFF74777F)),),
+                    const Icon(Icons.add,color: Color(0xFF74777F)),
+                    Text('Add Delivery Address',style: Styles.textStyle16.copyWith(color: const Color(0xFF74777F)),),
                   ],
                 ),
               ),

@@ -7,7 +7,7 @@ class ProfileItemWithCheckIcon extends StatefulWidget {
   String text;
   Function? onClicked;
   bool isSelected;
-  ProfileItemWithCheckIcon({required this.text,this.onClicked,this.isSelected=false});
+  ProfileItemWithCheckIcon({super.key, required this.text,this.onClicked,this.isSelected=false});
 
   @override
   State<ProfileItemWithCheckIcon> createState() => _ProfileItemWithCheckIconState();
@@ -21,7 +21,7 @@ class _ProfileItemWithCheckIconState extends State<ProfileItemWithCheckIcon> {
         width: 340.w,
         height: 60.h,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8.r), color: Color(0xFFEFEFEF)),
+            borderRadius: BorderRadius.circular(8.r), color: const Color(0xFFEFEFEF)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -37,7 +37,7 @@ class _ProfileItemWithCheckIconState extends State<ProfileItemWithCheckIcon> {
                   alignment: Alignment.centerRight,
                   child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 15.w),
-                      child: widget.isSelected?Icon(Icons.done,color: CustomColors.green,):SizedBox(),
+                      child: widget.isSelected?Icon(Icons.done,color: CustomColors.green,):const SizedBox(),
                 )))
           ],
         ),

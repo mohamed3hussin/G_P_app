@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/core/colors/colors.dart';
-import 'package:g_p_app/features/login_screen/loginScreenView.dart';
-import 'package:g_p_app/features/splash_screen/splash_view.dart';
 import '../../../../../core/assets_data/assetsData.dart';
-import '../../../../../core/cach_helper/cach_helper.dart';
+import '../../../../../core/cache_helper/cache_helper.dart';
 import '../../../../../core/text_style/styles.dart';
+import '../../../../authentication/login_screen/loginScreenView.dart';
 
 class SignOutAlert extends StatelessWidget {
   const SignOutAlert({super.key});
@@ -57,7 +56,7 @@ class SignOutAlert extends StatelessWidget {
                 child: Center(
                   child: Text(
                     'Cancel',
-                    style: Styles.textStyle16!.copyWith(color: Colors.white),
+                    style: Styles.textStyle16.copyWith(color: Colors.white),
                   ),
                 ),
               ),
@@ -77,16 +76,16 @@ class SignOutAlert extends StatelessWidget {
                 height: 55.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15.r),
-                  border: Border.all(color: Color(0xFF74777F)),
+                  border: Border.all(color: const Color(0xFF74777F)),
                   color: Colors.transparent,
                 ),
                 child: Center(
                   child: Text(
                     'Log out',
-                    style: Styles.textStyle16!.copyWith(
-                      color: Color(0xFF74777F),
+                    style: Styles.textStyle16.copyWith(
+                      color: const Color(0xFF74777F),
                       decoration: TextDecoration.underline,
-                      decorationColor: Color(0xFF74777F),
+                      decorationColor: const Color(0xFF74777F),
                       decorationThickness: 1.0,
                     ),
                   ),
@@ -97,6 +96,5 @@ class SignOutAlert extends StatelessWidget {
         ),
       ),
     );
-    ;
   }
 }

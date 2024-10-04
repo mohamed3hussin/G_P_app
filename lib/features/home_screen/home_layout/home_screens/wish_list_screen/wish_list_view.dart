@@ -4,11 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_cubit.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_state.dart';
-import 'package:g_p_app/features/home_screen/home_layout/home_screens/cart_screen/no_item.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/wish_list_screen/no_item_wish.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_screens/wish_list_screen/wishListWidget/wish_list_view_widget.dart';
 
 class WishListScreen extends StatefulWidget {
+  const WishListScreen({super.key});
+
 
 
   @override
@@ -16,6 +17,7 @@ class WishListScreen extends StatefulWidget {
 }
 
 class _WishListScreenState extends State<WishListScreen> {
+  @override
   void initState() {
     var cubit=BlocProvider.of<HomeCubit>(context);
     cubit.getWishListFromPrefs();
@@ -30,7 +32,7 @@ class _WishListScreenState extends State<WishListScreen> {
         return ConditionalBuilder(
           condition: cubit.listWishList != null && cubit.listWishList!.isNotEmpty,
           builder: (context) => SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.w),
               child: Column(
@@ -41,7 +43,7 @@ class _WishListScreenState extends State<WishListScreen> {
               ),
             ),
           ),
-          fallback: (context) => noItemWish(),
+          fallback: (context) => const noItemWish(),
         );
       },
     );

@@ -8,7 +8,7 @@ class ProfileItemWithSwitch extends StatefulWidget {
   String text;
   Function? onClicked;
 
-  ProfileItemWithSwitch({required this.icon, required this.text,this.onClicked});
+  ProfileItemWithSwitch({super.key, required this.icon, required this.text,this.onClicked});
   @override
   State<ProfileItemWithSwitch> createState() => _ProfileItemWithSwitchState();
 }
@@ -22,7 +22,7 @@ class _ProfileItemWithSwitchState extends State<ProfileItemWithSwitch> {
         width: 340.w,
         height: 60.h,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8.r), color: Color(0xFFEFEFEF)),
+            borderRadius: BorderRadius.circular(8.r), color: const Color(0xFFEFEFEF)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [

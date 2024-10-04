@@ -29,13 +29,13 @@ class Logo {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['dateofCreation'] = this.dateofCreation;
-    data['pictureUrl'] = this.pictureUrl;
-    data['quantity'] = this.quantity;
-    data['cost'] = this.cost;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['dateofCreation'] = dateofCreation;
+    data['pictureUrl'] = pictureUrl;
+    data['quantity'] = quantity;
+    data['cost'] = cost;
     return data;
   }
 }

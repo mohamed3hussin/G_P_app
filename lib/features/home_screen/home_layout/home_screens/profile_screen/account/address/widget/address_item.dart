@@ -5,7 +5,7 @@ import 'package:g_p_app/core/text_style/styles.dart';
 
 class AddressItem extends StatelessWidget {
   bool isHome;
-  AddressItem(this.isHome);
+  AddressItem(this.isHome, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class AddressItem extends StatelessWidget {
             children: [
               Text('Alexander Michael',style: Styles.textStyle16,),
               SizedBox(height: 10.h,),
-              Container(
+              SizedBox(
                 width: 200.w,
                 height: 38.h,
                 child: Text(
@@ -42,13 +42,13 @@ class AddressItem extends StatelessWidget {
             width: 70,
             height: 30,
             decoration: BoxDecoration(
-              color: isHome?Color(0xFFFCF1F4):Color(0x191AD598),
+              color: isHome?const Color(0xFFFCF1F4):const Color(0x191AD598),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(isHome?Icons.home_filled:Icons.home_work_outlined,color: isHome?Colors.black:CustomColors.green,size: 20.r,),
-                Text(isHome?'Home':'Office',style: Styles.textStyle12!.copyWith(color: isHome?Colors.black:CustomColors.green,fontWeight: FontWeight.w700),),
+                Text(isHome?'Home':'Office',style: Styles.textStyle12.copyWith(color: isHome?Colors.black:CustomColors.green,fontWeight: FontWeight.w700),),
               ],
             ),
           )

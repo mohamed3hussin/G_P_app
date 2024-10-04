@@ -12,6 +12,8 @@ import '../account_screen.dart';
 class ChangePasswordView extends StatefulWidget {
   static const String routeName = 'new_password';
 
+  const ChangePasswordView({super.key});
+
   @override
   State<ChangePasswordView> createState() => _ChangePasswordViewState();
 }
@@ -52,7 +54,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
         if (state is ChangePasswordLoading) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              duration: Duration(milliseconds: 300),
+              duration: const Duration(milliseconds: 300),
               content: Center(
                   child: Text(
                     'Waiting...',
@@ -66,7 +68,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
         if (state is ChangePasswordSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              duration: Duration(milliseconds: 2500),
+              duration: const Duration(milliseconds: 2500),
               content: Center(
                   child: Text(
                     'Password updated successfully !',
@@ -77,7 +79,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
             ),
           );
           // Navigate to the home screen
-          Future.delayed(Duration(seconds: 3), () {
+          Future.delayed(const Duration(seconds: 3), () {
             Navigator.pushReplacementNamed(
                 context, AccountScreen.routeName);
           });
@@ -90,10 +92,10 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
             onTap: () {
               Navigator.pop(context);
             },
-            child: Icon(IconBroken.Arrow___Left),
+            child: const Icon(IconBroken.Arrow___Left),
           ),
           leadingWidth: 40.w,
-          title: Text(
+          title: const Text(
             'Change Password',
           ),
         ),

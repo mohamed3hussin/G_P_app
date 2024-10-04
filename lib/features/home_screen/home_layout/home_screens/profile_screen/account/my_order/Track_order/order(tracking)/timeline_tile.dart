@@ -14,8 +14,8 @@ class CustomTimeLine extends StatelessWidget {
   final String date;
   final String time;
 
-  CustomTimeLine(
-      {required this.isFirst,
+  const CustomTimeLine(
+      {super.key, required this.isFirst,
       required this.isLast,
       required this.isPast,
       required this.process,
@@ -34,13 +34,13 @@ class CustomTimeLine extends StatelessWidget {
         isFirst: isFirst,
         isLast: isLast,
         beforeLineStyle:
-            LineStyle(color: isPast ? CustomColors.blue : Color(0xFFE5E5E5)),
+            LineStyle(color: isPast ? CustomColors.blue : const Color(0xFFE5E5E5)),
         indicatorStyle: IndicatorStyle(
-          color: isPast ? CustomColors.blue : Color(0xFFE5E5E5),
+          color: isPast ? CustomColors.blue : const Color(0xFFE5E5E5),
           width: 30.w,
           iconStyle: IconStyle(
               iconData: Icons.done,
-              color: isPast ? Colors.white : Color(0xFFE5E5E5)),
+              color: isPast ? Colors.white : const Color(0xFFE5E5E5)),
         ),
         endChild: EventCard(
           process: process,

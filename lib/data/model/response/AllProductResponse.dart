@@ -19,7 +19,7 @@ class AllProducts {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['pageIndex'] = pageIndex;
     data['pageSize'] = pageSize;
     data['count'] = count;
@@ -82,13 +82,13 @@ class Data {
     if (json['productColor'] != null) {
       productColor = <ProductColor>[];
       json['productColor'].forEach((v) {
-        productColor!.add(new ProductColor.fromJson(v));
+        productColor!.add(ProductColor.fromJson(v));
       });
     }
     if (json['reviews'] != null) {
       reviews = <Reviews>[];
       json['reviews'].forEach((v) {
-        reviews!.add(new Reviews.fromJson(v));
+        reviews!.add(Reviews.fromJson(v));
       });
     }
     //averageRate = json['averageRate'];
@@ -132,7 +132,7 @@ class ProductSize {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['sizename'] = sizename;
     data['sizeId'] = sizeId;
     return data;
@@ -151,7 +151,7 @@ class ProductColor {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['colorname'] = colorname;
     data['colorId'] = colorId;
     return data;
@@ -176,7 +176,7 @@ class Reviews {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['userId'] = userId;
     data['userEmail'] = userEmail;

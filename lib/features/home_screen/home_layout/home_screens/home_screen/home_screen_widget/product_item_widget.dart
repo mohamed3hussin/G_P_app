@@ -5,14 +5,14 @@ import 'package:g_p_app/core/colors/colors.dart';
 import 'package:g_p_app/data/model/response/AllProductResponse.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_cubit.dart';
 import 'package:g_p_app/features/home_screen/home_layout/home_cubit/home_state.dart';
-import 'package:g_p_app/features/product_details/product_details_view.dart';
 import '../../../../../../core/assets_data/iconBroken.dart';
 import '../../../../../../core/text_style/styles.dart';
+import '../../../../product_details/product_details_view.dart';
 
 class ProductItemBuilder extends StatefulWidget {
   Data data;
 
-  ProductItemBuilder(this.data);
+  ProductItemBuilder(this.data, {super.key});
 
   @override
   State<ProductItemBuilder> createState() => _ProductItemBuilderState();
@@ -23,7 +23,7 @@ class _ProductItemBuilderState extends State<ProductItemBuilder> {
 
   @override
   Widget build(BuildContext context) {
-    List<Color>? colors = widget.data?.productColor
+    List<Color>? colors = widget.data.productColor
         ?.map(
           (colorMap) => getColorFromName(colorMap.colorname!),
     ).toList() ?? [];
@@ -36,7 +36,7 @@ class _ProductItemBuilderState extends State<ProductItemBuilder> {
           onTap: () {
             Navigator.pushNamed(context, ProductDetailsView.routeName,arguments: widget.data);
           },
-          child: Container(
+          child: SizedBox(
             width: 150.w,
             child: Material(
               borderRadius: BorderRadius.circular(12),
@@ -50,7 +50,7 @@ class _ProductItemBuilderState extends State<ProductItemBuilder> {
                     Stack(
                       alignment: AlignmentDirectional.bottomEnd,
                       children: [
-                        Container(
+                        SizedBox(
                           height: 150.h,
                           width: 155.w,
                           child: Image.network(
@@ -67,7 +67,7 @@ class _ProductItemBuilderState extends State<ProductItemBuilder> {
                               }
                             },
                             errorBuilder: (context, error, stackTrace) {
-                              return Icon(Icons.error);
+                              return const Icon(Icons.error);
                             },
                           ),
                         ),
@@ -102,7 +102,7 @@ class _ProductItemBuilderState extends State<ProductItemBuilder> {
                               backgroundColor: Colors.grey[200],
                               child: Icon(
                                 isFavorite?Icons.favorite:Icons.favorite_border,
-                                color: Color(0xFFEA3A3D),
+                                color: const Color(0xFFEA3A3D),
                                 size: 30.w,
                               ),
                             )),
@@ -118,7 +118,7 @@ class _ProductItemBuilderState extends State<ProductItemBuilder> {
                         children: [
                           Text(widget.data.name ?? '',
                               style: Styles.textStyle12.copyWith(
-                                  color: Color(0xFF1B72C0),
+                                  color: const Color(0xFF1B72C0),
                                   fontWeight: FontWeight.w500)),
                           SizedBox(
                             height: 3.h,
@@ -137,27 +137,27 @@ class _ProductItemBuilderState extends State<ProductItemBuilder> {
                               ),
                               Text('20% OFF',
                                   style: Styles.textStyle14.copyWith(
-                                      color: Color(0xFF117828),
+                                      color: const Color(0xFF117828),
                                       fontWeight: FontWeight.w500)),
                             ],
                           ),
                           SizedBox(
                             height: 5.h,
                           ),
-                          Container(
+                          SizedBox(
                             height: 10,
                             child: ListView.separated(
                               separatorBuilder: (context, index) => SizedBox(width: 2.w,),
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) =>
                                   setCircularAvatarColor(
-                                      colors![index]),
+                                      colors[index]),
                               itemCount: widget.data.productColor!.length,
                             ),
                           ),
                           Row(
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.star,
                                 color: Colors.amber,
                               ),
@@ -169,7 +169,7 @@ class _ProductItemBuilderState extends State<ProductItemBuilder> {
                                 style: Styles.textStyle12.copyWith(
                                     color: Colors.black, fontWeight: FontWeight.w400),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               IconButton(
                                   padding: EdgeInsets.zero,
                                   onPressed: () {
@@ -194,8 +194,8 @@ class _ProductItemBuilderState extends State<ProductItemBuilder> {
                                   },
                                   icon: CircleAvatar(
                                     radius: 20.w,
-                                    backgroundColor: Color(0xFF1B72C0),
-                                    child: Icon(
+                                    backgroundColor: const Color(0xFF1B72C0),
+                                    child: const Icon(
                                       IconBroken.Bag_2,
                                       color: Colors.white,
                                     ),

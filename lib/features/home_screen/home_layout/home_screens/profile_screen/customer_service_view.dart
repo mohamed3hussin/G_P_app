@@ -8,15 +8,17 @@ import '../../../../../core/text_style/styles.dart';
 class CustomerServiceView extends StatelessWidget {
   static const String routeName='cs_view';
 
+  const CustomerServiceView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 90.h,
-        backgroundColor: Color(0xFFEFF1F8),
+        backgroundColor: const Color(0xFFEFF1F8),
         leading: IconButton(
           onPressed: (){Navigator.pop(context);},icon: Icon(IconBroken.Arrow___Left_2,color: CustomColors.blue,),),
-        title: Text('Customer Service'),
+        title: const Text('Customer Service'),
         titleTextStyle: Styles.textStyle24.copyWith(color: CustomColors.darkBlue,fontWeight: FontWeight.w700),
         centerTitle: true,
       ),

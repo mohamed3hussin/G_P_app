@@ -8,7 +8,7 @@ Widget CategoriesViewWidget(List<CategoriesModel> categoriesModel) => Container(
   margin: EdgeInsets.symmetric(horizontal: 45.w,vertical: 10.h),
       height: 130,
       child: ListView.separated(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) => InkWell(
               onTap: () {
@@ -17,7 +17,7 @@ Widget CategoriesViewWidget(List<CategoriesModel> categoriesModel) => Container(
                     arguments: index);
               },
               child: CategoriesListWidget(categoriesModel[index])),
-          separatorBuilder: (context, index) => SizedBox(
+          separatorBuilder: (context, index) => const SizedBox(
                 width: 70,
               ),
           itemCount: categoriesModel.length),

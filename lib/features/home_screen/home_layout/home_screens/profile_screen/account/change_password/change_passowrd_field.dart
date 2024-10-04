@@ -8,7 +8,7 @@ class ChangePasswordField extends StatefulWidget {
   bool isObscure=false;
   String fieldName;
   TextEditingController textEditController;
-  ChangePasswordField(this.fieldName,this.textEditController);
+  ChangePasswordField(this.fieldName,this.textEditController, {super.key});
 
   @override
   State<ChangePasswordField> createState() => _ChangePasswordFieldState();
@@ -21,7 +21,7 @@ class _ChangePasswordFieldState extends State<ChangePasswordField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(widget.fieldName,style: Styles.textStyle14!.copyWith(color: Colors.black),),
+        Text(widget.fieldName,style: Styles.textStyle14.copyWith(color: Colors.black),),
         SizedBox(height: 15.h,),
         TextFormField(
           validator: (value)
@@ -49,7 +49,7 @@ class _ChangePasswordFieldState extends State<ChangePasswordField> {
               });},child:  widget.isObscure?Icon(IconBroken.Hide,color: CustomColors.blue,size: 30,):Icon(IconBroken.Show,color: CustomColors.blue,size: 30,)),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.r),
-                borderSide:BorderSide(color: Colors.black),
+                borderSide:const BorderSide(color: Colors.black),
               )
           ),
         ),

@@ -20,7 +20,7 @@ class noItemWish extends StatelessWidget {
           Stack(
             alignment: AlignmentDirectional.center,
             children: [
-              CircleAvatar(radius: 100,backgroundColor: Color(0xFFEFF1F8),),
+              const CircleAvatar(radius: 100,backgroundColor: Color(0xFFEFF1F8),),
               Image.asset(AssetsData.wishListImage,height: 150.h,width: 150.w,),
             ],
           ),
@@ -29,7 +29,7 @@ class noItemWish extends StatelessWidget {
             alignment: AlignmentDirectional.center,
             child: Text(
               'No Item',
-              style: Styles.textStyle24.copyWith(color: Color(0xFF120F33),fontWeight: FontWeight.w700),
+              style: Styles.textStyle24.copyWith(color: const Color(0xFF120F33),fontWeight: FontWeight.w700),
             ),
           ),
           SizedBox(height: 70.h,),

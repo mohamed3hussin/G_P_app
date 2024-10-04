@@ -8,12 +8,14 @@ import '../../../../../../../core/assets_data/iconBroken.dart';
 class PhoneVerifiedView extends StatelessWidget {
   static const String routeName = 'phone_verified';
 
+  const PhoneVerifiedView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 90.h,
-        backgroundColor: Color(0xFFEFF1F8),
+        backgroundColor: const Color(0xFFEFF1F8),
         leading: GestureDetector(
           onTap: () {
             Navigator.pop(context);
@@ -37,7 +39,7 @@ class PhoneVerifiedView extends StatelessWidget {
               SizedBox(height: 15.h,),
               Text(
                 'Phone Number Verified',
-                style: Styles.textStyle24!.copyWith(color: CustomColors.blue),
+                style: Styles.textStyle24.copyWith(color: CustomColors.blue),
               ),
               Padding(
                 padding:EdgeInsets.symmetric(horizontal: 10.w),
